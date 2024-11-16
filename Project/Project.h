@@ -1,5 +1,9 @@
 #ifndef PROJECT_H
 #define  PROJECT_H
+
+// 定义PWM的最大值
+#define MAX_PWM 9000
+
 #ifdef __cplusplus
 extern "C" 
 {
@@ -20,7 +24,7 @@ extern "C"
 void Project_BSP_PWM_TIM2_Init();
 
 
-#ifdef _cplusplus
+#ifdef __cplusplus
 }
 #endif // DEBUG
 

@@ -7,6 +7,8 @@
 
 /* 外部驱动头文件  */
 #include <hardi2c.h>
+//#include <softi2c.h>
+
 
 /* 定义IIC端口  */
 //#define OLED_I2C_PORT i2c1
@@ -18,10 +20,21 @@
 #define OLED_Data_Mode 0x40
 #define OLED_Command_Mode 0x00
 
+#ifdef  __HARDI2C_
+
 /* 江科大OLED IIC操作接口   */
 #define OLED_WriteCommand(Command) Hard_I2C_Write(OLED_ADDRESS,OLED_Command_Mode,Command)
 #define OLED_WriteData(Data,Count) Hard_I2C_Write_Multiple(OLED_ADDRESS,OLED_Data_Mode,Data,Count)
 #define OLED_GPIO_Init() Hard_I2C_Init()
+
+#elif defined _SOFTI2C_
+
+#define OLED_WriteCommand(Command) Soft_I2C_WriteData(OLED_ADDRESS,OLED_Command_Mode,Command)
+#define OLED_WriteData(Data,Count) Soft_I2C_WriteFrame(OLED_ADDRESS,OLED_Data_Mode,Data,Count)
+#define OLED_GPIO_Init() Soft_I2C_Init()
+
+#endif
+
 
 /*FontSize参数取值*/
 /*此参数值不仅用于判断，而且用于计算横向字符偏移，默认值为字体像素宽度*/

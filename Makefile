@@ -63,6 +63,10 @@ C_SOURCES += $(wildcard BSP/systick/*.c)
 C_SOURCES += $(wildcard BSP/usart/*.c)
 C_SOURCES += $(wildcard BSP/i2c/*.c)
 
+C_SOURCES += $(wildcard Project/BSP/*.c)
+C_SOURCES += $(wildcard Project/Control/*.c)
+
+
 C_SOURCES += $(wildcard HARDWARE/OLED/*.c)
 C_SOURCES += $(wildcard HARDWARE/LCD/*.c)
 C_SOURCES += $(wildcard HARDWARE/SDRAM/*.c)
@@ -98,6 +102,10 @@ C_INCLUDES += -IBSP/gpio/
 C_INCLUDES += -IBSP/systick/
 C_INCLUDES += -IBSP/usart/
 C_INCLUDES += -IBSP/i2c/
+
+C_INCLUDES += -IProject/BSP/
+C_INCLUDES += -IProject/Control/
+C_INCLUDES += -IProject/
 
 C_INCLUDES += -IHARDWARE/OLED/
 C_INCLUDES += -IHARDWARE/LCD/

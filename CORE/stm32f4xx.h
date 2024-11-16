@@ -7,7 +7,10 @@
 #endif /* __cplusplus */
   
 #define STM32F429_439xx
-         
+#define USE_FULL_ASSERT
+
+#define assert_param(expr) ((void)0)
+
 // 外部高速晶振频率
 #define HSE_VALUE    ((uint32_t)25000000) 
 

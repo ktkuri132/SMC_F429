@@ -63,7 +63,9 @@ C_SOURCES += $(wildcard BSP/systick/*.c)
 C_SOURCES += $(wildcard BSP/usart/*.c)
 C_SOURCES += $(wildcard BSP/i2c/*.c)
 
-C_SOURCES += $(wildcard Project/BSP/*.c)
+C_SOURCES += $(wildcard Project/BSP/PWM/*.c)
+C_SOURCES += $(wildcard Project/BSP/TB6612/*.c)
+
 C_SOURCES += $(wildcard Project/Control/*.c)
 
 
@@ -92,7 +94,7 @@ C_SOURCES += $(wildcard RTOS/portable/MemMang/*.c)
 
 # C++ sources
 CXX_SOURCES = $(wildcard GUI/*.cpp)
-
+CXX_SOURCES += $(wildcard Project/Control/*.cpp)
 
 # C includes
 C_INCLUDES =  -ICORE/
@@ -104,6 +106,8 @@ C_INCLUDES += -IBSP/usart/
 C_INCLUDES += -IBSP/i2c/
 
 C_INCLUDES += -IProject/BSP/
+C_INCLUDES += -IProject/BSP/PWM/
+C_INCLUDES += -IProject/BSP/TB6612/
 C_INCLUDES += -IProject/Control/
 C_INCLUDES += -IProject/
 
@@ -136,7 +140,8 @@ C_INCLUDES += -IRTOS/include/
 
 # C++ includes
 CXX_INCLUDES = -IGUI/
-
+CXX_INCLUDES += -IProject/Control/
+CXX_INCLUDES += -IProject/
 # ASM includes
 # AS defines
 AS_DEFS = 

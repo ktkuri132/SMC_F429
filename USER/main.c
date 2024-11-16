@@ -1,22 +1,29 @@
-#include <sys.h>
-#include <FreeRTOS.h>
-#include <task.h>
+
+#include <Project.h>
+
 void usart_send_test();
 void led_test();
 void usart_receive_test();
 void OLED_test();
 void LCD_test();
+//void Reset_Handler();
 
-
-int main()
+/// @brief 主函数运行完了自动复位
+/// @return 
+void BSP_Init()
 {
-    
     SDRAM_Init();
     // 创建动态任务
     //xTaskCreate((TaskFunction_t)StartTask, "StartTask", 1024, NULL, 1, &StartTask_Handler);
     //vTaskStartScheduler();
-
+    // 软件复位
+    //Reset_Handler();
     Project_BSP_PWM_TIM2_Init();
+    
+    while (1)
+    {
+        /* code */
+    }
    
     // 串口发送测试
     //usart_send_test();

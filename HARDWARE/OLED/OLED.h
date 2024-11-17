@@ -17,6 +17,7 @@
 
 /* 定义1.3寸OLED地址及其寄存器  */
 #define OLED_ADDRESS 0x3C //7位OLED地址  stm32上OLED的IIC地址为0x78
+#define OELD_ADDRESS_WRITE 0x78
 #define OLED_Data_Mode 0x40
 #define OLED_Command_Mode 0x00
 
@@ -29,8 +30,8 @@
 
 #elif defined _SOFTI2C_
 
-#define OLED_WriteCommand(Command) Soft_I2C_WriteData(OLED_ADDRESS,OLED_Command_Mode,Command)
-#define OLED_WriteData(Data,Count) Soft_I2C_WriteFrame(OLED_ADDRESS,OLED_Data_Mode,Data,Count)
+#define OLED_WriteCommand(Command) Soft_I2C_WriteByte(OELD_ADDRESS_WRITE,OLED_Command_Mode,Command)
+#define OLED_WriteData(Data,Count) Soft_I2C_WriteData(OELD_ADDRESS_WRITE,OLED_Data_Mode,Data,Count)
 #define OLED_GPIO_Init() Soft_I2C_Init()
 
 #endif

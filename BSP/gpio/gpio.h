@@ -97,6 +97,24 @@
 #define SYS_GPIO_PIN14              1<<14
 #define SYS_GPIO_PIN15              1<<15
 
+#define PIN0                        0
+#define PIN1                        1
+#define PIN2                        2
+#define PIN3                        3
+#define PIN4                        4
+#define PIN5                        5
+#define PIN6                        6
+#define PIN7                        7
+#define PIN8                        8
+#define PIN9                        9
+#define PIN10                       10
+#define PIN11                       11
+#define PIN12                       12
+#define PIN13                       13
+#define PIN14                       14
+#define PIN15                       15
+
+
 void bsp_gpio_init(GPIO_TypeDef *GPIOx, uint32_t PINx, uint32_t mode, uint32_t otype, uint32_t ospeed, uint32_t pupd);
 
 //void GPIO_Set(GPIO_TypeDef* GPIOx,u32 BITx,u32 MODE,u32 OTYPE,u32 OSPEED,u32 PUPD);

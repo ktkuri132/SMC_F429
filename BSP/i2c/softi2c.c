@@ -7,170 +7,70 @@ void Soft_I2C_Init(void)
 {
     RCC->AHB1ENR |= RCC_AHB1ENR_GPIOBEN; 
 
-    bsp_gpio_init(GPIOB, SOFT_I2C_SCL_PIN, SYS_GPIO_MODE_OUT, 
+    bsp_gpio_init(SOFT_I2C_GPIO_PORT, SOFT_I2C_SCL_PIN, SYS_GPIO_MODE_OUT, 
                     SYS_GPIO_OTYPE_PP, SYS_GPIO_SPEED_HIGH, SYS_GPIO_PUPD_NONE);
-    bsp_gpio_init(GPIOB, SOFT_I2C_SDA_PIN, SYS_GPIO_MODE_OUT,
+    bsp_gpio_init(SOFT_I2C_GPIO_PORT, SOFT_I2C_SDA_PIN, SYS_GPIO_MODE_OUT,
                     SYS_GPIO_OTYPE_PP, SYS_GPIO_SPEED_HIGH, SYS_GPIO_PUPD_NONE);
 }
 
-// 产生I2C起始信号
-void Soft_I2C_Start(void) 
-{
-    GPIOB->BSRR = SOFT_I2C_SDA_PIN; // SDA high
-    GPIOB->BSRR = SOFT_I2C_SCL_PIN; // SCL high
-    delay_us(1);
-    GPIOB->BSRR = (SOFT_I2C_SDA_PIN << 16); // SDA low
-    delay_us(1);
-    GPIOB->BSRR = (SOFT_I2C_SCL_PIN << 16); // SCL low
-}
 
-// 产生I2C停止信号
-void Soft_I2C_Stop(void) 
+void Soft_I2C_Start(void)
 {
-    GPIOB->BSRR = (SOFT_I2C_SCL_PIN << 16); // SCL low
-    GPIOB->BSRR = (SOFT_I2C_SDA_PIN << 16); // SDA low
-    delay_us(1);
-    GPIOB->BSRR = SOFT_I2C_SCL_PIN; // SCL high
-    delay_us(1);
-    GPIOB->BSRR = SOFT_I2C_SDA_PIN; // SDA high
-    delay_us(1);
-}
-
-// 写入一个bit
-void Soft_I2C_WriteBit(uint8_t bit) 
-{
-    if (bit) 
-    {
-        GPIOB->BSRR = SOFT_I2C_SDA_PIN; // SDA high
-    } else 
-    {
-        GPIOB->BSRR = (SOFT_I2C_SDA_PIN << 16); // SDA low
-    }
-    delay_us(1);
-    GPIOB->BSRR = SOFT_I2C_SCL_PIN; // SCL high
-    delay_us(1);
-    GPIOB->BSRR = (SOFT_I2C_SCL_PIN << 16); // SCL low
-    delay_us(1);
-}
-
-// 读取一个bit
-uint8_t Soft_I2C_ReadBit(void) 
-{
-    uint8_t bit;
-    GPIOB->BSRR = SOFT_I2C_SDA_PIN; // SDA high
-    delay_us(1);
-    GPIOB->BSRR = SOFT_I2C_SCL_PIN; // SCL high
-    delay_us(1);
-    bit = (GPIOB->IDR & SOFT_I2C_SDA_PIN) ? 1 : 0;
-    GPIOB->BSRR = (SOFT_I2C_SCL_PIN << 16); // SCL low
-    delay_us(1);
-    return bit;
-}
-
-// 写入一个字节
-void Soft_I2C_WriteByte(uint8_t byte) 
-{
-    for (uint8_t i = 0; i < 8; i++) 
-    {
-        Soft_I2C_WriteBit(byte & 0x80);
-        byte <<= 1;
-    }
-    Soft_I2C_WaitAck();
-}
-
-// 读取一个字节
-uint8_t Soft_I2C_ReadByte(uint8_t ack) 
-{
-    uint8_t byte = 0;
-    for (uint8_t i = 0; i < 8; i++) 
-    {
-        byte <<= 1;
-        byte |= Soft_I2C_ReadBit();
-    }
-    if (ack) 
-    {
-        Soft_I2C_Ack();
-    } else 
-    {
-        Soft_I2C_NAck();
-    }
-    return byte;
-}
-
-// 等待应答信号
-uint8_t Soft_I2C_WaitAck(void) 
-{
-    uint8_t ack;
-    GPIOB->BSRR = SOFT_I2C_SDA_PIN; // SDA high
-    delay_us(1);
-    GPIOB->BSRR = SOFT_I2C_SCL_PIN; // SCL high
-    delay_us(1);
-    ack = (GPIOB->IDR & SOFT_I2C_SDA_PIN) ? 1 : 0;
-    GPIOB->BSRR = (SOFT_I2C_SCL_PIN << 16); // SCL low
-    delay_us(1);
-    return ack;
-}
-
-// 产生一个应答
-void Soft_I2C_Ack(void) 
-{
-    GPIOB->BSRR = (SOFT_I2C_SDA_PIN << 16); // SDA low
-    delay_us(1);
-    GPIOB->BSRR = SOFT_I2C_SCL_PIN; // SCL high
-    delay_us(1);
-    GPIOB->BSRR = (SOFT_I2C_SCL_PIN << 16); // SCL low
-    delay_us(1);
-}
-
-// 产生一个非应答
-void Soft_I2C_NAck(void) 
-{
-    GPIOB->BSRR = SOFT_I2C_SDA_PIN; // SDA high
-    delay_us(1);
-    GPIOB->BSRR = SOFT_I2C_SCL_PIN; // SCL high
-    delay_us(1);
-    GPIOB->BSRR = (SOFT_I2C_SCL_PIN << 16); // SCL low
-    delay_us(1);
+	Soft_W_SDA(1);		//释放SDA，确保SDA为高电平
+	Soft_W_SCL(1);		//释放SCL，确保SCL为高电平
+	Soft_W_SDA(0);		//在SCL高电平期间，拉低SDA，产生起始信号
+	Soft_W_SCL(0);		//起始后把SCL也拉低，即为了占用总线，也为了方便总线时序的拼接
 }
 
 
-// 写一帧数据:数据长度为1
-uint8_t Soft_I2C_WriteData(uint8_t device_address, uint8_t register_address, uint8_t data) 
+void Soft_I2C_Stop(void)
 {
-    Soft_I2C_Start();
-    Soft_I2C_WriteByte(device_address);
-    Soft_I2C_WriteByte(register_address);
-    Soft_I2C_WriteByte(data);
-    Soft_I2C_Stop();
-    return 0;
+	Soft_W_SDA(0);		//拉低SDA，确保SDA为低电平
+	Soft_W_SCL(1);		//释放SCL，使SCL呈现高电平
+	Soft_W_SDA(1);		//在SCL高电平期间，释放SDA，产生终止信号
 }
 
-// 写一帧数据：数据长度大于1
-uint8_t Soft_I2C_WriteFrame(uint8_t device_address, uint8_t register_address, uint8_t* data, uint8_t length) 
+
+void Soft_I2C_SendByte(uint8_t Byte)
 {
-    Soft_I2C_Start();
-    Soft_I2C_WriteByte(device_address);
-    Soft_I2C_WriteByte(register_address);
-    for (uint8_t i = 0; i < length; i++) 
-    {
-        Soft_I2C_WriteByte(data[i]);
-    }
-    Soft_I2C_Stop();
-    return 0;
+	uint8_t i;
+	
+	/*循环8次，主机依次发送数据的每一位*/
+	for (i = 0; i < 8; i++)
+	{
+		/*使用掩码的方式取出Byte的指定一位数据并写入到SDA线*/
+		/*两个!的作用是，让所有非零的值变为1*/
+		Soft_W_SDA(!!(Byte & (0x80 >> i)));
+		Soft_W_SCL(1);	//释放SCL，从机在SCL高电平期间读取SDA
+		Soft_W_SCL(0);	//拉低SCL，主机开始发送下一位数据
+	}
+	
+	Soft_W_SCL(1);		//额外的一个时钟，不处理应答信号
+	Soft_W_SCL(0);
 }
 
-// 读一帧数据
-uint8_t Soft_I2C_ReadFrame(uint8_t device_address, uint8_t register_address, uint8_t* data, uint8_t length) 
+
+void Soft_I2C_WriteByte(uint8_t Adder,uint8_t Register,uint8_t Command)
 {
-    Soft_I2C_Start();
-    Soft_I2C_WriteByte(device_address);
-    Soft_I2C_WriteByte(register_address);
-    Soft_I2C_Start();
-    Soft_I2C_WriteByte(device_address | 0x01);
-    for (uint8_t i = 0; i < length; i++) 
-    {
-        data[i] = Soft_I2C_ReadByte(i == length - 1);
-    }
-    Soft_I2C_Stop();
-    return 0;
+	Soft_I2C_Start();				//I2C起始
+	Soft_I2C_SendByte(Adder);		//发送Soft的I2C从机地址
+	Soft_I2C_SendByte(Register);		//控制字节，给0x00，表示即将写命令
+	Soft_I2C_SendByte(Command);		//写入指定的命令
+	Soft_I2C_Stop();				//I2C终止
+}
+
+
+void Soft_I2C_WriteData(uint8_t Adder,uint8_t Register,uint8_t *Data, uint8_t Count)
+{
+	uint8_t i;
+	
+	Soft_I2C_Start();				//I2C起始
+	Soft_I2C_SendByte(Adder);		//发送Soft的I2C从机地址
+	Soft_I2C_SendByte(Register);		//控制字节，给0x40，表示即将写数据
+	/*循环Count次，进行连续的数据写入*/
+	for (i = 0; i < Count; i ++)
+	{
+		Soft_I2C_SendByte(Data[i]);	//依次发送Data的每一个数据
+	}
+	Soft_I2C_Stop();				//I2C终止
 }

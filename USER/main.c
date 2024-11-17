@@ -13,12 +13,10 @@ void BSP_Init()
 {
     SDRAM_Init();
     bsp_usart_1_inti(115200);
-    // 把PB7当VCC用
+    // 把PB7当VCC用,but other pin can't be used to GND
     bsp_gpio_init(GPIOB, SYS_GPIO_PIN7, SYS_GPIO_MODE_OUT, SYS_GPIO_OTYPE_PP, SYS_GPIO_SPEED_HIGH, SYS_GPIO_PUPD_PU);
     bsp_gpio_pin_set(GPIOB, SYS_GPIO_PIN7, 1);
-    // 把PI4当GND用
-    bsp_gpio_init(GPIOI, SYS_GPIO_PIN4, SYS_GPIO_MODE_OUT, SYS_GPIO_OTYPE_PP, SYS_GPIO_SPEED_HIGH, SYS_GPIO_PUPD_PD);
-    bsp_gpio_pin_set(GPIOI, SYS_GPIO_PIN4, 0);
+    
 
     // 创建动态任务
     //xTaskCreate((TaskFunction_t)StartTask, "StartTask", 1024, NULL, 1, &StartTask_Handler);
@@ -32,8 +30,8 @@ void BSP_Init()
     while (1)
     {
         printf("%d\r\n",a++);
-        //OLED_Printf(0, 0, OLED_8X16,"hello,world");
-        //OLED_Update();
+        OLED_Printf(0, 0, OLED_8X16,"hello,world");
+        OLED_Update();
     }
    
     // 串口发送测试

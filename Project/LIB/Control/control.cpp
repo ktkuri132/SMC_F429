@@ -1,7 +1,7 @@
 #include <Project.h>
 #include <control.h>
 
-// »ù´¡PIDËã·¨
+// base PID control algorithm
 void PID::PID_forLine()
 {
     this->error = this->target - this->current;

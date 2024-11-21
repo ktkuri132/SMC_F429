@@ -1,7 +1,7 @@
 #ifndef PROJECT_H
 #define  PROJECT_H
 
-// 定义PWM的最大值
+// PWM duty limit(max)
 #define MAX_PWM 9000
 
 #ifdef __cplusplus
@@ -21,7 +21,11 @@ extern "C"
 #include <usart.h>
 #include <OLED.h>
 
+/*  project function in BSP folder    */
 void Project_BSP_PWM_TIM2_Init();
+
+/*    project funtion in Tools  folder    */
+void Project_BSP_ENcoding_Init(uint16_t duty1,uint16_t duty2);
 
 
 #ifdef __cplusplus

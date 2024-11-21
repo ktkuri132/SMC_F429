@@ -66,7 +66,8 @@ C_SOURCES += $(wildcard BSP/i2c/*.c)
 C_SOURCES += $(wildcard Project/BSP/PWM/*.c)
 C_SOURCES += $(wildcard Project/BSP/TB6612/*.c)
 
-C_SOURCES += $(wildcard Project/Control/*.c)
+C_SOURCES += $(wildcard Project/LIB/Control/*.c)
+C_SOURCES += $(wildcard Project/LIB/Tools/*.c)
 
 
 C_SOURCES += $(wildcard HARDWARE/OLED/*.c)
@@ -108,7 +109,8 @@ C_INCLUDES += -IBSP/i2c/
 C_INCLUDES += -IProject/BSP/
 C_INCLUDES += -IProject/BSP/PWM/
 C_INCLUDES += -IProject/BSP/TB6612/
-C_INCLUDES += -IProject/Control/
+C_INCLUDES += -IProject/LIB/Control/
+C_INCLUDES += -IProject/LIB/Tools/
 C_INCLUDES += -IProject/
 
 C_INCLUDES += -IHARDWARE/OLED/
@@ -221,7 +223,6 @@ LDFLAGS = $(MCU) -specs=nosys.specs -T$(LDSCRIPT) $(LIBDIR) $(LIBS) -Wl,-Map=$(B
 # default action: build all
 all: $(BUILD_DIR)/$(TARGET).elf $(BUILD_DIR)/$(TARGET).hex $(BUILD_DIR)/$(TARGET).bin
 
-
 #######################################
 # build the application
 #######################################
@@ -278,12 +279,12 @@ dol:
 
 rebuild_run:
 	make clean
-	make -j20 
+	make -j16 
 	make dol
 	arm-none-eabi-objdump -D -S -m cortex-m3 ./${BUILD_DIR}/$(TARGET).elf > ./${BUILD_DIR}/$(TARGET).dis
 	echo "program is running......"
 build_run:
-	make -j20 
+	make -j16 
 	make dol
 	echo "program is running......"
 #######################################

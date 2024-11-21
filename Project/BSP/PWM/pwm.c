@@ -34,3 +34,45 @@ void Project_BSP_PWM_TIM2_Init()
 	TIM_Cmd(TIM2, ENABLE);
 	
 }
+
+
+// @brief 设置TIM4_CH12_12_13--TIM15_CH12_H10_11的编码器模式
+void Project_BSP_ENcoding_Init(uint16_t duty1,uint16_t duty2)
+{
+	RCC_APB1PeriphClockCmd(RCC_APB1Periph_TIM4|RCC_APB1Periph_TIM5, ENABLE);
+	RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOD|RCC_AHB1Periph_GPIOH, ENABLE);
+	//初始化GPIO
+	bsp_gpio_init(GPIOD,SYS_GPIO_PIN12|SYS_GPIO_PIN13,SYS_GPIO_MODE_AF,SYS_GPIO_OTYPE_PP,SYS_GPIO_SPEED_HIGH,SYS_GPIO_PUPD_NONE);
+	bsp_gpio_init(GPIOH,SYS_GPIO_PIN10|SYS_GPIO_PIN11,SYS_GPIO_MODE_AF,SYS_GPIO_OTYPE_PP,SYS_GPIO_SPEED_HIGH,SYS_GPIO_PUPD_NONE);
+
+	bsp_gpio_af_set(GPIOD,SYS_GPIO_PIN12,2);
+	bsp_gpio_af_set(GPIOD,SYS_GPIO_PIN13,2);
+
+	bsp_gpio_af_set(GPIOH,SYS_GPIO_PIN10,9);
+	bsp_gpio_af_set(GPIOH,SYS_GPIO_PIN11,9);
+
+	//初始化TIM4
+	TIM_TimeBaseInitTypeDef TIM_TimeBaseStructure;
+	TIM_TimeBaseStructure.TIM_Period = 0xffff; //计数器自动重装载值	arr
+	TIM_TimeBaseStructure.TIM_Prescaler = 0; //时钟预分频数 	psc
+	TIM_TimeBaseStructure.TIM_ClockDivision = 0; //时钟分频
+	TIM_TimeBaseStructure.TIM_CounterMode = TIM_CounterMode_Up; //向上计数模式
+	TIM_TimeBaseInit(TIM4, &TIM_TimeBaseStructure);
+
+	//初始化TIM4编码器模式
+	TIM_EncoderInterfaceConfig(TIM4, TIM_EncoderMode_TI12, TIM_ICPolarity_Rising, TIM_ICPolarity_Rising);
+	TIM_Cmd(TIM4, ENABLE);
+
+	//初始化TIM5
+	TIM_TimeBaseInitTypeDef TIM_TimeBaseStructure2;
+	TIM_TimeBaseStructure2.TIM_Period = 0xffff; //计数器自动重装载值	arr
+	TIM_TimeBaseStructure2.TIM_Prescaler = 0; //时钟预分频数 	psc
+	TIM_TimeBaseStructure2.TIM_ClockDivision = 0; //时钟分频
+	TIM_TimeBaseStructure2.TIM_CounterMode = TIM_CounterMode_Up; //向上计数模式
+	TIM_TimeBaseInit(TIM5, &TIM_TimeBaseStructure2);
+	
+	//初始化TIM5编码器模式
+	TIM_EncoderInterfaceConfig(TIM5, TIM_EncoderMode_TI12, TIM_ICPolarity_Rising, TIM_ICPolarity_Rising);
+	TIM_Cmd(TIM5, ENABLE);
+}
+

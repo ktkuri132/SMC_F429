@@ -1,3 +1,24 @@
+//#define __RELEASE
+#define __DEBUG
+
+#if defined (__RELEASE)
+
+#include <Project.h>
+
+
+/// @brief 主函数运行完了自动复位
+void BSP_Init()
+{
+    SDRAM_Init();
+    bsp_usart_1_inti(115200);
+    
+
+}
+
+
+
+#elif defined(__DEBUG)
+
 
 #include <Project.h>
 
@@ -11,6 +32,8 @@ void LCD_test();
 /// @brief 主函数运行完了自动复位
 void BSP_Init()
 {
+    
+
     SDRAM_Init();
     bsp_usart_1_inti(115200);
     // 把PB7当VCC用,but other pin can't be used to GND
@@ -122,3 +145,5 @@ void led_test()
     }
     
 }
+
+#endif

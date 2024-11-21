@@ -3,7 +3,6 @@
 
 #include <stm32f4xx.h>
 #include <gpio.h>
-#include <systick.h>
 
 #include <stdio.h>
 
@@ -23,6 +22,7 @@
 //#include <lcd_gui.h>
 
 void NVIC_Configuration(void);
-
+void bsp_systick_delay_us(uint32_t nus);
+void bsp_systick_delay_ms(uint32_t nms);
 
 #endif

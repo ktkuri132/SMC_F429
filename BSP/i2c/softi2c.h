@@ -2,6 +2,7 @@
 #define _SOFTI2C_
 
 #include <Project.h>
+#include <sys.h>	
 
 // 定义IIC端口
 #define SOFT_I2C_SCL_PIN SYS_GPIO_PIN8

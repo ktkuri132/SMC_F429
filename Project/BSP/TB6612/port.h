@@ -7,7 +7,7 @@
 //#define PWMA 22
 //#define PWMB 20
 
-//方向使能接口
+//方向使能接口 use the GPIOA
 #define AIN_2 2
 #define AIN_1 3
 #define BIN_1 4

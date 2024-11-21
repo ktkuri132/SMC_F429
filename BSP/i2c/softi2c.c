@@ -1,76 +1,118 @@
-#include "stm32f4xx.h"
-#include <gpio.h>
 #include <softi2c.h>
 
-// 初始化软件I2C
-void Soft_I2C_Init(void) 
-{
-    RCC->AHB1ENR |= RCC_AHB1ENR_GPIOBEN; 
 
-    bsp_gpio_init(SOFT_I2C_GPIO_PORT, SOFT_I2C_SCL_PIN, SYS_GPIO_MODE_OUT, 
-                    SYS_GPIO_OTYPE_PP, SYS_GPIO_SPEED_HIGH, SYS_GPIO_PUPD_NONE);
-    bsp_gpio_init(SOFT_I2C_GPIO_PORT, SOFT_I2C_SDA_PIN, SYS_GPIO_MODE_OUT,
-                    SYS_GPIO_OTYPE_PP, SYS_GPIO_SPEED_HIGH, SYS_GPIO_PUPD_NONE);
+//Soft IIC 延时函数
+void Soft_IIC_Delay(void)
+{
+	bsp_systick_delay_us(2);
 }
 
-
-void Soft_I2C_Start(void)
-{
-	Soft_W_SDA(1);		//释放SDA，确保SDA为高电平
-	Soft_W_SCL(1);		//释放SCL，确保SCL为高电平
-	Soft_W_SDA(0);		//在SCL高电平期间，拉低SDA，产生起始信号
-	Soft_W_SCL(0);		//起始后把SCL也拉低，即为了占用总线，也为了方便总线时序的拼接
+//初始化IIC
+void Soft_IIC_Init(void)
+{			
+  				      
 }
-
-
-void Soft_I2C_Stop(void)
+//产生IIC起始信号
+void Soft_IIC_Start(void)
 {
-	Soft_W_SDA(0);		//拉低SDA，确保SDA为低电平
-	Soft_W_SCL(1);		//释放SCL，使SCL呈现高电平
-	Soft_W_SDA(1);		//在SCL高电平期间，释放SDA，产生终止信号
+	Soft_SDA_OUT();     //sda线输出
+	Soft_IIC_SDA=1;	  	  
+	Soft_IIC_SCL=1;
+	Soft_IIC_Delay();
+ 	Soft_IIC_SDA=0;//START:when CLK is high,DATA change form high to low 
+	Soft_IIC_Delay();
+	Soft_IIC_SCL=0;//钳住I2C总线，准备发送或接收数据 
+}	  
+//产生IIC停止信号
+void Soft_IIC_Stop(void)
+{
+	Soft_SDA_OUT();//sda线输出
+	Soft_IIC_SCL=0;
+	Soft_IIC_SDA=0;//STOP:when CLK is high DATA change form low to high
+ 	Soft_IIC_Delay();
+	Soft_IIC_SCL=1;  
+	Soft_IIC_SDA=1;//发送I2C总线结束信号
+	Soft_IIC_Delay();							   	
 }
-
-
-void Soft_I2C_SendByte(uint8_t Byte)
+//等待应答信号到来
+//返回值：1，接收应答失败
+//        0，接收应答成功
+u8 Soft_IIC_Wait_Ack(void)
 {
-	uint8_t i;
-	
-	/*循环8次，主机依次发送数据的每一位*/
-	for (i = 0; i < 8; i++)
+	u8 ucErrTime=0;
+	Soft_SDA_IN();      //SDA设置为输入  
+	Soft_IIC_SDA=1;Soft_IIC_Delay();	   
+	Soft_IIC_SCL=1;Soft_IIC_Delay();	 
+	while(Soft_READ_SDA)
 	{
-		/*使用掩码的方式取出Byte的指定一位数据并写入到SDA线*/
-		/*两个!的作用是，让所有非零的值变为1*/
-		Soft_W_SDA(!!(Byte & (0x80 >> i)));
-		Soft_W_SCL(1);	//释放SCL，从机在SCL高电平期间读取SDA
-		Soft_W_SCL(0);	//拉低SCL，主机开始发送下一位数据
+		ucErrTime++;
+		if(ucErrTime>250)
+		{
+			Soft_IIC_Stop();
+			return 1;
+		}
 	}
-	
-	Soft_W_SCL(1);		//额外的一个时钟，不处理应答信号
-	Soft_W_SCL(0);
-}
-
-
-void Soft_I2C_WriteByte(uint8_t Adder,uint8_t Register,uint8_t Command)
+	Soft_IIC_SCL=0;//时钟输出0 	   
+	return 0;  
+} 
+//产生ACK应答
+void Soft_IIC_Ack(void)
 {
-	Soft_I2C_Start();				//I2C起始
-	Soft_I2C_SendByte(Adder);		//发送Soft的I2C从机地址
-	Soft_I2C_SendByte(Register);		//控制字节，给0x00，表示即将写命令
-	Soft_I2C_SendByte(Command);		//写入指定的命令
-	Soft_I2C_Stop();				//I2C终止
+	Soft_IIC_SCL=0;
+	Soft_SDA_OUT();
+	Soft_IIC_SDA=0;
+	Soft_IIC_Delay();
+	Soft_IIC_SCL=1;
+	Soft_IIC_Delay();
+	Soft_IIC_SCL=0;
 }
-
-
-void Soft_I2C_WriteData(uint8_t Adder,uint8_t Register,uint8_t *Data, uint8_t Count)
+//不产生ACK应答		    
+void Soft_IIC_NAck(void)
 {
-	uint8_t i;
-	
-	Soft_I2C_Start();				//I2C起始
-	Soft_I2C_SendByte(Adder);		//发送Soft的I2C从机地址
-	Soft_I2C_SendByte(Register);		//控制字节，给0x40，表示即将写数据
-	/*循环Count次，进行连续的数据写入*/
-	for (i = 0; i < Count; i ++)
+	Soft_IIC_SCL=0;
+	Soft_SDA_OUT();
+	Soft_IIC_SDA=1;
+	Soft_IIC_Delay();
+	Soft_IIC_SCL=1;
+	Soft_IIC_Delay();
+	Soft_IIC_SCL=0;
+}					 				     
+//IIC发送一个字节
+//返回从机有无应答
+//1，有应答
+//0，无应答			  
+void Soft_IIC_Send_Byte(u8 txd)
+{                        
+    u8 t;   
+	Soft_SDA_OUT(); 	    
+    Soft_IIC_SCL=0;//拉低时钟开始数据传输
+    for(t=0;t<8;t++)
+    {              
+        Soft_IIC_SDA=(txd&0x80)>>7;
+        txd<<=1; 	  
+		Soft_IIC_SCL=1;
+		Soft_IIC_Delay(); 
+		Soft_IIC_SCL=0;	
+		Soft_IIC_Delay();
+    }	 
+} 	    
+//读1个字节，ack=1时，发送ACK，ack=0，发送nACK   
+u8 Soft_IIC_Read_Byte(unsigned char ack)
+{
+	unsigned char i,receive=0;
+	Soft_SDA_IN();//SDA设置为输入
+    for(i=0;i<8;i++ )
 	{
-		Soft_I2C_SendByte(Data[i]);	//依次发送Data的每一个数据
-	}
-	Soft_I2C_Stop();				//I2C终止
+        Soft_IIC_SCL=0; 
+        Soft_IIC_Delay();
+		Soft_IIC_SCL=1;
+        receive<<=1;
+        if(Soft_READ_SDA)receive++;   
+		Soft_IIC_Delay(); 
+    }					 
+    if (!ack)
+        Soft_IIC_NAck();//发送nACK
+    else
+        Soft_IIC_Ack(); //发送ACK   
+    return receive;
 }

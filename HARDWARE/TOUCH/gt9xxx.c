@@ -34,7 +34,6 @@
 #include "ctiic.h"
 #include "gt9xxx.h"
 #include "usart.h"
-#include "systick.h"
 #include <sys.h>
 
 #ifdef __LCD_GUI_

@@ -7,8 +7,8 @@
 // 选择接收协议
 //#define _基本串口接受协议
 //#define _正点原子串口协议
-//#define _STDE串口协议
-#define _BIE串口协议
+#define _STDE串口协议
+//#define _BIE串口协议
 
 
 void bsp_usart_1_inti(uint32_t baudrate);

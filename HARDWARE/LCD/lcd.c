@@ -3,7 +3,6 @@
 #include "font.h" 
 #include "usart.h"	 
 #include "ltdc.h"
-#include <systick.h>
 #include "stm32f4xx.h"
 #include <stdarg.h>
 #include <sys.h>

@@ -23,7 +23,6 @@
  */
  
 #include "ctiic.h"
-#include <systick.h>
 #include <gpio.h>
 #include <sys.h>
 

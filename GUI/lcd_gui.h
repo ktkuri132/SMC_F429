@@ -7,8 +7,6 @@
 #endif
 
 #include <sys.h>
-
-
 #include <lcd_gui.h>
 
 

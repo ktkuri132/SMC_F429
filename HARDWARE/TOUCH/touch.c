@@ -33,7 +33,6 @@
 #include "lcd.h"
 #include "touch.h"
 //#include "24cxx.h"
-#include "systick.h"
 #include <sys.h>
 
 #ifdef __LCD_GUI_

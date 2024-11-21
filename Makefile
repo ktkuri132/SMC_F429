@@ -95,7 +95,7 @@ C_SOURCES += $(wildcard RTOS/portable/MemMang/*.c)
 
 # C++ sources
 CXX_SOURCES = $(wildcard GUI/*.cpp)
-CXX_SOURCES += $(wildcard Project/Control/*.cpp)
+CXX_SOURCES += $(wildcard Project/LIB/Control/*.cpp)
 
 # C includes
 C_INCLUDES =  -ICORE/
@@ -142,7 +142,7 @@ C_INCLUDES += -IRTOS/include/
 
 # C++ includes
 CXX_INCLUDES = -IGUI/
-CXX_INCLUDES += -IProject/Control/
+CXX_INCLUDES += -IProject/LIB/Control/
 CXX_INCLUDES += -IProject/
 # ASM includes
 # AS defines

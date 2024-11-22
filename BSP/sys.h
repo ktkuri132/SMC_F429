@@ -19,6 +19,12 @@
 #include "touch.h"
 #endif
 
+
+typedef enum
+{ Bit_RESET = 0,
+  Bit_SET
+}BitAction;
+
 //#include <lcd_gui.h>
 
 void NVIC_Configuration(void);

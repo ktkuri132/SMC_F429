@@ -6,8 +6,8 @@
 #include <stdarg.h>
 
 /* 外部驱动头文件  */
-#include <hardi2c.h>
-//#include <softi2c.h>
+// #include <hardi2c.h>
+#include <softi2c.h>
 
 
 /* 定义IIC端口  */
@@ -30,9 +30,9 @@
 
 #elif defined _SOFTI2C_
 
-#define OLED_WriteCommand(Command) Soft_I2C_WriteByte(OELD_ADDRESS_WRITE,OLED_Command_Mode,Command)
-#define OLED_WriteData(Data,Count) Soft_I2C_WriteData(OELD_ADDRESS_WRITE,OLED_Data_Mode,Data,Count)
-#define OLED_GPIO_Init() Soft_I2C_Init()
+#define OLED_WriteCommand(Command) Soft_IIC_WriteByte(OELD_ADDRESS_WRITE,OLED_Command_Mode,Command)
+#define OLED_WriteData(Data,Count) Soft_IIC_WriteData(OELD_ADDRESS_WRITE,OLED_Data_Mode,Data,Count)
+#define OLED_GPIO_Init() Soft_IIC_Init()
 
 #endif
 

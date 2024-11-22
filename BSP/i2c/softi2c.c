@@ -21,50 +21,50 @@ void Soft_IIC_Init(void)
 	bsp_gpio_init(SOFT_I2C_GPIO_PORT,SOFT_I2C_SDA_PIN,
 				SYS_GPIO_MODE_OUT,SYS_GPIO_OTYPE_OD,SYS_GPIO_SPEED_HIGH,SYS_GPIO_PUPD_PU);
 	bsp_gpio_init(SOFT_I2C_GPIO_PORT,SOFT_I2C_SCL_PIN,
-				SYS_GPIO_MODE_OUT,SYS_GPIO_OTYPE_OD,SYS_GPIO_SPEED_HIGH,SYS_GPIO_PUPD_PU);
+				SYS_GPIO_MODE_OUT,SYS_GPIO_OTYPE_PP,SYS_GPIO_SPEED_HIGH,SYS_GPIO_PUPD_PU);
 	
 	/*释放SCL和SDA*/
 	Soft_W_SCL(1);
 	Soft_W_SDA(1);
 }
 
-static __INLINE void Soft_IIC_Delay()
+void Soft_IIC_Delay()
 {
 	bsp_systick_delay_us(2);
 }
 
-static __INLINE void Soft_W_SCL(uint8_t BitValue)
+void Soft_W_SCL(uint8_t BitValue)
 {
 	if ((BitAction)BitValue != Bit_RESET)
 	{
-		SOFT_I2C_GPIO_PORT->BSRR = SOFT_I2C_SCL_PORT;
+		SOFT_I2C_GPIO_PORT->BSRR = SOFT_I2C_SCL_PIN;
 	}
 	else
 	{
-		SOFT_I2C_GPIO_PORT->BSRR = (uint32_t)SOFT_I2C_SCL_PORT << 16;
+		SOFT_I2C_GPIO_PORT->BSRR = (SOFT_I2C_SCL_PIN) << 16;
 	}
 }
 
 
-static __INLINE void Soft_W_SDA(uint8_t BitValue)
+void Soft_W_SDA(uint8_t BitValue)
 {
 	
 	if ((BitAction)BitValue != Bit_RESET)
 	{
-		SOFT_I2C_GPIO_PORT->BSRR = SOFT_I2C_SDA_PORT;
+		SOFT_I2C_GPIO_PORT->BSRR = SOFT_I2C_SDA_PIN;
 	}
 	else
 	{
-		SOFT_I2C_GPIO_PORT->BSRR = (uint32_t)SOFT_I2C_SDA_PORT << 16;
+		SOFT_I2C_GPIO_PORT->BSRR = (SOFT_I2C_SDA_PIN) << 16;
 	}
 	
 }
 
-static __INLINE uint8_t Soft_R_SDA()
+uint8_t Soft_R_SDA()
 {
 	uint8_t bitstatus = 0x00;
 
-	if ((SOFT_I2C_GPIO_PORT->IDR & SOFT_I2C_SDA_PORT) != (uint32_t)Bit_RESET)
+	if ((SOFT_I2C_GPIO_PORT->IDR & SOFT_I2C_SDA_PIN) != (uint32_t)Bit_RESET)
 	{
 		bitstatus = (uint8_t)Bit_SET;
 	}
@@ -80,7 +80,7 @@ static __INLINE uint8_t Soft_R_SDA()
 /*
 	起始
 */
-static __INLINE void Soft_IIC_Start(void)
+void Soft_IIC_Start(void)
 {
 	Soft_W_SDA(1);		//释放SDA，确保SDA为高电平
 	Soft_W_SCL(1);		//释放SCL，确保SCL为高电平
@@ -91,7 +91,7 @@ static __INLINE void Soft_IIC_Start(void)
 /*
 	结束
 */
-static __INLINE void Soft_IIC_Stop(void)
+void Soft_IIC_Stop(void)
 {
 	Soft_W_SDA(0);		//拉低SDA，确保SDA为低电平
 	Soft_W_SCL(1);		//释放SCL，使SCL呈现高电平
@@ -102,7 +102,7 @@ static __INLINE void Soft_IIC_Stop(void)
 /*
 	产生ACK应答
 */
-static __INLINE void Soft_IIC_Ack(void)
+void Soft_IIC_Ack(void)
 {
 	Soft_IIC_SCL(0);
 	Soft_W_SDA(0);
@@ -114,7 +114,7 @@ static __INLINE void Soft_IIC_Ack(void)
 /*
 	不产生ACK应答(NACK)
 */		    
-static __INLINE void Soft_IIC_NAck(void)
+void Soft_IIC_NAck(void)
 {
 	Soft_W_SCL(0);
 	Soft_W_SDA(1);
@@ -127,7 +127,7 @@ static __INLINE void Soft_IIC_NAck(void)
 /*
 	等待IIC总线的应答
 */
-static __INLINE uint8_t Soft_IIC_Wait_Ack(void)
+uint8_t Soft_IIC_Wait_Ack(void)
 {
 	uint8_t ucErrTime=0;
 	// Soft_SDA_IN();      //SDA设置为输入  
@@ -149,7 +149,7 @@ static __INLINE uint8_t Soft_IIC_Wait_Ack(void)
 /*
 	基本IIC发送一个字节
 */
-static __INLINE void Soft_IIC_SendByte(uint8_t Byte)
+void Soft_IIC_SendByte(uint8_t Byte)
 {
 	uint8_t i;
 	
@@ -171,7 +171,7 @@ static __INLINE void Soft_IIC_SendByte(uint8_t Byte)
 /*
 	基本IIC读取一个字节，ack=1时，发送ACK，ack=0，发送nACK
 */   
-static __INLINE uint8_t Soft_IIC_ReceiveByte(unsigned char ack)
+uint8_t Soft_IIC_ReceiveByte(unsigned char ack)
 {
 	unsigned char i,receive=0;
     for(i=0;i<8;i++ )

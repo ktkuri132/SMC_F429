@@ -1,21 +1,47 @@
 #include <softspi.h>
 
-#ifdef __STM32F4xx_GPIO_H
 
-#define Soft_W_SCK(x)		GPIO_WriteBit(GPIOB, GPIO_Pin_12, (BitAction)(x))
-#define Soft_W_MOSI(x)		GPIO_WriteBit(GPIOB, GPIO_Pin_13, (BitAction)(x))
-#define Soft_W_CS1(x)		GPIO_WriteBit(GPIOB, GPIO_Pin_15, (BitAction)(x))
-#define Soft_W_CS2(x)		GPIO_WriteBit(GPIOA, GPIO_Pin_8, (BitAction)(x))
+//*------------------------------------------------------通用接口--------------------------------------------
+void Soft_W_SCK(uint8_t x)
+{
+    bsp_gpio_pin_set(SOFT_SPI_SCK_PORT, SOFT_SPI_SCK_PIN, x);
+}
 
-#else 
+void Soft_W_MOSI(uint8_t x)
+{
+    bsp_gpio_pin_set(SOFT_SPI_MOSI_PORT, SOFT_SPI_MOSI_PIN, x);
+}
 
-#define Soft_W_SCK(x)		bsp_gpio_pin_set(SOFT_SPI_SCK_PORT, SOFT_SPI_SCK_PIN, x)
-#define Soft_W_MOSI(x)		bsp_gpio_pin_set(SOFT_SPI_MOSI_PORT, SOFT_SPI_MOSI_PIN, x)
-#define Soft_R_MISO()		bsp_gpio_pin_get(SOFT_SPI_MISO_PORT, SOFT_SPI_MISO_PIN)
-#define Soft_W_CS1(x)		bsp_gpio_pin_set(SOFT_SPI_CS1_PORT, SOFT_SPI_CS1_PIN, x)
-#define Soft_W_CS2(x)		bsp_gpio_pin_set(SOFT_SPI_CS2_PORT, SOFT_SPI_CS2_PIN, x)
-#define Soft_W_CS3(x)		bsp_gpio_pin_set(SOFT_SPI_CS3_PORT, SOFT_SPI_CS3_PIN, x)
-#endif
+uint8_t Soft_R_MISO()
+{
+    return bsp_gpio_pin_get(SOFT_SPI_MISO_PORT, SOFT_SPI_MISO_PIN);
+}
+
+void Soft_W_CS1(uint8_t x)
+{
+    bsp_gpio_pin_set(SOFT_SPI_CS1_PORT, SOFT_SPI_CS1_PIN, x);
+}
+
+void Soft_W_CS2(uint8_t x)
+{
+    bsp_gpio_pin_set(SOFT_SPI_CS2_PORT, SOFT_SPI_CS2_PIN, x);
+}
+
+void Soft_W_CS3(uint8_t x)
+{
+    bsp_gpio_pin_set(SOFT_SPI_CS3_PORT, SOFT_SPI_CS3_PIN, x);
+}
+
+//*--------------------------------------------------------兼容接口---------------------------------------------
+// void Soft_W_DC(uint8_t x)
+// {
+//     bsp_gpio_pin_set(SOFT_SPI_DC_PORT, SOFT_SPI_DC_PIN, x);
+// }
+
+// void Soft_W_RES(uint8_t x)
+// {
+//     bsp_gpio_pin_set(SOFT_SPI_RES_PORT,SOFT_SPI_RES_PIN,x);
+// }
 
 /*引脚初始化*/
 void Soft_SPI_Init(void)
@@ -38,15 +64,21 @@ void Soft_SPI_Init(void)
 	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_8;
  	GPIO_Init(GPIOA, &GPIO_InitStructure);
 	#else
-    bsp_gpio_init(GPIOB, SOFT_SPI_SCK_PIN, SYS_GPIO_MODE_OUT, SYS_GPIO_OTYPE_PP, SYS_GPIO_SPEED_HIGH, SYS_GPIO_PUPD_PU);
-    bsp_gpio_init(GPIOB, SOFT_SPI_MOSI_PIN, SYS_GPIO_MODE_OUT, SYS_GPIO_OTYPE_PP, SYS_GPIO_SPEED_HIGH, SYS_GPIO_PUPD_PU);
-    bsp_gpio_init(GPIOB, SOFT_SPI_MISO_PIN, SYS_GPIO_MODE_OUT, SYS_GPIO_OTYPE_PP, SYS_GPIO_SPEED_HIGH, SYS_GPIO_PUPD_PU);
-    bsp_gpio_init(GPIOA, SOFT_SPI_CS1_PIN, SYS_GPIO_MODE_OUT, SYS_GPIO_OTYPE_PP, SYS_GPIO_SPEED_HIGH, SYS_GPIO_PUPD_PU);
-    bsp_gpio_init(GPIOA, SOFT_SPI_CS2_PIN, SYS_GPIO_MODE_OUT, SYS_GPIO_OTYPE_PP, SYS_GPIO_SPEED_HIGH, SYS_GPIO_PUPD_PU);
-    bsp_gpio_init(GPIOA, SOFT_SPI_CS3_PIN, SYS_GPIO_MODE_OUT, SYS_GPIO_OTYPE_PP, SYS_GPIO_SPEED_HIGH, SYS_GPIO_PUPD_PU);
+    // 初始化通用接口
+    bsp_gpio_init(SOFT_SPI_SCK_PORT, SOFT_SPI_SCK_PIN, SYS_GPIO_MODE_OUT, SYS_GPIO_OTYPE_PP, SYS_GPIO_SPEED_HIGH, SYS_GPIO_PUPD_PU);
+    bsp_gpio_init(SOFT_SPI_MOSI_PORT, SOFT_SPI_MOSI_PIN, SYS_GPIO_MODE_OUT, SYS_GPIO_OTYPE_PP, SYS_GPIO_SPEED_HIGH, SYS_GPIO_PUPD_PU);
+    bsp_gpio_init(SOFT_SPI_MISO_PORT, SOFT_SPI_MISO_PIN, SYS_GPIO_MODE_OUT, SYS_GPIO_OTYPE_PP, SYS_GPIO_SPEED_HIGH, SYS_GPIO_PUPD_PU);
+    bsp_gpio_init(SOFT_SPI_CS1_PORT, SOFT_SPI_CS1_PIN, SYS_GPIO_MODE_OUT, SYS_GPIO_OTYPE_PP, SYS_GPIO_SPEED_HIGH, SYS_GPIO_PUPD_PU);
+    bsp_gpio_init(SOFT_SPI_CS2_PORT, SOFT_SPI_CS2_PIN, SYS_GPIO_MODE_OUT, SYS_GPIO_OTYPE_PP, SYS_GPIO_SPEED_HIGH, SYS_GPIO_PUPD_PU);
+    bsp_gpio_init(SOFT_SPI_CS3_PORT, SOFT_SPI_CS3_PIN, SYS_GPIO_MODE_OUT, SYS_GPIO_OTYPE_PP, SYS_GPIO_SPEED_HIGH, SYS_GPIO_PUPD_PU);
+    // 初始化兼容接口
+    // bsp_gpio_init(SOFT_SPI_DC_PORT,SOFT_SPI_DC_PIN,SYS_GPIO_MODE_OUT, SYS_GPIO_OTYPE_PP, SYS_GPIO_SPEED_HIGH, SYS_GPIO_PUPD_PU);
+    // bsp_gpio_init(SOFT_SPI_RES_PORT,SOFT_SPI_RES_PIN,SYS_GPIO_MODE_OUT, SYS_GPIO_OTYPE_PP, SYS_GPIO_SPEED_HIGH, SYS_GPIO_PUPD_PU);
     #endif
 	Soft_W_SCK(0);
-	Soft_W_CS(1);
+	Soft_W_CS1(1);
+    Soft_W_CS2(1);
+    Soft_W_CS3(1);
 }
 
 /**
@@ -80,7 +112,10 @@ void Soft_SPI_SendByte(uint8_t CS,uint8_t Byte)
 	uint8_t i;
 	for (i = 0; i < 8; i++)
 	{
-		Soft_W_MOSI(Byte & (0x80 >> i));
+		Soft_W_MOSI(!!Byte & (0x80 >> i));
+        /*
+            兼容协议......
+        */
 		Soft_W_SCK(1);
 		Soft_W_SCK(0);
 	}
@@ -145,6 +180,9 @@ uint8_t Soft_SPI_ReceiveByte(uint8_t CS)
     uint8_t i;
     for(i=0;i<8;i++)
     {
+        /*
+            兼容协议......
+        */
         if(Soft_R_MISO()==1)
         {
             ByteReceive |= (0x80 >> i);

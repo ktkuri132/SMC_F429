@@ -78,7 +78,7 @@ C_SOURCES += $(wildcard HARDWARE/TOUCH/*.c)
 
 C_SOURCES += $(wildcard GUI/*.c)
 
-#C_SOURCES += $(wildcard HARDWARE/MPU6050/*.c)
+C_SOURCES += $(wildcard HARDWARE/MPU6050/*.c)
 
 C_SOURCES += $(wildcard RTOS/*.c)
 C_SOURCES += $(wildcard RTOS/portable/ARM_CM4F/*.c)
@@ -122,7 +122,7 @@ C_INCLUDES += -IHARDWARE/TOUCH/
 
 C_INCLUDES += -IGUI/
 
-#C_INCLUDES += -IHARDWARE/MPU6050/
+C_INCLUDES += -IHARDWARE/MPU6050/
 
 C_INCLUDES += -IRTOS/
 C_INCLUDES += -IRTOS/portable/ARM_CM4F/

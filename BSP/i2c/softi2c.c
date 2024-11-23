@@ -112,9 +112,9 @@ void Soft_IIC_Ack(void)
 {
 	Soft_W_SCL(0);
 	Soft_W_SDA(0);
-	//Soft_IIC_Delay();
+	Soft_IIC_Delay();
 	Soft_W_SCL(1);
-	//Soft_IIC_Delay();
+	Soft_IIC_Delay();
 	Soft_W_SCL(0);
 }
 /*
@@ -124,9 +124,9 @@ void Soft_IIC_NAck(void)
 {
 	Soft_W_SCL(0);
 	Soft_W_SDA(1);
-	//Soft_IIC_Delay();
+	Soft_IIC_Delay();
 	Soft_W_SCL(1);
-	//Soft_IIC_Delay();
+	Soft_IIC_Delay();
 	Soft_W_SCL(0);
 }	
 
@@ -183,11 +183,11 @@ uint8_t Soft_IIC_ReceiveByte(unsigned char ack)
     for(i=0;i<8;i++ )
 	{
         Soft_W_SCL(0); 
-        // Soft_IIC_Delay();
+        Soft_IIC_Delay();
 		Soft_W_SCL(1);
         receive<<=1;
         if(Soft_R_SDA())receive++;   
-		// Soft_IIC_Delay(); 
+		Soft_IIC_Delay(); 
     }					 
     if (!ack)
         Soft_IIC_NAck();//发送nACK
@@ -214,7 +214,7 @@ void Soft_IIC_WriteByte(uint8_t Address,uint8_t Register,uint8_t Command)
 /*
 	向设备写指定长度字节
 */
-void Soft_IIC_WriteData(uint8_t Address,uint8_t Register,uint8_t *Data, uint8_t Count)
+uint16_t Soft_IIC_WriteData(uint8_t Address,uint8_t Register,uint8_t *Data, uint8_t Count)
 {
 	uint8_t i;
 	
@@ -227,6 +227,7 @@ void Soft_IIC_WriteData(uint8_t Address,uint8_t Register,uint8_t *Data, uint8_t 
 		Soft_IIC_SendByte(Data[i]);	//依次发送Data的每一个数据
 	}
 	Soft_IIC_Stop();				//IIC终止
+	return 0;
 }
 
 
@@ -256,7 +257,7 @@ uint8_t Soft_IIC_ReadByte(uint8_t Address,uint8_t Register)
 uint8_t Soft_IIC_ReadData(uint8_t Address,uint8_t Register,uint8_t len,uint8_t *buf)
 { 
  	Soft_IIC_Start(); 
-	Soft_IIC_Send_Byte((Address<<1)|0);//发送器件地址+写命令	
+	Soft_IIC_SendByte((Address<<1)|0);//发送器件地址+写命令	
 	if(Soft_IIC_Wait_Ack())	//等待应答
 	{
 		Soft_IIC_Stop();		 

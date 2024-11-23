@@ -22,13 +22,16 @@ void BSP_Init()
 
 #include <Project.h>
 
+#include <mpu6050.h>
+#include <inv_mpu.h>
+
 void usart_send_test();
 void led_test();
 void usart_receive_test();
 void OLED_test();
 void LCD_test();
 //void Reset_Handler();
-
+float pitch,roll,yaw;
 /// @brief 主函数运行完了自动复位
 void BSP_Init()
 {
@@ -49,9 +52,12 @@ void BSP_Init()
     Project_BSP_PWM_TIM2_Init();
     OLED_Init();
     OLED_Clear();
+    mpu_dmp_init();
     int a;
+    
     while (1)
     {
+        // mpu_dmp_get_data(&pitch,&roll,&yaw);
         printf("%d\r\n",a++);
         OLED_Printf(0, 0, OLED_8X16,"%d",a);
         OLED_Update();

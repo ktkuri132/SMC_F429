@@ -29,7 +29,7 @@ uint8_t Soft_IIC_ReceiveByte(unsigned char ack);
 
 void Soft_IIC_Init(void);
 void Soft_IIC_WriteByte(uint8_t Address,uint8_t Register,uint8_t Command);
-void Soft_IIC_WriteData(uint8_t Address,uint8_t Register,uint8_t *Data, uint8_t Count);
+uint16_t Soft_IIC_WriteData(uint8_t Address,uint8_t Register,uint8_t *Data, uint8_t Count);
 uint8_t Soft_IIC_ReadByte(uint8_t Address,uint8_t Register);
 uint8_t Soft_IIC_ReadData(uint8_t Address,uint8_t Register,uint8_t len,uint8_t *buf);
 

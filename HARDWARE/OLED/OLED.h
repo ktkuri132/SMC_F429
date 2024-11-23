@@ -10,9 +10,9 @@
 
 /* 片上IIC驱动头文件  */
 // #include <hardi2c.h>     // 此处定义片上硬件IIC
-// #include <softi2c.h>     // 此处定义片上软件IIC
+#include <softi2c.h>     // 此处定义片上软件IIC
 /*  片上SPI驱动头文件    */
-#include <softspi.h>
+// #include <softspi.h>     // 实测通用软件SPI不能用以OLED驱动
 
 /* 定义1.3寸OLED地址及其寄存器  */
  //7位OLED地址  stm32上OLED的IIC地址为0x78
@@ -26,11 +26,11 @@
 #undef Peripheral_IIC
 /* 定义IIC端口  */
 //#define OLED_I2C_PORT i2c1
-#define OLED_SCL SCL
-#define OLED_SDA SDA
+
 
 #ifdef  __HARDI2C_
-
+#define OLED_SCL SCL
+#define OLED_SDA SDA
 #define OLED_ADDRESS        0x3C
 /* 江科大OLED IIC操作接口   */
 #define OLED_WriteCommand(Command) Hard_I2C_Write(OLED_ADDRESS,OLED_Command_Mode,Command)
@@ -54,12 +54,16 @@
 #define OLED_CS SOFT_SPI_CS1_PIN
 
 // 写数据/命令
-#define OLED_W_DC(x)    bsp_gpio_pin_set(GPIOB,SYS_GPIO_PIN0,x)
-#define OLED_W_RES(x)   bsp_gpio_pin_set(GPIOB,SYS_GPIO_PIN0,x)
 
-#define OLED_WriteCommand(Command)  do{OLED_W_DC(0);Soft_SPI_SendByte(OLED_CS,Command)}while(0)
-#define OLED_WriteData(Data,Count)  do{OLED_W_DC(1);Soft_SPI_SendData(OLED_CS,Data,Count)}while(0)
-#define OLED_GPIO_Init()            do{OLED_W_RES(1);Soft_SPI_Init();}while(0)
+#define OLED_WriteCommand(Command)  Soft_SPI_SendByte(OLED_CS,Command)
+#define OLED_WriteData(Data,Count)  Soft_SPI_SendData(OLED_CS,Data,Count)
+#define OLED_GPIO_Init()            do              \
+{                                                   \
+    bsp_gpio_init(GPIOB,SYS_GPIO_PIN10,SYS_GPIO_MODE_OUT, SYS_GPIO_OTYPE_PP, SYS_GPIO_SPEED_HIGH, SYS_GPIO_PUPD_PU);    \
+    bsp_gpio_init(GPIOB,SYS_GPIO_PIN7,SYS_GPIO_MODE_OUT, SYS_GPIO_OTYPE_PP, SYS_GPIO_SPEED_HIGH, SYS_GPIO_PUPD_PU);     \
+    OLED_W_RES(1);                                  \
+    Soft_SPI_Init();                                \
+}while(0)                                           \
 
 #endif
 /*FontSize参数取值*/

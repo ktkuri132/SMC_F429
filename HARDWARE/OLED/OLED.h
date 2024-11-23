@@ -5,38 +5,63 @@
 #include <OLED_Data.h>
 #include <stdarg.h>
 
-/* 外部驱动头文件  */
-// #include <hardi2c.h>
-#include <softi2c.h>
+#define Peripheral_SPI      // 此处定义外设自带SPI
+// #define Peripheral_IIC   // 此处定义外设自带IIC
 
+/* 片上IIC驱动头文件  */
+// #include <hardi2c.h>     // 此处定义片上硬件IIC
+// #include <softi2c.h>     // 此处定义片上软件IIC
+/*  片上SPI驱动头文件    */
+#include <softspi.h>
 
+/* 定义1.3寸OLED地址及其寄存器  */
+ //7位OLED地址  stm32上OLED的IIC地址为0x78
+
+#define OLED_Data_Mode      0x40
+#define OLED_Command_Mode   0x00
+
+#ifdef On_Chip_IIC
+
+#undef Peripheral_SPI
+#undef Peripheral_IIC
 /* 定义IIC端口  */
 //#define OLED_I2C_PORT i2c1
 #define OLED_SCL SCL
 #define OLED_SDA SDA
 
-/* 定义1.3寸OLED地址及其寄存器  */
-#define OLED_ADDRESS 0x3C //7位OLED地址  stm32上OLED的IIC地址为0x78
-#define OELD_ADDRESS_WRITE 0x78
-#define OLED_Data_Mode 0x40
-#define OLED_Command_Mode 0x00
-
 #ifdef  __HARDI2C_
 
+#define OLED_ADDRESS        0x3C
 /* 江科大OLED IIC操作接口   */
 #define OLED_WriteCommand(Command) Hard_I2C_Write(OLED_ADDRESS,OLED_Command_Mode,Command)
 #define OLED_WriteData(Data,Count) Hard_I2C_Write_Multiple(OLED_ADDRESS,OLED_Data_Mode,Data,Count)
 #define OLED_GPIO_Init() Hard_I2C_Init()
 
-#elif defined _SOFTI2C_
+#elif defined __SOFTI2C_
 
-#define OLED_WriteCommand(Command) Soft_IIC_WriteByte(OELD_ADDRESS_WRITE,OLED_Command_Mode,Command)
-#define OLED_WriteData(Data,Count) Soft_IIC_WriteData(OELD_ADDRESS_WRITE,OLED_Data_Mode,Data,Count)
+#define OLED_ADDRESS        0x78
+#define OLED_WriteCommand(Command) Soft_IIC_WriteByte(OLED_ADDRESS,OLED_Command_Mode,Command)
+#define OLED_WriteData(Data,Count) Soft_IIC_WriteData(OLED_ADDRESS,OLED_Data_Mode,Data,Count)
 #define OLED_GPIO_Init() Soft_IIC_Init()
 
 #endif
 
 
+#elif defined On_Chip_SPI
+#undef Peripheral_SPI
+#undef Peripheral_IIC
+
+#define OLED_CS SOFT_SPI_CS1_PIN
+
+// 写数据/命令
+#define OLED_W_DC(x)    bsp_gpio_pin_set(GPIOB,SYS_GPIO_PIN0,x)
+#define OLED_W_RES(x)   bsp_gpio_pin_set(GPIOB,SYS_GPIO_PIN0,x)
+
+#define OLED_WriteCommand(Command)  do{OLED_W_DC(0);Soft_SPI_SendByte(OLED_CS,Command)}while(0)
+#define OLED_WriteData(Data,Count)  do{OLED_W_DC(1);Soft_SPI_SendData(OLED_CS,Data,Count)}while(0)
+#define OLED_GPIO_Init()            do{OLED_W_RES(1);Soft_SPI_Init();}while(0)
+
+#endif
 /*FontSize参数取值*/
 /*此参数值不仅用于判断，而且用于计算横向字符偏移，默认值为字体像素宽度*/
 #define OLED_8X16				8

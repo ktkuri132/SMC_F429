@@ -1,3 +1,6 @@
+#ifndef On_Chip_IIC
+#define On_Chip_IIC
+
 #ifndef  __HARDI2C_
 #define  __HARDI2C_
 
@@ -27,5 +30,5 @@ uint8_t __Hard_I2C_Read_Multiple(uint8_t device_address, uint8_t register_addres
 
 
 
-
+#endif
 #endif

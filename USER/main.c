@@ -53,7 +53,7 @@ void BSP_Init()
     while (1)
     {
         printf("%d\r\n",a++);
-        OLED_Printf(0, 0, OLED_8X16,"hello,world");
+        OLED_Printf(0, 0, OLED_8X16,"%d",a);
         OLED_Update();
     }
    

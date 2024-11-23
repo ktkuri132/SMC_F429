@@ -2,6 +2,26 @@
 
 //* ------------------------------------------底层----------------------------------------------*/
 
+void Soft_W_SCL(uint8_t BitVal)  
+{
+	#ifndef __STM32F4xx_GPIO_H
+	bsp_gpio_pin_set(SOFT_I2C_GPIO_PORT,SOFT_I2C_SCL_PIN,BitVal);
+	#else
+	GPIO_WriteBit(SOFT_I2C_GPIO_PORT, SOFT_I2C_SCL_PORT, (BitAction)BitValue);
+	#endif
+}
+
+
+void Soft_W_SDA(uint8_t BitVal)
+{
+	
+	#ifndef __STM32F4xx_GPIO_H
+	bsp_gpio_pin_set(SOFT_I2C_GPIO_PORT,SOFT_I2C_SDA_PIN,BitVal);
+	#else
+	GPIO_WriteBit(SOFT_I2C_GPIO_PORT, SOFT_I2C_SDA_PORT, (BitAction)BitValue);
+	#endif
+	
+}
 
 /*
 	软件IIC的GPIO初始化
@@ -15,14 +35,26 @@ void Soft_IIC_Init(void)
 	{
 		for (j = 0; j < 1000; j ++);
 	}
-	
+	#ifndef __STM32F4xx_GPIO_H
 	/*将SCL和SDA引脚初始化为开漏模式*/
-    RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOB, ENABLE);
-	bsp_gpio_init(SOFT_I2C_GPIO_PORT,SOFT_I2C_SDA_PIN,
+    RCC->AHB1ENR |= RCC_AHB1ENR_GPIOBEN;
+	bsp_gpio_init(SOFT_I2C_GPIO_PORT,SOFT_I2C_SDA_PIN,\
 				SYS_GPIO_MODE_OUT,SYS_GPIO_OTYPE_OD,SYS_GPIO_SPEED_HIGH,SYS_GPIO_PUPD_PU);
-	bsp_gpio_init(SOFT_I2C_GPIO_PORT,SOFT_I2C_SCL_PIN,
+	bsp_gpio_init(SOFT_I2C_GPIO_PORT,SOFT_I2C_SCL_PIN,\
 				SYS_GPIO_MODE_OUT,SYS_GPIO_OTYPE_PP,SYS_GPIO_SPEED_HIGH,SYS_GPIO_PUPD_PU);
-	
+	#else
+	RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOB,ENABLE);
+	GPIO_InitTypeDef GPIO_InitStructure;
+ 	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_OUT;
+	GPIO_InitStructure.GPIO_OType=GPIO_OType_PP;
+	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_100MHz;
+	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_8;
+	GPIO_InitStructure.GPIO_PuPd=GPIO_PuPd_UP;
+ 	GPIO_Init(GPIOB, &GPIO_InitStructure);
+	GPIO_InitStructure.GPIO_OType=GPIO_OType_OD;
+	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_9;
+ 	GPIO_Init(GPIOB, &GPIO_InitStructure);
+	#endif
 	/*释放SCL和SDA*/
 	Soft_W_SCL(1);
 	Soft_W_SDA(1);
@@ -33,32 +65,6 @@ void Soft_IIC_Delay()
 	bsp_systick_delay_us(2);
 }
 
-void Soft_W_SCL(uint8_t BitValue)
-{
-	if ((BitAction)BitValue != Bit_RESET)
-	{
-		SOFT_I2C_GPIO_PORT->BSRR = SOFT_I2C_SCL_PIN;
-	}
-	else
-	{
-		SOFT_I2C_GPIO_PORT->BSRR = (SOFT_I2C_SCL_PIN) << 16;
-	}
-}
-
-
-void Soft_W_SDA(uint8_t BitValue)
-{
-	
-	if ((BitAction)BitValue != Bit_RESET)
-	{
-		SOFT_I2C_GPIO_PORT->BSRR = SOFT_I2C_SDA_PIN;
-	}
-	else
-	{
-		SOFT_I2C_GPIO_PORT->BSRR = (SOFT_I2C_SDA_PIN) << 16;
-	}
-	
-}
 
 uint8_t Soft_R_SDA()
 {
@@ -104,7 +110,7 @@ void Soft_IIC_Stop(void)
 */
 void Soft_IIC_Ack(void)
 {
-	Soft_IIC_SCL(0);
+	Soft_W_SCL(0);
 	Soft_W_SDA(0);
 	//Soft_IIC_Delay();
 	Soft_W_SCL(1);

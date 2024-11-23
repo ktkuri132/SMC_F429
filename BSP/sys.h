@@ -19,12 +19,13 @@
 #include "touch.h"
 #endif
 
-
+#ifndef __STM32F4xx_GPIO_H
 typedef enum
 { Bit_RESET = 0,
   Bit_SET
 }BitAction;
 
+#endif
 //#include <lcd_gui.h>
 
 void NVIC_Configuration(void);

@@ -62,6 +62,7 @@ C_SOURCES += $(wildcard BSP/gpio/*.c)
 C_SOURCES += $(wildcard BSP/systick/*.c)
 C_SOURCES += $(wildcard BSP/usart/*.c)
 C_SOURCES += $(wildcard BSP/i2c/*.c)
+C_SOURCES += $(wildcard BSP/spi/*.c)
 
 C_SOURCES += $(wildcard Project/BSP/PWM/*.c)
 C_SOURCES += $(wildcard Project/BSP/TB6612/*.c)
@@ -105,6 +106,7 @@ C_INCLUDES += -IBSP/gpio/
 C_INCLUDES += -IBSP/systick/
 C_INCLUDES += -IBSP/usart/
 C_INCLUDES += -IBSP/i2c/
+C_INCLUDES += -IBSP/spi/
 
 C_INCLUDES += -IProject/BSP/
 C_INCLUDES += -IProject/BSP/PWM/

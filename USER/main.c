@@ -50,17 +50,17 @@ void BSP_Init()
     // 软件复位
     //Reset_Handler();
     Project_BSP_PWM_TIM2_Init();
-    OLED_Init();
-    OLED_Clear();
-    mpu_dmp_init();
+    // OLED_Init();
+    // OLED_Clear();
+    int b = mpu_dmp_init();
     int a;
     
     while (1)
     {
-        // mpu_dmp_get_data(&pitch,&roll,&yaw);
-        printf("%d\r\n",a++);
-        OLED_Printf(0, 0, OLED_8X16,"%d",a);
-        OLED_Update();
+        mpu_dmp_get_data(&pitch,&roll,&yaw);
+        printf("%d,%d,%f\r\n",a++,b,pitch);
+        // OLED_Printf(0, 0, OLED_8X16,"%d",a);
+        // OLED_Update();
     }
    
     // 串口发送测试

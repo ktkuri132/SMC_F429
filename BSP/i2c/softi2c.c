@@ -7,7 +7,7 @@ void Soft_W_SCL(uint8_t BitVal)
 	#ifndef __STM32F4xx_GPIO_H
 	bsp_gpio_pin_set(SOFT_I2C_GPIO_PORT,SOFT_I2C_SCL_PIN,BitVal);
 	#else
-	GPIO_WriteBit(SOFT_I2C_GPIO_PORT, SOFT_I2C_SCL_PORT, (BitAction)BitValue);
+	GPIO_WriteBit(SOFT_I2C_GPIO_PORT, SOFT_I2C_SCL_PORT, (BitAction)BitVal);
 	#endif
 }
 
@@ -18,7 +18,7 @@ void Soft_W_SDA(uint8_t BitVal)
 	#ifndef __STM32F4xx_GPIO_H
 	bsp_gpio_pin_set(SOFT_I2C_GPIO_PORT,SOFT_I2C_SDA_PIN,BitVal);
 	#else
-	GPIO_WriteBit(SOFT_I2C_GPIO_PORT, SOFT_I2C_SDA_PORT, (BitAction)BitValue);
+	GPIO_WriteBit(SOFT_I2C_GPIO_PORT, SOFT_I2C_SDA_PORT, (BitAction)BitVal);
 	#endif
 	
 }
@@ -68,17 +68,11 @@ void Soft_IIC_Delay()
 
 uint8_t Soft_R_SDA()
 {
-	uint8_t bitstatus = 0x00;
-
-	if ((SOFT_I2C_GPIO_PORT->IDR & SOFT_I2C_SDA_PIN) != (uint32_t)Bit_RESET)
-	{
-		bitstatus = (uint8_t)Bit_SET;
-	}
-	else
-	{
-		bitstatus = (uint8_t)Bit_RESET;
-	}
-	return bitstatus;
+	#ifndef __STM32F4xx_GPIO_H
+	return bsp_gpio_pin_get(SOFT_I2C_GPIO_PORT,SOFT_I2C_SDA_PIN);
+	#else
+	return GPIO_ReadInputDataBit(SOFT_I2C_GPIO_PORT, SOFT_I2C_SDA_PORT);
+	#endif
 }
 
 //*-------------------------------------------协议层-------------------------------------------------*/
@@ -137,8 +131,10 @@ uint8_t Soft_IIC_Wait_Ack(void)
 {
 	uint8_t ucErrTime=0;
 	// Soft_SDA_IN();      //SDA设置为输入  
-	Soft_W_SDA(1);//Soft_IIC_Delay();	   
-	Soft_W_SCL(1);//Soft_IIC_Delay();	 
+	Soft_W_SDA(1);
+	Soft_IIC_Delay();	   
+	Soft_W_SCL(1);
+	Soft_IIC_Delay();	 
 	while(Soft_R_SDA())
 	{
 		ucErrTime++;

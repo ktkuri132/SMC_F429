@@ -3,7 +3,7 @@
 
 #include <stm32f4xx.h>
 #include <gpio.h>
-
+#include <stm32f4xx_rcc.h>
 #include <stdio.h>
 
 #include <usart.h>
@@ -31,5 +31,8 @@ typedef enum
 void NVIC_Configuration(void);
 void bsp_systick_delay_us(uint32_t nus);
 void bsp_systick_delay_ms(uint32_t nms);
+
+
+#define delay_us(x) bsp_systick_delay_us(x)
 
 #endif

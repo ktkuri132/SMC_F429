@@ -8,24 +8,22 @@
 
 // 定义部分硬件I2C端口
 //#define I2C1_B6C7D
-#define I2C1_B9C8D
+#define I2C_Port I2C1
 //#define I2C2_B10C11D
 
-#ifdef I2C1_B9C8D
-#define SCL 1<<8
-#define SDA 1<<9
+#ifdef  I2C_Port
+#define HARD_IIC_PORT GPIOB
+#define HARD_IIC_SCL_PIN GPIO_Pin_8
+#define HARD_IIC_SDA_PIN GPIO_Pin_9
+#define HARD_IIC_SCL_PORT 8
+#define HARD_IIC_SDA_PORT 9
 #endif
 
-
-void Hard_I2C_Init();
-uint8_t Hard_I2C_Read(uint8_t device_address, uint8_t register_address);
-uint8_t Hard_I2C_Write(uint8_t device_address, uint8_t register_address, uint8_t data);
-
-uint8_t Hard_I2C_Write_Multiple(uint8_t device_address, uint8_t register_address, uint8_t* data, uint8_t length);
-uint8_t __Hard_I2C_Write_Multiple(uint8_t device_address, uint8_t register_address, uint8_t length,uint8_t* data);
-
-uint8_t Hard_I2C_Read_Multiple(uint8_t device_address, uint8_t register_address, uint8_t* data, uint16_t length);
-uint8_t __Hard_I2C_Read_Multiple(uint8_t device_address, uint8_t register_address,  uint16_t length,uint8_t* data);
+void Hard_IIC_Init();
+uint8_t Hard_IIC_Send_Byte(uint8_t Address,uint8_t Register,uint8_t Byte);
+uint8_t Hard_IIC_Wirter_Data(uint8_t Address,uint8_t Register,uint8_t *Data,uint8_t Count);
+uint8_t Hard_IIC_Receive_Byte(uint8_t Address,uint8_t Register);
+uint8_t Hard_IIC_Read_Data(uint8_t Address,uint8_t Register,uint8_t *Data,uint8_t Count);
 
 
 

@@ -5,8 +5,8 @@
 #include <OLED_Data.h>
 #include <stdarg.h>
 
-#define Peripheral_SPI      // 此处定义外设自带SPI
-// #define Peripheral_IIC   // 此处定义外设自带IIC
+// #define Peripheral_SPI      // 此处定义外设自带SPI
+#define Peripheral_IIC   // 此处定义外设自带IIC
 
 /* 片上IIC驱动头文件  */
 // #include <hardi2c.h>     // 此处定义片上硬件IIC
@@ -27,22 +27,18 @@
 /* 定义IIC端口  */
 //#define OLED_I2C_PORT i2c1
 
-
 #ifdef  __HARDI2C_
-#define OLED_SCL SCL
-#define OLED_SDA SDA
-#define OLED_ADDRESS        0x3C
+#define OLED_ADDRESS        0x78
 /* 江科大OLED IIC操作接口   */
-#define OLED_WriteCommand(Command) Hard_I2C_Write(OLED_ADDRESS,OLED_Command_Mode,Command)
-#define OLED_WriteData(Data,Count) Hard_I2C_Write_Multiple(OLED_ADDRESS,OLED_Data_Mode,Data,Count)
-#define OLED_GPIO_Init() Hard_I2C_Init()
+#define OLED_WriteCommand(Command) Hard_IIC_Send_Byte(OLED_ADDRESS,OLED_Command_Mode,Command)
+#define OLED_WriteData(Data,Count) Hard_IIC_Wirter_Data(OLED_ADDRESS,OLED_Data_Mode,Data,Count)
+#define OLED_GPIO_Init() Hard_IIC_Init()
 
 #elif defined __SOFTI2C_
-
 #define OLED_ADDRESS        0x78
-#define OLED_WriteCommand(Command) Soft_IIC_WriteByte(OLED_ADDRESS,OLED_Command_Mode,Command)
-#define OLED_WriteData(Data,Count) Soft_IIC_WriteData(OLED_ADDRESS,OLED_Data_Mode,Data,Count)
-#define OLED_GPIO_Init() Soft_IIC_Init()
+#define OLED_WriteCommand(Command)  Soft_IIC_Write_Byte(OLED_ADDRESS,OLED_Command_Mode,Command)//Soft_IIC_WriteByte(OLED_ADDRESS,OLED_Command_Mode,Command)
+#define OLED_WriteData(Data,Count)  Soft_IIC_Write_Len(OLED_ADDRESS,OLED_Data_Mode,Count,Data)//Soft_IIC_WriteData(OLED_ADDRESS,OLED_Data_Mode,Data,Count)
+#define OLED_GPIO_Init()            Soft_IIC_Init()//Soft_IIC_Init()
 
 #endif
 

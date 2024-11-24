@@ -22,16 +22,20 @@ void BSP_Init()
 
 #include <Project.h>
 
-#include <mpu6050.h>
 #include <inv_mpu.h>
+
+
+extern uint8_t delay_time[15];
 
 void usart_send_test();
 void led_test();
 void usart_receive_test();
 void OLED_test();
 void LCD_test();
+void TIM2_Init(uint32_t ms);
 //void Reset_Handler();
 float pitch,roll,yaw;
+int a;
 /// @brief 主函数运行完了自动复位
 void BSP_Init()
 {
@@ -50,17 +54,34 @@ void BSP_Init()
     // 软件复位
     //Reset_Handler();
     Project_BSP_PWM_TIM2_Init();
-    // OLED_Init();
-    // OLED_Clear();
-    int b = mpu_dmp_init();
-    int a;
+    OLED_Init();
+    OLED_Clear();
+    int b;
+    b = mpu_dmp_init();
+    // while(b)
+    // {
+    //     b = mpu_dmp_init();
+    // }
+
+    // mpu_dmp_get_data(&pitch,&roll,&yaw);
     
+    // delay_time[10] = 0;
+    // delay_time[1] = 0;
+    // delay_time[12] = 0;
+    // delay_time[3] = 0;
+
+
+    
+    // TIM2_Init(8);
     while (1)
     {
         mpu_dmp_get_data(&pitch,&roll,&yaw);
-        printf("%d,%d,%f\r\n",a++,b,pitch);
-        // OLED_Printf(0, 0, OLED_8X16,"%d",a);
-        // OLED_Update();
+        printf("%d,%f\r\n",b,pitch);
+        OLED_Printf(1, 0,  OLED_8X16,"%f",pitch);
+        OLED_Printf(1, 16, OLED_8X16,"%f",roll);
+        OLED_Printf(1, 32, OLED_8X16,"%f",yaw);
+        OLED_Printf(1, 48, OLED_8X16,"%d",++a);
+        OLED_Update();
     }
    
     // 串口发送测试
@@ -75,6 +96,35 @@ void BSP_Init()
     //MPU6050_test();
     // LCD测试
     //LCD_test();
+}
+
+void TIM2_IRQHandler(void)
+{
+    if (TIM_GetITStatus(TIM2, TIM_IT_Update) != RESET)
+    {
+        TIM_ClearITPendingBit(TIM2, TIM_IT_Update);
+        a=0;
+        
+    }
+}
+
+//定时器2初始化
+void TIM2_Init(uint32_t ms)
+{
+    TIM_TimeBaseInitTypeDef TIM_TimeBaseStructure;
+
+    RCC_APB1PeriphClockCmd(RCC_APB1Periph_TIM2, ENABLE);
+
+    TIM_TimeBaseStructure.TIM_Period = 1000*ms - 1;
+    TIM_TimeBaseStructure.TIM_Prescaler = 84 - 1;
+    TIM_TimeBaseStructure.TIM_ClockDivision = TIM_CKD_DIV1;
+    TIM_TimeBaseStructure.TIM_CounterMode = TIM_CounterMode_Up;
+    TIM_TimeBaseInit(TIM2, &TIM_TimeBaseStructure);
+
+    TIM_ITConfig(TIM2, TIM_IT_Update, ENABLE);
+
+    TIM_Cmd(TIM2, ENABLE);
+    NVIC_Configuration();
 }
 
 void OLED_test()

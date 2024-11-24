@@ -21,10 +21,10 @@
 #ifndef _INV_MPU_H_
 #define _INV_MPU_H_
 typedef unsigned char u8;
-#include <mpu6050.h>
+
 
 //定义输出速度
-#define DEFAULT_MPU_HZ  (100)		//200Hz----10ms
+#define DEFAULT_MPU_HZ  (200)		//200Hz----10ms
 
 #define INV_X_GYRO      (0x40)
 #define INV_Y_GYRO      (0x20)

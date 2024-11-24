@@ -48,4 +48,9 @@ void NVIC_Configuration(void)
     NVIC->IP[EXTI9_5_IRQn] = (priority << 4) & 0xFF; // 设置优先级
     NVIC->ISER[EXTI9_5_IRQn >> 5] = (1 << (EXTI9_5_IRQn & 0x1F)); // 使能中断
 
+    // 配置定时器2中断
+    priority = NVIC_EncodePriority(prioritygroup, 2, 0);
+    NVIC->IP[TIM2_IRQn] = (priority << 4) & 0xFF; // 设置优先级
+    NVIC->ISER[TIM2_IRQn >> 5] = (1 << (TIM2_IRQn & 0x1F)); // 使能中断
+
 }

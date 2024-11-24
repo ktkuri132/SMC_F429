@@ -24,12 +24,13 @@
 #include <math.h>
 #include "inv_mpu.h"
 #include "inv_mpu_dmp_motion_driver.h"
+#include <softi2c.h>
+// #include <hardi2c.h>
+#include <sys.h>
 
 
-
-
-#define MPU6050							//��������ʹ�õĴ�����ΪMPU6050
-#define MOTION_DRIVER_TARGET_MSP430		//������������,����MSP430������(��ֲ��STM32F1)
+#define MPU6050							//锟斤拷锟斤拷锟斤拷锟斤拷使锟矫的达拷锟斤拷锟斤拷为MPU6050
+#define MOTION_DRIVER_TARGET_MSP430		//锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷,锟斤拷锟斤拷MSP430锟斤拷锟斤拷锟斤拷(锟斤拷植锟斤拷STM32F1)
 
 /* The following functions must be defined for this platform:
  * i2c_write(unsigned char slave_addr, unsigned char reg_addr,
@@ -49,8 +50,15 @@
 //#include "msp430_clock.h"
 //#include "msp430_interrupt.h"
 
-#define i2c_write   MPU_Write_Len
-#define i2c_read    MPU_Read_Len
+#ifdef __SOFTI2C_
+#define i2c_write       Soft_IIC_Write_Len//MPU_Write_Len
+#define i2c_read        Soft_IIC_Read_Len//MPU_Read_Len
+#define MPU_IIC_Init    Soft_IIC_Init
+#elif defined __HARDI2C_
+#define i2c_write       Hard_IIC_Wirter_Data//MPU_Write_Len
+#define i2c_read        Hard_IIC_Read_Data//MPU_Read_Len
+#define MPU_IIC_Init    Hard_IIC_Init
+#endif
 #define delay_ms    bsp_systick_delay_ms
 #define get_ms      mget_ms
 //static inline int reg_int_cb(struct int_param_s *int_param)
@@ -58,8 +66,8 @@
 //    return msp430_reg_int_cb(int_param->cb, int_param->pin, int_param->lp_exit,
 //        int_param->active_low);
 //}
-#define log_i 	printf	//��ӡ��Ϣ
-#define log_e  	printf	//��ӡ��Ϣ
+#define log_i 	printf	//锟斤拷印锟斤拷息
+#define log_e  	printf	//锟斤拷印锟斤拷息
 /* labs is already defined by TI's toolchain. */
 /* fabs is for doubles. fabsf is for floats. */
 #define fabs        fabsf
@@ -532,7 +540,7 @@ const struct gyro_reg_s reg = {
 //#endif
 //};
 const struct hw_s hw={
-  0x68,	 //addr
+  0xD0,	 //addr
   1024,	 //max_fifo
   118,	 //num_reg
   340,	 //temp_sens
@@ -766,7 +774,7 @@ int mpu_init(void)
     data[0] = BIT_RESET;
     if (i2c_write(st.hw->addr, st.reg->pwr_mgmt_1, 1, data))
         return -1;
-    delay_ms(100);
+    delay_ms(1);
 
     /* Wake up chip. */
     data[0] = 0x00;
@@ -1113,7 +1121,7 @@ int mpu_reset_fifo(void)
         data = BIT_FIFO_RST | BIT_DMP_RST;
         if (i2c_write(st.hw->addr, st.reg->user_ctrl, 1, &data))
             return -1;
-        delay_ms(50);
+        delay_ms(1);
         data = BIT_DMP_EN | BIT_FIFO_EN;
         if (st.chip_cfg.sensors & INV_XYZ_COMPASS)
             data |= BIT_AUX_IF_EN;
@@ -1138,7 +1146,7 @@ int mpu_reset_fifo(void)
             data = BIT_FIFO_EN | BIT_AUX_IF_EN;
         if (i2c_write(st.hw->addr, st.reg->user_ctrl, 1, &data))
             return -1;
-        delay_ms(50);
+        delay_ms(3);
         if (st.chip_cfg.int_enable)
             data = BIT_DATA_RDY_EN;
         else
@@ -1662,7 +1670,7 @@ int mpu_set_sensors(unsigned char sensors)
 
     st.chip_cfg.sensors = sensors;
     st.chip_cfg.lp_accel_mode = 0;
-    delay_ms(50);
+    delay_ms(2);
     return 0;
 }
 
@@ -2041,7 +2049,7 @@ static int get_st_biases(long *gyro, long *accel, unsigned char hw_test)
     data[1] = 0;
     if (i2c_write(st.hw->addr, st.reg->pwr_mgmt_1, 2, data))
         return -1;
-    delay_ms(200);
+    delay_ms(2);
     data[0] = 0;
     if (i2c_write(st.hw->addr, st.reg->int_enable, 1, data))
         return -1;
@@ -2852,30 +2860,30 @@ lp_int_restore:
     return 0;
 }
 //////////////////////////////////////////////////////////////////////////////////
-//���ӵĴ��벿�� 
+//锟斤拷锟接的达拷锟诫部锟斤拷 
 //////////////////////////////////////////////////////////////////////////////////	 
-//������ֻ��ѧϰʹ�ã�δ���������ɣ��������������κ���;
-//ALIENTEK��ӢSTM32������V3
-//MPU6050 DMP ��������	   
-//����ԭ��@ALIENTEK
-//������̳:www.openedv.com
-//��������:2015/1/17
-//�汾��V1.0
-//��Ȩ���У�����ؾ���
-//Copyright(C) �������������ӿƼ����޹�˾ 2009-2019
+//锟斤拷锟斤拷锟斤拷只锟斤拷学习使锟矫ｏ拷未锟斤拷锟斤拷锟斤拷锟斤拷锟缴ｏ拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟轿猴拷锟斤拷途
+//ALIENTEK锟斤拷英STM32锟斤拷锟斤拷锟斤拷V3
+//MPU6050 DMP 锟斤拷锟斤拷锟斤拷锟斤拷	   
+//锟斤拷锟斤拷原锟斤拷@ALIENTEK
+//锟斤拷锟斤拷锟斤拷坛:www.openedv.com
+//锟斤拷锟斤拷锟斤拷锟斤拷:2015/1/17
+//锟芥本锟斤拷V1.0
+//锟斤拷权锟斤拷锟叫ｏ拷锟斤拷锟斤拷鼐锟斤拷锟�
+//Copyright(C) 锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟接科硷拷锟斤拷锟睫癸拷司 2009-2019
 //All rights reserved									  
 ////////////////////////////////////////////////////////////////////////////////// 
 
-//q30��ʽ,longתfloatʱ�ĳ���.
+//q30锟斤拷式,long转float时锟侥筹拷锟斤拷.
 #define q30  1073741824.0f
 
-//�����Ƿ�������
+//锟斤拷锟斤拷锟角凤拷锟斤拷锟斤拷锟斤拷
 static signed char gyro_orientation[9] = { 1, 0, 0,
                                            0, 1, 0,
                                            0, 0, 1};
-//MPU6050�Բ���
-//����ֵ:0,����
-//    ����,ʧ��
+//MPU6050锟皆诧拷锟斤拷
+//锟斤拷锟斤拷值:0,锟斤拷锟斤拷
+//    锟斤拷锟斤拷,失锟斤拷
 u8 run_self_test(void)
 {
 	int result;
@@ -2902,7 +2910,7 @@ u8 run_self_test(void)
 		return 0;
 	}else return 1;
 }
-//�����Ƿ������
+//锟斤拷锟斤拷锟角凤拷锟斤拷锟斤拷锟�
 unsigned short inv_orientation_matrix_to_scalar(
     const signed char *mtx)
 {
@@ -2923,7 +2931,7 @@ unsigned short inv_orientation_matrix_to_scalar(
 
     return scalar;
 }
-//����ת��
+//锟斤拷锟斤拷转锟斤拷
 unsigned short inv_row_2_scale(const signed char *row)
 {
     unsigned short b;
@@ -2944,52 +2952,44 @@ unsigned short inv_row_2_scale(const signed char *row)
         b = 7;      // error
     return b;
 }
-//�պ���,δ�õ�.
+//锟秸猴拷锟斤拷,未锟矫碉拷.
 void mget_ms(unsigned long *time)
 {
 
 }
-//mpu6050,dmp��ʼ��
-//����ֵ:0,����
-//    ����,ʧ��
+
 u8 mpu_dmp_init(void)
 {
     
 	u8 res=0;
-	IIC_Init(); 	//��ʼ��IIC����
-    
-	if(mpu_init()==0)	//��ʼ��MPU6050
+	MPU_IIC_Init(); 	//锟斤拷始锟斤拷IIC锟斤拷锟斤拷
+	if(mpu_init()==0)	//锟斤拷始锟斤拷MPU6050
 	{	 
         
-		res=mpu_set_sensors(INV_XYZ_GYRO|INV_XYZ_ACCEL);//��������Ҫ�Ĵ�����
+		res=mpu_set_sensors(INV_XYZ_GYRO|INV_XYZ_ACCEL);//锟斤拷锟斤拷锟斤拷锟斤拷要锟侥达拷锟斤拷锟斤拷
 		if(res)return 1; 
-		res=mpu_configure_fifo(INV_XYZ_GYRO|INV_XYZ_ACCEL);//����FIFO
+		res=mpu_configure_fifo(INV_XYZ_GYRO|INV_XYZ_ACCEL);//锟斤拷锟斤拷FIFO
 		if(res)return 2; 
-		res=mpu_set_sample_rate(DEFAULT_MPU_HZ);	//���ò�����
+		res=mpu_set_sample_rate(DEFAULT_MPU_HZ);	//锟斤拷锟矫诧拷锟斤拷锟斤拷
 		if(res)return 3; 
-		res=dmp_load_motion_driver_firmware();		//����dmp�̼�
+		res=dmp_load_motion_driver_firmware();		 
 		if(res)return 4; 
-		res=dmp_set_orientation(inv_orientation_matrix_to_scalar(gyro_orientation));//���������Ƿ���
+		res=dmp_set_orientation(inv_orientation_matrix_to_scalar(gyro_orientation));//锟斤拷锟斤拷锟斤拷锟斤拷锟角凤拷锟斤拷
 		if(res)return 5; 
-		res=dmp_enable_feature(DMP_FEATURE_6X_LP_QUAT|DMP_FEATURE_TAP|	//����dmp����
+		res=dmp_enable_feature(DMP_FEATURE_6X_LP_QUAT|DMP_FEATURE_TAP|	//锟斤拷锟斤拷dmp锟斤拷锟斤拷
 		    DMP_FEATURE_ANDROID_ORIENT|DMP_FEATURE_SEND_RAW_ACCEL|DMP_FEATURE_SEND_CAL_GYRO|
 		    DMP_FEATURE_GYRO_CAL);
 		if(res)return 6; 
-		res=dmp_set_fifo_rate(DEFAULT_MPU_HZ);	//����DMP�������(��󲻳���200Hz)
+		res=dmp_set_fifo_rate(DEFAULT_MPU_HZ);	//锟斤拷锟斤拷DMP锟斤拷锟斤拷锟斤拷锟�(锟斤拷蟛怀锟斤拷锟�200Hz)
 		if(res)return 7;   
-		//res=run_self_test();		//�Լ�
+		//res=run_self_test();		//锟皆硷拷
 	//	if(res)return 8;    
-		res=mpu_set_dmp_state(1);	//ʹ��DMP
+		res=mpu_set_dmp_state(1);	//使锟斤拷DMP
 		if(res)return 9;     
 	}else return 10;
 	return 0;
 }
-//�õ�dmp�����������(ע��,��������Ҫ�Ƚ϶��ջ,�ֲ������е��)
-//pitch:������ ����:0.1��   ��Χ:-90.0�� <---> +90.0��
-//roll:�����  ����:0.1��   ��Χ:-180.0��<---> +180.0��
-//yaw:�����   ����:0.1��   ��Χ:-180.0��<---> +180.0��
-//����ֵ:0,����
-//    ����,ʧ��
+
 u8 mpu_dmp_get_data(float *pitch,float *roll,float *yaw)
 {
 	float q0=1.0f,q1=0.0f,q2=0.0f,q3=0.0f;
@@ -3010,11 +3010,11 @@ u8 mpu_dmp_get_data(float *pitch,float *roll,float *yaw)
 	**/
 	if(sensors&INV_WXYZ_QUAT) 
 	{
-		q0 = quat[0] / q30;	//q30��ʽת��Ϊ������
+		q0 = quat[0] / q30;	//q30锟斤拷式转锟斤拷为锟斤拷锟斤拷锟斤拷
 		q1 = quat[1] / q30;
 		q2 = quat[2] / q30;
 		q3 = quat[3] / q30; 
-		//����õ�������/�����/�����
+		//锟斤拷锟斤拷玫锟斤拷锟斤拷锟斤拷锟�/锟斤拷锟斤拷锟�/锟斤拷锟斤拷锟�
 		*pitch = asin(-2 * q1 * q3 + 2 * q0* q2)* 57.3;	// pitch
 		*roll  = atan2(2 * q2 * q3 + 2 * q0 * q1, -2 * q1 * q1 - 2 * q2* q2 + 1)* 57.3;	// roll
 		*yaw   = atan2(2*(q1*q2 + q0*q3),q0*q0+q1*q1-q2*q2-q3*q3) * 57.3;	//yaw

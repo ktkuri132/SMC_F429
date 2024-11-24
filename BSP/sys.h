@@ -8,7 +8,7 @@
 
 #include <usart.h>
 #include <sys.h>
-#include <OLED.h>
+// #include <OLED.h>
 
 #include "sdram.h"
 
@@ -33,6 +33,6 @@ void bsp_systick_delay_us(uint32_t nus);
 void bsp_systick_delay_ms(uint32_t nms);
 
 
-#define delay_us(x) bsp_systick_delay_us(x)
+// #define delay_us(x) bsp_systick_delay_us(x)
 
 #endif

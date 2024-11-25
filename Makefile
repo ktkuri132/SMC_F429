@@ -58,6 +58,7 @@ C_SOURCES = $(wildcard USER/*.c)
 C_SOURCES += $(wildcard CORE/*.c)
 
 C_SOURCES += $(wildcard BSP/*.c)
+C_SOURCES += $(wildcard BSP/bootload/*.c)
 C_SOURCES += $(wildcard BSP/gpio/*.c)
 C_SOURCES += $(wildcard BSP/systick/*.c)
 C_SOURCES += $(wildcard BSP/usart/*.c)
@@ -100,6 +101,7 @@ CXX_SOURCES += $(wildcard Project/LIB/Control/*.cpp)
 C_INCLUDES =  -ICORE/
 
 C_INCLUDES += -IBSP/
+C_INCLUDES += -IBSP/bootload/
 C_INCLUDES += -IBSP/gpio/
 C_INCLUDES += -IBSP/systick/
 C_INCLUDES += -IBSP/usart/

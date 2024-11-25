@@ -7114,7 +7114,7 @@ typedef struct
 #define SYSCFG_MEMRMP_SWP_FMC           ((uint32_t)0x00000C00) /*!< FMC memory mapping swap */
 #define SYSCFG_MEMRMP_SWP_FMC_0         ((uint32_t)0x00000400) /*!<Bit 0 */
 #define SYSCFG_MEMRMP_SWP_FMC_1         ((uint32_t)0x00000800) /*!<Bit 1 */
-
+  
 
 /******************  Bit definition for SYSCFG_PMC register  ******************/
 #define SYSCFG_PMC_ADCxDC2              ((uint32_t)0x00070000) /*!< Refer to AN4073 on how to use this bit  */

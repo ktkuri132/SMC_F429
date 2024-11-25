@@ -244,7 +244,7 @@ uint8_t USART_array[20][200];
 
 uint8_t Data[20][200];
 
-#ifdef _基本串口接受协议
+#ifdef STDUSART
 
 // 串口1中断处理函数
 void USART1_IRQHandler()
@@ -256,10 +256,10 @@ void USART1_IRQHandler()
     }
 }
 
-#elif defined _正点原子串口协议
+#elif defined NORMAL_USART
 
 
-#elif defined _STDE串口协议
+#elif defined STDENOTE_USART
 
 uint8_t c;
 
@@ -394,7 +394,7 @@ uint16_t USART_Deal(uint8_t point_note)
     return sum;
 }
 
-#elif defined _BIE串口协议
+#elif defined _BIE_USART
 
 uint8_t c;
 

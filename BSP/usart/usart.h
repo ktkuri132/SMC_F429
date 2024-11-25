@@ -7,21 +7,21 @@
 // 选择接收协议
 //#define _基本串口接受协议
 //#define _正点原子串口协议
-#define _STDE串口协议
+#define STDENOTE_USART
 //#define _BIE串口协议
 
 
 void bsp_usart_1_inti(uint32_t baudrate);
 
-#ifdef _基本串口接受协议
+#ifdef STDUSART
 
-#elif defined _正点原子串口协议
+#elif defined NORMAL_USART
 
-#elif defined _STDE串口协议
+#elif defined STDENOTE_USART
 
 uint16_t USART_Deal(uint8_t point_note);
 
-#elif defined _BIE串口协议
+#elif defined BIE_USART
 
 char* USART_Deal(uint8_t point_note);
 

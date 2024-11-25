@@ -20,7 +20,7 @@ void Hard_IIC_Init()
     bsp_gpio_af_set(GPIOB, 1<<8, 4);
     bsp_gpio_af_set(GPIOB, 1<<9, 4);
 
-    I2C_InitStructure.I2C_ClockSpeed = 100000;              // 100K
+    I2C_InitStructure.I2C_ClockSpeed = 400000;              // 100K
     I2C_InitStructure.I2C_Mode = I2C_Mode_I2C;              // I2C mode
     I2C_InitStructure.I2C_DutyCycle = I2C_DutyCycle_2;      // 50% duty cycle --> standard
     I2C_InitStructure.I2C_OwnAddress1 = 0x00;               // 自身地址

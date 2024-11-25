@@ -1,0 +1,9 @@
+#include <tb6612_port.h>
+
+void Project_BSP_TB6612_Init()
+{
+    RCC->AHB1ENR |= RCC_AHB1ENR_GPIOAEN;
+    bsp_gpio_init(GPIOA,SYS_GPIO_PIN2|SYS_GPIO_PIN3|SYS_GPIO_PIN4|SYS_GPIO_PIN5,
+                    SYS_GPIO_MODE_OUT,SYS_GPIO_OTYPE_PP,SYS_GPIO_SPEED_LOW,SYS_GPIO_PUPD_NONE);
+    
+}

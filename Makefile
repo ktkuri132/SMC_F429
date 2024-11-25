@@ -66,19 +66,17 @@ C_SOURCES += $(wildcard BSP/spi/*.c)
 
 C_SOURCES += $(wildcard Project/BSP/PWM/*.c)
 C_SOURCES += $(wildcard Project/BSP/TB6612/*.c)
-
+C_SOURCES += $(wildcard Project/BSP/HW_201/*.c)
 C_SOURCES += $(wildcard Project/LIB/Control/*.c)
 C_SOURCES += $(wildcard Project/LIB/Tools/*.c)
 
-
 C_SOURCES += $(wildcard HARDWARE/OLED/*.c)
-C_SOURCES += $(wildcard HARDWARE/LCD/*.c)
-C_SOURCES += $(wildcard HARDWARE/SDRAM/*.c)
-C_SOURCES += $(wildcard HARDWARE/TOUCH/*.c)
-
-C_SOURCES += $(wildcard GUI/*.c)
-
 C_SOURCES += $(wildcard HARDWARE/MPU6050/*.c)
+C_SOURCES += $(wildcard HARDWARE/LCD/*.c)
+C_SOURCES += $(wildcard HARDWARE/LCD/TOUCH/*.c)
+C_SOURCES += $(wildcard HARDWARE/LCD/GUI/*.c)
+C_SOURCES += $(wildcard HARDWARE/SDRAM/*.c)
+
 
 C_SOURCES += $(wildcard RTOS/*.c)
 C_SOURCES += $(wildcard RTOS/portable/ARM_CM4F/*.c)
@@ -95,7 +93,7 @@ C_SOURCES += $(wildcard RTOS/portable/MemMang/*.c)
 #C_SOURCES += $(wildcard Lib/src/*.c)
 
 # C++ sources
-CXX_SOURCES = $(wildcard GUI/*.cpp)
+CXX_SOURCES = $(wildcard HARDWARE/LCD/GUI/*.cpp)
 CXX_SOURCES += $(wildcard Project/LIB/Control/*.cpp)
 
 # C includes
@@ -111,18 +109,18 @@ C_INCLUDES += -IBSP/spi/
 C_INCLUDES += -IProject/BSP/
 C_INCLUDES += -IProject/BSP/PWM/
 C_INCLUDES += -IProject/BSP/TB6612/
+C_INCLUDES += -IProject/BSP/HW_201/
 C_INCLUDES += -IProject/LIB/Control/
 C_INCLUDES += -IProject/LIB/Tools/
 C_INCLUDES += -IProject/
 
 C_INCLUDES += -IHARDWARE/OLED/
-C_INCLUDES += -IHARDWARE/LCD/
-C_INCLUDES += -IHARDWARE/SDRAM/
-C_INCLUDES += -IHARDWARE/TOUCH/
-
-C_INCLUDES += -IGUI/
-
 C_INCLUDES += -IHARDWARE/MPU6050/
+C_INCLUDES += -IHARDWARE/LCD/
+C_INCLUDES += -IHARDWARE/LCD/TOUCH/
+C_INCLUDES += -IHARDWARE/LCD/GUI/
+C_INCLUDES += -IHARDWARE/SDRAM/
+
 
 C_INCLUDES += -IRTOS/
 C_INCLUDES += -IRTOS/portable/ARM_CM4F/
@@ -143,7 +141,7 @@ C_INCLUDES += -IRTOS/include/
 #C_INCLUDES += -ILib/inc/
 
 # C++ includes
-CXX_INCLUDES = -IGUI/
+CXX_INCLUDES = -IHARDWARE/LCD/GUI/
 CXX_INCLUDES += -IProject/LIB/Control/
 CXX_INCLUDES += -IProject/
 # ASM includes

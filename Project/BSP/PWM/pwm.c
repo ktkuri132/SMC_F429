@@ -37,7 +37,7 @@ void Project_BSP_PWM_TIM2_Init()
 
 
 // @brief 设置TIM4_CH12_12_13--TIM15_CH12_H10_11的编码器模式
-void Project_BSP_ENcoding_Init(uint16_t duty1,uint16_t duty2)
+void Project_BSP_Encoding_Init(uint16_t duty1,uint16_t duty2)
 {
 	RCC_APB1PeriphClockCmd(RCC_APB1Periph_TIM4|RCC_APB1Periph_TIM5, ENABLE);
 	RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOD|RCC_AHB1Periph_GPIOH, ENABLE);

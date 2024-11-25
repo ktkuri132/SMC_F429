@@ -56,7 +56,7 @@ u8 Soft_IIC_Wait_Ack(void)
 {
 	u8 ucErrTime=0;
 	Soft_SDA_IN();      //SDA设置为输入  
-	Soft_IIC_SDA=1;//delay_us(1);	   
+	Soft_IIC_SDA=1;delay_us(1);	   
 	Soft_IIC_SCL=1;delay_us(1);	 
 	while(Soft_READ_SDA)
 	{
@@ -109,7 +109,7 @@ void Soft_IIC_Send_Byte(u8 txd)
 		Soft_IIC_SCL=1;
 		delay_us(1); 
 		Soft_IIC_SCL=0;	
-		// delay_us(2);
+		// delay_us(1);
     }	 
 } 	    
 //读1个字节，ack=1时，发送ACK，ack=0，发送nACK   

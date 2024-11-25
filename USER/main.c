@@ -54,6 +54,8 @@ void BSP_Init()
     // 软件复位
     //Reset_Handler();
     Project_BSP_PWM_TIM2_Init();
+    Project_BSP_TB6612_Init();
+    AllForward
     OLED_Init();
     OLED_Clear();
     int b;
@@ -77,10 +79,10 @@ void BSP_Init()
     {
         mpu_dmp_get_data(&pitch,&roll,&yaw);
         printf("%d,%f\r\n",b,pitch);
-        OLED_Printf(1, 0,  OLED_8X16,"%f",pitch);
-        OLED_Printf(1, 16, OLED_8X16,"%f",roll);
-        OLED_Printf(1, 32, OLED_8X16,"%f",yaw);
-        OLED_Printf(1, 48, OLED_8X16,"%d",++a);
+        OLED_Printf(0, 0,  OLED_8X16,"%f",pitch);
+        OLED_Printf(0, 16, OLED_8X16,"%f",roll);
+        OLED_Printf(0, 32, OLED_8X16,"%f",yaw);
+        OLED_Printf(0, 48, OLED_8X16,"%d",++a);
         OLED_Update();
     }
    

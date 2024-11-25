@@ -49,17 +49,6 @@
 
 #define OLED_CS SOFT_SPI_CS1_PIN
 
-// 写数据/命令
-
-#define OLED_WriteCommand(Command)  Soft_SPI_SendByte(OLED_CS,Command)
-#define OLED_WriteData(Data,Count)  Soft_SPI_SendData(OLED_CS,Data,Count)
-#define OLED_GPIO_Init()            do              \
-{                                                   \
-    bsp_gpio_init(GPIOB,SYS_GPIO_PIN10,SYS_GPIO_MODE_OUT, SYS_GPIO_OTYPE_PP, SYS_GPIO_SPEED_HIGH, SYS_GPIO_PUPD_PU);    \
-    bsp_gpio_init(GPIOB,SYS_GPIO_PIN7,SYS_GPIO_MODE_OUT, SYS_GPIO_OTYPE_PP, SYS_GPIO_SPEED_HIGH, SYS_GPIO_PUPD_PU);     \
-    OLED_W_RES(1);                                  \
-    Soft_SPI_Init();                                \
-}while(0)                                           \
 
 #endif
 /*FontSize参数取值*/

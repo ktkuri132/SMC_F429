@@ -22,6 +22,8 @@
 #define _INV_MPU_H_
 typedef unsigned char u8;
 
+//INT引脚--A15
+
 
 //定义输出速度
 #define DEFAULT_MPU_HZ  (200)		//200Hz----10ms

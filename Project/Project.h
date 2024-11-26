@@ -19,12 +19,13 @@ extern "C"
 #include <string.h>
 #include <stdlib.h>
 #include <usart.h>
+#include <Serial.h>
 #include <OLED.h>
 
 #include <tb6612_port.h>
 /*  project function in BSP folder    */
 void Project_BSP_PWM_TIM2_Init();
-void Project_BSP_Encoding_Init(uint16_t duty1,uint16_t duty2);
+void Project_BSP_Encoding_Init();
 void Project_BSP_TB6612_Init();
 void Project_BSP_HW201_Init();
 uint8_t Project_BSP_HW201_Get();

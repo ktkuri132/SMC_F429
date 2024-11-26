@@ -201,8 +201,9 @@ u8 Soft_IIC_Read_Len(u8 addr,u8 reg,u8 len,u8 *buf)
 	Soft_IIC_Send_Byte(addr|0);//发送器件地址+写命令	
 	if(Soft_IIC_Wait_Ack())	//等待应答
 	{;		 
-		return 1;		
+		printf("未检测到MPU6050");
 		Soft_IIC_Stop();
+		return 1;
 	}
     Soft_IIC_Send_Byte(reg);	//写寄存器地址
     Soft_IIC_Wait_Ack();		//等待应答

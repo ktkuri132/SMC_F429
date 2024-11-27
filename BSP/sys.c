@@ -35,8 +35,8 @@ void bsp_systick_delay_ms(uint32_t nms)
 void NVIC_Configuration(void)
 {
 
-    // 设置中断优先级分组为 2 位抢占优先级和 2 位子优先级
-    NVIC_PriorityGroupConfig(NVIC_PriorityGroup_2);
+    // 设置中断优先级分组为 4 位抢占优先级
+    NVIC_PriorityGroupConfig(NVIC_PriorityGroup_4);
     // 配置 USART1 中断优先级 
     NVIC_InitTypeDef NVIC_InitStructure;
     NVIC_InitStructure.NVIC_IRQChannel = USART1_IRQn;

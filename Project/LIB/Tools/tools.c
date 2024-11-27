@@ -24,3 +24,24 @@ void Project_LIB_TIM5_Init(uint8_t ms)
 
     TIM_Cmd(TIM5, DISABLE);
 }
+
+/// @brief Motor load function for left and right
+void Project_LIB_Motor_Load(int32_t leftMotor,int32_t RightMotor)
+{
+    if(leftMotor<=0)
+    {
+        Motor->Left = -leftMotor;     
+    }
+    else 
+    {
+        Motor->Left = leftMotor;
+    }
+    if(RightMotor<=0)
+    {
+        Motor->Right = -RightMotor;
+    }
+    else 
+    {
+        Motor->Right = RightMotor;
+    }
+}

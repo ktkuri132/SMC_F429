@@ -98,6 +98,7 @@ CXX_SOURCES += $(wildcard Project/LIB/Control/*.cpp)
 
 # C includes
 C_INCLUDES =  -ICORE/
+C_INCLUDES +=  -IUSER/
 
 C_INCLUDES += -IBSP/
 C_INCLUDES += -IBSP/gpio/

@@ -7,7 +7,7 @@ void PID::PID_forLine()
     this->error = this->target - this->current;
     this->integral += this->error;
     this->integral *= this->Ki;
-    // 积分限幅
+    // 绉垎闄愬箙
     if(this->integral > this->max_integral)
     {
         this->integral = this->max_integral;
@@ -18,7 +18,7 @@ void PID::PID_forLine()
     }
     this->derivative = this->error - this->last_error;
     this->output = this->Kp * this->error + this->Ki * this->integral + this->Kd * this->derivative;
-    // 输出限幅
+    // 杈撳嚭闄愬箙
     if(this->output > this->max_output)
     {
         this->output = this->max_output;

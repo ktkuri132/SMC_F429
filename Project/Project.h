@@ -32,6 +32,7 @@ uint8_t Project_BSP_HW201_Get();
 
 /*    project funtion in LIB folder    */
 void Project_LIB_Get_Encoder_Value(uint16_t *value1,uint16_t *value2);
+void Project_LIB_TIM5_Init(uint8_t ms);
 
 
 #ifdef __cplusplus

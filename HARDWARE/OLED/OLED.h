@@ -4,7 +4,7 @@
 
 #include <OLED_Data.h>
 #include <stdarg.h>
-
+#include <string.h>
 // #define Peripheral_SPI      // 此处定义外设自带SPI
 #define Peripheral_IIC   // 此处定义外设自带IIC
 
@@ -82,7 +82,6 @@ void OLED_ShowSignedNum(int16_t X, int16_t Y, int32_t Number, uint8_t Length, ui
 void OLED_ShowHexNum(int16_t X, int16_t Y, uint32_t Number, uint8_t Length, uint8_t FontSize);
 void OLED_ShowBinNum(int16_t X, int16_t Y, uint32_t Number, uint8_t Length, uint8_t FontSize);
 void OLED_ShowFloatNum(int16_t X, int16_t Y, double Number, uint8_t IntLength, uint8_t FraLength, uint8_t FontSize);
-void OLED_ShowChinese(int16_t X, int16_t Y, char *Chinese);
 void OLED_ShowImage(int16_t X, int16_t Y, uint8_t Width, uint8_t Height, const uint8_t *Image);
 void OLED_Printf(int16_t X, int16_t Y, uint8_t FontSize, char *format, ...);
 

@@ -4,6 +4,7 @@
 #include <usart.h>
 #include <string.h>
 #include <stm32f4xx_usart.h>
+#include "Serial.h"
 
 
 
@@ -72,7 +73,7 @@ void bsp_usart_2_inti(uint32_t baudrate)
     bsp_gpio_af_set(GPIOD, SYS_GPIO_PIN6, 7);
 
     // 配置波特率:计算DIV，分成整数部分和小数部分，具体计算方法参考stm32f4开发手册
-    float USART_DIV = (float)(SystemCoreClock/2)/(16*baudrate);
+    float USART_DIV = (float)(SystemCoreClock/4)/(16*baudrate);
     uint16_t DIV_Mantissa = USART_DIV;                  // 波特率整数部分
     float DIV_Fraction = (USART_DIV-DIV_Mantissa)*16;   // 波特率小数部分
     DIV_Mantissa <<= 4;                                 // 将整数部分移动到正确的位置
@@ -112,9 +113,17 @@ void bsp_usart_3_inti(uint32_t baudrate)
     bsp_gpio_af_set(GPIOB, SYS_GPIO_PIN10, 7);
     bsp_gpio_af_set(GPIOB, SYS_GPIO_PIN11, 7);
 
+    GPIO_InitTypeDef GPIO_InitStructure;
+    GPIO_InitStructure.GPIO_Pin = GPIO_Pin_10 | GPIO_Pin_11;
+    GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF;
+    GPIO_InitStructure.GPIO_OType = GPIO_OType_PP;
+    GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
+    GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_UP;
+    GPIO_Init(GPIOB, &GPIO_InitStructure);
+
 
     // // 配置波特率:计算DIV，分成整数部分和小数部分，具体计算方法参考stm32f4开发手册
-    float USART_DIV = (float)(SystemCoreClock/2)/(16*baudrate);
+    float USART_DIV = (float)(SystemCoreClock/4)/(16*baudrate);
     uint16_t DIV_Mantissa = USART_DIV;                  // 波特率整数部分
     float DIV_Fraction = (USART_DIV-DIV_Mantissa)*16;   // 波特率小数部分
     DIV_Mantissa <<= 4;                                 // 将整数部分移动到正确的位置
@@ -134,16 +143,7 @@ void bsp_usart_3_inti(uint32_t baudrate)
     // 使能发送和接收
     USART3->CR1 |= USART_CR1_TE | USART_CR1_RE;
 
-    // USART_InitTypeDef USART_InitTypeStruct;
-    // USART_InitTypeStruct.USART_BaudRate = baudrate;
-    // USART_InitTypeStruct.USART_HardwareFlowControl = USART_HardwareFlowControl_None;
-    // USART_InitTypeStruct.USART_Mode = USART_Mode_Rx|USART_Mode_Tx;
-    // USART_InitTypeStruct.USART_Parity = USART_Parity_No;
-    // USART_InitTypeStruct.USART_StopBits = USART_StopBits_1;
-    // USART_InitTypeStruct.USART_WordLength = USART_WordLength_8b;
-    // USART_Init(USART3,&USART_InitTypeStruct);
-    // USART_ITConfig(USART3,USART_IT_RXNE,ENABLE);
-    // USART_Cmd(USART3,ENABLE);
+    
 
 }
 
@@ -167,7 +167,7 @@ void bsp_uart_4_inti(uint32_t baudrate)
     bsp_gpio_af_set(GPIOC, SYS_GPIO_PIN11, 8);
 
     // 配置波特率:计算DIV，分成整数部分和小数部分，具体计算方法参考stm32f4开发手册
-    float USART_DIV = (float)(SystemCoreClock/2)/(16*baudrate);
+    float USART_DIV = (float)(SystemCoreClock/4)/(16*baudrate);
     uint16_t DIV_Mantissa = USART_DIV;                  // 波特率整数部分
     float DIV_Fraction = (USART_DIV-DIV_Mantissa)*16;   // 波特率小数部分
     DIV_Mantissa <<= 4;                                 // 将整数部分移动到正确的位置
@@ -185,7 +185,7 @@ void bsp_uart_4_inti(uint32_t baudrate)
     // 设置一个停止位
     UART4->CR2 &= ~USART_CR2_STOP;
     // 使能发送和接收
-    UART4->CR1;
+    UART4->CR1 |= USART_CR1_TE | USART_CR1_RE;
 }
 
 /*
@@ -209,7 +209,7 @@ void bsp_uart_5_inti(uint32_t baudrate)
     bsp_gpio_af_set(GPIOD, SYS_GPIO_PIN2, 8);
 
     // 配置波特率:计算DIV，分成整数部分和小数部分，具体计算方法参考stm32f4开发手册
-    float USART_DIV = (float)(SystemCoreClock/2)/(16*baudrate);
+    float USART_DIV = (float)(SystemCoreClock/4)/(16*baudrate);
     uint16_t DIV_Mantissa = USART_DIV;                  // 波特率整数部分
     float DIV_Fraction = (USART_DIV-DIV_Mantissa)*16;   // 波特率小数部分
     DIV_Mantissa <<= 4;                                 // 将整数部分移动到正确的位置
@@ -227,6 +227,34 @@ void bsp_uart_5_inti(uint32_t baudrate)
     // 设置一个停止位
     UART5->CR2 &= ~USART_CR2_STOP;
     // 使能发送和接收
-    UART5->CR1;
+    UART5->CR1 |= USART_CR1_TE | USART_CR1_RE;
 }
 
+
+Stde_DataTypeDef USART3_DataBuff;
+Stde_DataTypeDef UART5_DataBuff;
+Stde_DataTypeDef UART4_DataBuff;
+
+void UART4_IRQHandler()
+{
+    if(UART4->SR & USART_SR_RXNE)
+    {
+        STDE_UART(UART4,&UART4_DataBuff);
+    }
+}
+
+void USART3_IRQHandler()
+{
+    if(USART3->SR & USART_SR_RXNE)
+    {
+        STDE_UART(USART3,&USART3_DataBuff);
+    }
+}
+
+void UART5_IRQHandler()
+{
+    if(UART5->SR & USART_SR_RXNE)
+    {
+        STDE_UART(UART5,&UART5_DataBuff);
+    }
+}

@@ -31,7 +31,7 @@ void usart_send_string(USART_TypeDef *USARTx ,uint8_t *data)
 
 #elif defined ATOM_Serial       // 正点原子串口协议,用于兼容性交互
 
-#elif defined STDE_Serial       // St,d,..E 串口协议,用于常规通信
+#elif defined STDE_Serial       // st,d,..e 串口协议,用于常规通信
 
 // 命令模式回调函数
 __attribute__((weak)) void CMD_Callback() 
@@ -65,7 +65,7 @@ void Stde_DataTypeDef_Init(Stde_DataTypeDef *data)
 }
 
 /// @brief STDE串口协议处理函数
-void STDE_UART(USART_TypeDef * USARTx,Stde_DataTypeDef* DataTypeStruct)
+void STDE_UART(USART_TypeDef *USARTx,Stde_DataTypeDef* DataTypeStruct)
 {
     DataTypeStruct->c = USARTx->DR;   //获取第一个字符
     if(DataTypeStruct->c=='s')          //如果是开始字符
@@ -112,7 +112,7 @@ void STDE_UART(USART_TypeDef * USARTx,Stde_DataTypeDef* DataTypeStruct)
                 // 检测数据格式
                 case '1':DataTypeStruct->UART_DATA_TYPE=1;break;
                 // 其他数据格式......
-
+                case '2':DataTypeStruct->UART_DATA_TYPE=2;break;
                 // 检测：命令数据格式
                 case 'p':
                     DataTypeStruct->UART_DATA_TYPE='p';

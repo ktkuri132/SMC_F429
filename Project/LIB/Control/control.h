@@ -1,7 +1,7 @@
 #ifndef _CONTROL_
 #define _CONTROL_
-
 #include <Project.h>
+
 
 #ifdef _cplusplus
 extern "C" {
@@ -11,29 +11,29 @@ class PID
 {
 private:
     /* data */
-    int16_t error;
-    int16_t last_error;
-    int16_t integral;
-    int16_t derivative;
+    int32_t error;
+    int32_t last_error;
+    int32_t integral;
+    int32_t derivative;
 public:
-    int16_t target;
-    int16_t current;
-    // 积分限幅
-    int16_t max_integral = MAX_PWM;
-    int16_t output;
-    // 输出限幅
-    int16_t max_output = MAX_PWM;
-    int16_t Kp;
-    int16_t Ki;
-    int16_t Kd;
+    int32_t target;
+    int32_t current;
+    // 绉垎闄愬箙
+    int32_t max_integral = MAX_PWM;
+    int32_t output;
+    // 杈撳嚭闄愬箙
+    int32_t max_output = MAX_PWM;
+    int32_t Kp;
+    int32_t Ki;
+    int32_t Kd;
     void PID_forLine();
 };
-
-
-
 
 #ifdef _cplusplus
 }
 #endif 
+
+
+
 
 #endif // !_CONTROL_

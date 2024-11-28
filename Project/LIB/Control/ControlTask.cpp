@@ -1,8 +1,14 @@
 #include <Project.h>    // include the project header file
+#include "control.h"
 
 void ControlTask(void *pvParameters)
 {
-    
+    PID *pidForLine = new PID();
+    pidForLine->Kp = 200;
+    pidForLine->Kd = -50;
+    pidForLine->PID_forLine();
+    Project_LIB_Motor_Load(pidForLine->output,pidForLine->output);
+
 }
 
 

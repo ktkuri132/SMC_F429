@@ -21,8 +21,11 @@ extern "C"
 #include <usart.h>
 #include <Serial.h>
 #include <OLED.h>
-
 #include <tb6612_port.h>
+
+#define Motor TIM2
+#define Left  CCR1
+#define Right CCR2
 /*  project function in BSP folder    */
 void Project_BSP_PWM_TIM2_Init();
 void Project_BSP_Encoding_Init();
@@ -33,7 +36,7 @@ uint8_t Project_BSP_HW201_Get();
 /*    project funtion in LIB folder    */
 void Project_LIB_Get_Encoder_Value(uint16_t *value1,uint16_t *value2);
 void Project_LIB_TIM5_Init(uint8_t ms);
-
+void Project_LIB_Motor_Load(int32_t leftMotor,int32_t RightMotor);
 
 #ifdef __cplusplus
 }

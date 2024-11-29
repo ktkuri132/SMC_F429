@@ -7,8 +7,7 @@ int _write(int file, char *ptr, int len)
     int i = 0;
     for (i = 0; i < len; i++)
     {
-        while ((USART1->SR & USART_SR_TXE) == 0)
-            ;
+        while ((USART1->SR & USART_SR_TXE) == 0);
         USART1->DR = ptr[i];
     }
     return len;

@@ -1,9 +1,6 @@
 #include <Project.h>
-#include <FreeRTOSConfig.h>
 
 extern Stde_DataTypeDef USART3_DataBuff,UART5_DataBuff,UART4_DataBuff;
-
-
 
 void Task1_BSP_Init()
 {
@@ -25,10 +22,10 @@ void Task2_Project_Init()
     Stde_DataTypeDef_Init(&UART5_DataBuff);
     Stde_DataTypeDef_Init(&UART4_DataBuff);
 
-    Project_BSP_PWM_TIM2_Init();   printf("初始化PWM\n");  
-    Project_BSP_Encoding_Init();   printf("初始化编码器");
-    Project_BSP_TB6612_Init();     printf("初始化TB6612\n");  
-    Project_BSP_HW201_Init();      printf("初始化红外传感器");
+    // Project_BSP_PWM_TIM2_Init();   printf("初始化PWM\n");  
+    // Project_BSP_Encoding_Init();   printf("初始化编码器");
+    // Project_BSP_TB6612_Init();     printf("初始化TB6612\n");  
+    // Project_BSP_HW201_Init();      printf("初始化红外传感器");
 }
 
 float pitch,roll,yaw;
@@ -40,7 +37,7 @@ void Task3_Project_Display()
     {
         // enter critical
         taskENTER_CRITICAL();
-        mup_dmp_get_data(&pitch,&roll,&yaw);    
+        mpu_dmp_get_data(&pitch,&roll,&yaw);    
         OLED_Printf(0,0,OLED_8X16,"OpenMV:%d",USART_Deal(&USART3_DataBuff,1));
         OLED_Printf(0,16,OLED_8X16,"V831:%d",USART_Deal(&UART5_DataBuff,1));
         OLED_Printf(0,32,OLED_8X16,"HFY:%d",USART_Deal(&UART4_DataBuff,1));

@@ -63,7 +63,7 @@ defined in linker script */
   .weak  Reset_Handler
   .type  Reset_Handler, %function
 Reset_Handler:  
-
+  bl  SDRAM_Init // 初始化SDRAM,为RTOS提供堆内存
 /* Copy the data segment initializers from flash to SRAM */  
   movs  r1, #0
   b  LoopCopyDataInit
@@ -95,7 +95,7 @@ LoopFillZerobss:
 /* Call the clock system intitialization function.*/
   bl  SystemInit   
 /* Call the application's entry point.*/
-  bl  SDRAM_Init // 初始化SDRAM,为RTOS提供堆内存
+  
   bl  BSP_Init
   bl  Reset_Handler    
 .size  Reset_Handler, .-Reset_Handler

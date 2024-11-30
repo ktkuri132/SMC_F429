@@ -22,6 +22,7 @@ extern "C"
 #include <Serial.h>
 #include <OLED.h>
 #include <tb6612_port.h>
+#include <inv_mpu.h>
 
 #define Motor TIM2
 #define Left  CCR1

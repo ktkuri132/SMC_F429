@@ -64,7 +64,7 @@ MEMORY
 RAM (xrw)      : ORIGIN = 0x20000000, LENGTH = 192K
 CCMRAM (xrw)      : ORIGIN = 0x10000000, LENGTH = 64K
 FLASH (rx)      : ORIGIN = 0x8000000, LENGTH = 1024K
-EXTSRAM (xrw)     : ORIGIN = 0xC0000000,  LENGTH = 32M  /* 外部拓展的SDRAM */
+EXTSDRAM (xrw)     : ORIGIN = 0xC0000000,  LENGTH = 32M  /* 外部拓展的SDRAM */
 }
 
 /* Define output sections */
@@ -196,16 +196,13 @@ SECTIONS
   } >RAM
 
   /* external sram data, do not initialize at startup  */
-  .ext_sram(NOLOAD) :
-  {
-    . = ALIGN(4);
-    _sext_sram = .;        /* create a global symbol at ext_sram start */
-    *(.ext_sram)
-    *(.ext_sram*)
-   
-    . = ALIGN(4);
-    _eext_sram = .;        /* define a global symbol at ext_sram end */
-  } >EXTSRAM AT> FLASH
+   .ext_sdram (NOLOAD) :
+    {
+        . = ALIGN(4);
+        *(.ext_sram)
+        . = ALIGN(4);
+    } >EXTSDRAM
+
 
   /* Remove information from the standard libraries */
   /DISCARD/ :

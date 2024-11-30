@@ -1,18 +1,34 @@
-//#define __RELEASE
-#define __DEBUG
+#define __RELEASE
+//#define __DEBUG
 
 #if defined (__RELEASE)
 
 #include <Project.h>
 
+#include <RTOSTaskConfig.h>
 
 /// @brief 主函数运行完了自动复位
 void BSP_Init()
 {
-    SDRAM_Init();
-    bsp_usart_1_inti(115200);
-    
+    xTaskCreate((TaskFunction_t)Task1_BSP_Init,
+                                "Task1_BSP_Init",
+                                128,
+                                NULL,
+                                10,
+                                NULL);
+    xTaskCreate((TaskFunction_t)Task2_Project_Init,
+                                "Task2_Project_Init",
+                                128,
+                                NULL,
+                                10,
+                                NULL);
+    vTaskStartScheduler();
+    main();
+}
 
+void main()
+{
+    
 }
 
 

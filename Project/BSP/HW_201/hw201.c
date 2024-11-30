@@ -1,5 +1,4 @@
 #include <hw201.h>
-
 void Project_BSP_HW201_Init()
 {
     RCC->AHB1ENR |= RCC_AHB1ENR_GPIOBEN;

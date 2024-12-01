@@ -29,8 +29,8 @@
 #include <sys.h>
 
 
-#define MPU6050							//闂佽法鍠愰弸濠氬箯閻戣姤鏅搁柡鍌樺€栫€氬綊鏌ㄩ悢鍛婄伄闁归鍏橀弫鎾诲棘閵堝棗顏跺ù锝呮健閺佹捇鎯岄銈嗙暠閺夊牏鍋撶€氬綊鏌ㄩ悢鍛婄伄闁归鍏橀弫鎾诲棘閵堝棗顏跺☉鎾剁槻PU6050
-#define MOTION_DRIVER_TARGET_MSP430		//闂佽法鍠愰弸濠氬箯閻戣姤鏅搁柡鍌樺€栫€氬綊鏌ㄩ悢鍛婄伄闁归鍏橀弫鎾诲棘閵堝棗顏堕梺璺ㄥ枑閺嬪骞忛悜鑺ユ櫢闁哄倶鍊栫€氾拷,闂佽法鍠愰弸濠氬箯閻戣姤鏅搁柡鍌樺€栫€氱瓊SP430闂佽法鍠愰弸濠氬箯閻戣姤鏅搁柡鍌樺€栫€氬綊鏌ㄩ悢鍛婄伄闁瑰嚖鎷�(闂佽法鍠愰弸濠氬箯闁垮妲婚梺璺ㄥ枑閺嬪骞忕粙纰㎝32F1)
+#define MPU6050							//
+#define MOTION_DRIVER_TARGET_MSP430		//
 
 /* The following functions must be defined for this platform:
  * i2c_write(unsigned char slave_addr, unsigned char reg_addr,
@@ -44,12 +44,6 @@
  * fabsf(float x)
  * min(int a, int b)
  */
-#if defined MOTION_DRIVER_TARGET_MSP430
-//#include "msp430.h"
-//#include "msp430_i2c.h"
-//#include "msp430_clock.h"
-//#include "msp430_interrupt.h"
-
 #ifdef __SOFTI2C_
 #define i2c_write       Soft_IIC_Write_Len//MPU_Write_Len
 #define i2c_read        Soft_IIC_Read_Len//MPU_Read_Len
@@ -61,65 +55,13 @@
 #endif
 #define delay_ms    bsp_systick_delay_ms
 #define get_ms      mget_ms
-//static inline int reg_int_cb(struct int_param_s *int_param)
-//{
-//    return msp430_reg_int_cb(int_param->cb, int_param->pin, int_param->lp_exit,
-//        int_param->active_low);
-//}
-#define log_i 	printf	//闂佽法鍠愰弸濠氬箯瀹勬澘绁梺璺ㄥ枑閺嬪骞忛柨瀣╃礀
-#define log_e  	printf	//闂佽法鍠愰弸濠氬箯瀹勬澘绁梺璺ㄥ枑閺嬪骞忛柨瀣╃礀
+
+#define log_i 	printf	//
+#define log_e  	printf	//
 /* labs is already defined by TI's toolchain. */
 /* fabs is for doubles. fabsf is for floats. */
 #define fabs        fabsf
 #define min(a,b) ((a<b)?a:b)
-#elif defined EMPL_TARGET_MSP430
-#include "msp430.h"
-#include "msp430_i2c.h"
-#include "msp430_clock.h"
-#include "msp430_interrupt.h"
-#include "log.h"
-#define i2c_write   msp430_i2c_write
-#define i2c_read    msp430_i2c_read
-#define delay_ms    msp430_delay_ms
-#define get_ms      msp430_get_clock_ms
-static inline int reg_int_cb(struct int_param_s *int_param)
-{
-    return msp430_reg_int_cb(int_param->cb, int_param->pin, int_param->lp_exit,
-        int_param->active_low);
-}
-#define log_i       MPL_LOGI
-#define log_e       MPL_LOGE
-/* labs is already defined by TI's toolchain. */
-/* fabs is for doubles. fabsf is for floats. */
-#define fabs        fabsf
-#define min(a,b) ((a<b)?a:b)
-#elif defined EMPL_TARGET_UC3L0
-/* Instead of using the standard TWI driver from the ASF library, we're using
- * a TWI driver that follows the slave address + register address convention.
- */
-#include "twi.h"
-#include "delay.h"
-#include "sysclk.h"
-#include "log.h"
-#include "sensors_xplained.h"
-#include "uc3l0_clock.h"
-#define i2c_write(a, b, c, d)   twi_write(a, b, d, c)
-#define i2c_read(a, b, c, d)    twi_read(a, b, d, c)
-/* delay_ms is a function already defined in ASF. */
-#define get_ms  uc3l0_get_clock_ms
-static inline int reg_int_cb(struct int_param_s *int_param)
-{
-    sensor_board_irq_connect(int_param->pin, int_param->cb, int_param->arg);
-    return 0;
-}
-#define log_i       MPL_LOGI
-#define log_e       MPL_LOGE
-/* UC3 is a 32-bit processor, so abs and labs are equivalent. */
-#define labs        abs
-#define fabs(x)     (((x)>0)?(x):-(x))
-#else
-#error  Gyro driver is missing the system layer implementations.
-#endif
 
 #if !defined MPU6050 && !defined MPU9150 && !defined MPU6500 && !defined MPU9250
 #error  Which gyro are you using? Define MPUxxxx in your compiler options.
@@ -455,49 +397,7 @@ enum lp_accel_rate_e {
 #endif
 
 #if defined MPU6050
-//const struct gyro_reg_s reg = {
-//    .who_am_i       = 0x75,
-//    .rate_div       = 0x19,
-//    .lpf            = 0x1A,
-//    .prod_id        = 0x0C,
-//    .user_ctrl      = 0x6A,
-//    .fifo_en        = 0x23,
-//    .gyro_cfg       = 0x1B,
-//    .accel_cfg      = 0x1C,
-//    .motion_thr     = 0x1F,
-//    .motion_dur     = 0x20,
-//    .fifo_count_h   = 0x72,
-//    .fifo_r_w       = 0x74,
-//    .raw_gyro       = 0x43,
-//    .raw_accel      = 0x3B,
-//    .temp           = 0x41,
-//    .int_enable     = 0x38,
-//    .dmp_int_status = 0x39,
-//    .int_status     = 0x3A,
-//    .pwr_mgmt_1     = 0x6B,
-//    .pwr_mgmt_2     = 0x6C,
-//    .int_pin_cfg    = 0x37,
-//    .mem_r_w        = 0x6F,
-//    .accel_offs     = 0x06,
-//    .i2c_mst        = 0x24,
-//    .bank_sel       = 0x6D,
-//    .mem_start_addr = 0x6E,
-//    .prgm_start_h   = 0x70
-//#ifdef AK89xx_SECONDARY
-//    ,.raw_compass   = 0x49,
-//    .yg_offs_tc     = 0x01,
-//    .s0_addr        = 0x25,
-//    .s0_reg         = 0x26,
-//    .s0_ctrl        = 0x27,
-//    .s1_addr        = 0x28,
-//    .s1_reg         = 0x29,
-//    .s1_ctrl        = 0x2A,
-//    .s4_ctrl        = 0x34,
-//    .s0_do          = 0x63,
-//    .s1_do          = 0x64,
-//    .i2c_delay_ctrl = 0x67
-//#endif
-//};
+
 const struct gyro_reg_s reg = {
 0x75,  //who_am_i
 0x19,  //rate_div
@@ -528,17 +428,7 @@ const struct gyro_reg_s reg = {
 0x70   // prgm_start_h
 };
 
-//const struct hw_s hw = {
-//    .addr           = 0x68,
-//    .max_fifo       = 1024,
-//    .num_reg        = 118,
-//    .temp_sens      = 340,
-//    .temp_offset    = -521,
-//    .bank_size      = 256
-//#if defined AK89xx_SECONDARY
-//    ,.compass_fsr    = AK89xx_FSR
-//#endif
-//};
+
 const struct hw_s hw={
   0xD0,	 //addr
   1024,	 //max_fifo
@@ -548,22 +438,6 @@ const struct hw_s hw={
   256	 //bank_size
 };
 
-//const struct test_s test = {
-//    .gyro_sens      = 32768/250,
-//    .accel_sens     = 32768/16,
-//    .reg_rate_div   = 0,    /* 1kHz. */
-//    .reg_lpf        = 1,    /* 188Hz. */
-//    .reg_gyro_fsr   = 0,    /* 250dps. */
-//    .reg_accel_fsr  = 0x18, /* 16g. */
-//    .wait_ms        = 50,
-//    .packet_thresh  = 5,    /* 5% */
-//    .min_dps        = 10.f,
-//    .max_dps        = 105.f,
-//    .max_gyro_var   = 0.14f,
-//    .min_g          = 0.3f,
-//    .max_g          = 0.95f,
-//    .max_accel_var  = 0.14f
-//};
 const struct test_s test={
 32768/250,		 //gyro_sens
 32768/16,		 //	accel_sens
@@ -581,11 +455,7 @@ const struct test_s test={
 0.14f		   //	max_accel_var
 };
 
-//static struct gyro_state_s st = {
-//    .reg = &reg,
-//    .hw = &hw,
-//    .test = &test
-//};
+
 static struct gyro_state_s st={
   &reg,
   &hw,
@@ -2859,31 +2729,14 @@ lp_int_restore:
     st.chip_cfg.int_motion_only = 0;
     return 0;
 }
-//////////////////////////////////////////////////////////////////////////////////
-//闂佽法鍠愰弸濠氬箯閻戣姤鏅搁柟鎭掑劤濞堟垶娼忛悙顒€顏堕梺璺ㄥ枙椤曠娀鏌堥妸鈺傛櫢闁哄倶鍊栫€氾拷 
-//////////////////////////////////////////////////////////////////////////////////	 
-//闂佽法鍠愰弸濠氬箯閻戣姤鏅搁柡鍌樺€栫€氬綊鏌ㄩ悢鍛婄伄闁瑰嘲鍢茶ぐ褔鏌ㄩ悢鍛婄伄闁瑰嘲鍢查鐔哥▕閻樺崬鈻忛梺璺ㄥ枔閻擃偊鏁愯箛鏂款伓闁哄牜浜弫鎾诲棘閵堝棗顏堕梺璺ㄥ枑閺嬪骞忛悜鑺ユ櫢闁哄倶鍊栫€氬綊鏌ㄩ悢鍛婄伄闁归鍏橀弫鎾剁磽鏉堝墽绉堕柟椋庡厴閺佹捇寮妶鍡楊伓闂佽法鍠愰弸濠氬箯閻戣姤鏅搁柡鍌樺€栫€氬綊鏌ㄩ悢鍛婄伄闁归鍏橀弫鎾诲棘閵堝棗顏堕梺璺ㄥ枑閺嬪骞忛悜鑺ユ櫢閺夌偠娉曠亸銊╁箯閻戣姤鏅搁柡鍌樺€栫€氬綊鏌呴敓锟�
-//ALIENTEK闂佽法鍠愰弸濠氬箯閻ゎ垰顏癝TM32闂佽法鍠愰弸濠氬箯閻戣姤鏅搁柡鍌樺€栫€氬綊鏌ㄩ悢鍛婄伄闁归菧3
-//MPU6050 DMP 闂佽法鍠愰弸濠氬箯閻戣姤鏅搁柡鍌樺€栫€氬綊鏌ㄩ悢鍛婄伄闁归鍏橀弫鎾诲棘閵堝棗顏�	   
-//闂佽法鍠愰弸濠氬箯閻戣姤鏅搁柡鍌樺€栫€氬綊宕㈤悢鍏兼櫢闁哄倶鍊栫€氱ALIENTEK
-//闂佽法鍠愰弸濠氬箯閻戣姤鏅搁柡鍌樺€栫€氬綊鏌ㄩ悢鍛婄伄闁瑰嘲鍢插锟�:www.openedv.com
-//闂佽法鍠愰弸濠氬箯閻戣姤鏅搁柡鍌樺€栫€氬綊鏌ㄩ悢鍛婄伄闁归鍏橀弫鎾诲棘閵堝棗顏�:2015/1/17
-//闂佽法鍠曟慨銈夊嫉椤掑嫭鏅搁柡鍌樺€栫€氱瓡1.0
-//闂佽法鍠愰弸濠氬箯闁垮缍€闂佽法鍠愰弸濠氬箯閻戣姤鏅搁柛娆樺亾缂嶅洭骞忛悜鑺ユ櫢闁哄倶鍊栫€氬綊鏌ㄩ悢鍛婄伄闁归鍏樼槐锝夋煥閻斿憡鐏柟椋庡厴閺佹捇鏁撻敓锟�
-//Copyright(C) 闂佽法鍠愰弸濠氬箯閻戣姤鏅搁柡鍌樺€栫€氬綊鏌ㄩ悢鍛婄伄闁归鍏橀弫鎾诲棘閵堝棗顏堕梺璺ㄥ枑閺嬪骞忛悜鑺ユ櫢闁哄倶鍊栫€氬綊鏌ㄩ悢绋垮缂佸鍨归妴瀣箯閻戣姤鏅搁柡鍌樺€栫€氬綊鏌ㄩ悢鐑橀獎闁谎冩啞鐎氬綊宕ｉ敓锟� 2009-2019
-//All rights reserved									  
-////////////////////////////////////////////////////////////////////////////////// 
-
-//q30闂佽法鍠愰弸濠氬箯瀹勬壆纭€,long閺夌偟鎯宭oat闁哄啫鐖奸弫鎾寸瑹閵壯屽姕闁归鍏橀弫鎾诲棘閵堝棗顏�.
+//.
 #define q30  1073741824.0f
 
-//闂佽法鍠愰弸濠氬箯閻戣姤鏅搁柡鍌樺€栫€氬綊鏌ㄩ悢娲绘健闁告垯鍊栫€氬綊鏌ㄩ悢鍛婄伄闁归鍏橀弫鎾诲棘閵堝棗顏堕梺璺ㄥ枑閺嬪骞忛敓锟�
+//
 static signed char gyro_orientation[9] = { 1, 0, 0,
                                            0, 1, 0,
                                            0, 0, 1};
-//MPU6050闂佽法鍠撳▓鏇犳嫚瑜庣€氬綊鏌ㄩ悢鍛婄伄闁瑰嚖鎷�
-//闂佽法鍠愰弸濠氬箯閻戣姤鏅搁柡鍌樺€栫€氬綊宕愰敓锟�:0,闂佽法鍠愰弸濠氬箯閻戣姤鏅搁柡鍌樺€栫€氾拷
-//    闂佽法鍠愰弸濠氬箯閻戣姤鏅搁柡鍌樺€栫€氾拷,濠㈠爼浜堕弫鎾诲棘閵堝棗顏�
+
 u8 run_self_test(void)
 {
 	int result;
@@ -2910,19 +2763,12 @@ u8 run_self_test(void)
 		return 0;
 	}else return 1;
 }
-//闂佽法鍠愰弸濠氬箯閻戣姤鏅搁柡鍌樺€栫€氬綊鏌ㄩ悢娲绘健闁告垯鍊栫€氬綊鏌ㄩ悢鍛婄伄闁归鍏橀弫鎾诲棘閵堝棗顏堕梺璺ㄥ櫐閹凤拷
+//
 unsigned short inv_orientation_matrix_to_scalar(
     const signed char *mtx)
 {
     unsigned short scalar; 
-    /*
-       XYZ  010_001_000 Identity Matrix
-       XZY  001_010_000
-       YXZ  010_000_001
-       YZX  000_010_001
-       ZXY  001_000_010
-       ZYX  000_001_010
-     */
+
 
     scalar = inv_row_2_scale(mtx);
     scalar |= inv_row_2_scale(mtx + 3) << 3;
@@ -2931,7 +2777,7 @@ unsigned short inv_orientation_matrix_to_scalar(
 
     return scalar;
 }
-//闂佽法鍠愰弸濠氬箯閻戣姤鏅搁柡鍌樺€栫€氳娼鍕櫢闁哄倶鍊栫€氾拷
+//
 unsigned short inv_row_2_scale(const signed char *row)
 {
     unsigned short b;
@@ -2952,7 +2798,7 @@ unsigned short inv_row_2_scale(const signed char *row)
         b = 7;      // error
     return b;
 }
-//闂佽法鍠撶瑧闁绘艾鐡ㄧ€氬綊鏌ㄩ悢鍛婄伄闁瑰嚖鎷�,闁哄牜浜弫鎾绘儗椤愩値鏆滈柟鍑ゆ嫹.
+//,.
 void mget_ms(unsigned long *time)
 {
 
@@ -2962,29 +2808,29 @@ u8 mpu_dmp_init(void)
 {
     
 	u8 res=0;
-	MPU_IIC_Init(); 	//闂佽法鍠愰弸濠氬箯瀹勯偊娼楅梺璺ㄥ枑閺嬪骞忕粙銑闂佽法鍠愰弸濠氬箯閻戣姤鏅搁柡鍌樺€栫€氾拷
-	if(mpu_init()==0)	//闂佽法鍠愰弸濠氬箯瀹勯偊娼楅梺璺ㄥ枑閺嬪骞忕粙鐠揢6050
+	MPU_IIC_Init(); 	
+	if(mpu_init()==0)	
 	{	 
         
-		res=mpu_set_sensors(INV_XYZ_GYRO|INV_XYZ_ACCEL);//闂佽法鍠愰弸濠氬箯閻戣姤鏅搁柡鍌樺€栫€氬綊鏌ㄩ悢鍛婄伄闁归鍏橀弫鎾诲棘閵堝棗顏堕悷鏇氱窔閺佹挻绗熼妷銊﹀涧闁归鍏橀弫鎾诲棘閵堝棗顏堕梺璺ㄥ枑閺嬪骞忛敓锟�
+		res=mpu_set_sensors(INV_XYZ_GYRO|INV_XYZ_ACCEL);
 		if(res)return 1; 
-		res=mpu_configure_fifo(INV_XYZ_GYRO|INV_XYZ_ACCEL);//闂佽法鍠愰弸濠氬箯閻戣姤鏅搁柡鍌樺€栫€氱IFO
+		res=mpu_configure_fifo(INV_XYZ_GYRO|INV_XYZ_ACCEL);
 		if(res)return 2; 
-		res=mpu_set_sample_rate(DEFAULT_MPU_HZ);	//闂佽法鍠愰弸濠氬箯閻戣姤鏅搁柣顓у亯椤曟粓骞忛悜鑺ユ櫢闁哄倶鍊栫€氬綊鏌ㄩ悢鍛婄伄闁瑰嚖鎷�
+		res=mpu_set_sample_rate(DEFAULT_MPU_HZ);	
 		if(res)return 3; 
 		res=dmp_load_motion_driver_firmware();		 
 		if(res)return 4; 
-		res=dmp_set_orientation(inv_orientation_matrix_to_scalar(gyro_orientation));//闂佽法鍠愰弸濠氬箯閻戣姤鏅搁柡鍌樺€栫€氬綊鏌ㄩ悢鍛婄伄闁归鍏橀弫鎾诲棘閵堝棗顏堕梺璺ㄥ枙椤宕欓妶鍡楊伓闂佽法鍠愰弸濠氬箯閿燂拷
+		res=dmp_set_orientation(inv_orientation_matrix_to_scalar(gyro_orientation));
 		if(res)return 5; 
-		res=dmp_enable_feature(DMP_FEATURE_6X_LP_QUAT|DMP_FEATURE_TAP|	//闂佽法鍠愰弸濠氬箯閻戣姤鏅搁柡鍌樺€栫€氱mp闂佽法鍠愰弸濠氬箯閻戣姤鏅搁柡鍌樺€栫€氾拷
+		res=dmp_enable_feature(DMP_FEATURE_6X_LP_QUAT|DMP_FEATURE_TAP|	
 		    DMP_FEATURE_ANDROID_ORIENT|DMP_FEATURE_SEND_RAW_ACCEL|DMP_FEATURE_SEND_CAL_GYRO|
 		    DMP_FEATURE_GYRO_CAL);
 		if(res)return 6; 
-		res=dmp_set_fifo_rate(DEFAULT_MPU_HZ);	//闂佽法鍠愰弸濠氬箯閻戣姤鏅搁柡鍌樺€栫€氱MP闂佽法鍠愰弸濠氬箯閻戣姤鏅搁柡鍌樺€栫€氬綊鏌ㄩ悢鍛婄伄闁归鍏橀弫鎾绘晸閿燂拷(闂佽法鍠愰弸濠氬箯閻ゎ垳鍘遍柟顑藉亾闂佽法鍠愰弸濠氬箯閻戣姤鏅搁柨鐕傛嫹200Hz)
+		res=dmp_set_fifo_rate(DEFAULT_MPU_HZ);	
 		if(res)return 7;   
-		//res=run_self_test();		//闂佽法鍠撳▓鏇犳兜闁垮顏�
-	//	if(res)return 8;    
-		res=mpu_set_dmp_state(1);	//濞达絽娼￠弫鎾诲棘閵堝棗顏禗MP
+		// res=run_self_test();		
+		// if(res)return 8;    
+		res=mpu_set_dmp_state(1);	
 		if(res)return 9;     
 	}else return 10;
 	return 0;
@@ -3010,11 +2856,11 @@ u8 mpu_dmp_get_data(float *pitch,float *roll,float *yaw)
 	**/
 	if(sensors&INV_WXYZ_QUAT) 
 	{
-		q0 = quat[0] / q30;	//q30闂佽法鍠愰弸濠氬箯瀹勬壆纭€閺夌儐鍓熼弫鎾诲棘閵堝棗顏跺☉鎾存そ閺佹捇寮妶鍡楊伓闂佽法鍠愰弸濠氬箯閻戣姤鏅搁柡鍌樺€栫€氾拷
+		q0 = quat[0] / q30;	//
 		q1 = quat[1] / q30;
 		q2 = quat[2] / q30;
 		q3 = quat[3] / q30; 
-		//闂佽法鍠愰弸濠氬箯閻戣姤鏅搁柡鍌樺€栫€氬綊鎮抽锔芥櫢闁哄倶鍊栫€氬綊鏌ㄩ悢鍛婄伄闁归鍏橀弫鎾诲棘閵堝棗顏堕梺璺ㄥ櫐閹凤拷/闂佽法鍠愰弸濠氬箯閻戣姤鏅搁柡鍌樺€栫€氬綊鏌ㄩ悤鍌涘/闂佽法鍠愰弸濠氬箯閻戣姤鏅搁柡鍌樺€栫€氬綊鏌ㄩ悤鍌涘
+		//
 		*pitch = asin(-2 * q1 * q3 + 2 * q0* q2)* 57.3;	// pitch
 		*roll  = atan2(2 * q2 * q3 + 2 * q0 * q1, -2 * q1 * q1 - 2 * q2* q2 + 1)* 57.3;	// roll
 		*yaw   = atan2(2*(q1*q2 + q0*q3),q0*q0+q1*q1-q2*q2-q3*q3) * 57.3;	//yaw

@@ -79,7 +79,7 @@ Init_Project:
     Project_BSP_Encoding_Init();   printf("初始化编码器");
     Project_BSP_TB6612_Init();     printf("初始化TB6612\n");  
     Project_BSP_HW201_Init();      printf("初始化红外传感器");
-    Project_LIB_TIM5_Init(5);
+    // Project_LIB_TIM5_Init(5);
     main();
     
 

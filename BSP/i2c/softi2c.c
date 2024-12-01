@@ -15,14 +15,21 @@ void delay_us(uint32_t nus)
 //初始化IIC
 void Soft_IIC_Init(void)
 {			
-	GPIO_InitTypeDef  GPIO_InitStructure;
+
+	
 	RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOB, ENABLE);//使能GPIOB时钟
+	#ifdef __STM32F4xx_GPIO_H
+	GPIO_InitTypeDef  GPIO_InitStructure;
 	GPIO_InitStructure.GPIO_Pin = SCL_GPIO | SDA_GPIO;
 	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_OUT;//普通输出模式
 	GPIO_InitStructure.GPIO_OType = GPIO_OType_PP;//推挽输出
 	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_100MHz;//100MHz
 	GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_UP;//上拉
 	GPIO_Init(GPIOB, &GPIO_InitStructure);//初始化
+	#else
+	bsp_gpio_init(GPIOB, 1<<8, SYS_GPIO_MODE_OUT, SYS_GPIO_OTYPE_PP, SYS_GPIO_SPEED_FAST, SYS_GPIO_PUPD_PU);
+    bsp_gpio_init(GPIOB, 1<<9, SYS_GPIO_MODE_OUT, SYS_GPIO_OTYPE_OD, SYS_GPIO_SPEED_FAST, SYS_GPIO_PUPD_PU);
+	#endif
 	Soft_IIC_SCL=1;
 	Soft_IIC_SDA=1;
 }
@@ -105,7 +112,7 @@ void Soft_IIC_Send_Byte(u8 txd)
     {              
         Soft_IIC_SDA=(txd&0x80)>>7;
         txd<<=1; 	  
-		delay_us(1);   //对TEA5767这三个延时都是必须的
+		delay_us(1);   
 		Soft_IIC_SCL=1;
 		delay_us(1); 
 		Soft_IIC_SCL=0;	

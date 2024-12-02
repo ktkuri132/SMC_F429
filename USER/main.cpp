@@ -82,9 +82,6 @@ Init_Project:
     Project_BSP_HW201_Init();      printf("初始化红外传感器\n");
     // Project_LIB_TIM5_Init(5);
     Task3_Project_Display();
-    
-
- 
 }
 
 

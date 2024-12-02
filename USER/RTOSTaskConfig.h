@@ -14,6 +14,7 @@ uint8_t ucHeap[ configTOTAL_HEAP_SIZE ] __attribute__((section(".ext_sram")));
 void Task1_BSP_Init();
 void Task2_Project_Init();
 void Task3_Project_Display();
+void Task4_sysControl();
 
 
 #endif

@@ -37,7 +37,10 @@ void main()
 
 
 #elif defined(__DEBUG)
-
+#ifdef __cplusplus
+extern "C"
+{
+#endif
 
 #include <Project.h>
 #include <RTOSTaskConfig.h>
@@ -47,12 +50,10 @@ extern float pitch,roll,yaw;
 
 extern Stde_DataTypeDef USART3_DataBuff,UART5_DataBuff,UART4_DataBuff;
 
-TaskHandle_t *Task1_BSP_Init_Handle;
-TaskHandle_t *Task2_Project_Init_Handle;
-TaskHandle_t *Task3_Project_Display_Handle;
+
 
 void Test();
-
+int main();
 /// @brief 主函数运行完了自动复位
 void BSP_Init()
 {
@@ -62,7 +63,7 @@ Init_BSP:                                   // 初始化基本外设
     mpu_dmp_init();
     bsp_usart_1_inti(115200);
     bsp_usart_2_inti(9600);                     // 蓝牙串口
-    bsp_usart_3_inti(115200);                   // OpenMV摄像头通信
+    bsp_usart_3_inti(250000);                   // OpenMV摄像头通信
     bsp_uart_4_inti(115200);                    // 无线串口
     bsp_uart_5_inti(115200);                    // V831摄像头通信
     NVIC_Configuration();           
@@ -76,30 +77,29 @@ Init_Serial:
 
 Init_Project:
     Project_BSP_PWM_TIM2_Init();   printf("初始化PWM\n");  
-    Project_BSP_Encoding_Init();   printf("初始化编码器");
+    Project_BSP_Encoding_Init();   printf("初始化编码器\n");
     Project_BSP_TB6612_Init();     printf("初始化TB6612\n");  
-    Project_BSP_HW201_Init();      printf("初始化红外传感器");
+    Project_BSP_HW201_Init();      printf("初始化红外传感器\n");
     // Project_LIB_TIM5_Init(5);
-    main();
+    Task3_Project_Display();
     
 
  
 }
 
-void main()
+
+void USART3_IRQHandler()
 {
-    xTaskCreate((TaskFunction_t)Task3_Project_Display,"Task3_Project_Display",1024,
-                                NULL,32,Task3_Project_Display_Handle);
-    
-    vTaskStartScheduler();
+    if(USART3->SR & USART_SR_RXNE)
+    {
+        STDE_UART(USART3,&USART3_DataBuff);
+        Project_LIB_ControlTask();
+    }
 }
 
-
-void Test()
-{
-   
-    
+#ifdef __cplusplus
 }
+#endif
 
 
 #endif

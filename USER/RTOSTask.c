@@ -35,26 +35,20 @@ void Task3_Project_Display()
 {
     while(1)
     {
-        // enter critical
-        taskENTER_CRITICAL();
         mpu_dmp_get_data(&pitch,&roll,&yaw);    
         OLED_Printf(0,0,OLED_8X16,"OpenMV:%d",USART_Deal(&USART3_DataBuff,1));
         OLED_Printf(0,16,OLED_8X16,"V831:%d",USART_Deal(&UART5_DataBuff,1));
         OLED_Printf(0,32,OLED_8X16,"HFY:%d",USART_Deal(&UART4_DataBuff,1));
         OLED_Printf(0,48,OLED_8X16,"MPU6050:%f",yaw);
         OLED_Update();
-        taskEXIT_CRITICAL();
     }
 }
 
 
-void Task4_Project_Control()
+void Task4_sysControl()
 {
     while(1)
     {
-        // enter critical
-        taskENTER_CRITICAL();
-        Project_LIB_Motor_Load(1000,1000);
-        taskEXIT_CRITICAL();
+        Project_LIB_ControlTask();
     }
 }

@@ -7,8 +7,8 @@ int _write(int file, char *ptr, int len)
     int i = 0;
     for (i = 0; i < len; i++)
     {
-        while ((USART1->SR & USART_SR_TXE) == 0);
-        USART1->DR = ptr[i];
+        while ((USART2->SR & USART_SR_TXE) == 0);
+        USART2->DR = ptr[i];
     }
     return len;
 }
@@ -67,6 +67,7 @@ void Stde_DataTypeDef_Init(Stde_DataTypeDef *data)
 void STDE_UART(USART_TypeDef *USARTx,Stde_DataTypeDef* DataTypeStruct)
 {
     DataTypeStruct->c = USARTx->DR;   //获取第一个字符
+    // printf("%c",DataTypeStruct->c);
     if(DataTypeStruct->c=='s')          //如果是开始字符
     {
         DataTypeStruct->UART_Strat = 1;     //开始接收

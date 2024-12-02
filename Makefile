@@ -38,7 +38,7 @@ LDSCRIPT = CORE/STM32F429IGTx_FLASH.ld
 # source
 ######################################
 # ASM sources
-ASM_SOURCES =  CORE/startup_stm32f429_439xx.s
+# ASM_SOURCES =  CORE/startup_stm32f429_439xx.s
 
 
 # ASM sources
@@ -95,6 +95,8 @@ C_SOURCES += $(wildcard RTOS/portable/MemMang/*.c)
 # C++ sources
 CXX_SOURCES = $(wildcard HARDWARE/LCD/GUI/*.cpp)
 CXX_SOURCES += $(wildcard Project/LIB/Control/*.cpp)
+CXX_SOURCES += $(wildcard CORE/*.cpp)
+CXX_SOURCES += $(wildcard USER/*.cpp)
 
 # C includes
 C_INCLUDES =  -ICORE/

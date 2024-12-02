@@ -243,13 +243,7 @@ void UART4_IRQHandler()
     }
 }
 
-void USART3_IRQHandler()
-{
-    if(USART3->SR & USART_SR_RXNE)
-    {
-        STDE_UART(USART3,&USART3_DataBuff);
-    }
-}
+
 
 void UART5_IRQHandler()
 {

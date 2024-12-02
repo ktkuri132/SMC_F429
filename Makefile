@@ -38,7 +38,7 @@ LDSCRIPT = CORE/STM32F429IGTx_FLASH.ld
 # source
 ######################################
 # ASM sources
-ASM_SOURCES =  CORE/startup_stm32f429_439xx.s
+#ASM_SOURCES =  CORE/startup_stm32f429_439xx.s
 
 
 # ASM sources

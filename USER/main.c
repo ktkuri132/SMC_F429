@@ -86,10 +86,15 @@ Init_Project:
  
 }
 
+
+
+
 void main()
 {
     xTaskCreate((TaskFunction_t)Task3_Project_Display,"Task3_Project_Display",1024,
                                 NULL,32,Task3_Project_Display_Handle);
+    
+    xSemaphore = xSemaphoreCreateBinary();
     
     vTaskStartScheduler();
 }

@@ -235,6 +235,11 @@ Stde_DataTypeDef USART3_DataBuff;
 Stde_DataTypeDef UART5_DataBuff;
 Stde_DataTypeDef UART4_DataBuff;
 
+#include <semphr.h>
+// 创建一个信号量
+SemaphoreHandle_t xSemaphore = NULL;
+
+
 void UART4_IRQHandler()
 {
     if(UART4->SR & USART_SR_RXNE)
@@ -247,7 +252,8 @@ void USART3_IRQHandler()
 {
     if(USART3->SR & USART_SR_RXNE)
     {
-        STDE_UART(USART3,&USART3_DataBuff);
+        xSemaphoreGiveFromISR(xSemaphore,NULL);
+        // STDE_UART(USART3,&USART3_DataBuff);
     }
 }
 

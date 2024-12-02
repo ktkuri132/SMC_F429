@@ -1,0 +1,11 @@
+#ifndef __BOOT_
+#define __BOOT_
+
+#define SDRAM_START_ADDR 0xC0000000
+#define REMAP_SDRAM_STRAT_ADDR 0x60000000
+#define SDARM_SIZE 0x2000000
+
+#define FLASH_START_ADDR 0x08000000
+#define FLASH_SIZE 0x100000
+
+#endif

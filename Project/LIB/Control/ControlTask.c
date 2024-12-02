@@ -5,7 +5,7 @@ extern Stde_DataTypeDef USART3_DataBuff;
 
 void Project_LIB_ControlTask()
 {
-    PID *pidForLine;
+    static PID *pidForLine;
     pidForLine->target = 120;
     pidForLine->current = USART_Deal(&USART3_DataBuff,1);
     pidForLine->Kp = 20;

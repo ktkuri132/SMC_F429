@@ -1,22 +1,49 @@
 #include <Project.h>    // include the project header file
-#include "control.h"
 
-extern Stde_DataTypeDef USART3_DataBuff;
+extern Stde_DataTypeDef USART3_DataBuff,UART5_DataBuff,UART4_DataBuff;    // declare the data buffer
 
 /// @brief 控制状态
-void Project_LIB_ControlStrat()
+uint8_t Project_LIB_ControlStrat()
 {
+
+CheckNumber:
+    //* 检查数据是否到达
+    if(V831Data)
+    {
+        //* 数据到达,存储数据
+        Data_Save_from_Camer();
+        goto CheckMedical;
+    }
+    else 
+    {   
+        //* 数据未到达
+        goto CheckNumber;
+    }
+
+
+CheckMedical:
     //* 检查当前药品装载情况
     if(Project_BSP_HW201_Get())
     {
         //* 药品装载完毕
-        Project_LIB_ControlTask();
+        goto ControlRun;
     }
     else 
     {
         //* 药品未装载
         Project_LIB_Motor_Load(0,0);
+        goto CheckMedical;
     }
+
+
+ControlRun:
+    //* 控制任务
+    Project_LIB_ControlTask();
+
+    goto CheckNumber;
+
+    return 0;
+
 
 }
 
@@ -33,8 +60,3 @@ void Project_LIB_ControlTask()
 }
 
 
-// @brief deal the data from the USART and these data will be from OpenMV or V831
-void Data_Deal()
-{
-
-}

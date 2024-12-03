@@ -1,11 +1,4 @@
-#include <stm32f4xx.h>
-#include <gpio.h>
-#include <stdio.h>
-#include <usart.h>
-#include <string.h>
-#include <stm32f4xx_usart.h>
-#include "Serial.h"
-
+#include <Project.h>    
 
 
 
@@ -230,10 +223,7 @@ void bsp_uart_5_inti(uint32_t baudrate)
     UART5->CR1 |= USART_CR1_TE | USART_CR1_RE;
 }
 
-
-Stde_DataTypeDef USART3_DataBuff;
-Stde_DataTypeDef UART5_DataBuff;
-Stde_DataTypeDef UART4_DataBuff;
+extern Stde_DataTypeDef USART3_DataBuff,UART5_DataBuff,UART4_DataBuff;
 
 void UART4_IRQHandler()
 {

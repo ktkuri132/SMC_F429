@@ -30,6 +30,8 @@ extern "C"
 // 项目头文件
 #include <tb6612_port.h>
 #include <pid.h>
+#include <control.h>
+
 
 // 定义电机接口寄存器
 #define Motor TIM2
@@ -42,6 +44,8 @@ extern "C"
 #define V831Data    USART_Deal(&UART5_DataBuff,1)
 #define HFYCar      USART_Deal(&UART4_DataBuff,1)
 
+
+
 /*  project function in BSP folder    */
 void    Project_BSP_PWM_TIM2_Init();
 void    Project_BSP_Encoding_Init();
@@ -53,6 +57,7 @@ uint8_t Project_BSP_HW201_Get();
 void Project_LIB_Get_Encoder_Value(uint16_t *value1,uint16_t *value2);
 void Project_LIB_TIM5_Init(uint8_t ms);
 void Project_LIB_Motor_Load(int32_t leftMotor,int32_t RightMotor);
+uint8_t* Data_Save_from_Camer();
 void Project_LIB_ControlTask();
 
 #ifdef __cplusplus

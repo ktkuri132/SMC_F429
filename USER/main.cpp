@@ -46,10 +46,12 @@ extern "C"
 #include <RTOSTaskConfig.h>
 
 
+// 定义串口数据结构
+Stde_DataTypeDef USART3_DataBuff;
+Stde_DataTypeDef UART5_DataBuff;
+Stde_DataTypeDef UART4_DataBuff;
+
 extern float pitch,roll,yaw;
-
-extern Stde_DataTypeDef USART3_DataBuff,UART5_DataBuff,UART4_DataBuff;
-
 
 
 void Test();

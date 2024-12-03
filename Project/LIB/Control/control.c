@@ -1,9 +1,22 @@
 #include <Project.h>
 #include <control.h>
 
-// base PID control algorithm
+
+/*
+ * 这里为什么要提供一个通用，还建议开发者提供专用的PID算法，通用的只有单极PID
+ * 但是专用算法的可以随意发挥，并机，串级，这里提供了两个PID算法的接口，可供开发者提供最多两级的算法支持
+ * 如有更多需求，可在结构体内添加，初始化函数中加入接口
+ */
+
+extern Stde_DataTypeDef USART3_DataBuff;
+
+
+
+/// @brief PID 对于直线的专用控制函数
 void PID_forLine(PID *pid)
 {
+    pid->current = OpenMVData;
+
     pid->error = pid->target - pid->current;
     pid->integral += pid->error;
     pid->integral *= pid->Ki;
@@ -16,7 +29,9 @@ void PID_forLine(PID *pid)
     {
         pid->integral = -pid->max_integral;
     }
+
     pid->derivative = pid->error - pid->last_error;
+
     pid->output = pid->Kp * pid->error + pid->Ki * pid->integral + pid->Kd * pid->derivative;
     // 输出限幅
     if(pid->output > pid->max_output)
@@ -30,22 +45,9 @@ void PID_forLine(PID *pid)
     pid->last_error = pid->error;
 }
 
+
+/// @brief PID 对于转向的专用控制函数
 void PID_forTurn(PID *pid)
 {
     
-}
-
-void PID_StartRun(PID *pid)
-{
-
-}
-
-void PID_TypeStructInit(PID *pid,void *lineControl,int16_t linecurrent,void *turnControl,int16_t turnparam)
-{
-    pid->max_output = MAX_PWM;
-    pid->max_integral = 7200;
-    pid->integral = 120;
-    pid->current = current;
-    pid->PID_forLine = lineControl;
-    pid->PID_forTurn = turnControl;
 }

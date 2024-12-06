@@ -5044,6 +5044,10 @@ typedef struct
 /*                                                                            */
 /******************************************************************************/
 /******************  Bits definition for GPIO_MODER register  *****************/
+
+//* 顺序 ：模拟  输出  输入 
+ 
+
 #define GPIO_MODER_MODER0                    ((uint32_t)0x00000003)
 #define GPIO_MODER_MODER0_0                  ((uint32_t)0x00000001)
 #define GPIO_MODER_MODER0_1                  ((uint32_t)0x00000002)

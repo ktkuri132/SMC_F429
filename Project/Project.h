@@ -22,8 +22,8 @@ extern "C"
 #include <usart.h>
 #include <Serial.h>
 // OS支持
-#include <FreeRTOS.h>
-#include <task.h>
+// #include <FreeRTOS.h>
+// #include <task.h>
 // 外挂外设驱动
 #include <OLED.h>
 #include <inv_mpu.h>
@@ -31,7 +31,7 @@ extern "C"
 #include <tb6612_port.h>
 #include <pid.h>
 #include <control.h>
-
+#include <hw201.h>
 
 // 定义电机接口寄存器
 #define Motor TIM2
@@ -50,14 +50,16 @@ extern "C"
 void    Project_BSP_PWM_TIM2_Init();
 void    Project_BSP_Encoding_Init();
 void    Project_BSP_TB6612_Init();
-void    Project_BSP_HW201_Init();
-uint8_t Project_BSP_HW201_Get();
+// void    Project_BSP_HW201_Init();
+// uint8_t Project_BSP_HW201_Get();
 
 /*    project funtion in LIB folder    */
 void Project_LIB_Get_Encoder_Value(uint16_t *value1,uint16_t *value2);
 void Project_LIB_TIM5_Init(uint8_t ms);
 void Project_LIB_Motor_Load(int32_t leftMotor,int32_t RightMotor);
-uint8_t* Data_Save_from_Camer();
+void Task_run(void (*pvfunction)(void *),int16_t *pvParameters);
+uint8_t Data_Save_from_Camer(uint8_t *Data);
+uint8_t TimeOut(uint8_t returnData);
 void Project_LIB_ControlTask();
 
 #ifdef __cplusplus

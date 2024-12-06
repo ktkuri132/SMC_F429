@@ -2,40 +2,48 @@
 
 extern Stde_DataTypeDef USART3_DataBuff,UART5_DataBuff,UART4_DataBuff;    // declare the data buffer
 
+/*
+ *  函数返回规则：1 成功，0 失败
+ *
+ *  启动流程：
+ *        1. 检查数字是否成功存储
+ *        2. 检查药品是否装载完毕
+ *  正常运行流程：
+ *        1. OpenMV扫描
+ *        2. 检查是否扫到十字路口
+ * 
+ *              2.1. 扫到十字路口，停车
+ *              2.2. 打开串口通信，等待接收数字识别数据
+ *              2.3. 接收到数据，与存储的数据进行比对，决定转向
+ *              2.4. 读取MPU6050，开始转向
+ *        3. 检查是否
+ *
+ */
+
+
 /// @brief 控制状态
 uint8_t Project_LIB_ControlStrat()
 {
 
+    static uint8_t CamerData;
 CheckNumber:
     //* 检查数据是否到达
-    if(V831Data)
+    if(Data_Save_from_Camer(&CamerData))
     {
-        //* 数据到达,存储数据
-        Data_Save_from_Camer();
         goto CheckMedical;
     }
-    else 
-    {   
-        //* 数据未到达
-        goto CheckNumber;
-    }
-
+    else
+    {
+        goto ControlRun;
+    } 
 
 CheckMedical:
     //* 检查当前药品装载情况
-    if(Project_BSP_HW201_Get())
+    while(Project_BSP_HW201_Get)
     {
-        //* 药品装载完毕
-        goto ControlRun;
+        Project_LIB_Motor_Load(0,0);   
     }
-    else 
-    {
-        //* 药品未装载
-        Project_LIB_Motor_Load(0,0);
-        goto CheckMedical;
-    }
-
-
+    
 ControlRun:
     //* 控制任务
     Project_LIB_ControlTask();

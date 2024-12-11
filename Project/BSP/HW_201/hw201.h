@@ -3,11 +3,11 @@
 
 #include <Project.h>
 
-#define HW201_GET_PORT GPIOB
-#define HW201_GET_PIN  7
+#define HW201_GET_PORT GPIOD
+#define HW201_GET_PIN  3
 
-#define Project_BSP_HW201_Init()    do{RCC->AHB1ENR |= RCC_AHB1ENR_GPIOBEN;GPIOB->PUPDR |= GPIO_PUPDR_PUPDR7_0;}while(0)
-#define Project_BSP_HW201_Get       GPIOB->IDR & (1<<7)
+void Project_BSP_HW201_Init();
+uint8_t Project_BSP_HW201_Get();
 
 
 #endif

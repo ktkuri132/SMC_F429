@@ -57,6 +57,8 @@ C_SOURCES += $(wildcard BSP/spi/*.c)
 C_SOURCES += $(wildcard Project/BSP/PWM/*.c)
 C_SOURCES += $(wildcard Project/BSP/TB6612/*.c)
 C_SOURCES += $(wildcard Project/BSP/HW_201/*.c)
+C_SOURCES += $(wildcard Project/BSP/LED/*.c)
+C_SOURCES += $(wildcard Project/BSP/ADC/*.c)
 C_SOURCES += $(wildcard Project/LIB/Control/*.c)
 C_SOURCES += $(wildcard Project/LIB/PID/*.c)
 C_SOURCES += $(wildcard Project/LIB/Tools/*.c)
@@ -67,7 +69,6 @@ C_SOURCES += $(wildcard HARDWARE/LCD/*.c)
 C_SOURCES += $(wildcard HARDWARE/LCD/TOUCH/*.c)
 C_SOURCES += $(wildcard HARDWARE/LCD/GUI/*.c)
 C_SOURCES += $(wildcard HARDWARE/SDRAM/*.c)
-
 
 C_SOURCES += $(wildcard RTOS/*.c)
 C_SOURCES += $(wildcard RTOS/portable/ARM_CM4F/*.c)
@@ -105,6 +106,8 @@ C_INCLUDES += -IProject/BSP/
 C_INCLUDES += -IProject/BSP/PWM/
 C_INCLUDES += -IProject/BSP/TB6612/
 C_INCLUDES += -IProject/BSP/HW_201/
+C_INCLUDES += -IProject/BSP/LED/
+C_INCLUDES += -IProject/BSP/ADC/
 C_INCLUDES += -IProject/LIB/Control/
 C_INCLUDES += -IProject/LIB/PID/
 C_INCLUDES += -IProject/LIB/Tools/

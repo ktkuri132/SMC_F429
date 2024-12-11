@@ -11,41 +11,54 @@ void Project_LIB_Get_Encoder_Value(uint16_t *value1,uint16_t *value2)
 }
 
 
-void Project_LIB_TIM5_Init(uint8_t ms)
+void Project_LIB_TIM1_Init(uint8_t ms)
 {
 	TIM_TimeBaseInitTypeDef TIM_TimeBaseStructure;
 
-    RCC_APB1PeriphClockCmd(RCC_APB1Periph_TIM5, ENABLE);
+    RCC_APB1PeriphClockCmd(RCC_APB2Periph_TIM1, ENABLE);
 
     TIM_TimeBaseStructure.TIM_Period = 1000*ms - 1;
     TIM_TimeBaseStructure.TIM_Prescaler = 84 - 1;
     TIM_TimeBaseStructure.TIM_ClockDivision = TIM_CKD_DIV1;
     TIM_TimeBaseStructure.TIM_CounterMode = TIM_CounterMode_Up;
-    TIM_TimeBaseInit(TIM5, &TIM_TimeBaseStructure);
+    TIM_TimeBaseInit(TIM1, &TIM_TimeBaseStructure);
 
-    TIM_ITConfig(TIM5, TIM_IT_Update, ENABLE);
+    TIM_ITConfig(TIM1, TIM_IT_Update, ENABLE);
 
-    TIM_Cmd(TIM5, DISABLE);
+    TIM_Cmd(TIM1, ENABLE);
 }
 
 /// @brief Motor load function for left and right
 void Project_LIB_Motor_Load(int32_t leftMotor,int32_t RightMotor)
 {
-    if(leftMotor<=0)
+    if(leftMotor<0)
     {
+        LeftBackward
         Motor->Left = -leftMotor;     
     }
-    else 
+    else if(leftMotor>0)
     {
+        LeftForward
         Motor->Left = leftMotor;
     }
-    if(RightMotor<=0)
+    else
     {
+        Motor->Left = 0;
+    }
+
+    if(RightMotor<0)
+    {
+        RightBackward
         Motor->Right = -RightMotor;
     }
-    else 
+    else if(RightMotor>0)
     {
+        RightForward
         Motor->Right = RightMotor;
+    }
+    else
+    {
+        Motor->Right = 0;
     }
 }
 
@@ -74,6 +87,18 @@ void Task_run(void (*pvfunction)(void *),int16_t *pvParameters)
     while(!TimeOut(pvtempfunt((void *)(pvParameters)))){}
 }
 
+/// @brief 超时回调函数
+/// @return 
+uint8_t TimeOutCallBack()
+{
+    while (1)
+    {
+        //* 超时回调函数
+    }
+    
+}
+
+
 
 /// @brief 超时处理
 /// @param returnData 传入1，返回1，传入0，返回0
@@ -99,13 +124,3 @@ uint8_t TimeOut(uint8_t returnData)
     }
 }
 
-/// @brief 超时回调函数
-/// @return 
-uint8_t TimeOutCallBack()
-{
-    while (1)
-    {
-        //* 超时回调函数
-    }
-    
-}

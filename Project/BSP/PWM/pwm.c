@@ -23,8 +23,8 @@ void Project_BSP_PWM_TIM2_Init()
 	TIM_OCInitTypeDef TIM_OCInitStructure;
 	TIM_OCInitStructure.TIM_OCMode = TIM_OCMode_PWM1; //PWM模式1
 	TIM_OCInitStructure.TIM_OutputState = TIM_OutputState_Enable; //比较输出使能
-	TIM_OCInitStructure.TIM_Pulse = 4500; //设置跳变值，当计数器计数到这个值时，电平发生跳变
-	TIM_OCInitStructure.TIM_OCPolarity = TIM_OCPolarity_Low; //输出极性高
+	TIM_OCInitStructure.TIM_Pulse = 0; //设置跳变值，当计数器计数到这个值时，电平发生跳变
+	TIM_OCInitStructure.TIM_OCPolarity = TIM_OCPolarity_High; //输出极性高
 
 	TIM_OC1Init(TIM2, &TIM_OCInitStructure);
 	TIM_OC2Init(TIM2, &TIM_OCInitStructure);

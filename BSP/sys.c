@@ -38,18 +38,24 @@ void NVIC_Configuration(void)
     // 设置中断优先级分组为 4 位抢占优先级
     NVIC_PriorityGroupConfig(NVIC_PriorityGroup_4);
 
-/************************************不受OS控制的中断************************ */
+    NVIC_InitTypeDef NVIC_InitStructure;
 
     // 配置 USART1 中断优先级 调试信息
-    NVIC_InitTypeDef NVIC_InitStructure;
     NVIC_InitStructure.NVIC_IRQChannel = USART1_IRQn;
-    NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 1;
+    NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 2;
     NVIC_InitStructure.NVIC_IRQChannelSubPriority = 0;
     NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
     NVIC_Init(&NVIC_InitStructure);
 
-    // 配置 USART2 中断优先级 蓝牙串口（若使用）
+    // 配置 USART2 中断优先级 OpenMV摄像头
     NVIC_InitStructure.NVIC_IRQChannel = USART2_IRQn;
+    NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 3;
+    NVIC_InitStructure.NVIC_IRQChannelSubPriority = 0;
+    NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
+    NVIC_Init(&NVIC_InitStructure);
+
+    // 配置 USART3 中断优先级 数字识别摄像头
+    NVIC_InitStructure.NVIC_IRQChannel = USART3_IRQn;
     NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 1;
     NVIC_InitStructure.NVIC_IRQChannelSubPriority = 0;
     NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
@@ -57,34 +63,24 @@ void NVIC_Configuration(void)
 
     // 配置 UART4 中断优先级 无线串口
     NVIC_InitStructure.NVIC_IRQChannel = UART4_IRQn;
-    NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 2;
+    NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 3;
     NVIC_InitStructure.NVIC_IRQChannelSubPriority = 0;
     NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
     NVIC_Init(&NVIC_InitStructure);
 
-    // 配置 UART5 中断优先级 V831摄像头
+    // 配置 UART5 中断优先级 蓝牙串口
     NVIC_InitStructure.NVIC_IRQChannel = UART5_IRQn;
-    NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 1;
+    NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 3;
     NVIC_InitStructure.NVIC_IRQChannelSubPriority = 0;
     NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
     NVIC_Init(&NVIC_InitStructure);
     
-/************************************受OS控制的中断************************ */
- 
-    // 配置定时器5 中断优先级 PID控制的定时器
-    NVIC_InitStructure.NVIC_IRQChannel = TIM5_IRQn;
-    NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 5;
-    NVIC_InitStructure.NVIC_IRQChannelSubPriority = 0;
-    NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
-    NVIC_Init(&NVIC_InitStructure);
-
-    // 配置 USART3 中断优先级 OpenMV摄像头
-    NVIC_InitStructure.NVIC_IRQChannel = USART3_IRQn;
+    // 配置定时器1 中断优先级 PID控制的定时器
+    NVIC_InitStructure.NVIC_IRQChannel = TIM1_UP_TIM10_IRQn;
     NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 2;
     NVIC_InitStructure.NVIC_IRQChannelSubPriority = 0;
     NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
     NVIC_Init(&NVIC_InitStructure);
-
 
 }
 

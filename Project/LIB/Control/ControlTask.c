@@ -7,16 +7,17 @@ extern Stde_DataTypeDef USART3_DataBuff,UART5_DataBuff,UART4_DataBuff;    // dec
  *
  *  启动流程：
  *        1. 检查数字是否成功存储
- *        2. 检查药品是否装载完毕
+ *              1.1. 装载药瓶之前的读取的数字都是要存储的数字
+ *              1.2. 根据存储数字的个数决定药房的位置，1个数字近端病房，2个数字中间病房，3个数字远端病房    
+ *        2. 检查药品是否装载完毕（装载药瓶之后的读取的数字都是要比较的数字）
  *  正常运行流程：
  *        1. OpenMV扫描
  *        2. 检查是否扫到十字路口
- * 
  *              2.1. 扫到十字路口，停车
  *              2.2. 打开串口通信，等待接收数字识别数据
  *              2.3. 接收到数据，与存储的数据进行比对，决定转向
  *              2.4. 读取MPU6050，开始转向
- *        3. 检查是否
+ *        3. 检查是否扫到十字路口
  *
  */
 
@@ -63,7 +64,7 @@ void Project_LIB_ControlTask()
     PID_TypeStructInit(&pidForLine,150,-10,0,120,PID_forLine,NULL);     //* 初始化
 
     pidForLine.PID_Update1(&pidForLine);                                //* 计算
-    Project_LIB_Motor_Load(pidForLine.output,pidForLine.output);        //* 装载到电机
+    Project_LIB_Motor_Load(4500,4500);        //* 装载到电机
 
 }
 

@@ -8,7 +8,7 @@
  * 如有更多需求，可在结构体内添加，初始化函数中加入接口
  */
 
-extern Stde_DataTypeDef USART3_DataBuff;
+extern Stde_DataTypeDef USART2_DataBuff;
 
 
 

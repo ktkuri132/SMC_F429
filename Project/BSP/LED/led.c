@@ -11,22 +11,12 @@ void Project_BSP_LED_Init()
     GPIO_InitStructure.GPIO_Speed = GPIO_Speed_100MHz;
     GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_NOPULL;
     GPIO_Init(GPIOC,&GPIO_InitStructure);
+    Project_BSP_LED_OFF(0);
+    Project_BSP_LED_OFF(1);
 
 }
 
 void Project_BSP_LED_ON(uint8_t LED)
-{
-    if(LED == 0)
-    {
-        GPIO_SetBits(GPIOC,GPIO_Pin_4);
-    }
-    else
-    {
-        GPIO_SetBits(GPIOC,GPIO_Pin_5);
-    }
-}
-
-void Project_BSP_LED_OFF(uint8_t LED)
 {
     if(LED == 0)
     {
@@ -35,6 +25,18 @@ void Project_BSP_LED_OFF(uint8_t LED)
     else
     {
         GPIO_ResetBits(GPIOC,GPIO_Pin_5);
+    }
+}
+
+void Project_BSP_LED_OFF(uint8_t LED)
+{
+    if(LED == 0)
+    {
+        GPIO_SetBits(GPIOC,GPIO_Pin_4);
+    }
+    else
+    {
+        GPIO_SetBits(GPIOC,GPIO_Pin_5);
     }
 }
 

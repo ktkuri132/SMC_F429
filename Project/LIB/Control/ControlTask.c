@@ -63,7 +63,8 @@ void Project_LIB_ControlTask()
     static PID pidForLine;                                              //* 创建PID结构体
     PID_TypeStructInit(&pidForLine,150,-10,0,120,PID_forLine,NULL);     //* 初始化
 
-    pidForLine.PID_Update1(&pidForLine);                                //* 计算
+    pidForLine.PID_Update1(&pidForLine);    
+    // printf("%d\n",pidForLine.output);                            //* 计算
     Project_LIB_Motor_Load(4500,4500);        //* 装载到电机
 
 }

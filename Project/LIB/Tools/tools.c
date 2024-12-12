@@ -1,4 +1,5 @@
 #include <Project.h>
+#include <misc.h>
 
 extern Stde_DataTypeDef USART3_DataBuff,UART5_DataBuff,UART4_DataBuff;
 
@@ -11,21 +12,21 @@ void Project_LIB_Get_Encoder_Value(uint16_t *value1,uint16_t *value2)
 }
 
 
-void Project_LIB_TIM1_Init(uint8_t ms)
+
+void Project_LIB_TIM3_Init(uint8_t ms)
 {
 	TIM_TimeBaseInitTypeDef TIM_TimeBaseStructure;
 
-    RCC_APB1PeriphClockCmd(RCC_APB2Periph_TIM1, ENABLE);
+    RCC_APB1PeriphClockCmd(RCC_APB1Periph_TIM3, ENABLE);
 
     TIM_TimeBaseStructure.TIM_Period = 1000*ms - 1;
     TIM_TimeBaseStructure.TIM_Prescaler = 84 - 1;
     TIM_TimeBaseStructure.TIM_ClockDivision = TIM_CKD_DIV1;
     TIM_TimeBaseStructure.TIM_CounterMode = TIM_CounterMode_Up;
-    TIM_TimeBaseInit(TIM1, &TIM_TimeBaseStructure);
-
-    TIM_ITConfig(TIM1, TIM_IT_Update, ENABLE);
-
-    TIM_Cmd(TIM1, ENABLE);
+    TIM_TimeBaseInit(TIM3, &TIM_TimeBaseStructure);
+    TIM_ClearFlag(TIM3,TIM_FLAG_Update);
+    TIM_ITConfig(TIM3, TIM_IT_Update, ENABLE);
+    TIM_Cmd(TIM3, ENABLE);
 }
 
 /// @brief Motor load function for left and right

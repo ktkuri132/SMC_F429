@@ -30,34 +30,108 @@ void Task2_Project_Init()
 }
 
 float pitch,roll,yaw;
+short gyro[3];
 
-
-void Task3_Project_Display()
+/// @brief 显示输出
+/// @param Mode 显示模式
+void Task3_Project_Display(uint8_t Mode)
 {
+    TickType_t xLastWakeTime;
+    const TickType_t xFrequency_5 = pdMS_TO_TICKS(5); // 任务周期为 5 毫秒
+    const TickType_t xFrequency_100 = pdMS_TO_TICKS(100); // 任务周期为 100 毫秒
+    const TickType_t xFrequency_1000 = pdMS_TO_TICKS(2000); // 任务周期为 2秒
+
+    // 初始化 xLastWakeTime 变量为当前时间
+    xLastWakeTime = xTaskGetTickCount();
+    switch (Mode)
+    {
+        case 1:
+        {
+            goto Mode_1;
+        }
+        break;
+        case 2:
+        {
+            goto Mode_2;
+        }break;
+        case 3:
+        {
+            goto Mode_3;
+        }break;
+        case 4:
+        {
+            goto Mode_4;
+        }break;
+    default:
+        break;
+    }
+
+Mode_1:     // 加入监测MPU6050
     while(1)
     {
         // 进入临界区
         taskENTER_CRITICAL();
         mpu_dmp_get_data(&pitch,&roll,&yaw);    
-        OLED_Printf(0,0,OLED_6X8,"OpenMV:%d",USART_Deal(&USART2_DataBuff,1));
-        // OLED_Printf(0,16,OLED_8X16,"V831:%d",USART_Deal(&UART5_DataBuff,1));
-        OLED_Printf(0,8,OLED_6X8,"ADC:%.3f",Project_BSP_GetADC());
-        // OLED_Printf(0,32,OLED_8X16,"HFY:%d",USART_Deal(&UART4_DataBuff,1));
-        OLED_Printf(0,16,OLED_6X8,"HW201:%d",Project_BSP_HW201_Get());
         OLED_Printf(0,24,OLED_6X8,"MPU6050:%f",yaw);
         OLED_Update();
-
-        if(!Project_BSP_HW201_Get())
+        // 退出临界区
+        taskEXIT_CRITICAL();
+        vTaskDelayUntil(&xLastWakeTime, xFrequency_5);
+    }
+Mode_2:     // 加入监测OpenMV
+    while (1)
+    {
+        // 进入临界区
+        taskENTER_CRITICAL();
+        OLED_Printf(0,8,OLED_6X8,"OpenMV:%d",USART_Deal(&USART2_DataBuff,1));
+        OLED_Update();
+        // 退出临界区
+        taskEXIT_CRITICAL();
+        vTaskDelayUntil(&xLastWakeTime, xFrequency_5);
+    }
+Mode_3:     // 加入监测电池电压
+    while (1)
+    {
+        // 进入临界区
+        taskENTER_CRITICAL();
+        OLED_Printf(0,0,OLED_6X8,"Voltage:%.1f",Project_BSP_GetADC());
+        // OLED_Update();
+        // 退出临界区
+        taskEXIT_CRITICAL();
+        vTaskDelayUntil(&xLastWakeTime, xFrequency_100);
+    }
+Mode_4:
+    static hour,min,sec;
+    while (1)
+    {
+        // 进入临界区
+        taskENTER_CRITICAL();
+        OLED_Printf(0,16,OLED_6X8,"time:%d:%d:%d",hour,min,sec);
+        if(sec==60)
         {
-            Project_BSP_Buzzer_ON();
+            sec=0;
+            min++;
+            if(min==60)
+            {
+                min=0;
+                hour++;
+                if(hour==24)
+                {
+                    hour=0;
+                }
+            }
         }
         else
         {
-            Project_BSP_Buzzer_OFF();
+            sec++;
         }
+        // OLED_Update();
         // 退出临界区
         taskEXIT_CRITICAL();
+        vTaskDelayUntil(&xLastWakeTime, xFrequency_1000);
     }
+    
+    
 }
 
 
@@ -65,7 +139,6 @@ void Task4_LEDPlay()
 {
     TickType_t xLastWakeTime;
     const TickType_t xFrequency = pdMS_TO_TICKS(1000); // 任务周期为 100 毫秒
-
     // 初始化 xLastWakeTime 变量为当前时间
     xLastWakeTime = xTaskGetTickCount();
     while(1)
@@ -79,12 +152,53 @@ void Task4_LEDPlay()
     }
 }
 
+
+extern TaskHandle_t *Task3_Project_Display_MPU6050_Handle;
+extern TaskHandle_t *Task3_Project_Display_OpenMV_Handle;
+extern TaskHandle_t *Task3_Project_Display_Voltage_Handle;
+extern TaskHandle_t *Task3_Project_Display_Time_Handle;
+
 void Task5_KeyScan()
 {
+    TickType_t xLastWakeTime;
+    const TickType_t xFrequency = pdMS_TO_TICKS(10); // 任务周期为 100 毫秒
+
+    // 初始化 xLastWakeTime 变量为当前时间
+    xLastWakeTime = xTaskGetTickCount();
+    static TaskStrat[3];
     while(1)
     {
+        uint8_t temp = Project_BSP_GetKey();
         
-        
+        if(temp)
+        {
+            Project_BSP_Buzzer_ON();
+            if(temp = 1)
+            {
+                // while (temp)
+                // {
+                //     taskYIELD();
+                // }
+
+                if(TaskStrat[0])    // 检查上次按键记录
+                {
+                    //  发现线程被删除过，重新加载线程
+                    xTaskCreate((TaskFunction_t)Task3_Project_Display,"DisPlay_MPU6050",1024,
+                                                1,10,Task3_Project_Display_MPU6050_Handle);
+                }
+                else        // 否则删除该线程
+                {
+                    vTaskDelete(Task3_Project_Display_MPU6050_Handle);
+                    TaskStrat[0] = 1;
+                }
+                
+            }
+        }
+        else
+        {
+            Project_BSP_Buzzer_OFF();
+        }
+        vTaskDelayUntil(&xLastWakeTime, xFrequency);
 
     }
 }

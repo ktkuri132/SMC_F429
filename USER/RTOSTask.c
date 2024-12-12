@@ -173,26 +173,6 @@ void Task5_KeyScan()
         if(temp)
         {
             Project_BSP_Buzzer_ON();
-            if(temp = 1)
-            {
-                // while (temp)
-                // {
-                //     taskYIELD();
-                // }
-
-                if(TaskStrat[0])    // 检查上次按键记录
-                {
-                    //  发现线程被删除过，重新加载线程
-                    xTaskCreate((TaskFunction_t)Task3_Project_Display,"DisPlay_MPU6050",1024,
-                                                1,10,Task3_Project_Display_MPU6050_Handle);
-                }
-                else        // 否则删除该线程
-                {
-                    vTaskDelete(Task3_Project_Display_MPU6050_Handle);
-                    TaskStrat[0] = 1;
-                }
-                
-            }
         }
         else
         {

@@ -130,8 +130,6 @@ Mode_4:
         taskEXIT_CRITICAL();
         vTaskDelayUntil(&xLastWakeTime, xFrequency_1000);
     }
-    
-    
 }
 
 

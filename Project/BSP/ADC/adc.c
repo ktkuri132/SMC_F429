@@ -44,8 +44,9 @@ float Project_BSP_GetADC()
 {
     float ADC_Value;
     ADC_Value = ADC_GetConversionValue(ADC1);
-    ADC_Value = (ADC_Value/4095)*1.1;
-    return ADC_Value;
+    ADC_Value = (ADC_Value/4095)*3.28875;
+    float Voltage = (ADC_Value - 2.32)/0.86*100;
+    return Voltage;
 }
 
 

@@ -31,6 +31,7 @@ void Task2_Project_Init()
 
 float pitch,roll,yaw;
 short gyro[3];
+extern uint8_t MotorStrat_1,MotorStrat_2,MotorStrat_3;
 
 /// @brief 显示输出
 /// @param Mode 显示模式
@@ -85,6 +86,14 @@ Mode_2:     // 加入监测OpenMV
         taskENTER_CRITICAL();
         OLED_Printf(0,8,OLED_6X8,"OpenMV:%d",USART_Deal(&USART2_DataBuff,1));
         OLED_Update();
+        if(USART_Deal(&USART2_DataBuff,0)==1)
+        {
+            MotorStrat_3 = 1;
+        }
+        else
+        {
+            MotorStrat_3 = 0;
+        }
         // 退出临界区
         taskEXIT_CRITICAL();
         vTaskDelayUntil(&xLastWakeTime, xFrequency_5);
@@ -95,6 +104,17 @@ Mode_3:     // 加入监测电池电压
         // 进入临界区
         taskENTER_CRITICAL();
         OLED_Printf(0,0,OLED_6X8,"Voltage:%.1f",Project_BSP_GetADC());
+        if(Project_BSP_GetADC()<0.5)
+        {
+            OLED_Printf(48,0,OLED_6X8,"Low Power");
+            MotorStrat_1 = 0;
+        }
+        else
+        {
+            OLED_ClearArea(30,0,60,8);
+            OLED_Printf(48,0,OLED_6X8,"Power OK");
+            MotorStrat_1 = 1;
+        }
         // OLED_Update();
         // 退出临界区
         taskEXIT_CRITICAL();
@@ -159,7 +179,7 @@ extern TaskHandle_t *Task3_Project_Display_Time_Handle;
 void Task5_KeyScan()
 {
     TickType_t xLastWakeTime;
-    const TickType_t xFrequency = pdMS_TO_TICKS(10); // 任务周期为 100 毫秒
+    const TickType_t xFrequency = pdMS_TO_TICKS(100); // 任务周期为 100 毫秒
 
     // 初始化 xLastWakeTime 变量为当前时间
     xLastWakeTime = xTaskGetTickCount();
@@ -172,9 +192,20 @@ void Task5_KeyScan()
         {
             Project_BSP_Buzzer_ON();
         }
-        else
+        else 
         {
             Project_BSP_Buzzer_OFF();
+        }
+
+        if(!Project_BSP_HW201_Get())
+        {
+            OLED_Printf(0,32,OLED_6X8,"HW201:1");
+            MotorStrat_2 = 1;
+        }
+        else
+        {
+            OLED_Printf(0,32,OLED_6X8,"HW201:0");
+            MotorStrat_2 = 0;
         }
         vTaskDelayUntil(&xLastWakeTime, xFrequency);
 

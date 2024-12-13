@@ -101,17 +101,17 @@ TaskHandle_t *Task5_KeyScan_Handle;
 int main()
 {
 
-    xTaskCreate((TaskFunction_t)Task3_Project_Display,"DisPlay_MPU6050",1024,
-                                1,10,Task3_Project_Display_MPU6050_Handle);
+    // xTaskCreate((TaskFunction_t)Task3_Project_Display,"DisPlay_MPU6050",1024,
+    //                             1,10,Task3_Project_Display_MPU6050_Handle);
     xTaskCreate((TaskFunction_t)Task3_Project_Display,"DisPlay_OpenMV",1024,
                                 2,10,Task3_Project_Display_OpenMV_Handle);
     xTaskCreate((TaskFunction_t)Task3_Project_Display,"DisPlay_Voltage",1024,
                                 3,10,Task3_Project_Display_Voltage_Handle);   
-    xTaskCreate((TaskFunction_t)Task3_Project_Display,"DisPlay_Time",1024,
-                                4,10,Task3_Project_Display_Time_Handle);                                                      
-    xTaskCreate((TaskFunction_t)Task4_LEDPlay,"Task2_Project_Init",1024,
+    // xTaskCreate((TaskFunction_t)Task3_Project_Display,"DisPlay_Time",1024,
+    //                             4,10,Task3_Project_Display_Time_Handle);                                                      
+    xTaskCreate((TaskFunction_t)Task4_LEDPlay,"Task4_LEDPlay",1024,
                                 NULL,10,Task4_LEDPlay_Handle);
-    xTaskCreate((TaskFunction_t)Task5_KeyScan,"Task3_Project_Display",1024,
+    xTaskCreate((TaskFunction_t)Task5_KeyScan,"Task5_KeyScan",1024,
                                 NULL,10,Task5_KeyScan_Handle);
     vTaskStartScheduler();
     

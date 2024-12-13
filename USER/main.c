@@ -66,7 +66,8 @@ Init_BSP:                                   // 初始化基本外设
     bsp_uart_4_inti(115200);                    // 无线串口
     bsp_uart_5_inti(115200);                    // V831摄像头通信
     NVIC_Configuration();           
-             
+    Test();      
+    
 
 Init_Serial:                                
     
@@ -94,7 +95,7 @@ void main()
     xTaskCreate((TaskFunction_t)Task3_Project_Display,"Task3_Project_Display",1024,
                                 NULL,32,Task3_Project_Display_Handle);
     
-    xSemaphore = xSemaphoreCreateBinary();
+    
     
     vTaskStartScheduler();
 }
@@ -102,7 +103,11 @@ void main()
 
 void Test()
 {
-   
+    
+    while (1)
+    {
+        
+    }
     
 }
 

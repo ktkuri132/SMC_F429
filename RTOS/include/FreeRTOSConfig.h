@@ -72,8 +72,8 @@
 #ifndef FREERTOS_CONFIG_H
 #define FREERTOS_CONFIG_H
 
-#include <stm32f4xx.h>
-//#include "stm32f4xx_it.h"
+#include "stm32f4xx.h"
+// #include "stm32f4xx_it.h"
 
 //针对不同的编译器调用不同的stdint.h文件
 #if defined(__ICCARM__) || defined(__CC_ARM) || defined(__GNUC__)

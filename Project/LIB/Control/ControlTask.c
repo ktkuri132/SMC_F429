@@ -26,32 +26,7 @@ extern Stde_DataTypeDef USART3_DataBuff,UART5_DataBuff,UART4_DataBuff;    // dec
 uint8_t Project_LIB_ControlStrat()
 {
 
-    static uint8_t CamerData;
-CheckNumber:
-    //* 检查数据是否到达
-    if(Data_Save_from_Camer(&CamerData))
-    {
-        goto CheckMedical;
-    }
-    else
-    {
-        goto ControlRun;
-    } 
-
-CheckMedical:
-    //* 检查当前药品装载情况
-    while(Project_BSP_HW201_Get)
-    {
-        Project_LIB_Motor_Load(0,0);   
-    }
     
-ControlRun:
-    //* 控制任务
-    Project_LIB_ControlTask();
-
-    goto CheckNumber;
-
-    return 0;
 }
 
 /// @brief 控制任务

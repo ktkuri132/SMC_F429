@@ -93,20 +93,14 @@ void Project_LIB_Motor_Load(int32_t leftMotor,int32_t RightMotor)
     }
 }
 
+
+uint8_t CamerData[4];
 /// @brief 将从串口读出的数据保存到Data中
 /// @param Data 传入的数据
 /// @return 1 读取到数据，0 未读取到数据
-uint8_t Data_Save_from_Camer(uint8_t *Data)
+uint8_t Data_Save_from_Camer()
 {
-    *Data = V831Data;
-    if(*Data)
-    {
-        return 1;
-    }
-    else 
-    {
-        return 0;
-    }
+    
 }
 
 /// @brief 严格的函数运行

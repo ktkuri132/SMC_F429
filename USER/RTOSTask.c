@@ -23,6 +23,12 @@ void Task1_SystemStrat(uint8_t Mode)
 Image_identify:
     do{
         Image_identify_Return = Data_Save_from_Camer();     // 刷新数据存储
+        if(!Image_identify_Return){     // 返回0闪红灯
+            xTaskCreate((TaskFunction_t)Task4_LEDPlay,"Red_LED",512,1,10,NULL);
+        }
+        else if(Image_identify_Return){ // 返回1闪黄灯
+            xTaskCreate((TaskFunction_t)Task4_LEDPlay,"Yellow_LED",512,2,10,NULL);
+        }
         xTaskDelayUntil(&xLastWakeTime,xFrequency_5);   // 释放线程，每5ms刷新一次线程
     }while ((Image_identify_Return == -2)||(Image_identify_Return == -1));
     return Image_identify_Return;
@@ -157,21 +163,42 @@ Mode_4:
 }
 
 
-void Task4_LEDPlay()
+void Task4_LEDPlay(uint8_t Mode)
 {
     TickType_t xLastWakeTime;
     const TickType_t xFrequency = pdMS_TO_TICKS(1000); // 任务周期为 100 毫秒
     // 初始化 xLastWakeTime 变量为当前时间
     xLastWakeTime = xTaskGetTickCount();
-    while(1)
+    uint8_t RunCounst = 2;
+    switch (Mode)
+    {
+    case 1:
+        goto Red_LED;
+        break;
+    case 2:
+        goto Yellow_LED;
+    default:
+        break;
+    }
+Red_LED:
+    while(RunCounst)
     {
         Project_BSP_LED_ON(0);
-        Project_BSP_LED_OFF(1);
         vTaskDelayUntil(&xLastWakeTime, xFrequency);
         Project_BSP_LED_OFF(0);
+        vTaskDelayUntil(&xLastWakeTime, xFrequency);
+        RunCounst--;
+    }
+Yellow_LED:
+    while (RunCounst)
+    {
         Project_BSP_LED_ON(1);
         vTaskDelayUntil(&xLastWakeTime, xFrequency);
+        Project_BSP_LED_OFF(1);
+        vTaskDelayUntil(&xLastWakeTime, xFrequency);
+        RunCounst--;
     }
+    
 }
 
 

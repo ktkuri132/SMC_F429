@@ -11,10 +11,10 @@
 uint8_t ucHeap[ configTOTAL_HEAP_SIZE ] __attribute__((section(".ext_sram")));
 
 // 任务函数
-void Task1_BSP_Init();
+void Task1_SystemStrat(uint8_t Mode);
 void Task2_Project_Init();
 void Task3_Project_Display(uint8_t Mode);
-void Task4_LEDPlay();
+void Task4_LEDPlay(uint8_t Mode);
 void Task5_KeyScan();
 
 

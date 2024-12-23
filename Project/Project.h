@@ -42,7 +42,7 @@ extern "C"
 #define MAX_PWM 9000
 // 定义从串口读出的数据
 #define OpenMVData  USART_Deal(&USART2_DataBuff,1)
-#define V831Data    USART_Deal(&UART5_DataBuff,1)
+#define K210Data    USART_Deal(&USART3_DataBuff,1)
 #define HFYCar      USART_Deal(&UART4_DataBuff,1)
 
 
@@ -58,9 +58,7 @@ void    Project_BSP_TB6612_Init();
 void Project_LIB_Get_Encoder_Value(uint16_t *value1,uint16_t *value2);
 void Project_LIB_TIM3_Init(uint8_t ms);
 void Project_LIB_Motor_Load(int32_t leftMotor,int32_t RightMotor);
-void Task_run(void (*pvfunction)(void *),int16_t *pvParameters);
-uint8_t Data_Save_from_Camer(uint8_t *Data);
-uint8_t TimeOut(uint8_t returnData);
+uint8_t Data_Save_from_Camer();
 void Project_LIB_ControlTask();
 
 // ADC

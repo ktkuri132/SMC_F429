@@ -3,30 +3,34 @@
 
 extern Stde_DataTypeDef USART2_DataBuff,USART3_DataBuff,UART5_DataBuff,UART4_DataBuff;
 
-void Task1_BSP_Init()
+/// @brief 系统启动线程：协助完成模式选择，图象识别
+void Task1_SystemStrat(uint8_t Mode)
 {
-    
-    bsp_usart_1_inti(115200);   // 产生调试信息
-    bsp_usart_2_inti(9600);     // 蓝牙串口
-    bsp_usart_3_inti(115200);   // OpenMV摄像头通信
-    bsp_uart_4_inti(115200);    // 无线串口
-    bsp_uart_5_inti(115200);    // V831摄像头通信
-    OLED_Init();
-    mpu_dmp_init();
-    NVIC_Configuration();
+    TickType_t xLastWakeTime;
+    const TickType_t xFrequency_5 = pdMS_TO_TICKS(5); // 任务周期为 5 毫秒
+
+    // 初始化 xLastWakeTime 变量为当前时间
+    xLastWakeTime = xTaskGetTickCount();
+    static uint8_t Image_identify_Return;
+    switch (Mode)
+    {
+    case 1:
+        goto Image_identify;
+        break;
+    default:
+        break;
+    }
+Image_identify:
+    do{
+        Image_identify_Return = Data_Save_from_Camer();     // 刷新数据存储
+        xTaskDelayUntil(&xLastWakeTime,xFrequency_5);   // 释放线程，每5ms刷新一次线程
+    }while ((Image_identify_Return == -2)||(Image_identify_Return == -1));
+    return Image_identify_Return;
 }
 
 void Task2_Project_Init()
 {
-    // 初始化串口数据结构
-    Stde_DataTypeDef_Init(&USART3_DataBuff);
-    Stde_DataTypeDef_Init(&UART5_DataBuff);
-    Stde_DataTypeDef_Init(&UART4_DataBuff);
-
-    // Project_BSP_PWM_TIM2_Init();   printf("初始化PWM\n");  
-    // Project_BSP_Encoding_Init();   printf("初始化编码器");
-    // Project_BSP_TB6612_Init();     printf("初始化TB6612\n");  
-    // Project_BSP_HW201_Init();      printf("初始化红外传感器");
+    
 }
 
 float pitch,roll,yaw;

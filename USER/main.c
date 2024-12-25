@@ -90,6 +90,8 @@ Init_Project:
 }
 
 // 创建任务句柄
+TaskHandle_t *Task1_SystemStart_Handle;
+
 TaskHandle_t *Task3_Project_Display_MPU6050_Handle;
 TaskHandle_t *Task3_Project_Display_OpenMV_Handle;
 TaskHandle_t *Task3_Project_Display_Voltage_Handle;
@@ -100,17 +102,18 @@ TaskHandle_t *Task5_KeyScan_Handle;
 
 int main()
 {
-
+    // xTaskCreate((TaskFunction_t)Task1_SystemStrat,"SystemStrat",1024,
+    //                             1,10,Task1_SystemStart_Handle);
     // xTaskCreate((TaskFunction_t)Task3_Project_Display,"DisPlay_MPU6050",1024,
     //                             1,10,Task3_Project_Display_MPU6050_Handle);
-    xTaskCreate((TaskFunction_t)Task3_Project_Display,"DisPlay_OpenMV",1024,
+    xTaskCreate((TaskFunction_t)Task3_Project_Display,"DisPlay_Camer",1024,
                                 2,10,Task3_Project_Display_OpenMV_Handle);
     xTaskCreate((TaskFunction_t)Task3_Project_Display,"DisPlay_Voltage",1024,
                                 3,10,Task3_Project_Display_Voltage_Handle);   
     // xTaskCreate((TaskFunction_t)Task3_Project_Display,"DisPlay_Time",1024,
     //                             4,10,Task3_Project_Display_Time_Handle);                                                      
-    xTaskCreate((TaskFunction_t)Task4_LEDPlay,"Task4_LEDPlay",1024,
-                                NULL,10,Task4_LEDPlay_Handle);
+    // xTaskCreate((TaskFunction_t)Task4_LEDPlay,"Task4_LEDPlay",1024,
+    //                             NULL,10,Task4_LEDPlay_Handle);
     xTaskCreate((TaskFunction_t)Task5_KeyScan,"Task5_KeyScan",1024,
                                 NULL,10,Task5_KeyScan_Handle);
     vTaskStartScheduler();
@@ -123,7 +126,7 @@ void TIM3_IRQHandler()
     if(TIM_GetITStatus(TIM3,TIM_IT_Update))
     {
         TIM_ClearITPendingBit(TIM3,TIM_IT_Update);
-        Project_LIB_ControlTask();
+        Project_LIB_ControlStrat();
     }
 }
 
@@ -132,6 +135,14 @@ void USART2_IRQHandler()
     if(USART2->SR & USART_SR_RXNE)
     {
         STDE_UART(USART2,&USART2_DataBuff);
+    }
+}
+
+void USART3_IRQHandler()
+{
+    if(USART3->SR & USART_SR_RXNE)
+    {
+        STDE_UART(USART3,&USART3_DataBuff);
     }
 }
 

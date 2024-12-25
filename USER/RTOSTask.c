@@ -1,7 +1,11 @@
 #include <Project.h>
-
+#include <RTOSTaskConfig.h>
+// 设置任务栈
+uint8_t ucHeap[ configTOTAL_HEAP_SIZE ] __attribute__((section(".ext_sram")));
 
 extern Stde_DataTypeDef USART2_DataBuff,USART3_DataBuff,UART5_DataBuff,UART4_DataBuff;
+
+extern uint8_t CamerData[4];
 
 /// @brief 系统启动线程：协助完成模式选择，图象识别
 void Task1_SystemStrat(uint8_t Mode)
@@ -94,7 +98,8 @@ Mode_2:     // 加入监测OpenMV
     {
         // 进入临界区
         taskENTER_CRITICAL();
-        OLED_Printf(0,8,OLED_6X8,"OpenMV:%d",USART_Deal(&USART2_DataBuff,1));
+        OLED_Printf(0,8,OLED_6X8,"OpenMV:%d",OpenMVData);
+        OLED_Printf(0,32,OLED_6X8,"K210:%d,%d",K210Data,CamerData[1]);
         OLED_Update();
         if(USART_Deal(&USART2_DataBuff,0)==1)
         {
@@ -113,16 +118,15 @@ Mode_3:     // 加入监测电池电压
     {
         // 进入临界区
         taskENTER_CRITICAL();
-        OLED_Printf(0,0,OLED_6X8,"Voltage:%.1f",Project_BSP_GetADC());
+        OLED_DrawRectangle(100,0,28,16,OLED_UNFILLED);
+        OLED_Printf(104,4,OLED_6X8,"%.0f",Project_BSP_GetADC());
+        OLED_ShowChar(116,4,'%',OLED_6X8);
         if(Project_BSP_GetADC()<0.5)
         {
-            OLED_Printf(48,0,OLED_6X8,"Low Power");
             MotorStrat_1 = 0;
         }
         else
         {
-            OLED_ClearArea(30,0,60,8);
-            OLED_Printf(48,0,OLED_6X8,"Power OK");
             MotorStrat_1 = 1;
         }
         // OLED_Update();
@@ -242,4 +246,11 @@ void Task5_KeyScan()
 
     }
 }
+
+
+
+
+
+
+
 

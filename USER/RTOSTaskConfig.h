@@ -7,8 +7,7 @@
 #define TASK_STACK_SIZE (size_t)(0X2000000)// 32*1024*1024
 // 设置栈顶指针
 #define TASK_START_TOPADDR (StackType_t)(SDRAM_ADDR + TASK_STACK_SIZE)
-// 设置任务栈
-uint8_t ucHeap[ configTOTAL_HEAP_SIZE ] __attribute__((section(".ext_sram")));
+
 
 // 任务函数
 void Task1_SystemStrat(uint8_t Mode);

@@ -38,13 +38,15 @@ void Project_BSP_ADC_Init()
 }
 
 // 设置电池最低工作检测电压1.5V
-float Voltage = 1.5;
+float Voltage = 2.93;
 
 float Project_BSP_GetADC()
 {
     float ADC_Value;
     ADC_Value = ADC_GetConversionValue(ADC1);
-    ADC_Value = (ADC_Value/4095)*1.1;
+    ADC_Value = (ADC_Value/4095)*3.26;
+    ADC_Value -= 2.316;
+    ADC_Value = ADC_Value/0.83*100;
     return ADC_Value;
 }
 

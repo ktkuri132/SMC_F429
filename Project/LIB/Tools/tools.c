@@ -1,5 +1,6 @@
 #include <Project.h>
 #include <misc.h>
+#include <RTOSTaskConfig.h>
 
 extern Stde_DataTypeDef USART3_DataBuff,UART5_DataBuff,UART4_DataBuff;
 
@@ -108,15 +109,17 @@ uint8_t Data_Save_from_Camer()
     if(Temp){   // 如果识别到了数字
         if(!CamerData[i]){     // 如果缓冲数组的目前为止为空
             CamerData[i] = Temp;        // 填入数字
+            if(!i){     // 返回0闪红灯
+                xTaskCreate((TaskFunction_t)Task4_LEDPlay,"Red_LED",512,1,10,NULL);
+            }
+            else if(i){ // 返回1闪黄灯
+                xTaskCreate((TaskFunction_t)Task4_LEDPlay,"Yellow_LED",512,2,10,NULL);
+            }
             i++;
-            return (i-1);
+            return i;
         }
     }
     else{   // 程序运行到这里，说明出现了扫描空挡
         return -1;   // 返回3只会出现在，第一次出现扫描空挡的瞬间
     }
 }
-
-
-
-

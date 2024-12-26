@@ -5,6 +5,13 @@ uint8_t ucHeap[ configTOTAL_HEAP_SIZE ] __attribute__((section(".ext_sram")));
 
 extern Stde_DataTypeDef USART2_DataBuff,USART3_DataBuff,UART5_DataBuff,UART4_DataBuff;
 
+extern TaskHandle_t *Task3_Project_Display_MPU6050_Handle;
+extern TaskHandle_t *Task3_Project_Display_OpenMV_Handle;
+extern TaskHandle_t *Task3_Project_Display_Voltage_Handle;
+extern TaskHandle_t *Task3_Project_Display_Time_Handle;
+extern TaskHandle_t *Task4_LEDPlayR_Handle;
+extern TaskHandle_t *Task4_LEDPlayY_Handle;
+
 extern uint8_t CamerData[4];
 
 /// @brief 系统启动线程：协助完成模式选择，图象识别
@@ -28,10 +35,10 @@ Image_identify:
     do{
         Image_identify_Return = Data_Save_from_Camer();     // 刷新数据存储
         if(!Image_identify_Return){     // 返回0闪红灯
-            xTaskCreate((TaskFunction_t)Task4_LEDPlay,"Red_LED",512,1,10,NULL);
+            xTaskCreate((TaskFunction_t)Task4_LEDPlay,"Red_LED",512,1,10,Task4_LEDPlayR_Handle);
         }
         else if(Image_identify_Return){ // 返回1闪黄灯
-            xTaskCreate((TaskFunction_t)Task4_LEDPlay,"Yellow_LED",512,2,10,NULL);
+            xTaskCreate((TaskFunction_t)Task4_LEDPlay,"Yellow_LED",512,2,10,Task4_LEDPlayY_Handle);
         }
         xTaskDelayUntil(&xLastWakeTime,xFrequency_5);   // 释放线程，每5ms刷新一次线程
     }while ((Image_identify_Return == -2)||(Image_identify_Return == -1));
@@ -99,7 +106,7 @@ Mode_2:     // 加入监测OpenMV
         // 进入临界区
         taskENTER_CRITICAL();
         OLED_Printf(0,8,OLED_6X8,"OpenMV:%d",OpenMVData);
-        OLED_Printf(0,32,OLED_6X8,"K210:%d,%d",K210Data,CamerData[1]);
+        OLED_Printf(0,32,OLED_6X8,"K210:%d,%d",CamerData[0],CamerData[1]);
         OLED_Update();
         if(USART_Deal(&USART2_DataBuff,0)==1)
         {
@@ -121,9 +128,9 @@ Mode_3:     // 加入监测电池电压
         OLED_DrawRectangle(100,0,28,16,OLED_UNFILLED);
         OLED_Printf(104,4,OLED_6X8,"%.0f",Project_BSP_GetADC());
         OLED_ShowChar(116,4,'%',OLED_6X8);
-        if(Project_BSP_GetADC()<0.5)
+        if(!Project_BSP_GetADC())
         {
-            MotorStrat_1 = 0;
+            MotorStrat_1 = 0;       // 电池当前电量为0
         }
         else
         {
@@ -206,10 +213,7 @@ Yellow_LED:
 }
 
 
-extern TaskHandle_t *Task3_Project_Display_MPU6050_Handle;
-extern TaskHandle_t *Task3_Project_Display_OpenMV_Handle;
-extern TaskHandle_t *Task3_Project_Display_Voltage_Handle;
-extern TaskHandle_t *Task3_Project_Display_Time_Handle;
+
 
 void Task5_KeyScan()
 {

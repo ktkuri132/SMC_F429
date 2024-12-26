@@ -4,6 +4,12 @@
 
 extern Stde_DataTypeDef USART3_DataBuff,UART5_DataBuff,UART4_DataBuff;
 
+extern TaskHandle_t *Task3_Project_Display_MPU6050_Handle;
+extern TaskHandle_t *Task3_Project_Display_OpenMV_Handle;
+extern TaskHandle_t *Task3_Project_Display_Voltage_Handle;
+extern TaskHandle_t *Task3_Project_Display_Time_Handle;
+extern TaskHandle_t *Task4_LEDPlayR_Handle;
+extern TaskHandle_t *Task4_LEDPlayY_Handle;
 
 /// @brief get the value of encoder on TIM4 and TIM5
 void Project_LIB_Get_Encoder_Value(uint16_t *value1,uint16_t *value2)
@@ -105,15 +111,15 @@ uint8_t Data_Save_from_Camer()
         return -2;    //  上次和这次数据一样
     }
     Temp = K210Data;    // 刷新临时数据
-    static uint8_t i=0;
+    static uint8_t i;
     if(Temp){   // 如果识别到了数字
         if(!CamerData[i]){     // 如果缓冲数组的目前为止为空
             CamerData[i] = Temp;        // 填入数字
             if(!i){     // 返回0闪红灯
-                xTaskCreate((TaskFunction_t)Task4_LEDPlay,"Red_LED",512,1,10,NULL);
+                xTaskCreate((TaskFunction_t)Task4_LEDPlay,"Red_LED",512,1,10,Task4_LEDPlayR_Handle);
             }
             else if(i){ // 返回1闪黄灯
-                xTaskCreate((TaskFunction_t)Task4_LEDPlay,"Yellow_LED",512,2,10,NULL);
+                xTaskCreate((TaskFunction_t)Task4_LEDPlay,"Yellow_LED",512,2,10,Task4_LEDPlayY_Handle);
             }
             i++;
             return i;

@@ -82,7 +82,7 @@
 #endif
 
 //断言
-#define vAssertCalled(char,int) printf("Error:%s,%d\r\n",char,int)
+#define vAssertCalled(char,int) (void)0//printf("Error:%s,%d\r\n",char,int)
 #define configASSERT(x) if((x)==0) vAssertCalled(__FILE__,__LINE__)
 
 /***************************************************************************************************************/
@@ -133,8 +133,8 @@
 /*                                FreeRTOS与运行时间和任务状态收集有关的配置选项                                 */
 /***************************************************************************************************************/
 #define configGENERATE_RUN_TIME_STATS	        0                       //为1时启用运行时间统计功能
-#define configUSE_TRACE_FACILITY				1                       //为1启用可视化跟踪调试
-#define configUSE_STATS_FORMATTING_FUNCTIONS	1                       //与宏configUSE_TRACE_FACILITY同时为1时会编译下面3个函数
+#define configUSE_TRACE_FACILITY				0                       //为1启用可视化跟踪调试
+#define configUSE_STATS_FORMATTING_FUNCTIONS	0                       //与宏configUSE_TRACE_FACILITY同时为1时会编译下面3个函数
                                                                         //prvWriteNameToBuffer(),vTaskList(),
                                                                         //vTaskGetRunTimeStats()
                                                                         

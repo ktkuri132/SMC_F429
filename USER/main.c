@@ -97,7 +97,8 @@ TaskHandle_t *Task3_Project_Display_OpenMV_Handle;
 TaskHandle_t *Task3_Project_Display_Voltage_Handle;
 TaskHandle_t *Task3_Project_Display_Time_Handle;
 
-TaskHandle_t *Task4_LEDPlay_Handle;
+TaskHandle_t *Task4_LEDPlayR_Handle;
+TaskHandle_t *Task4_LEDPlayY_Handle;
 TaskHandle_t *Task5_KeyScan_Handle;
 
 int main()

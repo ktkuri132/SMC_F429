@@ -3,7 +3,9 @@
 
 #ifndef __SOFTI2C_
 #define __SOFTI2C_
-#include <sys.h>
+#include "softi2c.h"
+#include "stm32f4xx.h"
+#include "../gpio/gpio.h"
 // #include <stm32f4xx_gpio.h>
 #define SOFT_IIC_PORT       GPIOB
 #define SOFT_IIC_SCL_PORT   8

@@ -1,4 +1,4 @@
-#include <lcd_gui.h>
+#include "lcd_gui.h"
 
 
 void LCD_EXTI_Configuration(void)

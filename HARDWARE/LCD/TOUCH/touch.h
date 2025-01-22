@@ -37,7 +37,7 @@
 #include "sys.h"
 #include "gt9xxx.h"
 #include "ft5206.h"
-#include <sys.h>
+#include "sys.h"
 
 /******************************************************************************************/
 /* 电阻触摸屏驱动IC T_PEN/T_CS/T_MISO/T_MOSI/T_SCK 引脚 定义 */

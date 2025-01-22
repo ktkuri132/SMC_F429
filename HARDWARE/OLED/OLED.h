@@ -2,7 +2,7 @@
 #define __OLED_H_
 #define __OLED_
 
-#include <OLED_Data.h>
+#include "OLED_Data.h"
 #include <stdarg.h>
 #include <string.h>
 // #define Peripheral_SPI      // 此处定义外设自带SPI
@@ -10,7 +10,7 @@
 
 /* 片上IIC驱动头文件  */
 // #include <hardi2c.h>     // 此处定义片上硬件IIC
-#include <softi2c.h>     // 此处定义片上软件IIC
+#include "softi2c.h"     // 此处定义片上软件IIC
 /*  片上SPI驱动头文件    */
 // #include <softspi.h>     // 实测通用软件SPI不能用以OLED驱动
 

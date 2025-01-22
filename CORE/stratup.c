@@ -5,8 +5,8 @@
 */
 
 #include <stddef.h>
-#include <main.h>
-#include <Project.h>
+#include "main.h"
+#include "Project.h"
 extern void *_estack;
 
 void Reset_Handler();

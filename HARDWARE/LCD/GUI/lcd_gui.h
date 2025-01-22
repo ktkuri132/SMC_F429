@@ -6,8 +6,8 @@
  extern "C" {
 #endif
 
-#include <sys.h>
-#include <lcd_gui.h>
+#include "../../../BSP/sys.h"
+#include "lcd_gui.h"
 
 
 void Button_check(uint8_t *act_sign,uint8_t button_num,uint16_t x,uint16_t y,uint16_t w,uint16_t h,char *string);

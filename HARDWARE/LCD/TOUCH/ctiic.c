@@ -23,8 +23,7 @@
  */
  
 #include "ctiic.h"
-#include <gpio.h>
-#include <sys.h>
+#include "sys.h"
 
 #ifdef __LCD_GUI_
 

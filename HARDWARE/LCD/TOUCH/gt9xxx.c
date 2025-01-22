@@ -33,8 +33,7 @@
 #include "touch.h"
 #include "ctiic.h"
 #include "gt9xxx.h"
-#include "usart.h"
-#include <sys.h>
+#include "sys.h"
 
 #ifdef __LCD_GUI_
 

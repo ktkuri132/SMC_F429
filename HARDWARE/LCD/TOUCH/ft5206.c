@@ -25,12 +25,11 @@
  */
 
 #include "string.h"
-#include "lcd.h"
+#include "../lcd.h"
 #include "touch.h"
 #include "ctiic.h"
 #include "ft5206.h"
-#include "usart.h"
-#include <sys.h>
+#include "sys.h"
 
 #ifdef __LCD_GUI_
 

@@ -1,13 +1,13 @@
 #ifndef __NVIC_
 #define __NVIC_
 
-#include <stm32f4xx.h>
-#include <gpio.h>
-#include <stm32f4xx_rcc.h>
-#include <stdio.h>
+#include "stm32f4xx.h"
+#include "./gpio/gpio.h"
+#include "stm32f4xx_rcc.h"
+#include "stdio.h"
 
-#include <usart.h>
-#include <sys.h>
+#include "./usart/usart.h"
+#include "sys.h"
 // #include <OLED.h>
 
 #include "sdram.h"

@@ -1,11 +1,9 @@
 #include "lcd.h"
 #include "stdlib.h"
 #include "font.h" 
-#include "usart.h"	 
 #include "ltdc.h"
-#include "stm32f4xx.h"
 #include <stdarg.h>
-#include <sys.h>
+#include "sys.h"
 #ifdef __LCD_GUI_
 
 //////////////////////////////////////////////////////////////////////////////////	 

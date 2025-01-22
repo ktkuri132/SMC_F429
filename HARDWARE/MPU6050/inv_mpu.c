@@ -24,9 +24,8 @@
 #include <math.h>
 #include "inv_mpu.h"
 #include "inv_mpu_dmp_motion_driver.h"
-#include <softi2c.h>
 // #include <hardi2c.h>
-#include <sys.h>
+#include "sys.h"
 
 
 #define MPU6050							//

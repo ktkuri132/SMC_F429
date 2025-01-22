@@ -20,8 +20,8 @@ set(CMAKE_C_STANDARD 11)
 
 # 添加关于硬件浮点的支持的相关编译选项
 #add_compile_definitions(ARM_MATH_CM4;ARM_MATH_MATRIX_CHECK;ARM_MATH_ROUNDING)
-#add_compile_options(-mfloat-abi=hard -mfpu=fpv4-sp-d16)
-#add_link_options(-mfloat-abi=hard -mfpu=fpv4-sp-d16)
+add_compile_options(-mfloat-abi=hard -mfpu=fpv4-sp-d16)
+add_link_options(-mfloat-abi=hard -mfpu=fpv4-sp-d16)
 
 # 若不支持硬件浮点,则使用软件浮点
 #add_compile_options(-mfloat-abi=soft)
@@ -74,10 +74,22 @@ add_link_options(-T ${LINKER_SCRIPT})
 # 生成可执行文件
 add_executable(${PROJECT_NAME}.elf ${CMAKE_SOURCE_DIR}/USER/main.c ${LINKER_SCRIPT})
 
+# 忽略warning
+# target_compile_options(${PROJECT_NAME}.elf PRIVATE -W)
+
 # 将可执行文件链接项目其他库
-target_link_libraries(${PROJECT_NAME}.elf CORE_LIB USER_LIB OS_LIB)
+target_link_libraries(${PROJECT_NAME}.elf BSP_LIB HARDWARE_LIB CORE_LIB USER_LIB Project_LIB RTOS_LIB)
+
+set(ROOT_DIR ${CMAKE_SOURCE_DIR})
+
+# 添加头文件路径
+include_directories(${CMAKE_SOURCE_DIR}/CORE)
+
+
+
 # 添加头文件路径
 target_include_directories(${PROJECT_NAME}.elf PRIVATE CORE USER Source)
+
 # 定义其他类型的可执行文件
 set(HEX_FILE ${PROJECT_BINARY_DIR}/${PROJECT_NAME}.hex)
 set(BIN_FILE ${PROJECT_BINARY_DIR}/${PROJECT_NAME}.bin)

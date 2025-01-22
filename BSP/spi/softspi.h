@@ -4,7 +4,7 @@
 #ifndef  __SOFTSPI_
 #define  __SOFTSPI_
 
-#include <sys.h>
+#include "sys.h"
 
 
 // SPI协议通用接口

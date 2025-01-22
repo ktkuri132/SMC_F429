@@ -1,8 +1,6 @@
-#include <stm32f4xx.h>
-#include <stm32f4xx_i2c.h>
-#include <gpio.h>
+#include "sys.h"
 
-#include <hardi2c.h>
+#ifdef  __HARDI2C_
 
 void Hard_IIC_Init()
 {
@@ -182,3 +180,5 @@ uint8_t Hard_IIC_Read_Data(uint8_t Address,uint8_t Register,uint8_t *Data,uint8_
 	
 	return 0;
 }
+
+#endif

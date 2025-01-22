@@ -1,7 +1,6 @@
 #ifndef _SDRAM_H
 #define _SDRAM_H
-#include <stm32f4xx.h>
-#include <sys.h>		  
+#include "sys.h"
 ////////////////////////////////////////////////////////////////////////////////// 	
  
 #define Bank5_SDRAM_ADDR    ((u32)(0XC0000000)) 			//SDRAM开始地址

@@ -17,7 +17,7 @@ set(CMAKE_TRY_COMPILE_TARGET_TYPE STATIC_LIBRARY)
 project(SMC C CXX ASM)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_C_STANDARD 11)
-
+add_executable(new_target USER/main.c)
 # 添加关于硬件浮点的支持的相关编译选项
 #add_compile_definitions(ARM_MATH_CM4;ARM_MATH_MATRIX_CHECK;ARM_MATH_ROUNDING)
 add_compile_options(-mfloat-abi=hard -mfpu=fpv4-sp-d16)
@@ -84,6 +84,14 @@ set(ROOT_DIR ${CMAKE_SOURCE_DIR})
 
 # 添加头文件路径
 include_directories(${CMAKE_SOURCE_DIR}/CORE)
+include_directories(${CMAKE_SOURCE_DIR}/BSP)
+include_directories(${CMAKE_SOURCE_DIR}/HARDWARE)
+include_directories(${CMAKE_SOURCE_DIR}/Project)
+include_directories(${CMAKE_SOURCE_DIR}/RTOS)
+include_directories(${CMAKE_SOURCE_DIR}/RTOS/include)
+include_directories(${CMAKE_SOURCE_DIR}/RTOS/portable/ARM_CM4F)
+
+include_directories(${CMAKE_SOURCE_DIR}/USER)
 
 
 

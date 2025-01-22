@@ -1,50 +1,18 @@
 // #define __RELEASE
 #define __DEBUG
+#include <BSP/PWM/stm32f4xx_tim.h>
 
-#if defined (__RELEASE)
-
-#include <Project.h>
-
-#include <RTOSTaskConfig.h>
-
-
-TaskHandle_t *Task1_BSP_Init_Handle;
-TaskHandle_t *Task2_Project_Init_Handle;
-TaskHandle_t *Task3_Project_Display_Handle;
-/// @brief 主函数运行完了自动复位
-void BSP_Init()
-{
-    xTaskCreate((TaskFunction_t)Task1_BSP_Init,"Task1_BSP_Init",128,
-                                NULL,10,Task1_BSP_Init_Handle);
-    xTaskCreate((TaskFunction_t)Task2_Project_Init,"Task2_Project_Init",128,
-                                NULL,10,Task2_Project_Init_Handle);
-    xTaskCreate((TaskFunction_t)Task3_Project_Display,"Task3_Project_Display",1024,
-                                NULL,9,Task3_Project_Display_Handle);
-    vTaskStartScheduler();
-    main();
-
-}
-
-void main()
-{
-    while (1)
-    {
-        
-    }
-    
-}
-
-
-
-#elif defined(__DEBUG)
 #ifdef __cplusplus
 extern "C"
 {
 #endif
 
-#include <Project.h>
-#include <RTOSTaskConfig.h>
-
+#include "Project.h"
+#include "RTOSTaskConfig.h"
+#include "usart/Serial.h"
+#include "usart/usart.h"
+#include "OLED/OLED.h"
+#include "MPU6050/inv_mpu.h"
 
 // 定义串口数据结构
 Stde_DataTypeDef USART2_DataBuff;
@@ -151,5 +119,3 @@ void USART3_IRQHandler()
 }
 #endif
 
-
-#endif

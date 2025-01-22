@@ -1,6 +1,7 @@
 #include "Project.h"
 #include "control.h"
-
+#include "../PID/pid.h"
+#include "../BSP/usart/Serial.h"
 
 /*
  * 这里为什么要提供一个通用，还建议开发者提供专用的PID算法，通用的只有单极PID

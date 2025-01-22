@@ -1,4 +1,5 @@
 #include "Project.h"
+#include "stm32f4xx_tim.h"
 
 /// @brief 初始化TIM2为PWM输出:PA0,PA1,最大PWM设置为9000
 void Project_BSP_PWM_TIM2_Init()

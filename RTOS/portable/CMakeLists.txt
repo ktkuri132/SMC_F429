@@ -1,5 +1,5 @@
 
-include_directories(${CMAKE_CURRENT_SOURCE_DIR}/ARM_CM4F)
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}/../RTOS)
 # 得到当前文件名
 get_filename_component(DIR_NAME ${CMAKE_CURRENT_SOURCE_DIR} NAME)
 

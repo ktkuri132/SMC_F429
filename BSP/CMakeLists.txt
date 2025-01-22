@@ -10,7 +10,6 @@ add_subdirectory(spi)
 add_subdirectory(usart)
 
 
-
 add_library(${DIR_NAME}_LIB ${${DIR_NAME}_Source})
 
 target_link_libraries(${DIR_NAME}_LIB gpio_LIB i2c_LIB spi_LIB usart_LIB)

@@ -1,7 +1,11 @@
-#include "Project.h"
-#include "misc.h"
-#include "RTOSTaskConfig.h"
+#include <BSP/PWM/stm32f4xx_tim.h>
+#include <BSP/TB6612/tb6612_port.h>
 
+#include "Project.h"
+#include "../BSP/misc.h"
+#include "../USER/RTOSTaskConfig.h"
+#include "../BSP/usart/Serial.h"
+#include "../RTOS/include/task.h"
 extern Stde_DataTypeDef USART3_DataBuff,UART5_DataBuff,UART4_DataBuff;
 
 extern TaskHandle_t *Task3_Project_Display_MPU6050_Handle;

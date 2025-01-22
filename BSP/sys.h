@@ -10,7 +10,7 @@
 #include "sys.h"
 // #include <OLED.h>
 
-#include "sdram.h"
+// #include "sdram.h"
 
 #ifdef __LCD_GUI_
 #include "gt9xxx.h"

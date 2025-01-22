@@ -11,24 +11,15 @@ extern "C"
 // C库函数
 #include <stdio.h>
 #include <string.h>
-#include <stdlib.h>
 // 项目使用的芯片
 // 开发板的SDK（官方库）
 // #include "stm32f4xx_rcc.h"
 // 片上外设驱动
-#include "../BSP/sys.h"
 // OS支持
 #include "../RTOS/include/FreeRTOS.h"
-#include "task.h"
-#include "semphr.h"
 // 外挂外设驱动
-#include "OLED.h"
-#include "inv_mpu.h"
+#include "../HARDWARE/OLED/OLED.h"
 // 项目头文件
-#include "tb6612_port.h"
-#include "pid.h"
-#include "control.h"
-#include "hw201.h"
 
 // 定义电机接口寄存器
 #define Motor TIM2

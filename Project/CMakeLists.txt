@@ -1,5 +1,5 @@
 # 添加头文件路径
-include_directories(${CMAKE_SOURCE_DIR}/CORE ${CMAKE_SOURCE_DIR}/BSP ${CMAKE_SOURCE_DIR}/RTOS/include)
+include_directories(${CMAKE_SOURCE_DIR}/CORE)
 
 # 得到当前文件名
 get_filename_component(DIR_NAME ${CMAKE_CURRENT_SOURCE_DIR} NAME)

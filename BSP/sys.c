@@ -125,3 +125,41 @@ void _close_r()
 {
 
 }
+
+void _exit()
+{
+
+}
+
+void _write_r()
+{
+
+}
+
+void _sbrk()
+{
+
+}
+
+void _open_r()
+{
+
+}
+
+void _lseek_r()
+{
+
+}
+
+void _fstat_r()
+{
+
+}
+
+void _close_r()
+{
+
+}
+
+
+

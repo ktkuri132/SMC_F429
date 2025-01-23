@@ -1,5 +1,5 @@
 # 添加外部头文件路径
-include_directories(${CMAKE_SOURCE_DIR}/CORE ${CMAKE_SOURCE_DIR}/Project)
+include_directories(../)
 # 得到当前文件名
 get_filename_component(DIR_NAME ${CMAKE_CURRENT_SOURCE_DIR} NAME)
 # 添加源文件

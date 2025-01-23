@@ -1,3 +1,4 @@
+INCLUDE_DIRECTORIES(${CMAKE_SOURCE_DIR})
 # 得到当前文件名
 get_filename_component(DIR_NAME ${CMAKE_CURRENT_SOURCE_DIR} NAME)
 
@@ -8,7 +9,6 @@ add_subdirectory(gpio)
 add_subdirectory(i2c)
 add_subdirectory(spi)
 add_subdirectory(usart)
-
 
 add_library(${DIR_NAME}_LIB ${${DIR_NAME}_Source})
 

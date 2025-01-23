@@ -72,7 +72,7 @@
 #ifndef FREERTOS_CONFIG_H
 #define FREERTOS_CONFIG_H
 
-#include "../CORE/stm32f4xx.h"
+#include "../../CORE/stm32f4xx.h"
 // #include "stm32f4xx_it.h"
 
 //针对不同的编译器调用不同的stdint.h文件

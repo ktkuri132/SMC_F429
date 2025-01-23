@@ -84,10 +84,32 @@ set(ROOT_DIR ${CMAKE_SOURCE_DIR})
 
 # 添加头文件路径
 include_directories(${CMAKE_SOURCE_DIR}/CORE)
+
 include_directories(${CMAKE_SOURCE_DIR}/BSP)
-include_directories(${CMAKE_SOURCE_DIR}/HARDWARE)
+include_directories(${CMAKE_SOURCE_DIR}/BSP/gpio)
+include_directories(${CMAKE_SOURCE_DIR}/BSP/uart)
+include_directories(${CMAKE_SOURCE_DIR}/BSP/i2c)
+include_directories(${CMAKE_SOURCE_DIR}/BSP/spi)
+
+include_directories(${CMAKE_SOURCE_DIR}/HARDWARE/LCD)
+include_directories(${CMAKE_SOURCE_DIR}/HARDWARE/MPU6050)
+include_directories(${CMAKE_SOURCE_DIR}/HARDWARE/SDRAM)
+include_directories(${CMAKE_SOURCE_DIR}/HARDWARE/OLED)
+
 include_directories(${CMAKE_SOURCE_DIR}/Project)
-include_directories(${CMAKE_SOURCE_DIR}/RTOS)
+include_directories(${CMAKE_SOURCE_DIR}/Project/BSP)
+include_directories(${CMAKE_SOURCE_DIR}/Project/BSP/ADC)
+include_directories(${CMAKE_SOURCE_DIR}/Project/BSP/KEY)
+include_directories(${CMAKE_SOURCE_DIR}/Project/BSP/LED)
+include_directories(${CMAKE_SOURCE_DIR}/Project/BSP/PWM)
+include_directories(${CMAKE_SOURCE_DIR}/Project/BSP/HW_201)
+include_directories(${CMAKE_SOURCE_DIR}/Project/BSP/TB6612)
+
+include_directories(${CMAKE_SOURCE_DIR}/Project/LIB)
+include_directories(${CMAKE_SOURCE_DIR}/Project/LIB/Control)
+include_directories(${CMAKE_SOURCE_DIR}/Project/LIB/PID)
+include_directories(${CMAKE_SOURCE_DIR}/Project/LIB/Tools)
+
 include_directories(${CMAKE_SOURCE_DIR}/RTOS/include)
 include_directories(${CMAKE_SOURCE_DIR}/RTOS/portable/ARM_CM4F)
 

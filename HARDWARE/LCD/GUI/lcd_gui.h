@@ -6,7 +6,7 @@
  extern "C" {
 #endif
 
-#include "../../../BSP/sys.h"
+#include "sys.h"
 #include "lcd_gui.h"
 
 

@@ -1,0 +1,2 @@
+arm-none-eabi-ar qc libGUI_LIB.a CMakeFiles/GUI_LIB.dir/exti.c.obj
+C:\PROGRA~2\ARMGNU~1\133167~1.3RE\bin\AR17F9~1.EXE libGUI_LIB.a

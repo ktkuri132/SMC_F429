@@ -1,5 +1,8 @@
-#include "../Project/Project.h"
+#include <Project/Project.h>
+#include <BSP/usart/Serial.h>
+#include <RTOS/include/task.h>
 #include "RTOSTaskConfig.h"
+
 // 设置任务栈
 uint8_t ucHeap[ configTOTAL_HEAP_SIZE ] __attribute__((section(".ext_sram")));
 

@@ -1,0 +1,2 @@
+arm-none-eabi-ar qc libProject_BSP_LIB.a CMakeFiles/Project_BSP_LIB.dir/ADC/adc.c.obj CMakeFiles/Project_BSP_LIB.dir/ADC/stm32f4xx_adc.c.obj CMakeFiles/Project_BSP_LIB.dir/HW_201/hw201.c.obj CMakeFiles/Project_BSP_LIB.dir/KEY/key.c.obj CMakeFiles/Project_BSP_LIB.dir/LED/led.c.obj CMakeFiles/Project_BSP_LIB.dir/PWM/pwm.c.obj CMakeFiles/Project_BSP_LIB.dir/PWM/stm32f4xx_tim.c.obj CMakeFiles/Project_BSP_LIB.dir/TB6612/tb6612_port.c.obj
+C:\PROGRA~2\ARMGNU~1\133167~1.3RE\bin\AR17F9~1.EXE libProject_BSP_LIB.a

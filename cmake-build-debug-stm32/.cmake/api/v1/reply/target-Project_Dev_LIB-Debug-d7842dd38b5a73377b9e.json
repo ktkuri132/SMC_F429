@@ -1,0 +1,316 @@
+{
+	"archive" : {},
+	"artifacts" : 
+	[
+		{
+			"path" : "Project/Dev/libProject_Dev_LIB.a"
+		}
+	],
+	"backtrace" : 1,
+	"backtraceGraph" : 
+	{
+		"commands" : 
+		[
+			"add_library",
+			"target_link_libraries",
+			"add_compile_options",
+			"include_directories"
+		],
+		"files" : 
+		[
+			"Project/Dev/CMakeLists.txt",
+			"CMakeLists.txt",
+			"Project/CMakeLists.txt"
+		],
+		"nodes" : 
+		[
+			{
+				"file" : 0
+			},
+			{
+				"command" : 0,
+				"file" : 0,
+				"line" : 15,
+				"parent" : 0
+			},
+			{
+				"command" : 1,
+				"file" : 0,
+				"line" : 17,
+				"parent" : 0
+			},
+			{
+				"file" : 1
+			},
+			{
+				"command" : 2,
+				"file" : 1,
+				"line" : 23,
+				"parent" : 3
+			},
+			{
+				"command" : 2,
+				"file" : 1,
+				"line" : 30,
+				"parent" : 3
+			},
+			{
+				"command" : 2,
+				"file" : 1,
+				"line" : 31,
+				"parent" : 3
+			},
+			{
+				"command" : 2,
+				"file" : 1,
+				"line" : 51,
+				"parent" : 3
+			},
+			{
+				"file" : 2
+			},
+			{
+				"command" : 3,
+				"file" : 2,
+				"line" : 2,
+				"parent" : 8
+			},
+			{
+				"command" : 3,
+				"file" : 2,
+				"line" : 3,
+				"parent" : 8
+			},
+			{
+				"command" : 3,
+				"file" : 2,
+				"line" : 4,
+				"parent" : 8
+			},
+			{
+				"command" : 3,
+				"file" : 2,
+				"line" : 5,
+				"parent" : 8
+			},
+			{
+				"command" : 3,
+				"file" : 2,
+				"line" : 6,
+				"parent" : 8
+			},
+			{
+				"command" : 3,
+				"file" : 0,
+				"line" : 1,
+				"parent" : 0
+			}
+		]
+	},
+	"compileGroups" : 
+	[
+		{
+			"compileCommandFragments" : 
+			[
+				{
+					"fragment" : "-g -std=gnu11 -fdiagnostics-color=always"
+				},
+				{
+					"backtrace" : 4,
+					"fragment" : "-mfloat-abi=hard"
+				},
+				{
+					"backtrace" : 4,
+					"fragment" : "-mfpu=fpv4-sp-d16"
+				},
+				{
+					"backtrace" : 5,
+					"fragment" : "-mcpu=cortex-m4"
+				},
+				{
+					"backtrace" : 5,
+					"fragment" : "-mthumb"
+				},
+				{
+					"backtrace" : 5,
+					"fragment" : "-mthumb-interwork"
+				},
+				{
+					"backtrace" : 6,
+					"fragment" : "-ffunction-sections"
+				},
+				{
+					"backtrace" : 6,
+					"fragment" : "-fdata-sections"
+				},
+				{
+					"backtrace" : 6,
+					"fragment" : "-fno-common"
+				},
+				{
+					"backtrace" : 6,
+					"fragment" : "-fmessage-length=0"
+				},
+				{
+					"backtrace" : 7,
+					"fragment" : "-Og"
+				},
+				{
+					"backtrace" : 7,
+					"fragment" : "-g"
+				}
+			],
+			"includes" : 
+			[
+				{
+					"backtrace" : 9,
+					"path" : "C:/Users/34575/Desktop/Code/STM32/SMC_F429/CORE"
+				},
+				{
+					"backtrace" : 10,
+					"path" : "C:/Users/34575/Desktop/Code/STM32/SMC_F429/BSP"
+				},
+				{
+					"backtrace" : 11,
+					"path" : "C:/Users/34575/Desktop/Code/STM32/SMC_F429/RTOS"
+				},
+				{
+					"backtrace" : 12,
+					"path" : "C:/Users/34575/Desktop/Code/STM32/SMC_F429/HARDWARE"
+				},
+				{
+					"backtrace" : 13,
+					"path" : "C:/Users/34575/Desktop/Code/STM32/SMC_F429/USER"
+				},
+				{
+					"backtrace" : 14,
+					"path" : "C:/Users/34575/Desktop/Code/STM32/SMC_F429/Project/Dev/.."
+				}
+			],
+			"language" : "C",
+			"languageStandard" : 
+			{
+				"backtraces" : 
+				[
+					1
+				],
+				"standard" : "11"
+			},
+			"sourceIndexes" : 
+			[
+				0,
+				1,
+				2,
+				3,
+				4,
+				5,
+				6,
+				7
+			]
+		}
+	],
+	"dependencies" : 
+	[
+		{
+			"backtrace" : 2,
+			"id" : "LED_LIB::@304ade29a68f6bcd62ae"
+		},
+		{
+			"backtrace" : 2,
+			"id" : "ADC_LIB::@aa449b936d0cbe3d701d"
+		},
+		{
+			"backtrace" : 2,
+			"id" : "HW_201_LIB::@987e53015ebed81094ea"
+		},
+		{
+			"backtrace" : 2,
+			"id" : "KEY_LIB::@911baca66a1365a1ed94"
+		},
+		{
+			"backtrace" : 2,
+			"id" : "PWM_LIB::@3b1b8ed510e2ada93af6"
+		},
+		{
+			"backtrace" : 2,
+			"id" : "TB6612_LIB::@2c88cf6df6e1d3229590"
+		}
+	],
+	"id" : "Project_Dev_LIB::@e362517615413214ba0f",
+	"name" : "Project_Dev_LIB",
+	"nameOnDisk" : "libProject_Dev_LIB.a",
+	"paths" : 
+	{
+		"build" : "Project/Dev",
+		"source" : "Project/Dev"
+	},
+	"sourceGroups" : 
+	[
+		{
+			"name" : "Source Files",
+			"sourceIndexes" : 
+			[
+				0,
+				1,
+				2,
+				3,
+				4,
+				5,
+				6,
+				7
+			]
+		}
+	],
+	"sources" : 
+	[
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "Project/Dev/ADC/adc.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "Project/Dev/ADC/stm32f4xx_adc.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "Project/Dev/HW_201/hw201.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "Project/Dev/KEY/key.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "Project/Dev/LED/led.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "Project/Dev/PWM/pwm.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "Project/Dev/PWM/stm32f4xx_tim.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "Project/Dev/TB6612/tb6612_port.c",
+			"sourceGroupIndex" : 0
+		}
+	],
+	"type" : "STATIC_LIBRARY"
+}

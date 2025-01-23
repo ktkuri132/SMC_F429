@@ -1,0 +1,255 @@
+{
+	"archive" : {},
+	"artifacts" : 
+	[
+		{
+			"path" : "Project/Dev/ADC/libADC_LIB.a"
+		}
+	],
+	"backtrace" : 1,
+	"backtraceGraph" : 
+	{
+		"commands" : 
+		[
+			"add_library",
+			"add_compile_options",
+			"include_directories",
+			"target_include_directories"
+		],
+		"files" : 
+		[
+			"Project/Dev/ADC/CMakeLists.txt",
+			"CMakeLists.txt",
+			"Project/CMakeLists.txt",
+			"Project/Dev/CMakeLists.txt"
+		],
+		"nodes" : 
+		[
+			{
+				"file" : 0
+			},
+			{
+				"command" : 0,
+				"file" : 0,
+				"line" : 8,
+				"parent" : 0
+			},
+			{
+				"file" : 1
+			},
+			{
+				"command" : 1,
+				"file" : 1,
+				"line" : 23,
+				"parent" : 2
+			},
+			{
+				"command" : 1,
+				"file" : 1,
+				"line" : 30,
+				"parent" : 2
+			},
+			{
+				"command" : 1,
+				"file" : 1,
+				"line" : 31,
+				"parent" : 2
+			},
+			{
+				"command" : 1,
+				"file" : 1,
+				"line" : 42,
+				"parent" : 2
+			},
+			{
+				"file" : 2
+			},
+			{
+				"command" : 2,
+				"file" : 2,
+				"line" : 2,
+				"parent" : 7
+			},
+			{
+				"command" : 2,
+				"file" : 2,
+				"line" : 3,
+				"parent" : 7
+			},
+			{
+				"command" : 2,
+				"file" : 2,
+				"line" : 4,
+				"parent" : 7
+			},
+			{
+				"command" : 2,
+				"file" : 2,
+				"line" : 5,
+				"parent" : 7
+			},
+			{
+				"command" : 2,
+				"file" : 2,
+				"line" : 6,
+				"parent" : 7
+			},
+			{
+				"file" : 3
+			},
+			{
+				"command" : 2,
+				"file" : 3,
+				"line" : 1,
+				"parent" : 13
+			},
+			{
+				"command" : 3,
+				"file" : 0,
+				"line" : 10,
+				"parent" : 0
+			},
+			{
+				"command" : 3,
+				"file" : 0,
+				"line" : 11,
+				"parent" : 0
+			}
+		]
+	},
+	"compileGroups" : 
+	[
+		{
+			"compileCommandFragments" : 
+			[
+				{
+					"fragment" : "-O3 -DNDEBUG -std=gnu11 -fdiagnostics-color=always"
+				},
+				{
+					"backtrace" : 3,
+					"fragment" : "-mfloat-abi=hard"
+				},
+				{
+					"backtrace" : 3,
+					"fragment" : "-mfpu=fpv4-sp-d16"
+				},
+				{
+					"backtrace" : 4,
+					"fragment" : "-mcpu=cortex-m4"
+				},
+				{
+					"backtrace" : 4,
+					"fragment" : "-mthumb"
+				},
+				{
+					"backtrace" : 4,
+					"fragment" : "-mthumb-interwork"
+				},
+				{
+					"backtrace" : 5,
+					"fragment" : "-ffunction-sections"
+				},
+				{
+					"backtrace" : 5,
+					"fragment" : "-fdata-sections"
+				},
+				{
+					"backtrace" : 5,
+					"fragment" : "-fno-common"
+				},
+				{
+					"backtrace" : 5,
+					"fragment" : "-fmessage-length=0"
+				},
+				{
+					"backtrace" : 6,
+					"fragment" : "-Ofast"
+				}
+			],
+			"includes" : 
+			[
+				{
+					"backtrace" : 8,
+					"path" : "C:/Users/34575/Desktop/Code/STM32/SMC_F429/CORE"
+				},
+				{
+					"backtrace" : 9,
+					"path" : "C:/Users/34575/Desktop/Code/STM32/SMC_F429/BSP"
+				},
+				{
+					"backtrace" : 10,
+					"path" : "C:/Users/34575/Desktop/Code/STM32/SMC_F429/RTOS"
+				},
+				{
+					"backtrace" : 11,
+					"path" : "C:/Users/34575/Desktop/Code/STM32/SMC_F429/HARDWARE"
+				},
+				{
+					"backtrace" : 12,
+					"path" : "C:/Users/34575/Desktop/Code/STM32/SMC_F429/USER"
+				},
+				{
+					"backtrace" : 14,
+					"path" : "C:/Users/34575/Desktop/Code/STM32/SMC_F429/Project/Dev/.."
+				},
+				{
+					"backtrace" : 15,
+					"path" : "C:/Users/34575/Desktop/Code/STM32/SMC_F429/Project/Dev/ADC"
+				},
+				{
+					"backtrace" : 16,
+					"path" : "C:/Users/34575/Desktop/Code/STM32/SMC_F429/Project/Dev/ADC/../.."
+				}
+			],
+			"language" : "C",
+			"languageStandard" : 
+			{
+				"backtraces" : 
+				[
+					1
+				],
+				"standard" : "11"
+			},
+			"sourceIndexes" : 
+			[
+				0,
+				1
+			]
+		}
+	],
+	"id" : "ADC_LIB::@aa449b936d0cbe3d701d",
+	"name" : "ADC_LIB",
+	"nameOnDisk" : "libADC_LIB.a",
+	"paths" : 
+	{
+		"build" : "Project/Dev/ADC",
+		"source" : "Project/Dev/ADC"
+	},
+	"sourceGroups" : 
+	[
+		{
+			"name" : "Source Files",
+			"sourceIndexes" : 
+			[
+				0,
+				1
+			]
+		}
+	],
+	"sources" : 
+	[
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "Project/Dev/ADC/adc.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "Project/Dev/ADC/stm32f4xx_adc.c",
+			"sourceGroupIndex" : 0
+		}
+	],
+	"type" : "STATIC_LIBRARY"
+}

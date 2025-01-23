@@ -2,21 +2,21 @@
 #define __NVIC_
 
 #include "stm32f4xx.h"
-#include "./gpio/gpio.h"
+#include "gpio/gpio.h"
 #include "stm32f4xx_rcc.h"
 #include "stdio.h"
 
-#include "./usart/usart.h"
+#include "usart/usart.h"
 #include "sys.h"
 // #include <OLED.h>
 
 // #include "sdram.h"
 
 #ifdef __LCD_GUI_
-#include "gt9xxx.h"
-#include "ltdc.h"
-#include "lcd.h"
-#include "touch.h"
+// #include "gt9xxx.h"
+// #include "ltdc.h"
+// #include "lcd.h"
+// #include "touch.h"
 #endif
 
 #ifndef __STM32F4xx_GPIO_H

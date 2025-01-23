@@ -1,13 +1,18 @@
 // #define __RELEASE
 #define __DEBUG
-#include <BSP/PWM/stm32f4xx_tim.h>
+#include <Project/Dev/PWM/stm32f4xx_tim.h>
 
 #ifdef __cplusplus
 extern "C"
 {
 #endif
 
-#include "Project.h"
+#include <sys.h>
+#include <RTOS/include/FreeRTOS.h>
+#include <RTOS/include/task.h>
+#include <Project/Project.h>
+#include <Project/Dev/HW_201/hw201.h>
+
 #include "RTOSTaskConfig.h"
 #include "usart/Serial.h"
 #include "usart/usart.h"

@@ -1,5 +1,4 @@
 include_directories(../)
-
 # 得到当前文件名
 get_filename_component(DIR_NAME ${CMAKE_CURRENT_SOURCE_DIR} NAME)
 

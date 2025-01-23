@@ -1,0 +1,35 @@
+HARDWARE/MPU6050/CMakeFiles/MPU6050_LIB.dir/inv_mpu_dmp_motion_driver.c.obj: \
+ C:\Users\34575\Desktop\Code\STM32\SMC_F429\HARDWARE\MPU6050\inv_mpu_dmp_motion_driver.c \
+ C:/PROGRA~2/ARMGNU~1/133167~1.3RE/arm-none-eabi/include/stdio.h \
+ C:/PROGRA~2/ARMGNU~1/133167~1.3RE/arm-none-eabi/include/_ansi.h \
+ C:/PROGRA~2/ARMGNU~1/133167~1.3RE/arm-none-eabi/include/newlib.h \
+ C:/PROGRA~2/ARMGNU~1/133167~1.3RE/arm-none-eabi/include/_newlib_version.h \
+ C:/PROGRA~2/ARMGNU~1/133167~1.3RE/arm-none-eabi/include/sys/config.h \
+ C:/PROGRA~2/ARMGNU~1/133167~1.3RE/arm-none-eabi/include/machine/ieeefp.h \
+ C:/PROGRA~2/ARMGNU~1/133167~1.3RE/arm-none-eabi/include/sys/features.h \
+ C:/PROGRA~2/ARMGNU~1/133167~1.3RE/arm-none-eabi/include/sys/cdefs.h \
+ C:/PROGRA~2/ARMGNU~1/133167~1.3RE/arm-none-eabi/include/machine/_default_types.h \
+ C:/PROGRA~2/ARMGNU~1/133167~1.3RE/lib/gcc/arm-none-eabi/13.3.1/include/stddef.h \
+ C:/PROGRA~2/ARMGNU~1/133167~1.3RE/lib/gcc/arm-none-eabi/13.3.1/include/stdarg.h \
+ C:/PROGRA~2/ARMGNU~1/133167~1.3RE/arm-none-eabi/include/sys/reent.h \
+ C:/PROGRA~2/ARMGNU~1/133167~1.3RE/arm-none-eabi/include/_ansi.h \
+ C:/PROGRA~2/ARMGNU~1/133167~1.3RE/arm-none-eabi/include/sys/_types.h \
+ C:/PROGRA~2/ARMGNU~1/133167~1.3RE/arm-none-eabi/include/machine/_types.h \
+ C:/PROGRA~2/ARMGNU~1/133167~1.3RE/arm-none-eabi/include/sys/lock.h \
+ C:/PROGRA~2/ARMGNU~1/133167~1.3RE/arm-none-eabi/include/sys/stdio.h \
+ C:/PROGRA~2/ARMGNU~1/133167~1.3RE/lib/gcc/arm-none-eabi/13.3.1/include/stdint.h \
+ C:/PROGRA~2/ARMGNU~1/133167~1.3RE/arm-none-eabi/include/stdint.h \
+ C:/PROGRA~2/ARMGNU~1/133167~1.3RE/arm-none-eabi/include/sys/_intsup.h \
+ C:/PROGRA~2/ARMGNU~1/133167~1.3RE/arm-none-eabi/include/sys/_stdint.h \
+ C:/PROGRA~2/ARMGNU~1/133167~1.3RE/arm-none-eabi/include/stdlib.h \
+ C:/PROGRA~2/ARMGNU~1/133167~1.3RE/arm-none-eabi/include/machine/stdlib.h \
+ C:/PROGRA~2/ARMGNU~1/133167~1.3RE/arm-none-eabi/include/alloca.h \
+ C:/PROGRA~2/ARMGNU~1/133167~1.3RE/arm-none-eabi/include/string.h \
+ C:/PROGRA~2/ARMGNU~1/133167~1.3RE/arm-none-eabi/include/sys/_locale.h \
+ C:/PROGRA~2/ARMGNU~1/133167~1.3RE/arm-none-eabi/include/strings.h \
+ C:/PROGRA~2/ARMGNU~1/133167~1.3RE/arm-none-eabi/include/sys/string.h \
+ C:/PROGRA~2/ARMGNU~1/133167~1.3RE/arm-none-eabi/include/math.h \
+ C:\Users\34575\Desktop\Code\STM32\SMC_F429\HARDWARE\MPU6050\inv_mpu.h \
+ C:\Users\34575\Desktop\Code\STM32\SMC_F429\HARDWARE\MPU6050\inv_mpu_dmp_motion_driver.h \
+ C:\Users\34575\Desktop\Code\STM32\SMC_F429\HARDWARE\MPU6050\dmpKey.h \
+ C:\Users\34575\Desktop\Code\STM32\SMC_F429\HARDWARE\MPU6050\dmpmap.h

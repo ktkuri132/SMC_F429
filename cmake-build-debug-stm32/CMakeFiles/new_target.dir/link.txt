@@ -1,0 +1,1 @@
+C:\PROGRA~2\ARMGNU~1\133167~1.3RE\bin\AR19DD~1.EXE -g CMakeFiles/new_target.dir/USER/main.c.obj -o new_target

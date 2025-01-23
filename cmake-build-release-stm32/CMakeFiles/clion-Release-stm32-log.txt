@@ -1,0 +1,5 @@
+"C:\Program Files\JetBrains\CLion 2024.3.2\bin\cmake\win\x64\bin\cmake.exe" -DCMAKE_BUILD_TYPE=Release -DCMAKE_MAKE_PROGRAM=C:/MinGW/bin/mingw32-make.exe "-DCMAKE_C_COMPILER=C:/Program Files (x86)/Arm GNU Toolchain arm-none-eabi/13.3 rel1/bin/arm-none-eabi-gcc.exe" "-DCMAKE_CXX_COMPILER=C:/Program Files (x86)/Arm GNU Toolchain arm-none-eabi/13.3 rel1/bin/arm-none-eabi-g++.exe" -G "MinGW Makefiles" -S C:\Users\34575\Desktop\Code\STM32\SMC_F429 -B C:\Users\34575\Desktop\Code\STM32\SMC_F429\cmake-build-release-stm32
+-- Maximum optimization for speed
+-- Configuring done (0.0s)
+-- Generating done (0.4s)
+-- Build files have been written to: C:/Users/34575/Desktop/Code/STM32/SMC_F429/cmake-build-release-stm32

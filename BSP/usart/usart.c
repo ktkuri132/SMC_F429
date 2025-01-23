@@ -1,6 +1,6 @@
-#include "../Project/Project.h"
+#include "Project.h"
 #include "usart.h"
-#include "usart/Serial.h"
+#include "Serial.h"
 
 
 
@@ -233,8 +233,6 @@ void UART4_IRQHandler()
         STDE_UART(UART4,&UART4_DataBuff);
     }
 }
-
-
 
 void UART5_IRQHandler()
 {

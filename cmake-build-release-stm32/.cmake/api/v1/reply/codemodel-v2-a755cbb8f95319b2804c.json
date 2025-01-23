@@ -1,0 +1,784 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"childIndexes" : 
+					[
+						1,
+						6,
+						7,
+						14,
+						26,
+						28
+					],
+					"jsonFile" : "directory-.-Release-d0094a50bb2071803777.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.29"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						19
+					]
+				},
+				{
+					"build" : "BSP",
+					"childIndexes" : 
+					[
+						2,
+						3,
+						4,
+						5
+					],
+					"jsonFile" : "directory-BSP-Release-01d1a4265031c46cb17b.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.29"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 0,
+					"source" : "BSP",
+					"targetIndexes" : 
+					[
+						1
+					]
+				},
+				{
+					"build" : "BSP/gpio",
+					"jsonFile" : "directory-BSP.gpio-Release-67a9ec715c72888b7d15.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.29"
+					},
+					"parentIndex" : 1,
+					"projectIndex" : 0,
+					"source" : "BSP/gpio",
+					"targetIndexes" : 
+					[
+						24
+					]
+				},
+				{
+					"build" : "BSP/i2c",
+					"jsonFile" : "directory-BSP.i2c-Release-caff6fb38ed9c07f5511.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.29"
+					},
+					"parentIndex" : 1,
+					"projectIndex" : 0,
+					"source" : "BSP/i2c",
+					"targetIndexes" : 
+					[
+						25
+					]
+				},
+				{
+					"build" : "BSP/spi",
+					"jsonFile" : "directory-BSP.spi-Release-e5c7bde6d49b981b2198.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.29"
+					},
+					"parentIndex" : 1,
+					"projectIndex" : 0,
+					"source" : "BSP/spi",
+					"targetIndexes" : 
+					[
+						27
+					]
+				},
+				{
+					"build" : "BSP/usart",
+					"jsonFile" : "directory-BSP.usart-Release-5759282de83a2cc37e22.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.29"
+					},
+					"parentIndex" : 1,
+					"projectIndex" : 0,
+					"source" : "BSP/usart",
+					"targetIndexes" : 
+					[
+						28
+					]
+				},
+				{
+					"build" : "CORE",
+					"jsonFile" : "directory-CORE-Release-ceda34a79eed14ab3f33.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.29"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 0,
+					"source" : "CORE",
+					"targetIndexes" : 
+					[
+						2
+					]
+				},
+				{
+					"build" : "HARDWARE",
+					"childIndexes" : 
+					[
+						8,
+						11,
+						12,
+						13
+					],
+					"jsonFile" : "directory-HARDWARE-Release-ba68188db7c091e93480.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.29"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 0,
+					"source" : "HARDWARE",
+					"targetIndexes" : 
+					[
+						5
+					]
+				},
+				{
+					"build" : "HARDWARE/LCD",
+					"childIndexes" : 
+					[
+						9,
+						10
+					],
+					"jsonFile" : "directory-HARDWARE.LCD-Release-594d6897748bc22e5e10.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.29"
+					},
+					"parentIndex" : 7,
+					"projectIndex" : 0,
+					"source" : "HARDWARE/LCD",
+					"targetIndexes" : 
+					[
+						8
+					]
+				},
+				{
+					"build" : "HARDWARE/LCD/GUI",
+					"jsonFile" : "directory-HARDWARE.LCD.GUI-Release-c1fe13cc8b0ff3b2b012.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.29"
+					},
+					"parentIndex" : 8,
+					"projectIndex" : 0,
+					"source" : "HARDWARE/LCD/GUI",
+					"targetIndexes" : 
+					[
+						4
+					]
+				},
+				{
+					"build" : "HARDWARE/LCD/TOUCH",
+					"jsonFile" : "directory-HARDWARE.LCD.TOUCH-Release-1dac05c2fee7b8eba7b4.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.29"
+					},
+					"parentIndex" : 8,
+					"projectIndex" : 0,
+					"source" : "HARDWARE/LCD/TOUCH",
+					"targetIndexes" : 
+					[
+						21
+					]
+				},
+				{
+					"build" : "HARDWARE/MPU6050",
+					"jsonFile" : "directory-HARDWARE.MPU6050-Release-185d0fde5315e8e7bc33.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.29"
+					},
+					"parentIndex" : 7,
+					"projectIndex" : 0,
+					"source" : "HARDWARE/MPU6050",
+					"targetIndexes" : 
+					[
+						10
+					]
+				},
+				{
+					"build" : "HARDWARE/OLED",
+					"jsonFile" : "directory-HARDWARE.OLED-Release-e88e8db561dbd2e8a932.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.29"
+					},
+					"parentIndex" : 7,
+					"projectIndex" : 0,
+					"source" : "HARDWARE/OLED",
+					"targetIndexes" : 
+					[
+						11
+					]
+				},
+				{
+					"build" : "HARDWARE/SDRAM",
+					"jsonFile" : "directory-HARDWARE.SDRAM-Release-8e8f15a61783ee86c260.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.29"
+					},
+					"parentIndex" : 7,
+					"projectIndex" : 0,
+					"source" : "HARDWARE/SDRAM",
+					"targetIndexes" : 
+					[
+						18
+					]
+				},
+				{
+					"build" : "Project",
+					"childIndexes" : 
+					[
+						15,
+						22
+					],
+					"jsonFile" : "directory-Project-Release-8c0035df2fdd8f09a232.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.29"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 0,
+					"source" : "Project",
+					"targetIndexes" : 
+					[
+						15
+					]
+				},
+				{
+					"build" : "Project/Dev",
+					"childIndexes" : 
+					[
+						16,
+						17,
+						18,
+						19,
+						20,
+						21
+					],
+					"jsonFile" : "directory-Project.Dev-Release-ae9b4f8f532816984278.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.29"
+					},
+					"parentIndex" : 14,
+					"projectIndex" : 0,
+					"source" : "Project/Dev",
+					"targetIndexes" : 
+					[
+						14
+					]
+				},
+				{
+					"build" : "Project/Dev/ADC",
+					"jsonFile" : "directory-Project.Dev.ADC-Release-78024639deaa97dbdff4.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.29"
+					},
+					"parentIndex" : 15,
+					"projectIndex" : 0,
+					"source" : "Project/Dev/ADC",
+					"targetIndexes" : 
+					[
+						0
+					]
+				},
+				{
+					"build" : "Project/Dev/HW_201",
+					"jsonFile" : "directory-Project.Dev.HW_201-Release-49160473901d6f0d9f22.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.29"
+					},
+					"parentIndex" : 15,
+					"projectIndex" : 0,
+					"source" : "Project/Dev/HW_201",
+					"targetIndexes" : 
+					[
+						6
+					]
+				},
+				{
+					"build" : "Project/Dev/KEY",
+					"jsonFile" : "directory-Project.Dev.KEY-Release-28b80e0eed7d6efc930b.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.29"
+					},
+					"parentIndex" : 15,
+					"projectIndex" : 0,
+					"source" : "Project/Dev/KEY",
+					"targetIndexes" : 
+					[
+						7
+					]
+				},
+				{
+					"build" : "Project/Dev/LED",
+					"jsonFile" : "directory-Project.Dev.LED-Release-2af2ba9a9d9e36a99543.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.29"
+					},
+					"parentIndex" : 15,
+					"projectIndex" : 0,
+					"source" : "Project/Dev/LED",
+					"targetIndexes" : 
+					[
+						9
+					]
+				},
+				{
+					"build" : "Project/Dev/PWM",
+					"jsonFile" : "directory-Project.Dev.PWM-Release-973f0f8959591fb44157.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.29"
+					},
+					"parentIndex" : 15,
+					"projectIndex" : 0,
+					"source" : "Project/Dev/PWM",
+					"targetIndexes" : 
+					[
+						13
+					]
+				},
+				{
+					"build" : "Project/Dev/TB6612",
+					"jsonFile" : "directory-Project.Dev.TB6612-Release-b349cf24df9c04576ac1.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.29"
+					},
+					"parentIndex" : 15,
+					"projectIndex" : 0,
+					"source" : "Project/Dev/TB6612",
+					"targetIndexes" : 
+					[
+						20
+					]
+				},
+				{
+					"build" : "Project/LIB",
+					"childIndexes" : 
+					[
+						23,
+						24,
+						25
+					],
+					"jsonFile" : "directory-Project.LIB-Release-d81760af10a4860138a4.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.29"
+					},
+					"parentIndex" : 14,
+					"projectIndex" : 0,
+					"source" : "Project/LIB",
+					"targetIndexes" : 
+					[
+						16
+					]
+				},
+				{
+					"build" : "Project/LIB/Control",
+					"jsonFile" : "directory-Project.LIB.Control-Release-21e51a022c531c41b7ff.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.29"
+					},
+					"parentIndex" : 22,
+					"projectIndex" : 0,
+					"source" : "Project/LIB/Control",
+					"targetIndexes" : 
+					[
+						3
+					]
+				},
+				{
+					"build" : "Project/LIB/PID",
+					"jsonFile" : "directory-Project.LIB.PID-Release-cc0f569fd3fc6fc5ac5b.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.29"
+					},
+					"parentIndex" : 22,
+					"projectIndex" : 0,
+					"source" : "Project/LIB/PID",
+					"targetIndexes" : 
+					[
+						12
+					]
+				},
+				{
+					"build" : "Project/LIB/Tools",
+					"jsonFile" : "directory-Project.LIB.Tools-Release-7ff3742f6e7c7e03e513.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.29"
+					},
+					"parentIndex" : 22,
+					"projectIndex" : 0,
+					"source" : "Project/LIB/Tools",
+					"targetIndexes" : 
+					[
+						22
+					]
+				},
+				{
+					"build" : "RTOS",
+					"childIndexes" : 
+					[
+						27
+					],
+					"jsonFile" : "directory-RTOS-Release-0e170274106693e0b273.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.29"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 0,
+					"source" : "RTOS",
+					"targetIndexes" : 
+					[
+						17
+					]
+				},
+				{
+					"build" : "RTOS/portable",
+					"jsonFile" : "directory-RTOS.portable-Release-755a324bb3553b9676bf.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.29"
+					},
+					"parentIndex" : 26,
+					"projectIndex" : 0,
+					"source" : "RTOS/portable",
+					"targetIndexes" : 
+					[
+						26
+					]
+				},
+				{
+					"build" : "USER",
+					"jsonFile" : "directory-USER-Release-0a2b14698af3dd817577.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.29"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 0,
+					"source" : "USER",
+					"targetIndexes" : 
+					[
+						23
+					]
+				}
+			],
+			"name" : "Release",
+			"projects" : 
+			[
+				{
+					"directoryIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3,
+						4,
+						5,
+						6,
+						7,
+						8,
+						9,
+						10,
+						11,
+						12,
+						13,
+						14,
+						15,
+						16,
+						17,
+						18,
+						19,
+						20,
+						21,
+						22,
+						23,
+						24,
+						25,
+						26,
+						27,
+						28
+					],
+					"name" : "SMC",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3,
+						4,
+						5,
+						6,
+						7,
+						8,
+						9,
+						10,
+						11,
+						12,
+						13,
+						14,
+						15,
+						16,
+						17,
+						18,
+						19,
+						20,
+						21,
+						22,
+						23,
+						24,
+						25,
+						26,
+						27,
+						28
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 16,
+					"id" : "ADC_LIB::@aa449b936d0cbe3d701d",
+					"jsonFile" : "target-ADC_LIB-Release-bb60886dde05a2f7e1c6.json",
+					"name" : "ADC_LIB",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 1,
+					"id" : "BSP_LIB::@22b1fb5bb3c77ef0a0a2",
+					"jsonFile" : "target-BSP_LIB-Release-81bc468414b88176f7a2.json",
+					"name" : "BSP_LIB",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 6,
+					"id" : "CORE_LIB::@92b32f60b233355e6ac2",
+					"jsonFile" : "target-CORE_LIB-Release-7e2d585a6f35c84b6817.json",
+					"name" : "CORE_LIB",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 23,
+					"id" : "Control_LIB::@be5578be79c52607079a",
+					"jsonFile" : "target-Control_LIB-Release-15a4c2e880843d9f9c85.json",
+					"name" : "Control_LIB",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 9,
+					"id" : "GUI_LIB::@84e98975c2ef19e7b3ae",
+					"jsonFile" : "target-GUI_LIB-Release-b4a3e19a1f89b4d3c185.json",
+					"name" : "GUI_LIB",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 7,
+					"id" : "HARDWARE_LIB::@91d9ae501933c83c28bc",
+					"jsonFile" : "target-HARDWARE_LIB-Release-8297c41a5dd147627cba.json",
+					"name" : "HARDWARE_LIB",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 17,
+					"id" : "HW_201_LIB::@987e53015ebed81094ea",
+					"jsonFile" : "target-HW_201_LIB-Release-5dbac0fe85a1acbe72a4.json",
+					"name" : "HW_201_LIB",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 18,
+					"id" : "KEY_LIB::@911baca66a1365a1ed94",
+					"jsonFile" : "target-KEY_LIB-Release-0c8d52abeed44ee2485b.json",
+					"name" : "KEY_LIB",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 8,
+					"id" : "LCD_LIB::@bb3e7c9f87026af2627b",
+					"jsonFile" : "target-LCD_LIB-Release-e7b14b59fc4fb9c01a9c.json",
+					"name" : "LCD_LIB",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 19,
+					"id" : "LED_LIB::@304ade29a68f6bcd62ae",
+					"jsonFile" : "target-LED_LIB-Release-613fe9feaa01b9a3b01e.json",
+					"name" : "LED_LIB",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 11,
+					"id" : "MPU6050_LIB::@62195fb415bbfcf2c97a",
+					"jsonFile" : "target-MPU6050_LIB-Release-d32ae8a5b1250f49417e.json",
+					"name" : "MPU6050_LIB",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 12,
+					"id" : "OLED_LIB::@0a67e1c5d7d532d333bc",
+					"jsonFile" : "target-OLED_LIB-Release-8844cf60986d45ec0fcd.json",
+					"name" : "OLED_LIB",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 24,
+					"id" : "PID_LIB::@12f28eac23239f807965",
+					"jsonFile" : "target-PID_LIB-Release-4ecdaf45a52ebd8853dd.json",
+					"name" : "PID_LIB",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 20,
+					"id" : "PWM_LIB::@3b1b8ed510e2ada93af6",
+					"jsonFile" : "target-PWM_LIB-Release-5c998b2229844ec54d61.json",
+					"name" : "PWM_LIB",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 15,
+					"id" : "Project_Dev_LIB::@e362517615413214ba0f",
+					"jsonFile" : "target-Project_Dev_LIB-Release-03cbf52391dc1366087d.json",
+					"name" : "Project_Dev_LIB",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 14,
+					"id" : "Project_LIB::@f0d2a6f44114b7dd8962",
+					"jsonFile" : "target-Project_LIB-Release-de9424b83037ba2f9008.json",
+					"name" : "Project_LIB",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 22,
+					"id" : "Project_LIB_LIB::@fd7ec8635e649869f06c",
+					"jsonFile" : "target-Project_LIB_LIB-Release-0301ab1d5acbeae3db71.json",
+					"name" : "Project_LIB_LIB",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 26,
+					"id" : "RTOS_LIB::@b31153a703db0a3d2fb5",
+					"jsonFile" : "target-RTOS_LIB-Release-7336216bca58e1a485ba.json",
+					"name" : "RTOS_LIB",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 13,
+					"id" : "SDRAM_LIB::@d8014575ed443a1b75c0",
+					"jsonFile" : "target-SDRAM_LIB-Release-cb53f40cf134dcb7919b.json",
+					"name" : "SDRAM_LIB",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "SMC.elf::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-SMC.elf-Release-adf26fcfdb38da6d7336.json",
+					"name" : "SMC.elf",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 21,
+					"id" : "TB6612_LIB::@2c88cf6df6e1d3229590",
+					"jsonFile" : "target-TB6612_LIB-Release-72aae3e63eaaa5fc1f6c.json",
+					"name" : "TB6612_LIB",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 10,
+					"id" : "TOUCH_LIB::@732b946ef4aebe64f112",
+					"jsonFile" : "target-TOUCH_LIB-Release-25386bd24dea59313772.json",
+					"name" : "TOUCH_LIB",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 25,
+					"id" : "Tools_LIB::@281f22fddfad578d7f85",
+					"jsonFile" : "target-Tools_LIB-Release-743b9e780d82181a7288.json",
+					"name" : "Tools_LIB",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 28,
+					"id" : "USER_LIB::@fc7f082eca25ffe62016",
+					"jsonFile" : "target-USER_LIB-Release-1d266b2628bbfb5d0ef1.json",
+					"name" : "USER_LIB",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 2,
+					"id" : "gpio_LIB::@4f8767935d4d29f36a90",
+					"jsonFile" : "target-gpio_LIB-Release-ed8f91723b0ca4e6dd92.json",
+					"name" : "gpio_LIB",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 3,
+					"id" : "i2c_LIB::@f15d1781faf8ca26ea2f",
+					"jsonFile" : "target-i2c_LIB-Release-c9eeea79bafc422eb491.json",
+					"name" : "i2c_LIB",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 27,
+					"id" : "portable_LIB::@d1c4bddc8fce7e5d940f",
+					"jsonFile" : "target-portable_LIB-Release-4a2b74132c0a494fcfd1.json",
+					"name" : "portable_LIB",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 4,
+					"id" : "spi_LIB::@abd342a625bae881a34f",
+					"jsonFile" : "target-spi_LIB-Release-719c9b2215f93fdba36d.json",
+					"name" : "spi_LIB",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 5,
+					"id" : "usart_LIB::@926629ebb84efd47cb89",
+					"jsonFile" : "target-usart_LIB-Release-8932d99c528f81160b82.json",
+					"name" : "usart_LIB",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "C:/Users/34575/Desktop/Code/STM32/SMC_F429/cmake-build-release-stm32",
+		"source" : "C:/Users/34575/Desktop/Code/STM32/SMC_F429"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 7
+	}
+}

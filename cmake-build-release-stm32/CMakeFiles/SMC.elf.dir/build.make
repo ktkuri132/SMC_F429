@@ -92,11 +92,11 @@ SMC_elf_EXTERNAL_OBJECTS =
 SMC.elf: CMakeFiles/SMC.elf.dir/USER/main.c.obj
 SMC.elf: CMakeFiles/SMC.elf.dir/build.make
 SMC.elf: BSP/libBSP_LIB.a
-SMC.elf: HARDWARE/libHARDWARE_LIB.a
 SMC.elf: CORE/libCORE_LIB.a
-SMC.elf: USER/libUSER_LIB.a
+SMC.elf: HARDWARE/libHARDWARE_LIB.a
 SMC.elf: Project/libProject_LIB.a
 SMC.elf: RTOS/libRTOS_LIB.a
+SMC.elf: USER/libUSER_LIB.a
 SMC.elf: BSP/gpio/libgpio_LIB.a
 SMC.elf: BSP/i2c/libi2c_LIB.a
 SMC.elf: BSP/spi/libspi_LIB.a
@@ -107,10 +107,6 @@ SMC.elf: HARDWARE/LCD/TOUCH/libTOUCH_LIB.a
 SMC.elf: HARDWARE/MPU6050/libMPU6050_LIB.a
 SMC.elf: HARDWARE/OLED/libOLED_LIB.a
 SMC.elf: HARDWARE/SDRAM/libSDRAM_LIB.a
-SMC.elf: Project/LIB/libProject_LIB_LIB.a
-SMC.elf: Project/LIB/Control/libControl_LIB.a
-SMC.elf: Project/LIB/PID/libPID_LIB.a
-SMC.elf: Project/LIB/Tools/libTools_LIB.a
 SMC.elf: Project/Dev/libProject_Dev_LIB.a
 SMC.elf: Project/Dev/ADC/libADC_LIB.a
 SMC.elf: Project/Dev/HW_201/libHW_201_LIB.a
@@ -118,6 +114,10 @@ SMC.elf: Project/Dev/KEY/libKEY_LIB.a
 SMC.elf: Project/Dev/LED/libLED_LIB.a
 SMC.elf: Project/Dev/PWM/libPWM_LIB.a
 SMC.elf: Project/Dev/TB6612/libTB6612_LIB.a
+SMC.elf: Project/LIB/libProject_LIB_LIB.a
+SMC.elf: Project/LIB/Control/libControl_LIB.a
+SMC.elf: Project/LIB/PID/libPID_LIB.a
+SMC.elf: Project/LIB/Tools/libTools_LIB.a
 SMC.elf: RTOS/portable/libportable_LIB.a
 SMC.elf: RTOS/comment/libcomment_LIB.a
 SMC.elf: CMakeFiles/SMC.elf.dir/link.txt

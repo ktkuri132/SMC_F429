@@ -1,5 +1,7 @@
 #include <Project/Project.h>
 #include <BSP/usart/Serial.h>
+#include <HARDWARE/MPU6050/inv_mpu.h>
+#include <Project/Dev/HW_201/hw201.h>
 #include <RTOS/comment/task.h>
 #include "RTOSTaskConfig.h"
 
@@ -45,7 +47,6 @@ Image_identify:
         }
         xTaskDelayUntil(&xLastWakeTime,xFrequency_5);   // 释放线程，每5ms刷新一次线程
     }while ((Image_identify_Return == -2)||(Image_identify_Return == -1));
-    return Image_identify_Return;
 }
 
 void Task2_Project_Init()
@@ -145,7 +146,7 @@ Mode_3:     // 加入监测电池电压
         vTaskDelayUntil(&xLastWakeTime, xFrequency_100);
     }
 Mode_4:
-    static hour,min,sec;
+    static int hour,min,sec;
     while (1)
     {
         // 进入临界区
@@ -225,7 +226,6 @@ void Task5_KeyScan()
 
     // 初始化 xLastWakeTime 变量为当前时间
     xLastWakeTime = xTaskGetTickCount();
-    static TaskStrat[3];
     while(1)
     {
         uint8_t temp = Project_BSP_GetKey();

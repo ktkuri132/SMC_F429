@@ -3,5 +3,4 @@ build/
 .idea/
 cmake-build-debug-stm32/
 cmake-build-release-stm32/
-/cmake-build-release-stm32/
-/cmake-build-debug-stm32/
+

@@ -1,5 +1,5 @@
 build/
 .vscode/
 .idea/
-cmake-build-debug/
-cmake-build-release/
+cmake-build-debug-stm32/
+cmake-build-release-stm32/

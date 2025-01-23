@@ -54,10 +54,9 @@ CMakeFiles/SMC.elf.dir/USER/main.c.obj: \
  C:/Users/34575/Desktop/Code/STM32/SMC_F429/BSP/i2c/softi2c.h \
  C:\Users\34575\Desktop\Code\STM32\SMC_F429\BSP/gpio/gpio.h \
  C:\Users\34575\Desktop\Code\STM32\SMC_F429/Project/Dev/HW_201/hw201.h \
- C:\Users\34575\Desktop\Code\STM32\SMC_F429\Project/Project.h \
+ C:/Users/34575/Desktop/Code/STM32/SMC_F429/Project/Project.h \
  C:\Users\34575\Desktop\Code\STM32\SMC_F429\USER\RTOSTaskConfig.h \
  C:/Users/34575/Desktop/Code/STM32/SMC_F429/RTOS/comment/FreeRTOS.h \
- C:/Users/34575/Desktop/Code/STM32/SMC_F429/Project/Project.h \
  C:\Users\34575\Desktop\Code\STM32\SMC_F429\BSP/usart/Serial.h \
  C:\Users\34575\Desktop\Code\STM32\SMC_F429\BSP/usart/usart.h \
  C:\Users\34575\Desktop\Code\STM32\SMC_F429\HARDWARE/OLED/OLED.h \

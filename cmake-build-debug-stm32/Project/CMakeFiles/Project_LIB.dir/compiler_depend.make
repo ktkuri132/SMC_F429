@@ -94,6 +94,7 @@ Project/CMakeFiles/Project_LIB.dir/Dev/HW_201/hw201.c.obj: C:/Users/34575/Deskto
   C:/Users/34575/Desktop/Code/STM32/SMC_F429/BSP/stm32f4xx_rcc.h \
   C:/Users/34575/Desktop/Code/STM32/SMC_F429/HARDWARE/OLED/OLED.h \
   C:/Users/34575/Desktop/Code/STM32/SMC_F429/HARDWARE/OLED/OLED_Data.h \
+  C:/Users/34575/Desktop/Code/STM32/SMC_F429/Project/Project.h \
   C:/Users/34575/Desktop/Code/STM32/SMC_F429/RTOS/comment/FreeRTOS.h \
   C:/Users/34575/Desktop/Code/STM32/SMC_F429/RTOS/comment/FreeRTOSConfig.h \
   C:/Users/34575/Desktop/Code/STM32/SMC_F429/RTOS/comment/deprecated_definitions.h \
@@ -109,7 +110,6 @@ Project/CMakeFiles/Project_LIB.dir/Dev/HW_201/hw201.c.obj: C:/Users/34575/Deskto
   C:/Users/34575/Desktop/Code/STM32/SMC_F429/CORE/core_cmSimd.h \
   C:/Users/34575/Desktop/Code/STM32/SMC_F429/CORE/stm32f4xx.h \
   C:/Users/34575/Desktop/Code/STM32/SMC_F429/CORE/system_stm32f4xx.h \
-  C:/Users/34575/Desktop/Code/STM32/SMC_F429/Project/Project.h \
   C:/Users/34575/Desktop/Code/STM32/SMC_F429/Project/Dev/HW_201/hw201.h
 
 Project/CMakeFiles/Project_LIB.dir/Dev/KEY/key.c.obj: C:/Users/34575/Desktop/Code/STM32/SMC_F429/Project/Dev/KEY/key.c \

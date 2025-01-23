@@ -1,7 +1,7 @@
 Project/CMakeFiles/Project_LIB.dir/Dev/HW_201/hw201.c.obj: \
  C:\Users\34575\Desktop\Code\STM32\SMC_F429\Project\Dev\HW_201\hw201.c \
  C:\Users\34575\Desktop\Code\STM32\SMC_F429\Project\Dev\HW_201\hw201.h \
- C:\Users\34575\Desktop\Code\STM32\SMC_F429\Project/Project.h \
+ C:/Users/34575/Desktop/Code/STM32/SMC_F429/Project/Project.h \
  C:/PROGRA~2/ARMGNU~1/133167~1.3RE/arm-none-eabi/include/stdio.h \
  C:/PROGRA~2/ARMGNU~1/133167~1.3RE/arm-none-eabi/include/_ansi.h \
  C:/PROGRA~2/ARMGNU~1/133167~1.3RE/arm-none-eabi/include/newlib.h \

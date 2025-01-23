@@ -47,8 +47,10 @@ USER/CMakeFiles/USER_LIB.dir/RTOSTask.c.obj: \
  C:\Users\34575\Desktop\Code\STM32\SMC_F429\BSP/gpio/stm32f4xx_gpio.h \
  C:/Users/34575/Desktop/Code/STM32/SMC_F429/BSP/stm32f4xx_rcc.h \
  C:\Users\34575\Desktop\Code\STM32\SMC_F429/BSP/usart/Serial.h \
+ C:\Users\34575\Desktop\Code\STM32\SMC_F429/HARDWARE/MPU6050/inv_mpu.h \
+ C:\Users\34575\Desktop\Code\STM32\SMC_F429/Project/Dev/HW_201/hw201.h \
+ C:/Users/34575/Desktop/Code/STM32/SMC_F429/Project/Project.h \
  C:\Users\34575\Desktop\Code\STM32\SMC_F429/RTOS/comment/task.h \
  C:\Users\34575\Desktop\Code\STM32\SMC_F429/RTOS/comment/list.h \
  C:\Users\34575\Desktop\Code\STM32\SMC_F429\USER\RTOSTaskConfig.h \
- C:/Users/34575/Desktop/Code/STM32/SMC_F429/RTOS/comment/FreeRTOS.h \
- C:/Users/34575/Desktop/Code/STM32/SMC_F429/Project/Project.h
+ C:/Users/34575/Desktop/Code/STM32/SMC_F429/RTOS/comment/FreeRTOS.h

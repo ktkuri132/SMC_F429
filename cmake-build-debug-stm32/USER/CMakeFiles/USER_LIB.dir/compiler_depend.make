@@ -39,6 +39,8 @@ USER/CMakeFiles/USER_LIB.dir/RTOSTask.c.obj: C:/Users/34575/Desktop/Code/STM32/S
   C:/Users/34575/Desktop/Code/STM32/SMC_F429/RTOS/comment/projdefs.h \
   C:/Users/34575/Desktop/Code/STM32/SMC_F429/RTOS/portable/portmacro.h \
   C:/Users/34575/Desktop/Code/STM32/SMC_F429/BSP/usart/Serial.h \
+  C:/Users/34575/Desktop/Code/STM32/SMC_F429/HARDWARE/MPU6050/inv_mpu.h \
+  C:/Users/34575/Desktop/Code/STM32/SMC_F429/Project/Dev/HW_201/hw201.h \
   C:/Users/34575/Desktop/Code/STM32/SMC_F429/Project/Project.h \
   C:/Users/34575/Desktop/Code/STM32/SMC_F429/RTOS/comment/list.h \
   C:/Users/34575/Desktop/Code/STM32/SMC_F429/RTOS/comment/task.h \
@@ -99,6 +101,8 @@ C:/Users/34575/Desktop/Code/STM32/SMC_F429/BSP/i2c/softi2c.h:
 
 C:/Program\ Files\ (x86)/Arm\ GNU\ Toolchain\ arm-none-eabi/13.3\ rel1/arm-none-eabi/include/sys/cdefs.h:
 
+C:/Users/34575/Desktop/Code/STM32/SMC_F429/HARDWARE/MPU6050/inv_mpu.h:
+
 C:/Users/34575/Desktop/Code/STM32/SMC_F429/RTOS/comment/FreeRTOSConfig.h:
 
 C:/Program\ Files\ (x86)/Arm\ GNU\ Toolchain\ arm-none-eabi/13.3\ rel1/arm-none-eabi/include/sys/features.h:
@@ -138,6 +142,8 @@ C:/Users/34575/Desktop/Code/STM32/SMC_F429/RTOS/comment/mpu_wrappers.h:
 C:/Users/34575/Desktop/Code/STM32/SMC_F429/RTOS/comment/projdefs.h:
 
 C:/Users/34575/Desktop/Code/STM32/SMC_F429/BSP/usart/Serial.h:
+
+C:/Users/34575/Desktop/Code/STM32/SMC_F429/Project/Dev/HW_201/hw201.h:
 
 C:/Users/34575/Desktop/Code/STM32/SMC_F429/BSP/gpio/gpio.h:
 

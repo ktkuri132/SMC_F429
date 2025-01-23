@@ -82,6 +82,9 @@ C:/Users/34575/Desktop/Code/STM32/SMC_F429/cmake-build-release-stm32/RTOS/CMakeF
 C:/Users/34575/Desktop/Code/STM32/SMC_F429/cmake-build-release-stm32/RTOS/portable/CMakeFiles/portable_LIB.dir
 C:/Users/34575/Desktop/Code/STM32/SMC_F429/cmake-build-release-stm32/RTOS/portable/CMakeFiles/edit_cache.dir
 C:/Users/34575/Desktop/Code/STM32/SMC_F429/cmake-build-release-stm32/RTOS/portable/CMakeFiles/rebuild_cache.dir
+C:/Users/34575/Desktop/Code/STM32/SMC_F429/cmake-build-release-stm32/RTOS/comment/CMakeFiles/comment_LIB.dir
+C:/Users/34575/Desktop/Code/STM32/SMC_F429/cmake-build-release-stm32/RTOS/comment/CMakeFiles/edit_cache.dir
+C:/Users/34575/Desktop/Code/STM32/SMC_F429/cmake-build-release-stm32/RTOS/comment/CMakeFiles/rebuild_cache.dir
 C:/Users/34575/Desktop/Code/STM32/SMC_F429/cmake-build-release-stm32/USER/CMakeFiles/USER_LIB.dir
 C:/Users/34575/Desktop/Code/STM32/SMC_F429/cmake-build-release-stm32/USER/CMakeFiles/edit_cache.dir
 C:/Users/34575/Desktop/Code/STM32/SMC_F429/cmake-build-release-stm32/USER/CMakeFiles/rebuild_cache.dir

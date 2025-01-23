@@ -33,9 +33,8 @@ HARDWARE/MPU6050/CMakeFiles/MPU6050_LIB.dir/inv_mpu.c.obj: C:/Users/34575/Deskto
   C:/Users/34575/Desktop/Code/STM32/SMC_F429/BSP/stm32f4xx_rcc.h \
   C:/Users/34575/Desktop/Code/STM32/SMC_F429/BSP/gpio/gpio.h \
   C:/Users/34575/Desktop/Code/STM32/SMC_F429/BSP/gpio/stm32f4xx_gpio.h \
-  C:/Users/34575/Desktop/Code/STM32/SMC_F429/BSP/stm32f4xx_rcc.h \
+  C:/Users/34575/Desktop/Code/STM32/SMC_F429/BSP/i2c/softi2c.h \
   C:/Users/34575/Desktop/Code/STM32/SMC_F429/BSP/sys.h \
-  C:/Users/34575/Desktop/Code/STM32/SMC_F429/BSP/usart/usart.h \
   C:/Users/34575/Desktop/Code/STM32/SMC_F429/CORE/core_cm4.h \
   C:/Users/34575/Desktop/Code/STM32/SMC_F429/CORE/core_cmFunc.h \
   C:/Users/34575/Desktop/Code/STM32/SMC_F429/CORE/core_cmInstr.h \
@@ -124,6 +123,8 @@ C:/Program\ Files\ (x86)/Arm\ GNU\ Toolchain\ arm-none-eabi/13.3\ rel1/arm-none-
 
 C:/Program\ Files\ (x86)/Arm\ GNU\ Toolchain\ arm-none-eabi/13.3\ rel1/arm-none-eabi/include/sys/_stdint.h:
 
+C:/Users/34575/Desktop/Code/STM32/SMC_F429/BSP/i2c/softi2c.h:
+
 C:/Program\ Files\ (x86)/Arm\ GNU\ Toolchain\ arm-none-eabi/13.3\ rel1/arm-none-eabi/include/sys/cdefs.h:
 
 C:/Users/34575/Desktop/Code/STM32/SMC_F429/HARDWARE/MPU6050/inv_mpu.h:
@@ -155,8 +156,6 @@ C:/Program\ Files\ (x86)/Arm\ GNU\ Toolchain\ arm-none-eabi/13.3\ rel1/lib/gcc/a
 C:/Users/34575/Desktop/Code/STM32/SMC_F429/BSP/stm32f4xx_rcc.h:
 
 C:/Users/34575/Desktop/Code/STM32/SMC_F429/BSP/gpio/gpio.h:
-
-C:/Users/34575/Desktop/Code/STM32/SMC_F429/BSP/usart/usart.h:
 
 C:/Users/34575/Desktop/Code/STM32/SMC_F429/CORE/core_cmFunc.h:
 

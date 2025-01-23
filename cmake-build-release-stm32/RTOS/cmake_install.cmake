@@ -42,3 +42,8 @@ if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   include("C:/Users/34575/Desktop/Code/STM32/SMC_F429/cmake-build-release-stm32/RTOS/portable/cmake_install.cmake")
 endif()
 
+if(NOT CMAKE_INSTALL_LOCAL_ONLY)
+  # Include the install script for the subdirectory.
+  include("C:/Users/34575/Desktop/Code/STM32/SMC_F429/cmake-build-release-stm32/RTOS/comment/cmake_install.cmake")
+endif()
+

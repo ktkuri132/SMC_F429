@@ -78,7 +78,7 @@ add_executable(${PROJECT_NAME}.elf ${CMAKE_SOURCE_DIR}/USER/main.c ${LINKER_SCRI
 # target_compile_options(${PROJECT_NAME}.elf PRIVATE -W)
 
 # 将可执行文件链接项目其他库
-target_link_libraries(${PROJECT_NAME}.elf BSP_LIB HARDWARE_LIB CORE_LIB USER_LIB Project_LIB RTOS_LIB)
+target_link_libraries(${PROJECT_NAME}.elf BSP_LIB CORE_LIB HARDWARE_LIB Project_LIB RTOS_LIB USER_LIB)
 
 set(ROOT_DIR ${CMAKE_SOURCE_DIR})
 

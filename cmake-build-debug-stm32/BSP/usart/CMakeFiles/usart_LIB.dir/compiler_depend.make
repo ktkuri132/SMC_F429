@@ -78,13 +78,13 @@ BSP/usart/CMakeFiles/usart_LIB.dir/usart.c.obj: C:/Users/34575/Desktop/Code/STM3
   C:/Users/34575/Desktop/Code/STM32/SMC_F429/BSP/stm32f4xx_rcc.h \
   C:/Users/34575/Desktop/Code/STM32/SMC_F429/HARDWARE/OLED/OLED.h \
   C:/Users/34575/Desktop/Code/STM32/SMC_F429/HARDWARE/OLED/OLED_Data.h \
-  C:/Users/34575/Desktop/Code/STM32/SMC_F429/RTOS/include/FreeRTOS.h \
-  C:/Users/34575/Desktop/Code/STM32/SMC_F429/RTOS/include/FreeRTOSConfig.h \
-  C:/Users/34575/Desktop/Code/STM32/SMC_F429/RTOS/include/deprecated_definitions.h \
-  C:/Users/34575/Desktop/Code/STM32/SMC_F429/RTOS/include/mpu_wrappers.h \
-  C:/Users/34575/Desktop/Code/STM32/SMC_F429/RTOS/include/portable.h \
-  C:/Users/34575/Desktop/Code/STM32/SMC_F429/RTOS/include/projdefs.h \
-  C:/Users/34575/Desktop/Code/STM32/SMC_F429/RTOS/portable/ARM_CM4F/portmacro.h \
+  C:/Users/34575/Desktop/Code/STM32/SMC_F429/RTOS/comment/FreeRTOS.h \
+  C:/Users/34575/Desktop/Code/STM32/SMC_F429/RTOS/comment/FreeRTOSConfig.h \
+  C:/Users/34575/Desktop/Code/STM32/SMC_F429/RTOS/comment/deprecated_definitions.h \
+  C:/Users/34575/Desktop/Code/STM32/SMC_F429/RTOS/comment/mpu_wrappers.h \
+  C:/Users/34575/Desktop/Code/STM32/SMC_F429/RTOS/comment/portable.h \
+  C:/Users/34575/Desktop/Code/STM32/SMC_F429/RTOS/comment/projdefs.h \
+  C:/Users/34575/Desktop/Code/STM32/SMC_F429/RTOS/portable/portmacro.h \
   C:/Users/34575/Desktop/Code/STM32/SMC_F429/BSP/usart/Serial.h \
   C:/Users/34575/Desktop/Code/STM32/SMC_F429/BSP/usart/usart.h \
   C:/Users/34575/Desktop/Code/STM32/SMC_F429/CORE/core_cm4.h \
@@ -96,13 +96,15 @@ BSP/usart/CMakeFiles/usart_LIB.dir/usart.c.obj: C:/Users/34575/Desktop/Code/STM3
   C:/Users/34575/Desktop/Code/STM32/SMC_F429/Project/Project.h
 
 
-C:/Users/34575/Desktop/Code/STM32/SMC_F429/RTOS/include/mpu_wrappers.h:
+C:/Users/34575/Desktop/Code/STM32/SMC_F429/RTOS/comment/FreeRTOS.h:
 
 C:/Users/34575/Desktop/Code/STM32/SMC_F429/BSP/usart/Serial.c:
 
 C:/Program\ Files\ (x86)/Arm\ GNU\ Toolchain\ arm-none-eabi/13.3\ rel1/arm-none-eabi/include/_newlib_version.h:
 
 C:/Program\ Files\ (x86)/Arm\ GNU\ Toolchain\ arm-none-eabi/13.3\ rel1/arm-none-eabi/include/stdint.h:
+
+C:/Users/34575/Desktop/Code/STM32/SMC_F429/RTOS/portable/portmacro.h:
 
 C:/Program\ Files\ (x86)/Arm\ GNU\ Toolchain\ arm-none-eabi/13.3\ rel1/arm-none-eabi/include/_ansi.h:
 
@@ -126,8 +128,6 @@ C:/Program\ Files\ (x86)/Arm\ GNU\ Toolchain\ arm-none-eabi/13.3\ rel1/arm-none-
 
 C:/Program\ Files\ (x86)/Arm\ GNU\ Toolchain\ arm-none-eabi/13.3\ rel1/arm-none-eabi/include/sys/_intsup.h:
 
-C:/Users/34575/Desktop/Code/STM32/SMC_F429/RTOS/include/projdefs.h:
-
 C:/Program\ Files\ (x86)/Arm\ GNU\ Toolchain\ arm-none-eabi/13.3\ rel1/arm-none-eabi/include/sys/_stdint.h:
 
 C:/Program\ Files\ (x86)/Arm\ GNU\ Toolchain\ arm-none-eabi/13.3\ rel1/arm-none-eabi/include/sys/config.h:
@@ -138,7 +138,11 @@ C:/Users/34575/Desktop/Code/STM32/SMC_F429/BSP/i2c/softi2c.h:
 
 C:/Program\ Files\ (x86)/Arm\ GNU\ Toolchain\ arm-none-eabi/13.3\ rel1/arm-none-eabi/include/sys/cdefs.h:
 
+C:/Users/34575/Desktop/Code/STM32/SMC_F429/RTOS/comment/FreeRTOSConfig.h:
+
 C:/Program\ Files\ (x86)/Arm\ GNU\ Toolchain\ arm-none-eabi/13.3\ rel1/arm-none-eabi/include/sys/features.h:
+
+C:/Users/34575/Desktop/Code/STM32/SMC_F429/RTOS/comment/deprecated_definitions.h:
 
 C:/Users/34575/Desktop/Code/STM32/SMC_F429/BSP/gpio/stm32f4xx_gpio.h:
 
@@ -154,7 +158,7 @@ C:/Program\ Files\ (x86)/Arm\ GNU\ Toolchain\ arm-none-eabi/13.3\ rel1/lib/gcc/a
 
 C:/Program\ Files\ (x86)/Arm\ GNU\ Toolchain\ arm-none-eabi/13.3\ rel1/arm-none-eabi/include/sys/stdio.h:
 
-C:/Users/34575/Desktop/Code/STM32/SMC_F429/RTOS/portable/ARM_CM4F/portmacro.h:
+C:/Users/34575/Desktop/Code/STM32/SMC_F429/RTOS/comment/portable.h:
 
 C:/Program\ Files\ (x86)/Arm\ GNU\ Toolchain\ arm-none-eabi/13.3\ rel1/lib/gcc/arm-none-eabi/13.3.1/include/stdarg.h:
 
@@ -165,8 +169,6 @@ C:/Users/34575/Desktop/Code/STM32/SMC_F429/BSP/usart/Serial.h:
 C:/Users/34575/Desktop/Code/STM32/SMC_F429/CORE/core_cm4.h:
 
 C:/Users/34575/Desktop/Code/STM32/SMC_F429/CORE/core_cmFunc.h:
-
-C:/Users/34575/Desktop/Code/STM32/SMC_F429/RTOS/include/FreeRTOS.h:
 
 C:/Users/34575/Desktop/Code/STM32/SMC_F429/CORE/core_cmInstr.h:
 
@@ -188,10 +190,8 @@ C:/Users/34575/Desktop/Code/STM32/SMC_F429/BSP/gpio/gpio.h:
 
 C:/Users/34575/Desktop/Code/STM32/SMC_F429/HARDWARE/OLED/OLED.h:
 
-C:/Users/34575/Desktop/Code/STM32/SMC_F429/RTOS/include/FreeRTOSConfig.h:
+C:/Users/34575/Desktop/Code/STM32/SMC_F429/RTOS/comment/mpu_wrappers.h:
 
-C:/Users/34575/Desktop/Code/STM32/SMC_F429/RTOS/include/deprecated_definitions.h:
-
-C:/Users/34575/Desktop/Code/STM32/SMC_F429/RTOS/include/portable.h:
+C:/Users/34575/Desktop/Code/STM32/SMC_F429/RTOS/comment/projdefs.h:
 
 C:/Users/34575/Desktop/Code/STM32/SMC_F429/BSP/usart/usart.h:

@@ -480,6 +480,19 @@ portable_LIB/fast:
 .PHONY : portable_LIB/fast
 
 #=============================================================================
+# Target rules for targets named comment_LIB
+
+# Build rule for target.
+comment_LIB: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 comment_LIB
+.PHONY : comment_LIB
+
+# fast build rule for target.
+comment_LIB/fast:
+	$(MAKE) $(MAKESILENT) -f RTOS\comment\CMakeFiles\comment_LIB.dir\build.make RTOS/comment/CMakeFiles/comment_LIB.dir/build
+.PHONY : comment_LIB/fast
+
+#=============================================================================
 # Target rules for targets named USER_LIB
 
 # Build rule for target.
@@ -548,6 +561,7 @@ help:
 	@echo ... TOUCH_LIB
 	@echo ... Tools_LIB
 	@echo ... USER_LIB
+	@echo ... comment_LIB
 	@echo ... gpio_LIB
 	@echo ... i2c_LIB
 	@echo ... portable_LIB

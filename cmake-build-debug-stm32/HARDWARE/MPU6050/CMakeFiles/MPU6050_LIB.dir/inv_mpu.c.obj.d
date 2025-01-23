@@ -31,7 +31,8 @@ HARDWARE/MPU6050/CMakeFiles/MPU6050_LIB.dir/inv_mpu.c.obj: \
  C:/PROGRA~2/ARMGNU~1/133167~1.3RE/arm-none-eabi/include/math.h \
  C:\Users\34575\Desktop\Code\STM32\SMC_F429\HARDWARE\MPU6050\inv_mpu.h \
  C:\Users\34575\Desktop\Code\STM32\SMC_F429\HARDWARE\MPU6050\inv_mpu_dmp_motion_driver.h \
- C:\Users\34575\Desktop\Code\STM32\SMC_F429\BSP/sys.h \
+ C:\Users\34575\Desktop\Code\STM32\SMC_F429\BSP/i2c/softi2c.h \
+ C:\Users\34575\Desktop\Code\STM32\SMC_F429\BSP/i2c/softi2c.h \
  C:\Users\34575\Desktop\Code\STM32\SMC_F429\CORE/stm32f4xx.h \
  C:\Users\34575\Desktop\Code\STM32\SMC_F429\CORE/core_cm4.h \
  C:\Users\34575\Desktop\Code\STM32\SMC_F429\CORE/core_cmInstr.h \
@@ -41,6 +42,6 @@ HARDWARE/MPU6050/CMakeFiles/MPU6050_LIB.dir/inv_mpu.c.obj: \
  C:\Users\34575\Desktop\Code\STM32\SMC_F429\BSP/gpio/gpio.h \
  C:\Users\34575\Desktop\Code\STM32\SMC_F429\BSP/gpio/stm32f4xx_gpio.h \
  C:/Users/34575/Desktop/Code/STM32/SMC_F429/BSP/stm32f4xx_rcc.h \
- C:\Users\34575\Desktop\Code\STM32\SMC_F429\BSP/stm32f4xx_rcc.h \
- C:\Users\34575\Desktop\Code\STM32\SMC_F429\BSP/usart/usart.h \
+ C:\Users\34575\Desktop\Code\STM32\SMC_F429\BSP/sys.h \
+ C:\Users\34575\Desktop\Code\STM32\SMC_F429\BSP/gpio/gpio.h \
  C:\Users\34575\Desktop\Code\STM32\SMC_F429\BSP/sys.h

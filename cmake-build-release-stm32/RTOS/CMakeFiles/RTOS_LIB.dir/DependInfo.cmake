@@ -8,15 +8,15 @@ set(CMAKE_DEPENDS_LANGUAGES
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
-  "C:/Users/34575/Desktop/Code/STM32/SMC_F429/RTOS/croutine.c" "RTOS/CMakeFiles/RTOS_LIB.dir/croutine.c.obj" "gcc" "RTOS/CMakeFiles/RTOS_LIB.dir/croutine.c.obj.d"
-  "C:/Users/34575/Desktop/Code/STM32/SMC_F429/RTOS/event_groups.c" "RTOS/CMakeFiles/RTOS_LIB.dir/event_groups.c.obj" "gcc" "RTOS/CMakeFiles/RTOS_LIB.dir/event_groups.c.obj.d"
-  "C:/Users/34575/Desktop/Code/STM32/SMC_F429/RTOS/list.c" "RTOS/CMakeFiles/RTOS_LIB.dir/list.c.obj" "gcc" "RTOS/CMakeFiles/RTOS_LIB.dir/list.c.obj.d"
-  "C:/Users/34575/Desktop/Code/STM32/SMC_F429/RTOS/portable/ARM_CM4F/port.c" "RTOS/CMakeFiles/RTOS_LIB.dir/portable/ARM_CM4F/port.c.obj" "gcc" "RTOS/CMakeFiles/RTOS_LIB.dir/portable/ARM_CM4F/port.c.obj.d"
-  "C:/Users/34575/Desktop/Code/STM32/SMC_F429/RTOS/portable/MemMang/heap_4.c" "RTOS/CMakeFiles/RTOS_LIB.dir/portable/MemMang/heap_4.c.obj" "gcc" "RTOS/CMakeFiles/RTOS_LIB.dir/portable/MemMang/heap_4.c.obj.d"
-  "C:/Users/34575/Desktop/Code/STM32/SMC_F429/RTOS/queue.c" "RTOS/CMakeFiles/RTOS_LIB.dir/queue.c.obj" "gcc" "RTOS/CMakeFiles/RTOS_LIB.dir/queue.c.obj.d"
-  "C:/Users/34575/Desktop/Code/STM32/SMC_F429/RTOS/stream_buffer.c" "RTOS/CMakeFiles/RTOS_LIB.dir/stream_buffer.c.obj" "gcc" "RTOS/CMakeFiles/RTOS_LIB.dir/stream_buffer.c.obj.d"
-  "C:/Users/34575/Desktop/Code/STM32/SMC_F429/RTOS/tasks.c" "RTOS/CMakeFiles/RTOS_LIB.dir/tasks.c.obj" "gcc" "RTOS/CMakeFiles/RTOS_LIB.dir/tasks.c.obj.d"
-  "C:/Users/34575/Desktop/Code/STM32/SMC_F429/RTOS/timers.c" "RTOS/CMakeFiles/RTOS_LIB.dir/timers.c.obj" "gcc" "RTOS/CMakeFiles/RTOS_LIB.dir/timers.c.obj.d"
+  "C:/Users/34575/Desktop/Code/STM32/SMC_F429/RTOS/comment/croutine.c" "RTOS/CMakeFiles/RTOS_LIB.dir/comment/croutine.c.obj" "gcc" "RTOS/CMakeFiles/RTOS_LIB.dir/comment/croutine.c.obj.d"
+  "C:/Users/34575/Desktop/Code/STM32/SMC_F429/RTOS/comment/event_groups.c" "RTOS/CMakeFiles/RTOS_LIB.dir/comment/event_groups.c.obj" "gcc" "RTOS/CMakeFiles/RTOS_LIB.dir/comment/event_groups.c.obj.d"
+  "C:/Users/34575/Desktop/Code/STM32/SMC_F429/RTOS/comment/list.c" "RTOS/CMakeFiles/RTOS_LIB.dir/comment/list.c.obj" "gcc" "RTOS/CMakeFiles/RTOS_LIB.dir/comment/list.c.obj.d"
+  "C:/Users/34575/Desktop/Code/STM32/SMC_F429/RTOS/comment/queue.c" "RTOS/CMakeFiles/RTOS_LIB.dir/comment/queue.c.obj" "gcc" "RTOS/CMakeFiles/RTOS_LIB.dir/comment/queue.c.obj.d"
+  "C:/Users/34575/Desktop/Code/STM32/SMC_F429/RTOS/comment/stream_buffer.c" "RTOS/CMakeFiles/RTOS_LIB.dir/comment/stream_buffer.c.obj" "gcc" "RTOS/CMakeFiles/RTOS_LIB.dir/comment/stream_buffer.c.obj.d"
+  "C:/Users/34575/Desktop/Code/STM32/SMC_F429/RTOS/comment/tasks.c" "RTOS/CMakeFiles/RTOS_LIB.dir/comment/tasks.c.obj" "gcc" "RTOS/CMakeFiles/RTOS_LIB.dir/comment/tasks.c.obj.d"
+  "C:/Users/34575/Desktop/Code/STM32/SMC_F429/RTOS/comment/timers.c" "RTOS/CMakeFiles/RTOS_LIB.dir/comment/timers.c.obj" "gcc" "RTOS/CMakeFiles/RTOS_LIB.dir/comment/timers.c.obj.d"
+  "C:/Users/34575/Desktop/Code/STM32/SMC_F429/RTOS/portable/heap_4.c" "RTOS/CMakeFiles/RTOS_LIB.dir/portable/heap_4.c.obj" "gcc" "RTOS/CMakeFiles/RTOS_LIB.dir/portable/heap_4.c.obj.d"
+  "C:/Users/34575/Desktop/Code/STM32/SMC_F429/RTOS/portable/port.c" "RTOS/CMakeFiles/RTOS_LIB.dir/portable/port.c.obj" "gcc" "RTOS/CMakeFiles/RTOS_LIB.dir/portable/port.c.obj.d"
   )
 
 # Targets to which this target links which contain Fortran sources.

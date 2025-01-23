@@ -49,6 +49,7 @@ set(CMAKE_MAKEFILE_DEPENDS
   "C:/Users/34575/Desktop/Code/STM32/SMC_F429/Project/LIB/PID/CMakeLists.txt"
   "C:/Users/34575/Desktop/Code/STM32/SMC_F429/Project/LIB/Tools/CMakeLists.txt"
   "C:/Users/34575/Desktop/Code/STM32/SMC_F429/RTOS/CMakeLists.txt"
+  "C:/Users/34575/Desktop/Code/STM32/SMC_F429/RTOS/comment/CMakeLists.txt"
   "C:/Users/34575/Desktop/Code/STM32/SMC_F429/RTOS/portable/CMakeLists.txt"
   "C:/Users/34575/Desktop/Code/STM32/SMC_F429/USER/CMakeLists.txt"
   "CMakeFiles/3.30.5/CMakeASMCompiler.cmake"
@@ -93,6 +94,7 @@ set(CMAKE_MAKEFILE_PRODUCTS
   "Project/LIB/Tools/CMakeFiles/CMakeDirectoryInformation.cmake"
   "RTOS/CMakeFiles/CMakeDirectoryInformation.cmake"
   "RTOS/portable/CMakeFiles/CMakeDirectoryInformation.cmake"
+  "RTOS/comment/CMakeFiles/CMakeDirectoryInformation.cmake"
   "USER/CMakeFiles/CMakeDirectoryInformation.cmake"
   )
 
@@ -126,5 +128,6 @@ set(CMAKE_DEPEND_INFO_FILES
   "Project/LIB/Tools/CMakeFiles/Tools_LIB.dir/DependInfo.cmake"
   "RTOS/CMakeFiles/RTOS_LIB.dir/DependInfo.cmake"
   "RTOS/portable/CMakeFiles/portable_LIB.dir/DependInfo.cmake"
+  "RTOS/comment/CMakeFiles/comment_LIB.dir/DependInfo.cmake"
   "USER/CMakeFiles/USER_LIB.dir/DependInfo.cmake"
   )

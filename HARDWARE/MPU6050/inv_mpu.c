@@ -24,7 +24,7 @@
 #include <math.h>
 #include "inv_mpu.h"
 #include "inv_mpu_dmp_motion_driver.h"
-// #include <hardi2c.h>
+#include <i2c/softi2c.h>
 #include "sys.h"
 
 

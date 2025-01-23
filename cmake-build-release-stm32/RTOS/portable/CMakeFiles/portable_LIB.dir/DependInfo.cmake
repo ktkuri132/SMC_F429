@@ -8,8 +8,8 @@ set(CMAKE_DEPENDS_LANGUAGES
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
-  "C:/Users/34575/Desktop/Code/STM32/SMC_F429/RTOS/portable/ARM_CM4F/port.c" "RTOS/portable/CMakeFiles/portable_LIB.dir/ARM_CM4F/port.c.obj" "gcc" "RTOS/portable/CMakeFiles/portable_LIB.dir/ARM_CM4F/port.c.obj.d"
-  "C:/Users/34575/Desktop/Code/STM32/SMC_F429/RTOS/portable/MemMang/heap_4.c" "RTOS/portable/CMakeFiles/portable_LIB.dir/MemMang/heap_4.c.obj" "gcc" "RTOS/portable/CMakeFiles/portable_LIB.dir/MemMang/heap_4.c.obj.d"
+  "C:/Users/34575/Desktop/Code/STM32/SMC_F429/RTOS/portable/heap_4.c" "RTOS/portable/CMakeFiles/portable_LIB.dir/heap_4.c.obj" "gcc" "RTOS/portable/CMakeFiles/portable_LIB.dir/heap_4.c.obj.d"
+  "C:/Users/34575/Desktop/Code/STM32/SMC_F429/RTOS/portable/port.c" "RTOS/portable/CMakeFiles/portable_LIB.dir/port.c.obj" "gcc" "RTOS/portable/CMakeFiles/portable_LIB.dir/port.c.obj.d"
   )
 
 # Targets to which this target links which contain Fortran sources.

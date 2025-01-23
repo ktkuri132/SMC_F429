@@ -129,53 +129,53 @@ portable_LIB/fast:
 	cd /d C:\Users\34575\Desktop\Code\STM32\SMC_F429\cmake-build-debug-stm32 && $(MAKE) $(MAKESILENT) -f RTOS\portable\CMakeFiles\portable_LIB.dir\build.make RTOS/portable/CMakeFiles/portable_LIB.dir/build
 .PHONY : portable_LIB/fast
 
-ARM_CM4F/port.obj: ARM_CM4F/port.c.obj
-.PHONY : ARM_CM4F/port.obj
+heap_4.obj: heap_4.c.obj
+.PHONY : heap_4.obj
 
 # target to build an object file
-ARM_CM4F/port.c.obj:
-	cd /d C:\Users\34575\Desktop\Code\STM32\SMC_F429\cmake-build-debug-stm32 && $(MAKE) $(MAKESILENT) -f RTOS\portable\CMakeFiles\portable_LIB.dir\build.make RTOS/portable/CMakeFiles/portable_LIB.dir/ARM_CM4F/port.c.obj
-.PHONY : ARM_CM4F/port.c.obj
+heap_4.c.obj:
+	cd /d C:\Users\34575\Desktop\Code\STM32\SMC_F429\cmake-build-debug-stm32 && $(MAKE) $(MAKESILENT) -f RTOS\portable\CMakeFiles\portable_LIB.dir\build.make RTOS/portable/CMakeFiles/portable_LIB.dir/heap_4.c.obj
+.PHONY : heap_4.c.obj
 
-ARM_CM4F/port.i: ARM_CM4F/port.c.i
-.PHONY : ARM_CM4F/port.i
+heap_4.i: heap_4.c.i
+.PHONY : heap_4.i
 
 # target to preprocess a source file
-ARM_CM4F/port.c.i:
-	cd /d C:\Users\34575\Desktop\Code\STM32\SMC_F429\cmake-build-debug-stm32 && $(MAKE) $(MAKESILENT) -f RTOS\portable\CMakeFiles\portable_LIB.dir\build.make RTOS/portable/CMakeFiles/portable_LIB.dir/ARM_CM4F/port.c.i
-.PHONY : ARM_CM4F/port.c.i
+heap_4.c.i:
+	cd /d C:\Users\34575\Desktop\Code\STM32\SMC_F429\cmake-build-debug-stm32 && $(MAKE) $(MAKESILENT) -f RTOS\portable\CMakeFiles\portable_LIB.dir\build.make RTOS/portable/CMakeFiles/portable_LIB.dir/heap_4.c.i
+.PHONY : heap_4.c.i
 
-ARM_CM4F/port.s: ARM_CM4F/port.c.s
-.PHONY : ARM_CM4F/port.s
+heap_4.s: heap_4.c.s
+.PHONY : heap_4.s
 
 # target to generate assembly for a file
-ARM_CM4F/port.c.s:
-	cd /d C:\Users\34575\Desktop\Code\STM32\SMC_F429\cmake-build-debug-stm32 && $(MAKE) $(MAKESILENT) -f RTOS\portable\CMakeFiles\portable_LIB.dir\build.make RTOS/portable/CMakeFiles/portable_LIB.dir/ARM_CM4F/port.c.s
-.PHONY : ARM_CM4F/port.c.s
+heap_4.c.s:
+	cd /d C:\Users\34575\Desktop\Code\STM32\SMC_F429\cmake-build-debug-stm32 && $(MAKE) $(MAKESILENT) -f RTOS\portable\CMakeFiles\portable_LIB.dir\build.make RTOS/portable/CMakeFiles/portable_LIB.dir/heap_4.c.s
+.PHONY : heap_4.c.s
 
-MemMang/heap_4.obj: MemMang/heap_4.c.obj
-.PHONY : MemMang/heap_4.obj
+port.obj: port.c.obj
+.PHONY : port.obj
 
 # target to build an object file
-MemMang/heap_4.c.obj:
-	cd /d C:\Users\34575\Desktop\Code\STM32\SMC_F429\cmake-build-debug-stm32 && $(MAKE) $(MAKESILENT) -f RTOS\portable\CMakeFiles\portable_LIB.dir\build.make RTOS/portable/CMakeFiles/portable_LIB.dir/MemMang/heap_4.c.obj
-.PHONY : MemMang/heap_4.c.obj
+port.c.obj:
+	cd /d C:\Users\34575\Desktop\Code\STM32\SMC_F429\cmake-build-debug-stm32 && $(MAKE) $(MAKESILENT) -f RTOS\portable\CMakeFiles\portable_LIB.dir\build.make RTOS/portable/CMakeFiles/portable_LIB.dir/port.c.obj
+.PHONY : port.c.obj
 
-MemMang/heap_4.i: MemMang/heap_4.c.i
-.PHONY : MemMang/heap_4.i
+port.i: port.c.i
+.PHONY : port.i
 
 # target to preprocess a source file
-MemMang/heap_4.c.i:
-	cd /d C:\Users\34575\Desktop\Code\STM32\SMC_F429\cmake-build-debug-stm32 && $(MAKE) $(MAKESILENT) -f RTOS\portable\CMakeFiles\portable_LIB.dir\build.make RTOS/portable/CMakeFiles/portable_LIB.dir/MemMang/heap_4.c.i
-.PHONY : MemMang/heap_4.c.i
+port.c.i:
+	cd /d C:\Users\34575\Desktop\Code\STM32\SMC_F429\cmake-build-debug-stm32 && $(MAKE) $(MAKESILENT) -f RTOS\portable\CMakeFiles\portable_LIB.dir\build.make RTOS/portable/CMakeFiles/portable_LIB.dir/port.c.i
+.PHONY : port.c.i
 
-MemMang/heap_4.s: MemMang/heap_4.c.s
-.PHONY : MemMang/heap_4.s
+port.s: port.c.s
+.PHONY : port.s
 
 # target to generate assembly for a file
-MemMang/heap_4.c.s:
-	cd /d C:\Users\34575\Desktop\Code\STM32\SMC_F429\cmake-build-debug-stm32 && $(MAKE) $(MAKESILENT) -f RTOS\portable\CMakeFiles\portable_LIB.dir\build.make RTOS/portable/CMakeFiles/portable_LIB.dir/MemMang/heap_4.c.s
-.PHONY : MemMang/heap_4.c.s
+port.c.s:
+	cd /d C:\Users\34575\Desktop\Code\STM32\SMC_F429\cmake-build-debug-stm32 && $(MAKE) $(MAKESILENT) -f RTOS\portable\CMakeFiles\portable_LIB.dir\build.make RTOS/portable/CMakeFiles/portable_LIB.dir/port.c.s
+.PHONY : port.c.s
 
 # Help Target
 help:
@@ -186,12 +186,12 @@ help:
 	@echo ... edit_cache
 	@echo ... rebuild_cache
 	@echo ... portable_LIB
-	@echo ... ARM_CM4F/port.obj
-	@echo ... ARM_CM4F/port.i
-	@echo ... ARM_CM4F/port.s
-	@echo ... MemMang/heap_4.obj
-	@echo ... MemMang/heap_4.i
-	@echo ... MemMang/heap_4.s
+	@echo ... heap_4.obj
+	@echo ... heap_4.i
+	@echo ... heap_4.s
+	@echo ... port.obj
+	@echo ... port.i
+	@echo ... port.s
 .PHONY : help
 
 

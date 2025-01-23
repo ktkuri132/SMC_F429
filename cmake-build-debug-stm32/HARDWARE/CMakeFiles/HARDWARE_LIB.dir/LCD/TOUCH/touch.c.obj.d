@@ -36,6 +36,4 @@ HARDWARE/CMakeFiles/HARDWARE_LIB.dir/LCD/TOUCH/touch.c.obj: \
  C:\Users\34575\Desktop\Code\STM32\SMC_F429\BSP/gpio/gpio.h \
  C:\Users\34575\Desktop\Code\STM32\SMC_F429\BSP/gpio/stm32f4xx_gpio.h \
  C:/Users/34575/Desktop/Code/STM32/SMC_F429/BSP/stm32f4xx_rcc.h \
- C:\Users\34575\Desktop\Code\STM32\SMC_F429\BSP/stm32f4xx_rcc.h \
- C:\Users\34575\Desktop\Code\STM32\SMC_F429\BSP/usart/usart.h \
  C:\Users\34575\Desktop\Code\STM32\SMC_F429\BSP/sys.h

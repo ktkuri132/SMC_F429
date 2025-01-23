@@ -68,44 +68,44 @@ include RTOS/portable/CMakeFiles/portable_LIB.dir/progress.make
 # Include the compile flags for this target's objects.
 include RTOS/portable/CMakeFiles/portable_LIB.dir/flags.make
 
-RTOS/portable/CMakeFiles/portable_LIB.dir/ARM_CM4F/port.c.obj: RTOS/portable/CMakeFiles/portable_LIB.dir/flags.make
-RTOS/portable/CMakeFiles/portable_LIB.dir/ARM_CM4F/port.c.obj: C:/Users/34575/Desktop/Code/STM32/SMC_F429/RTOS/portable/ARM_CM4F/port.c
-RTOS/portable/CMakeFiles/portable_LIB.dir/ARM_CM4F/port.c.obj: RTOS/portable/CMakeFiles/portable_LIB.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\Users\34575\Desktop\Code\STM32\SMC_F429\cmake-build-debug-stm32\CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building C object RTOS/portable/CMakeFiles/portable_LIB.dir/ARM_CM4F/port.c.obj"
-	cd /d C:\Users\34575\Desktop\Code\STM32\SMC_F429\cmake-build-debug-stm32\RTOS\portable && C:\PROGRA~2\ARMGNU~1\133167~1.3RE\bin\AR19DD~1.EXE $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT RTOS/portable/CMakeFiles/portable_LIB.dir/ARM_CM4F/port.c.obj -MF CMakeFiles\portable_LIB.dir\ARM_CM4F\port.c.obj.d -o CMakeFiles\portable_LIB.dir\ARM_CM4F\port.c.obj -c C:\Users\34575\Desktop\Code\STM32\SMC_F429\RTOS\portable\ARM_CM4F\port.c
+RTOS/portable/CMakeFiles/portable_LIB.dir/heap_4.c.obj: RTOS/portable/CMakeFiles/portable_LIB.dir/flags.make
+RTOS/portable/CMakeFiles/portable_LIB.dir/heap_4.c.obj: C:/Users/34575/Desktop/Code/STM32/SMC_F429/RTOS/portable/heap_4.c
+RTOS/portable/CMakeFiles/portable_LIB.dir/heap_4.c.obj: RTOS/portable/CMakeFiles/portable_LIB.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\Users\34575\Desktop\Code\STM32\SMC_F429\cmake-build-debug-stm32\CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building C object RTOS/portable/CMakeFiles/portable_LIB.dir/heap_4.c.obj"
+	cd /d C:\Users\34575\Desktop\Code\STM32\SMC_F429\cmake-build-debug-stm32\RTOS\portable && C:\PROGRA~2\ARMGNU~1\133167~1.3RE\bin\AR19DD~1.EXE $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT RTOS/portable/CMakeFiles/portable_LIB.dir/heap_4.c.obj -MF CMakeFiles\portable_LIB.dir\heap_4.c.obj.d -o CMakeFiles\portable_LIB.dir\heap_4.c.obj -c C:\Users\34575\Desktop\Code\STM32\SMC_F429\RTOS\portable\heap_4.c
 
-RTOS/portable/CMakeFiles/portable_LIB.dir/ARM_CM4F/port.c.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing C source to CMakeFiles/portable_LIB.dir/ARM_CM4F/port.c.i"
-	cd /d C:\Users\34575\Desktop\Code\STM32\SMC_F429\cmake-build-debug-stm32\RTOS\portable && C:\PROGRA~2\ARMGNU~1\133167~1.3RE\bin\AR19DD~1.EXE $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E C:\Users\34575\Desktop\Code\STM32\SMC_F429\RTOS\portable\ARM_CM4F\port.c > CMakeFiles\portable_LIB.dir\ARM_CM4F\port.c.i
+RTOS/portable/CMakeFiles/portable_LIB.dir/heap_4.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing C source to CMakeFiles/portable_LIB.dir/heap_4.c.i"
+	cd /d C:\Users\34575\Desktop\Code\STM32\SMC_F429\cmake-build-debug-stm32\RTOS\portable && C:\PROGRA~2\ARMGNU~1\133167~1.3RE\bin\AR19DD~1.EXE $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E C:\Users\34575\Desktop\Code\STM32\SMC_F429\RTOS\portable\heap_4.c > CMakeFiles\portable_LIB.dir\heap_4.c.i
 
-RTOS/portable/CMakeFiles/portable_LIB.dir/ARM_CM4F/port.c.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/portable_LIB.dir/ARM_CM4F/port.c.s"
-	cd /d C:\Users\34575\Desktop\Code\STM32\SMC_F429\cmake-build-debug-stm32\RTOS\portable && C:\PROGRA~2\ARMGNU~1\133167~1.3RE\bin\AR19DD~1.EXE $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S C:\Users\34575\Desktop\Code\STM32\SMC_F429\RTOS\portable\ARM_CM4F\port.c -o CMakeFiles\portable_LIB.dir\ARM_CM4F\port.c.s
+RTOS/portable/CMakeFiles/portable_LIB.dir/heap_4.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/portable_LIB.dir/heap_4.c.s"
+	cd /d C:\Users\34575\Desktop\Code\STM32\SMC_F429\cmake-build-debug-stm32\RTOS\portable && C:\PROGRA~2\ARMGNU~1\133167~1.3RE\bin\AR19DD~1.EXE $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S C:\Users\34575\Desktop\Code\STM32\SMC_F429\RTOS\portable\heap_4.c -o CMakeFiles\portable_LIB.dir\heap_4.c.s
 
-RTOS/portable/CMakeFiles/portable_LIB.dir/MemMang/heap_4.c.obj: RTOS/portable/CMakeFiles/portable_LIB.dir/flags.make
-RTOS/portable/CMakeFiles/portable_LIB.dir/MemMang/heap_4.c.obj: C:/Users/34575/Desktop/Code/STM32/SMC_F429/RTOS/portable/MemMang/heap_4.c
-RTOS/portable/CMakeFiles/portable_LIB.dir/MemMang/heap_4.c.obj: RTOS/portable/CMakeFiles/portable_LIB.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\Users\34575\Desktop\Code\STM32\SMC_F429\cmake-build-debug-stm32\CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building C object RTOS/portable/CMakeFiles/portable_LIB.dir/MemMang/heap_4.c.obj"
-	cd /d C:\Users\34575\Desktop\Code\STM32\SMC_F429\cmake-build-debug-stm32\RTOS\portable && C:\PROGRA~2\ARMGNU~1\133167~1.3RE\bin\AR19DD~1.EXE $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT RTOS/portable/CMakeFiles/portable_LIB.dir/MemMang/heap_4.c.obj -MF CMakeFiles\portable_LIB.dir\MemMang\heap_4.c.obj.d -o CMakeFiles\portable_LIB.dir\MemMang\heap_4.c.obj -c C:\Users\34575\Desktop\Code\STM32\SMC_F429\RTOS\portable\MemMang\heap_4.c
+RTOS/portable/CMakeFiles/portable_LIB.dir/port.c.obj: RTOS/portable/CMakeFiles/portable_LIB.dir/flags.make
+RTOS/portable/CMakeFiles/portable_LIB.dir/port.c.obj: C:/Users/34575/Desktop/Code/STM32/SMC_F429/RTOS/portable/port.c
+RTOS/portable/CMakeFiles/portable_LIB.dir/port.c.obj: RTOS/portable/CMakeFiles/portable_LIB.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\Users\34575\Desktop\Code\STM32\SMC_F429\cmake-build-debug-stm32\CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building C object RTOS/portable/CMakeFiles/portable_LIB.dir/port.c.obj"
+	cd /d C:\Users\34575\Desktop\Code\STM32\SMC_F429\cmake-build-debug-stm32\RTOS\portable && C:\PROGRA~2\ARMGNU~1\133167~1.3RE\bin\AR19DD~1.EXE $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT RTOS/portable/CMakeFiles/portable_LIB.dir/port.c.obj -MF CMakeFiles\portable_LIB.dir\port.c.obj.d -o CMakeFiles\portable_LIB.dir\port.c.obj -c C:\Users\34575\Desktop\Code\STM32\SMC_F429\RTOS\portable\port.c
 
-RTOS/portable/CMakeFiles/portable_LIB.dir/MemMang/heap_4.c.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing C source to CMakeFiles/portable_LIB.dir/MemMang/heap_4.c.i"
-	cd /d C:\Users\34575\Desktop\Code\STM32\SMC_F429\cmake-build-debug-stm32\RTOS\portable && C:\PROGRA~2\ARMGNU~1\133167~1.3RE\bin\AR19DD~1.EXE $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E C:\Users\34575\Desktop\Code\STM32\SMC_F429\RTOS\portable\MemMang\heap_4.c > CMakeFiles\portable_LIB.dir\MemMang\heap_4.c.i
+RTOS/portable/CMakeFiles/portable_LIB.dir/port.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing C source to CMakeFiles/portable_LIB.dir/port.c.i"
+	cd /d C:\Users\34575\Desktop\Code\STM32\SMC_F429\cmake-build-debug-stm32\RTOS\portable && C:\PROGRA~2\ARMGNU~1\133167~1.3RE\bin\AR19DD~1.EXE $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E C:\Users\34575\Desktop\Code\STM32\SMC_F429\RTOS\portable\port.c > CMakeFiles\portable_LIB.dir\port.c.i
 
-RTOS/portable/CMakeFiles/portable_LIB.dir/MemMang/heap_4.c.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/portable_LIB.dir/MemMang/heap_4.c.s"
-	cd /d C:\Users\34575\Desktop\Code\STM32\SMC_F429\cmake-build-debug-stm32\RTOS\portable && C:\PROGRA~2\ARMGNU~1\133167~1.3RE\bin\AR19DD~1.EXE $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S C:\Users\34575\Desktop\Code\STM32\SMC_F429\RTOS\portable\MemMang\heap_4.c -o CMakeFiles\portable_LIB.dir\MemMang\heap_4.c.s
+RTOS/portable/CMakeFiles/portable_LIB.dir/port.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/portable_LIB.dir/port.c.s"
+	cd /d C:\Users\34575\Desktop\Code\STM32\SMC_F429\cmake-build-debug-stm32\RTOS\portable && C:\PROGRA~2\ARMGNU~1\133167~1.3RE\bin\AR19DD~1.EXE $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S C:\Users\34575\Desktop\Code\STM32\SMC_F429\RTOS\portable\port.c -o CMakeFiles\portable_LIB.dir\port.c.s
 
 # Object files for target portable_LIB
 portable_LIB_OBJECTS = \
-"CMakeFiles/portable_LIB.dir/ARM_CM4F/port.c.obj" \
-"CMakeFiles/portable_LIB.dir/MemMang/heap_4.c.obj"
+"CMakeFiles/portable_LIB.dir/heap_4.c.obj" \
+"CMakeFiles/portable_LIB.dir/port.c.obj"
 
 # External object files for target portable_LIB
 portable_LIB_EXTERNAL_OBJECTS =
 
-RTOS/portable/libportable_LIB.a: RTOS/portable/CMakeFiles/portable_LIB.dir/ARM_CM4F/port.c.obj
-RTOS/portable/libportable_LIB.a: RTOS/portable/CMakeFiles/portable_LIB.dir/MemMang/heap_4.c.obj
+RTOS/portable/libportable_LIB.a: RTOS/portable/CMakeFiles/portable_LIB.dir/heap_4.c.obj
+RTOS/portable/libportable_LIB.a: RTOS/portable/CMakeFiles/portable_LIB.dir/port.c.obj
 RTOS/portable/libportable_LIB.a: RTOS/portable/CMakeFiles/portable_LIB.dir/build.make
 RTOS/portable/libportable_LIB.a: RTOS/portable/CMakeFiles/portable_LIB.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=C:\Users\34575\Desktop\Code\STM32\SMC_F429\cmake-build-debug-stm32\CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Linking C static library libportable_LIB.a"

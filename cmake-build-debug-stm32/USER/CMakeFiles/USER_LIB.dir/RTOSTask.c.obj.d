@@ -22,23 +22,23 @@ USER/CMakeFiles/USER_LIB.dir/RTOSTask.c.obj: \
  C:/PROGRA~2/ARMGNU~1/133167~1.3RE/arm-none-eabi/include/sys/_locale.h \
  C:/PROGRA~2/ARMGNU~1/133167~1.3RE/arm-none-eabi/include/strings.h \
  C:/PROGRA~2/ARMGNU~1/133167~1.3RE/arm-none-eabi/include/sys/string.h \
- C:/Users/34575/Desktop/Code/STM32/SMC_F429/RTOS/include/FreeRTOS.h \
+ C:/Users/34575/Desktop/Code/STM32/SMC_F429/RTOS/comment/FreeRTOS.h \
  C:/PROGRA~2/ARMGNU~1/133167~1.3RE/lib/gcc/arm-none-eabi/13.3.1/include/stdint.h \
  C:/PROGRA~2/ARMGNU~1/133167~1.3RE/arm-none-eabi/include/stdint.h \
  C:/PROGRA~2/ARMGNU~1/133167~1.3RE/arm-none-eabi/include/sys/_intsup.h \
  C:/PROGRA~2/ARMGNU~1/133167~1.3RE/arm-none-eabi/include/sys/_stdint.h \
- C:/Users/34575/Desktop/Code/STM32/SMC_F429/RTOS/include/FreeRTOSConfig.h \
+ C:/Users/34575/Desktop/Code/STM32/SMC_F429/RTOS/comment/FreeRTOSConfig.h \
  C:\Users\34575\Desktop\Code\STM32\SMC_F429\CORE/stm32f4xx.h \
  C:\Users\34575\Desktop\Code\STM32\SMC_F429\CORE/core_cm4.h \
  C:\Users\34575\Desktop\Code\STM32\SMC_F429\CORE/core_cmInstr.h \
  C:\Users\34575\Desktop\Code\STM32\SMC_F429\CORE/core_cmFunc.h \
  C:\Users\34575\Desktop\Code\STM32\SMC_F429\CORE/core_cmSimd.h \
  C:\Users\34575\Desktop\Code\STM32\SMC_F429\CORE/system_stm32f4xx.h \
- C:/Users/34575/Desktop/Code/STM32/SMC_F429/RTOS/include/projdefs.h \
- C:/Users/34575/Desktop/Code/STM32/SMC_F429/RTOS/include/portable.h \
- C:/Users/34575/Desktop/Code/STM32/SMC_F429/RTOS/include/deprecated_definitions.h \
- C:/Users/34575/Desktop/Code/STM32/SMC_F429/RTOS/portable/ARM_CM4F/portmacro.h \
- C:/Users/34575/Desktop/Code/STM32/SMC_F429/RTOS/include/mpu_wrappers.h \
+ C:/Users/34575/Desktop/Code/STM32/SMC_F429/RTOS/comment/projdefs.h \
+ C:/Users/34575/Desktop/Code/STM32/SMC_F429/RTOS/comment/portable.h \
+ C:/Users/34575/Desktop/Code/STM32/SMC_F429/RTOS/comment/deprecated_definitions.h \
+ C:/Users/34575/Desktop/Code/STM32/SMC_F429/RTOS/portable/portmacro.h \
+ C:/Users/34575/Desktop/Code/STM32/SMC_F429/RTOS/comment/mpu_wrappers.h \
  C:/Users/34575/Desktop/Code/STM32/SMC_F429/HARDWARE/OLED/OLED.h \
  C:/Users/34575/Desktop/Code/STM32/SMC_F429/HARDWARE/OLED/OLED_Data.h \
  C:/Users/34575/Desktop/Code/STM32/SMC_F429/BSP/i2c/softi2c.h \
@@ -47,8 +47,8 @@ USER/CMakeFiles/USER_LIB.dir/RTOSTask.c.obj: \
  C:\Users\34575\Desktop\Code\STM32\SMC_F429\BSP/gpio/stm32f4xx_gpio.h \
  C:/Users/34575/Desktop/Code/STM32/SMC_F429/BSP/stm32f4xx_rcc.h \
  C:\Users\34575\Desktop\Code\STM32\SMC_F429/BSP/usart/Serial.h \
- C:\Users\34575\Desktop\Code\STM32\SMC_F429/RTOS/include/task.h \
- C:\Users\34575\Desktop\Code\STM32\SMC_F429/RTOS/include/list.h \
+ C:\Users\34575\Desktop\Code\STM32\SMC_F429/RTOS/comment/task.h \
+ C:\Users\34575\Desktop\Code\STM32\SMC_F429/RTOS/comment/list.h \
  C:\Users\34575\Desktop\Code\STM32\SMC_F429\USER\RTOSTaskConfig.h \
- C:/Users/34575/Desktop/Code/STM32/SMC_F429/RTOS/include/FreeRTOS.h \
+ C:/Users/34575/Desktop/Code/STM32/SMC_F429/RTOS/comment/FreeRTOS.h \
  C:/Users/34575/Desktop/Code/STM32/SMC_F429/Project/Project.h

@@ -17,20 +17,4 @@ BSP/CMakeFiles/BSP_LIB.dir/i2c/hardi2c.c.obj: \
  C:\Users\34575\Desktop\Code\STM32\SMC_F429\BSP/gpio/gpio.h \
  C:\Users\34575\Desktop\Code\STM32\SMC_F429\BSP/gpio/stm32f4xx_gpio.h \
  C:/Users/34575/Desktop/Code/STM32/SMC_F429/BSP/stm32f4xx_rcc.h \
- C:\Users\34575\Desktop\Code\STM32\SMC_F429\BSP/stm32f4xx_rcc.h \
- C:/PROGRA~2/ARMGNU~1/133167~1.3RE/arm-none-eabi/include/stdio.h \
- C:/PROGRA~2/ARMGNU~1/133167~1.3RE/arm-none-eabi/include/_ansi.h \
- C:/PROGRA~2/ARMGNU~1/133167~1.3RE/arm-none-eabi/include/newlib.h \
- C:/PROGRA~2/ARMGNU~1/133167~1.3RE/arm-none-eabi/include/sys/config.h \
- C:/PROGRA~2/ARMGNU~1/133167~1.3RE/arm-none-eabi/include/machine/ieeefp.h \
- C:/PROGRA~2/ARMGNU~1/133167~1.3RE/arm-none-eabi/include/sys/cdefs.h \
- C:/PROGRA~2/ARMGNU~1/133167~1.3RE/lib/gcc/arm-none-eabi/13.3.1/include/stddef.h \
- C:/PROGRA~2/ARMGNU~1/133167~1.3RE/lib/gcc/arm-none-eabi/13.3.1/include/stdarg.h \
- C:/PROGRA~2/ARMGNU~1/133167~1.3RE/arm-none-eabi/include/sys/reent.h \
- C:/PROGRA~2/ARMGNU~1/133167~1.3RE/arm-none-eabi/include/_ansi.h \
- C:/PROGRA~2/ARMGNU~1/133167~1.3RE/arm-none-eabi/include/sys/_types.h \
- C:/PROGRA~2/ARMGNU~1/133167~1.3RE/arm-none-eabi/include/machine/_types.h \
- C:/PROGRA~2/ARMGNU~1/133167~1.3RE/arm-none-eabi/include/sys/lock.h \
- C:/PROGRA~2/ARMGNU~1/133167~1.3RE/arm-none-eabi/include/sys/stdio.h \
- C:\Users\34575\Desktop\Code\STM32\SMC_F429\BSP/usart/usart.h \
  C:\Users\34575\Desktop\Code\STM32\SMC_F429\BSP/sys.h

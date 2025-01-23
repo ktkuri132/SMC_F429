@@ -201,6 +201,6 @@ HARDWARE/LCD/CMakeFiles/LCD_LIB.dir/clean:
 .PHONY : HARDWARE/LCD/CMakeFiles/LCD_LIB.dir/clean
 
 HARDWARE/LCD/CMakeFiles/LCD_LIB.dir/depend:
-	$(CMAKE_COMMAND) -E cmake_depends "MinGW Makefiles" C:\Users\34575\Desktop\Code\STM32\SMC_F429 C:\Users\34575\Desktop\Code\STM32\SMC_F429\HARDWARE\LCD C:\Users\34575\Desktop\Code\STM32\SMC_F429\cmake-build-release-stm32 C:\Users\34575\Desktop\Code\STM32\SMC_F429\cmake-build-release-stm32\HARDWARE\LCD C:\Users\34575\Desktop\Code\STM32\SMC_F429\cmake-build-release-stm32\HARDWARE\LCD\CMakeFiles\LCD_lib.dir\DependInfo.cmake "--color=$(COLOR)"
+	$(CMAKE_COMMAND) -E cmake_depends "MinGW Makefiles" C:\Users\34575\Desktop\Code\STM32\SMC_F429 C:\Users\34575\Desktop\Code\STM32\SMC_F429\HARDWARE\LCD C:\Users\34575\Desktop\Code\STM32\SMC_F429\cmake-build-release-stm32 C:\Users\34575\Desktop\Code\STM32\SMC_F429\cmake-build-release-stm32\HARDWARE\LCD C:\Users\34575\Desktop\Code\STM32\SMC_F429\cmake-build-release-stm32\HARDWARE\LCD\CMakeFiles\LCD_LIB.dir\DependInfo.cmake "--color=$(COLOR)"
 .PHONY : HARDWARE/LCD/CMakeFiles/LCD_LIB.dir/depend
 

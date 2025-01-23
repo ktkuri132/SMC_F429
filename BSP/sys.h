@@ -3,14 +3,7 @@
 
 #include "stm32f4xx.h"
 #include "gpio/gpio.h"
-#include "stm32f4xx_rcc.h"
-#include "stdio.h"
-
-#include "usart/usart.h"
 #include "sys.h"
-// #include <OLED.h>
-
-// #include "sdram.h"
 
 #ifdef __LCD_GUI_
 // #include "gt9xxx.h"

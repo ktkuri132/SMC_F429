@@ -8,8 +8,8 @@ extern "C"
 #endif
 
 #include <sys.h>
-#include <RTOS/include/FreeRTOS.h>
-#include <RTOS/include/task.h>
+#include <RTOS/comment/FreeRTOS.h>
+#include <RTOS/comment/task.h>
 #include <Project/Project.h>
 #include <Project/Dev/HW_201/hw201.h>
 

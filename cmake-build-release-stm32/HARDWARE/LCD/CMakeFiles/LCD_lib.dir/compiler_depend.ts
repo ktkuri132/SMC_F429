@@ -1,2 +1,2 @@
 # CMAKE generated file: DO NOT EDIT!
-# Timestamp file for compiler generated dependencies management for LCD_lib.
+# Timestamp file for compiler generated dependencies management for LCD_LIB.

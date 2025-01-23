@@ -129,221 +129,221 @@ RTOS_LIB/fast:
 	cd /d C:\Users\34575\Desktop\Code\STM32\SMC_F429\cmake-build-debug-stm32 && $(MAKE) $(MAKESILENT) -f RTOS\CMakeFiles\RTOS_LIB.dir\build.make RTOS/CMakeFiles/RTOS_LIB.dir/build
 .PHONY : RTOS_LIB/fast
 
-croutine.obj: croutine.c.obj
-.PHONY : croutine.obj
+comment/croutine.obj: comment/croutine.c.obj
+.PHONY : comment/croutine.obj
 
 # target to build an object file
-croutine.c.obj:
-	cd /d C:\Users\34575\Desktop\Code\STM32\SMC_F429\cmake-build-debug-stm32 && $(MAKE) $(MAKESILENT) -f RTOS\CMakeFiles\RTOS_LIB.dir\build.make RTOS/CMakeFiles/RTOS_LIB.dir/croutine.c.obj
-.PHONY : croutine.c.obj
+comment/croutine.c.obj:
+	cd /d C:\Users\34575\Desktop\Code\STM32\SMC_F429\cmake-build-debug-stm32 && $(MAKE) $(MAKESILENT) -f RTOS\CMakeFiles\RTOS_LIB.dir\build.make RTOS/CMakeFiles/RTOS_LIB.dir/comment/croutine.c.obj
+.PHONY : comment/croutine.c.obj
 
-croutine.i: croutine.c.i
-.PHONY : croutine.i
+comment/croutine.i: comment/croutine.c.i
+.PHONY : comment/croutine.i
 
 # target to preprocess a source file
-croutine.c.i:
-	cd /d C:\Users\34575\Desktop\Code\STM32\SMC_F429\cmake-build-debug-stm32 && $(MAKE) $(MAKESILENT) -f RTOS\CMakeFiles\RTOS_LIB.dir\build.make RTOS/CMakeFiles/RTOS_LIB.dir/croutine.c.i
-.PHONY : croutine.c.i
+comment/croutine.c.i:
+	cd /d C:\Users\34575\Desktop\Code\STM32\SMC_F429\cmake-build-debug-stm32 && $(MAKE) $(MAKESILENT) -f RTOS\CMakeFiles\RTOS_LIB.dir\build.make RTOS/CMakeFiles/RTOS_LIB.dir/comment/croutine.c.i
+.PHONY : comment/croutine.c.i
 
-croutine.s: croutine.c.s
-.PHONY : croutine.s
+comment/croutine.s: comment/croutine.c.s
+.PHONY : comment/croutine.s
 
 # target to generate assembly for a file
-croutine.c.s:
-	cd /d C:\Users\34575\Desktop\Code\STM32\SMC_F429\cmake-build-debug-stm32 && $(MAKE) $(MAKESILENT) -f RTOS\CMakeFiles\RTOS_LIB.dir\build.make RTOS/CMakeFiles/RTOS_LIB.dir/croutine.c.s
-.PHONY : croutine.c.s
+comment/croutine.c.s:
+	cd /d C:\Users\34575\Desktop\Code\STM32\SMC_F429\cmake-build-debug-stm32 && $(MAKE) $(MAKESILENT) -f RTOS\CMakeFiles\RTOS_LIB.dir\build.make RTOS/CMakeFiles/RTOS_LIB.dir/comment/croutine.c.s
+.PHONY : comment/croutine.c.s
 
-event_groups.obj: event_groups.c.obj
-.PHONY : event_groups.obj
+comment/event_groups.obj: comment/event_groups.c.obj
+.PHONY : comment/event_groups.obj
 
 # target to build an object file
-event_groups.c.obj:
-	cd /d C:\Users\34575\Desktop\Code\STM32\SMC_F429\cmake-build-debug-stm32 && $(MAKE) $(MAKESILENT) -f RTOS\CMakeFiles\RTOS_LIB.dir\build.make RTOS/CMakeFiles/RTOS_LIB.dir/event_groups.c.obj
-.PHONY : event_groups.c.obj
+comment/event_groups.c.obj:
+	cd /d C:\Users\34575\Desktop\Code\STM32\SMC_F429\cmake-build-debug-stm32 && $(MAKE) $(MAKESILENT) -f RTOS\CMakeFiles\RTOS_LIB.dir\build.make RTOS/CMakeFiles/RTOS_LIB.dir/comment/event_groups.c.obj
+.PHONY : comment/event_groups.c.obj
 
-event_groups.i: event_groups.c.i
-.PHONY : event_groups.i
+comment/event_groups.i: comment/event_groups.c.i
+.PHONY : comment/event_groups.i
 
 # target to preprocess a source file
-event_groups.c.i:
-	cd /d C:\Users\34575\Desktop\Code\STM32\SMC_F429\cmake-build-debug-stm32 && $(MAKE) $(MAKESILENT) -f RTOS\CMakeFiles\RTOS_LIB.dir\build.make RTOS/CMakeFiles/RTOS_LIB.dir/event_groups.c.i
-.PHONY : event_groups.c.i
+comment/event_groups.c.i:
+	cd /d C:\Users\34575\Desktop\Code\STM32\SMC_F429\cmake-build-debug-stm32 && $(MAKE) $(MAKESILENT) -f RTOS\CMakeFiles\RTOS_LIB.dir\build.make RTOS/CMakeFiles/RTOS_LIB.dir/comment/event_groups.c.i
+.PHONY : comment/event_groups.c.i
 
-event_groups.s: event_groups.c.s
-.PHONY : event_groups.s
+comment/event_groups.s: comment/event_groups.c.s
+.PHONY : comment/event_groups.s
 
 # target to generate assembly for a file
-event_groups.c.s:
-	cd /d C:\Users\34575\Desktop\Code\STM32\SMC_F429\cmake-build-debug-stm32 && $(MAKE) $(MAKESILENT) -f RTOS\CMakeFiles\RTOS_LIB.dir\build.make RTOS/CMakeFiles/RTOS_LIB.dir/event_groups.c.s
-.PHONY : event_groups.c.s
+comment/event_groups.c.s:
+	cd /d C:\Users\34575\Desktop\Code\STM32\SMC_F429\cmake-build-debug-stm32 && $(MAKE) $(MAKESILENT) -f RTOS\CMakeFiles\RTOS_LIB.dir\build.make RTOS/CMakeFiles/RTOS_LIB.dir/comment/event_groups.c.s
+.PHONY : comment/event_groups.c.s
 
-list.obj: list.c.obj
-.PHONY : list.obj
+comment/list.obj: comment/list.c.obj
+.PHONY : comment/list.obj
 
 # target to build an object file
-list.c.obj:
-	cd /d C:\Users\34575\Desktop\Code\STM32\SMC_F429\cmake-build-debug-stm32 && $(MAKE) $(MAKESILENT) -f RTOS\CMakeFiles\RTOS_LIB.dir\build.make RTOS/CMakeFiles/RTOS_LIB.dir/list.c.obj
-.PHONY : list.c.obj
+comment/list.c.obj:
+	cd /d C:\Users\34575\Desktop\Code\STM32\SMC_F429\cmake-build-debug-stm32 && $(MAKE) $(MAKESILENT) -f RTOS\CMakeFiles\RTOS_LIB.dir\build.make RTOS/CMakeFiles/RTOS_LIB.dir/comment/list.c.obj
+.PHONY : comment/list.c.obj
 
-list.i: list.c.i
-.PHONY : list.i
+comment/list.i: comment/list.c.i
+.PHONY : comment/list.i
 
 # target to preprocess a source file
-list.c.i:
-	cd /d C:\Users\34575\Desktop\Code\STM32\SMC_F429\cmake-build-debug-stm32 && $(MAKE) $(MAKESILENT) -f RTOS\CMakeFiles\RTOS_LIB.dir\build.make RTOS/CMakeFiles/RTOS_LIB.dir/list.c.i
-.PHONY : list.c.i
+comment/list.c.i:
+	cd /d C:\Users\34575\Desktop\Code\STM32\SMC_F429\cmake-build-debug-stm32 && $(MAKE) $(MAKESILENT) -f RTOS\CMakeFiles\RTOS_LIB.dir\build.make RTOS/CMakeFiles/RTOS_LIB.dir/comment/list.c.i
+.PHONY : comment/list.c.i
 
-list.s: list.c.s
-.PHONY : list.s
+comment/list.s: comment/list.c.s
+.PHONY : comment/list.s
 
 # target to generate assembly for a file
-list.c.s:
-	cd /d C:\Users\34575\Desktop\Code\STM32\SMC_F429\cmake-build-debug-stm32 && $(MAKE) $(MAKESILENT) -f RTOS\CMakeFiles\RTOS_LIB.dir\build.make RTOS/CMakeFiles/RTOS_LIB.dir/list.c.s
-.PHONY : list.c.s
+comment/list.c.s:
+	cd /d C:\Users\34575\Desktop\Code\STM32\SMC_F429\cmake-build-debug-stm32 && $(MAKE) $(MAKESILENT) -f RTOS\CMakeFiles\RTOS_LIB.dir\build.make RTOS/CMakeFiles/RTOS_LIB.dir/comment/list.c.s
+.PHONY : comment/list.c.s
 
-portable/ARM_CM4F/port.obj: portable/ARM_CM4F/port.c.obj
-.PHONY : portable/ARM_CM4F/port.obj
+comment/queue.obj: comment/queue.c.obj
+.PHONY : comment/queue.obj
 
 # target to build an object file
-portable/ARM_CM4F/port.c.obj:
-	cd /d C:\Users\34575\Desktop\Code\STM32\SMC_F429\cmake-build-debug-stm32 && $(MAKE) $(MAKESILENT) -f RTOS\CMakeFiles\RTOS_LIB.dir\build.make RTOS/CMakeFiles/RTOS_LIB.dir/portable/ARM_CM4F/port.c.obj
-.PHONY : portable/ARM_CM4F/port.c.obj
+comment/queue.c.obj:
+	cd /d C:\Users\34575\Desktop\Code\STM32\SMC_F429\cmake-build-debug-stm32 && $(MAKE) $(MAKESILENT) -f RTOS\CMakeFiles\RTOS_LIB.dir\build.make RTOS/CMakeFiles/RTOS_LIB.dir/comment/queue.c.obj
+.PHONY : comment/queue.c.obj
 
-portable/ARM_CM4F/port.i: portable/ARM_CM4F/port.c.i
-.PHONY : portable/ARM_CM4F/port.i
+comment/queue.i: comment/queue.c.i
+.PHONY : comment/queue.i
 
 # target to preprocess a source file
-portable/ARM_CM4F/port.c.i:
-	cd /d C:\Users\34575\Desktop\Code\STM32\SMC_F429\cmake-build-debug-stm32 && $(MAKE) $(MAKESILENT) -f RTOS\CMakeFiles\RTOS_LIB.dir\build.make RTOS/CMakeFiles/RTOS_LIB.dir/portable/ARM_CM4F/port.c.i
-.PHONY : portable/ARM_CM4F/port.c.i
+comment/queue.c.i:
+	cd /d C:\Users\34575\Desktop\Code\STM32\SMC_F429\cmake-build-debug-stm32 && $(MAKE) $(MAKESILENT) -f RTOS\CMakeFiles\RTOS_LIB.dir\build.make RTOS/CMakeFiles/RTOS_LIB.dir/comment/queue.c.i
+.PHONY : comment/queue.c.i
 
-portable/ARM_CM4F/port.s: portable/ARM_CM4F/port.c.s
-.PHONY : portable/ARM_CM4F/port.s
+comment/queue.s: comment/queue.c.s
+.PHONY : comment/queue.s
 
 # target to generate assembly for a file
-portable/ARM_CM4F/port.c.s:
-	cd /d C:\Users\34575\Desktop\Code\STM32\SMC_F429\cmake-build-debug-stm32 && $(MAKE) $(MAKESILENT) -f RTOS\CMakeFiles\RTOS_LIB.dir\build.make RTOS/CMakeFiles/RTOS_LIB.dir/portable/ARM_CM4F/port.c.s
-.PHONY : portable/ARM_CM4F/port.c.s
+comment/queue.c.s:
+	cd /d C:\Users\34575\Desktop\Code\STM32\SMC_F429\cmake-build-debug-stm32 && $(MAKE) $(MAKESILENT) -f RTOS\CMakeFiles\RTOS_LIB.dir\build.make RTOS/CMakeFiles/RTOS_LIB.dir/comment/queue.c.s
+.PHONY : comment/queue.c.s
 
-portable/MemMang/heap_4.obj: portable/MemMang/heap_4.c.obj
-.PHONY : portable/MemMang/heap_4.obj
+comment/stream_buffer.obj: comment/stream_buffer.c.obj
+.PHONY : comment/stream_buffer.obj
 
 # target to build an object file
-portable/MemMang/heap_4.c.obj:
-	cd /d C:\Users\34575\Desktop\Code\STM32\SMC_F429\cmake-build-debug-stm32 && $(MAKE) $(MAKESILENT) -f RTOS\CMakeFiles\RTOS_LIB.dir\build.make RTOS/CMakeFiles/RTOS_LIB.dir/portable/MemMang/heap_4.c.obj
-.PHONY : portable/MemMang/heap_4.c.obj
+comment/stream_buffer.c.obj:
+	cd /d C:\Users\34575\Desktop\Code\STM32\SMC_F429\cmake-build-debug-stm32 && $(MAKE) $(MAKESILENT) -f RTOS\CMakeFiles\RTOS_LIB.dir\build.make RTOS/CMakeFiles/RTOS_LIB.dir/comment/stream_buffer.c.obj
+.PHONY : comment/stream_buffer.c.obj
 
-portable/MemMang/heap_4.i: portable/MemMang/heap_4.c.i
-.PHONY : portable/MemMang/heap_4.i
+comment/stream_buffer.i: comment/stream_buffer.c.i
+.PHONY : comment/stream_buffer.i
 
 # target to preprocess a source file
-portable/MemMang/heap_4.c.i:
-	cd /d C:\Users\34575\Desktop\Code\STM32\SMC_F429\cmake-build-debug-stm32 && $(MAKE) $(MAKESILENT) -f RTOS\CMakeFiles\RTOS_LIB.dir\build.make RTOS/CMakeFiles/RTOS_LIB.dir/portable/MemMang/heap_4.c.i
-.PHONY : portable/MemMang/heap_4.c.i
+comment/stream_buffer.c.i:
+	cd /d C:\Users\34575\Desktop\Code\STM32\SMC_F429\cmake-build-debug-stm32 && $(MAKE) $(MAKESILENT) -f RTOS\CMakeFiles\RTOS_LIB.dir\build.make RTOS/CMakeFiles/RTOS_LIB.dir/comment/stream_buffer.c.i
+.PHONY : comment/stream_buffer.c.i
 
-portable/MemMang/heap_4.s: portable/MemMang/heap_4.c.s
-.PHONY : portable/MemMang/heap_4.s
+comment/stream_buffer.s: comment/stream_buffer.c.s
+.PHONY : comment/stream_buffer.s
 
 # target to generate assembly for a file
-portable/MemMang/heap_4.c.s:
-	cd /d C:\Users\34575\Desktop\Code\STM32\SMC_F429\cmake-build-debug-stm32 && $(MAKE) $(MAKESILENT) -f RTOS\CMakeFiles\RTOS_LIB.dir\build.make RTOS/CMakeFiles/RTOS_LIB.dir/portable/MemMang/heap_4.c.s
-.PHONY : portable/MemMang/heap_4.c.s
+comment/stream_buffer.c.s:
+	cd /d C:\Users\34575\Desktop\Code\STM32\SMC_F429\cmake-build-debug-stm32 && $(MAKE) $(MAKESILENT) -f RTOS\CMakeFiles\RTOS_LIB.dir\build.make RTOS/CMakeFiles/RTOS_LIB.dir/comment/stream_buffer.c.s
+.PHONY : comment/stream_buffer.c.s
 
-queue.obj: queue.c.obj
-.PHONY : queue.obj
+comment/tasks.obj: comment/tasks.c.obj
+.PHONY : comment/tasks.obj
 
 # target to build an object file
-queue.c.obj:
-	cd /d C:\Users\34575\Desktop\Code\STM32\SMC_F429\cmake-build-debug-stm32 && $(MAKE) $(MAKESILENT) -f RTOS\CMakeFiles\RTOS_LIB.dir\build.make RTOS/CMakeFiles/RTOS_LIB.dir/queue.c.obj
-.PHONY : queue.c.obj
+comment/tasks.c.obj:
+	cd /d C:\Users\34575\Desktop\Code\STM32\SMC_F429\cmake-build-debug-stm32 && $(MAKE) $(MAKESILENT) -f RTOS\CMakeFiles\RTOS_LIB.dir\build.make RTOS/CMakeFiles/RTOS_LIB.dir/comment/tasks.c.obj
+.PHONY : comment/tasks.c.obj
 
-queue.i: queue.c.i
-.PHONY : queue.i
+comment/tasks.i: comment/tasks.c.i
+.PHONY : comment/tasks.i
 
 # target to preprocess a source file
-queue.c.i:
-	cd /d C:\Users\34575\Desktop\Code\STM32\SMC_F429\cmake-build-debug-stm32 && $(MAKE) $(MAKESILENT) -f RTOS\CMakeFiles\RTOS_LIB.dir\build.make RTOS/CMakeFiles/RTOS_LIB.dir/queue.c.i
-.PHONY : queue.c.i
+comment/tasks.c.i:
+	cd /d C:\Users\34575\Desktop\Code\STM32\SMC_F429\cmake-build-debug-stm32 && $(MAKE) $(MAKESILENT) -f RTOS\CMakeFiles\RTOS_LIB.dir\build.make RTOS/CMakeFiles/RTOS_LIB.dir/comment/tasks.c.i
+.PHONY : comment/tasks.c.i
 
-queue.s: queue.c.s
-.PHONY : queue.s
+comment/tasks.s: comment/tasks.c.s
+.PHONY : comment/tasks.s
 
 # target to generate assembly for a file
-queue.c.s:
-	cd /d C:\Users\34575\Desktop\Code\STM32\SMC_F429\cmake-build-debug-stm32 && $(MAKE) $(MAKESILENT) -f RTOS\CMakeFiles\RTOS_LIB.dir\build.make RTOS/CMakeFiles/RTOS_LIB.dir/queue.c.s
-.PHONY : queue.c.s
+comment/tasks.c.s:
+	cd /d C:\Users\34575\Desktop\Code\STM32\SMC_F429\cmake-build-debug-stm32 && $(MAKE) $(MAKESILENT) -f RTOS\CMakeFiles\RTOS_LIB.dir\build.make RTOS/CMakeFiles/RTOS_LIB.dir/comment/tasks.c.s
+.PHONY : comment/tasks.c.s
 
-stream_buffer.obj: stream_buffer.c.obj
-.PHONY : stream_buffer.obj
+comment/timers.obj: comment/timers.c.obj
+.PHONY : comment/timers.obj
 
 # target to build an object file
-stream_buffer.c.obj:
-	cd /d C:\Users\34575\Desktop\Code\STM32\SMC_F429\cmake-build-debug-stm32 && $(MAKE) $(MAKESILENT) -f RTOS\CMakeFiles\RTOS_LIB.dir\build.make RTOS/CMakeFiles/RTOS_LIB.dir/stream_buffer.c.obj
-.PHONY : stream_buffer.c.obj
+comment/timers.c.obj:
+	cd /d C:\Users\34575\Desktop\Code\STM32\SMC_F429\cmake-build-debug-stm32 && $(MAKE) $(MAKESILENT) -f RTOS\CMakeFiles\RTOS_LIB.dir\build.make RTOS/CMakeFiles/RTOS_LIB.dir/comment/timers.c.obj
+.PHONY : comment/timers.c.obj
 
-stream_buffer.i: stream_buffer.c.i
-.PHONY : stream_buffer.i
+comment/timers.i: comment/timers.c.i
+.PHONY : comment/timers.i
 
 # target to preprocess a source file
-stream_buffer.c.i:
-	cd /d C:\Users\34575\Desktop\Code\STM32\SMC_F429\cmake-build-debug-stm32 && $(MAKE) $(MAKESILENT) -f RTOS\CMakeFiles\RTOS_LIB.dir\build.make RTOS/CMakeFiles/RTOS_LIB.dir/stream_buffer.c.i
-.PHONY : stream_buffer.c.i
+comment/timers.c.i:
+	cd /d C:\Users\34575\Desktop\Code\STM32\SMC_F429\cmake-build-debug-stm32 && $(MAKE) $(MAKESILENT) -f RTOS\CMakeFiles\RTOS_LIB.dir\build.make RTOS/CMakeFiles/RTOS_LIB.dir/comment/timers.c.i
+.PHONY : comment/timers.c.i
 
-stream_buffer.s: stream_buffer.c.s
-.PHONY : stream_buffer.s
+comment/timers.s: comment/timers.c.s
+.PHONY : comment/timers.s
 
 # target to generate assembly for a file
-stream_buffer.c.s:
-	cd /d C:\Users\34575\Desktop\Code\STM32\SMC_F429\cmake-build-debug-stm32 && $(MAKE) $(MAKESILENT) -f RTOS\CMakeFiles\RTOS_LIB.dir\build.make RTOS/CMakeFiles/RTOS_LIB.dir/stream_buffer.c.s
-.PHONY : stream_buffer.c.s
+comment/timers.c.s:
+	cd /d C:\Users\34575\Desktop\Code\STM32\SMC_F429\cmake-build-debug-stm32 && $(MAKE) $(MAKESILENT) -f RTOS\CMakeFiles\RTOS_LIB.dir\build.make RTOS/CMakeFiles/RTOS_LIB.dir/comment/timers.c.s
+.PHONY : comment/timers.c.s
 
-tasks.obj: tasks.c.obj
-.PHONY : tasks.obj
+portable/heap_4.obj: portable/heap_4.c.obj
+.PHONY : portable/heap_4.obj
 
 # target to build an object file
-tasks.c.obj:
-	cd /d C:\Users\34575\Desktop\Code\STM32\SMC_F429\cmake-build-debug-stm32 && $(MAKE) $(MAKESILENT) -f RTOS\CMakeFiles\RTOS_LIB.dir\build.make RTOS/CMakeFiles/RTOS_LIB.dir/tasks.c.obj
-.PHONY : tasks.c.obj
+portable/heap_4.c.obj:
+	cd /d C:\Users\34575\Desktop\Code\STM32\SMC_F429\cmake-build-debug-stm32 && $(MAKE) $(MAKESILENT) -f RTOS\CMakeFiles\RTOS_LIB.dir\build.make RTOS/CMakeFiles/RTOS_LIB.dir/portable/heap_4.c.obj
+.PHONY : portable/heap_4.c.obj
 
-tasks.i: tasks.c.i
-.PHONY : tasks.i
+portable/heap_4.i: portable/heap_4.c.i
+.PHONY : portable/heap_4.i
 
 # target to preprocess a source file
-tasks.c.i:
-	cd /d C:\Users\34575\Desktop\Code\STM32\SMC_F429\cmake-build-debug-stm32 && $(MAKE) $(MAKESILENT) -f RTOS\CMakeFiles\RTOS_LIB.dir\build.make RTOS/CMakeFiles/RTOS_LIB.dir/tasks.c.i
-.PHONY : tasks.c.i
+portable/heap_4.c.i:
+	cd /d C:\Users\34575\Desktop\Code\STM32\SMC_F429\cmake-build-debug-stm32 && $(MAKE) $(MAKESILENT) -f RTOS\CMakeFiles\RTOS_LIB.dir\build.make RTOS/CMakeFiles/RTOS_LIB.dir/portable/heap_4.c.i
+.PHONY : portable/heap_4.c.i
 
-tasks.s: tasks.c.s
-.PHONY : tasks.s
+portable/heap_4.s: portable/heap_4.c.s
+.PHONY : portable/heap_4.s
 
 # target to generate assembly for a file
-tasks.c.s:
-	cd /d C:\Users\34575\Desktop\Code\STM32\SMC_F429\cmake-build-debug-stm32 && $(MAKE) $(MAKESILENT) -f RTOS\CMakeFiles\RTOS_LIB.dir\build.make RTOS/CMakeFiles/RTOS_LIB.dir/tasks.c.s
-.PHONY : tasks.c.s
+portable/heap_4.c.s:
+	cd /d C:\Users\34575\Desktop\Code\STM32\SMC_F429\cmake-build-debug-stm32 && $(MAKE) $(MAKESILENT) -f RTOS\CMakeFiles\RTOS_LIB.dir\build.make RTOS/CMakeFiles/RTOS_LIB.dir/portable/heap_4.c.s
+.PHONY : portable/heap_4.c.s
 
-timers.obj: timers.c.obj
-.PHONY : timers.obj
+portable/port.obj: portable/port.c.obj
+.PHONY : portable/port.obj
 
 # target to build an object file
-timers.c.obj:
-	cd /d C:\Users\34575\Desktop\Code\STM32\SMC_F429\cmake-build-debug-stm32 && $(MAKE) $(MAKESILENT) -f RTOS\CMakeFiles\RTOS_LIB.dir\build.make RTOS/CMakeFiles/RTOS_LIB.dir/timers.c.obj
-.PHONY : timers.c.obj
+portable/port.c.obj:
+	cd /d C:\Users\34575\Desktop\Code\STM32\SMC_F429\cmake-build-debug-stm32 && $(MAKE) $(MAKESILENT) -f RTOS\CMakeFiles\RTOS_LIB.dir\build.make RTOS/CMakeFiles/RTOS_LIB.dir/portable/port.c.obj
+.PHONY : portable/port.c.obj
 
-timers.i: timers.c.i
-.PHONY : timers.i
+portable/port.i: portable/port.c.i
+.PHONY : portable/port.i
 
 # target to preprocess a source file
-timers.c.i:
-	cd /d C:\Users\34575\Desktop\Code\STM32\SMC_F429\cmake-build-debug-stm32 && $(MAKE) $(MAKESILENT) -f RTOS\CMakeFiles\RTOS_LIB.dir\build.make RTOS/CMakeFiles/RTOS_LIB.dir/timers.c.i
-.PHONY : timers.c.i
+portable/port.c.i:
+	cd /d C:\Users\34575\Desktop\Code\STM32\SMC_F429\cmake-build-debug-stm32 && $(MAKE) $(MAKESILENT) -f RTOS\CMakeFiles\RTOS_LIB.dir\build.make RTOS/CMakeFiles/RTOS_LIB.dir/portable/port.c.i
+.PHONY : portable/port.c.i
 
-timers.s: timers.c.s
-.PHONY : timers.s
+portable/port.s: portable/port.c.s
+.PHONY : portable/port.s
 
 # target to generate assembly for a file
-timers.c.s:
-	cd /d C:\Users\34575\Desktop\Code\STM32\SMC_F429\cmake-build-debug-stm32 && $(MAKE) $(MAKESILENT) -f RTOS\CMakeFiles\RTOS_LIB.dir\build.make RTOS/CMakeFiles/RTOS_LIB.dir/timers.c.s
-.PHONY : timers.c.s
+portable/port.c.s:
+	cd /d C:\Users\34575\Desktop\Code\STM32\SMC_F429\cmake-build-debug-stm32 && $(MAKE) $(MAKESILENT) -f RTOS\CMakeFiles\RTOS_LIB.dir\build.make RTOS/CMakeFiles/RTOS_LIB.dir/portable/port.c.s
+.PHONY : portable/port.c.s
 
 # Help Target
 help:
@@ -354,33 +354,33 @@ help:
 	@echo ... edit_cache
 	@echo ... rebuild_cache
 	@echo ... RTOS_LIB
-	@echo ... croutine.obj
-	@echo ... croutine.i
-	@echo ... croutine.s
-	@echo ... event_groups.obj
-	@echo ... event_groups.i
-	@echo ... event_groups.s
-	@echo ... list.obj
-	@echo ... list.i
-	@echo ... list.s
-	@echo ... portable/ARM_CM4F/port.obj
-	@echo ... portable/ARM_CM4F/port.i
-	@echo ... portable/ARM_CM4F/port.s
-	@echo ... portable/MemMang/heap_4.obj
-	@echo ... portable/MemMang/heap_4.i
-	@echo ... portable/MemMang/heap_4.s
-	@echo ... queue.obj
-	@echo ... queue.i
-	@echo ... queue.s
-	@echo ... stream_buffer.obj
-	@echo ... stream_buffer.i
-	@echo ... stream_buffer.s
-	@echo ... tasks.obj
-	@echo ... tasks.i
-	@echo ... tasks.s
-	@echo ... timers.obj
-	@echo ... timers.i
-	@echo ... timers.s
+	@echo ... comment/croutine.obj
+	@echo ... comment/croutine.i
+	@echo ... comment/croutine.s
+	@echo ... comment/event_groups.obj
+	@echo ... comment/event_groups.i
+	@echo ... comment/event_groups.s
+	@echo ... comment/list.obj
+	@echo ... comment/list.i
+	@echo ... comment/list.s
+	@echo ... comment/queue.obj
+	@echo ... comment/queue.i
+	@echo ... comment/queue.s
+	@echo ... comment/stream_buffer.obj
+	@echo ... comment/stream_buffer.i
+	@echo ... comment/stream_buffer.s
+	@echo ... comment/tasks.obj
+	@echo ... comment/tasks.i
+	@echo ... comment/tasks.s
+	@echo ... comment/timers.obj
+	@echo ... comment/timers.i
+	@echo ... comment/timers.s
+	@echo ... portable/heap_4.obj
+	@echo ... portable/heap_4.i
+	@echo ... portable/heap_4.s
+	@echo ... portable/port.obj
+	@echo ... portable/port.i
+	@echo ... portable/port.s
 .PHONY : help
 
 

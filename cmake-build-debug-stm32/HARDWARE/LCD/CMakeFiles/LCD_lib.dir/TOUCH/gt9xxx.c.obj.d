@@ -36,9 +36,4 @@ HARDWARE/LCD/CMakeFiles/LCD_LIB.dir/TOUCH/gt9xxx.c.obj: \
  C:\Users\34575\Desktop\Code\STM32\SMC_F429\BSP/gpio/gpio.h \
  C:\Users\34575\Desktop\Code\STM32\SMC_F429\BSP/gpio/stm32f4xx_gpio.h \
  C:/Users/34575/Desktop/Code/STM32/SMC_F429/BSP/stm32f4xx_rcc.h \
- C:\Users\34575\Desktop\Code\STM32\SMC_F429\BSP/stm32f4xx_rcc.h \
- C:/PROGRA~2/ARMGNU~1/133167~1.3RE/arm-none-eabi/include/stdio.h \
- C:/PROGRA~2/ARMGNU~1/133167~1.3RE/lib/gcc/arm-none-eabi/13.3.1/include/stdarg.h \
- C:/PROGRA~2/ARMGNU~1/133167~1.3RE/arm-none-eabi/include/sys/stdio.h \
- C:\Users\34575\Desktop\Code\STM32\SMC_F429\BSP/usart/usart.h \
  C:\Users\34575\Desktop\Code\STM32\SMC_F429\BSP/sys.h

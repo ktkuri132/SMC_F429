@@ -1,0 +1,2 @@
+arm-none-eabi-ar qc libSDRAM_LIB.a CMakeFiles/SDRAM_LIB.dir/sdram.c.obj
+/usr/bin/arm-none-eabi-ranlib libSDRAM_LIB.a

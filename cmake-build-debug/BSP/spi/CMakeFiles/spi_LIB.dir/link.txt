@@ -1,0 +1,2 @@
+arm-none-eabi-ar qc libspi_LIB.a CMakeFiles/spi_LIB.dir/hardspi.c.obj CMakeFiles/spi_LIB.dir/softspi.c.obj
+/usr/bin/arm-none-eabi-ranlib libspi_LIB.a

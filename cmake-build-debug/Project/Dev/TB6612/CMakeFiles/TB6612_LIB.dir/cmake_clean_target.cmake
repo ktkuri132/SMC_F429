@@ -1,0 +1,3 @@
+file(REMOVE_RECURSE
+  "libTB6612_LIB.a"
+)

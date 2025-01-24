@@ -1,5 +1,6 @@
 file(REMOVE_RECURSE
   "CMakeFiles/LED_LIB.dir/led.c.obj"
+  "CMakeFiles/LED_LIB.dir/led.c.obj.d"
   "libLED_LIB.a"
   "libLED_LIB.pdb"
 )

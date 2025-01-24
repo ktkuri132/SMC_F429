@@ -1,5 +1,6 @@
 file(REMOVE_RECURSE
   "CMakeFiles/TB6612_LIB.dir/tb6612_port.c.obj"
+  "CMakeFiles/TB6612_LIB.dir/tb6612_port.c.obj.d"
   "libTB6612_LIB.a"
   "libTB6612_LIB.pdb"
 )

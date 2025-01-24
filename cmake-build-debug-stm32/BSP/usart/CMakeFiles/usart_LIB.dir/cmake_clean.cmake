@@ -1,7 +1,10 @@
 file(REMOVE_RECURSE
   "CMakeFiles/usart_LIB.dir/Serial.c.obj"
+  "CMakeFiles/usart_LIB.dir/Serial.c.obj.d"
   "CMakeFiles/usart_LIB.dir/stm32f4xx_usart.c.obj"
+  "CMakeFiles/usart_LIB.dir/stm32f4xx_usart.c.obj.d"
   "CMakeFiles/usart_LIB.dir/usart.c.obj"
+  "CMakeFiles/usart_LIB.dir/usart.c.obj.d"
   "libusart_LIB.a"
   "libusart_LIB.pdb"
 )

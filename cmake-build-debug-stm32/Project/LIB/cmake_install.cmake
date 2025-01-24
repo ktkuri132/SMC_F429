@@ -1,8 +1,8 @@
-# Install script for directory: /home/ktkuri/Desktop/SMC_F429/Project/LIB
+# Install script for directory: C:/Users/34575/Desktop/Code/STM32/SMC_F429/Project/LIB
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
-  set(CMAKE_INSTALL_PREFIX "/usr/local")
+  set(CMAKE_INSTALL_PREFIX "C:/Program Files (x86)/SMC")
 endif()
 string(REGEX REPLACE "/$" "" CMAKE_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}")
 
@@ -39,16 +39,16 @@ endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for the subdirectory.
-  include("/home/ktkuri/Desktop/SMC_F429/cmake-build-debug-stm32/Project/LIB/Control/cmake_install.cmake")
+  include("C:/Users/34575/Desktop/Code/STM32/SMC_F429/cmake-build-debug-stm32/Project/LIB/Control/cmake_install.cmake")
 endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for the subdirectory.
-  include("/home/ktkuri/Desktop/SMC_F429/cmake-build-debug-stm32/Project/LIB/PID/cmake_install.cmake")
+  include("C:/Users/34575/Desktop/Code/STM32/SMC_F429/cmake-build-debug-stm32/Project/LIB/PID/cmake_install.cmake")
 endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for the subdirectory.
-  include("/home/ktkuri/Desktop/SMC_F429/cmake-build-debug-stm32/Project/LIB/Tools/cmake_install.cmake")
+  include("C:/Users/34575/Desktop/Code/STM32/SMC_F429/cmake-build-debug-stm32/Project/LIB/Tools/cmake_install.cmake")
 endif()
 

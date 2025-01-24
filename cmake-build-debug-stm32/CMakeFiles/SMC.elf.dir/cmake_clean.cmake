@@ -1,6 +1,8 @@
 file(REMOVE_RECURSE
   "CMakeFiles/SMC.elf.dir/USER/main.c.obj"
+  "CMakeFiles/SMC.elf.dir/USER/main.c.obj.d"
   "SMC.elf"
+  "SMC.elf.manifest"
   "SMC.elf.pdb"
 )
 

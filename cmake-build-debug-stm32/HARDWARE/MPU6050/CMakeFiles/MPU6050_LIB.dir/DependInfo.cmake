@@ -4,26 +4,12 @@ set(CMAKE_DEPENDS_IN_PROJECT_ONLY OFF)
 
 # The set of languages for which implicit dependencies are needed:
 set(CMAKE_DEPENDS_LANGUAGES
-  "C"
-  )
-# The set of files for implicit dependencies of each language:
-set(CMAKE_DEPENDS_CHECK_C
-  "/home/ktkuri/Desktop/SMC_F429/HARDWARE/MPU6050/inv_mpu.c" "/home/ktkuri/Desktop/SMC_F429/cmake-build-debug-stm32/HARDWARE/MPU6050/CMakeFiles/MPU6050_LIB.dir/inv_mpu.c.obj"
-  "/home/ktkuri/Desktop/SMC_F429/HARDWARE/MPU6050/inv_mpu_dmp_motion_driver.c" "/home/ktkuri/Desktop/SMC_F429/cmake-build-debug-stm32/HARDWARE/MPU6050/CMakeFiles/MPU6050_LIB.dir/inv_mpu_dmp_motion_driver.c.obj"
-  )
-set(CMAKE_C_COMPILER_ID "GNU")
-
-# The include file search paths:
-set(CMAKE_C_TARGET_INCLUDE_PATH
-  "/home/ktkuri/Desktop/SMC_F429/BSP"
-  "/home/ktkuri/Desktop/SMC_F429/CORE"
-  "/home/ktkuri/Desktop/SMC_F429/HARDWARE/MPU6050"
-  "/home/ktkuri/Desktop/SMC_F429/USER"
-  "/home/ktkuri/Desktop/SMC_F429/Project"
   )
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
+  "C:/Users/34575/Desktop/Code/STM32/SMC_F429/HARDWARE/MPU6050/inv_mpu.c" "HARDWARE/MPU6050/CMakeFiles/MPU6050_LIB.dir/inv_mpu.c.obj" "gcc" "HARDWARE/MPU6050/CMakeFiles/MPU6050_LIB.dir/inv_mpu.c.obj.d"
+  "C:/Users/34575/Desktop/Code/STM32/SMC_F429/HARDWARE/MPU6050/inv_mpu_dmp_motion_driver.c" "HARDWARE/MPU6050/CMakeFiles/MPU6050_LIB.dir/inv_mpu_dmp_motion_driver.c.obj" "gcc" "HARDWARE/MPU6050/CMakeFiles/MPU6050_LIB.dir/inv_mpu_dmp_motion_driver.c.obj.d"
   )
 
 # Targets to which this target links which contain Fortran sources.

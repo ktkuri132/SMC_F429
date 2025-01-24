@@ -1,0 +1,2 @@
+arm-none-eabi-ar qc libHW_201_LIB.a CMakeFiles/HW_201_LIB.dir/hw201.c.obj
+/usr/bin/arm-none-eabi-ranlib libHW_201_LIB.a

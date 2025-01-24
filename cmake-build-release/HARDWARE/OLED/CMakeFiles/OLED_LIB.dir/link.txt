@@ -1,0 +1,2 @@
+arm-none-eabi-ar qc libOLED_LIB.a CMakeFiles/OLED_LIB.dir/OLED.c.obj CMakeFiles/OLED_LIB.dir/OLED_Data.c.obj
+/usr/bin/arm-none-eabi-ranlib libOLED_LIB.a

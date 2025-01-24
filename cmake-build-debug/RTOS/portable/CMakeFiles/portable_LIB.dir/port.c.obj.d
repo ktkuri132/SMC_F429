@@ -1,0 +1,19 @@
+RTOS/portable/CMakeFiles/portable_LIB.dir/port.c.obj: \
+ /home/ktkuri/Desktop/SMC_F429/RTOS/portable/port.c \
+ /home/ktkuri/Desktop/SMC_F429/RTOS/comment/FreeRTOS.h \
+ /usr/lib/gcc/arm-none-eabi/13.2.1/include/stddef.h \
+ /usr/lib/gcc/arm-none-eabi/13.2.1/include/stdint.h \
+ /home/ktkuri/Desktop/SMC_F429/RTOS/comment/FreeRTOSConfig.h \
+ /home/ktkuri/Desktop/SMC_F429/CORE/stm32f4xx.h \
+ /home/ktkuri/Desktop/SMC_F429/CORE/core_cm4.h \
+ /home/ktkuri/Desktop/SMC_F429/CORE/core_cmInstr.h \
+ /home/ktkuri/Desktop/SMC_F429/CORE/core_cmFunc.h \
+ /home/ktkuri/Desktop/SMC_F429/CORE/core_cmSimd.h \
+ /home/ktkuri/Desktop/SMC_F429/CORE/system_stm32f4xx.h \
+ /home/ktkuri/Desktop/SMC_F429/RTOS/comment/projdefs.h \
+ /home/ktkuri/Desktop/SMC_F429/RTOS/comment/portable.h \
+ /home/ktkuri/Desktop/SMC_F429/RTOS/comment/deprecated_definitions.h \
+ /home/ktkuri/Desktop/SMC_F429/RTOS/comment/../portable/portmacro.h \
+ /home/ktkuri/Desktop/SMC_F429/RTOS/comment/mpu_wrappers.h \
+ /home/ktkuri/Desktop/SMC_F429/RTOS/comment/task.h \
+ /home/ktkuri/Desktop/SMC_F429/RTOS/comment/list.h

@@ -1,0 +1,2 @@
+arm-none-eabi-ar qc libUSER_LIB.a CMakeFiles/USER_LIB.dir/RTOSTask.c.obj
+/usr/bin/arm-none-eabi-ranlib libUSER_LIB.a

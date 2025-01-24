@@ -1,0 +1,2 @@
+arm-none-eabi-ar qc libTB6612_LIB.a CMakeFiles/TB6612_LIB.dir/tb6612_port.c.obj
+/usr/bin/arm-none-eabi-ranlib libTB6612_LIB.a

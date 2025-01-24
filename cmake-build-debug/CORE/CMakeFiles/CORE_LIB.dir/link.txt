@@ -1,0 +1,2 @@
+arm-none-eabi-ar qc libCORE_LIB.a CMakeFiles/CORE_LIB.dir/stratup.c.obj CMakeFiles/CORE_LIB.dir/system_stm32f4xx.c.obj
+/usr/bin/arm-none-eabi-ranlib libCORE_LIB.a

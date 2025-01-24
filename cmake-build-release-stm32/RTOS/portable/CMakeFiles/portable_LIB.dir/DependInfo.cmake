@@ -4,12 +4,25 @@ set(CMAKE_DEPENDS_IN_PROJECT_ONLY OFF)
 
 # The set of languages for which implicit dependencies are needed:
 set(CMAKE_DEPENDS_LANGUAGES
+  "C"
+  )
+# The set of files for implicit dependencies of each language:
+set(CMAKE_DEPENDS_CHECK_C
+  "/home/ktkuri/Desktop/SMC_F429/RTOS/portable/heap_4.c" "/home/ktkuri/Desktop/SMC_F429/cmake-build-release-stm32/RTOS/portable/CMakeFiles/portable_LIB.dir/heap_4.c.obj"
+  "/home/ktkuri/Desktop/SMC_F429/RTOS/portable/port.c" "/home/ktkuri/Desktop/SMC_F429/cmake-build-release-stm32/RTOS/portable/CMakeFiles/portable_LIB.dir/port.c.obj"
+  )
+set(CMAKE_C_COMPILER_ID "GNU")
+
+# The include file search paths:
+set(CMAKE_C_TARGET_INCLUDE_PATH
+  "/home/ktkuri/Desktop/SMC_F429/CORE"
+  "/home/ktkuri/Desktop/SMC_F429/RTOS/comment"
+  "/home/ktkuri/Desktop/SMC_F429/RTOS/portable"
+  "/home/ktkuri/Desktop/SMC_F429/RTOS/portable/.."
   )
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
-  "C:/Users/34575/Desktop/Code/STM32/SMC_F429/RTOS/portable/heap_4.c" "RTOS/portable/CMakeFiles/portable_LIB.dir/heap_4.c.obj" "gcc" "RTOS/portable/CMakeFiles/portable_LIB.dir/heap_4.c.obj.d"
-  "C:/Users/34575/Desktop/Code/STM32/SMC_F429/RTOS/portable/port.c" "RTOS/portable/CMakeFiles/portable_LIB.dir/port.c.obj" "gcc" "RTOS/portable/CMakeFiles/portable_LIB.dir/port.c.obj.d"
   )
 
 # Targets to which this target links which contain Fortran sources.

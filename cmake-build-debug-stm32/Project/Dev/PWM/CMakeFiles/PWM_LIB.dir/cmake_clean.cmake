@@ -1,8 +1,6 @@
 file(REMOVE_RECURSE
   "CMakeFiles/PWM_LIB.dir/pwm.c.obj"
-  "CMakeFiles/PWM_LIB.dir/pwm.c.obj.d"
   "CMakeFiles/PWM_LIB.dir/stm32f4xx_tim.c.obj"
-  "CMakeFiles/PWM_LIB.dir/stm32f4xx_tim.c.obj.d"
   "libPWM_LIB.a"
   "libPWM_LIB.pdb"
 )

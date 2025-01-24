@@ -1,8 +1,8 @@
-# Install script for directory: C:/Users/34575/Desktop/Code/STM32/SMC_F429/Project/Dev
+# Install script for directory: /home/ktkuri/Desktop/SMC_F429/Project/Dev
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
-  set(CMAKE_INSTALL_PREFIX "C:/Program Files (x86)/SMC")
+  set(CMAKE_INSTALL_PREFIX "/usr/local")
 endif()
 string(REGEX REPLACE "/$" "" CMAKE_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}")
 
@@ -39,31 +39,31 @@ endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for the subdirectory.
-  include("C:/Users/34575/Desktop/Code/STM32/SMC_F429/cmake-build-release-stm32/Project/Dev/ADC/cmake_install.cmake")
+  include("/home/ktkuri/Desktop/SMC_F429/cmake-build-release-stm32/Project/Dev/ADC/cmake_install.cmake")
 endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for the subdirectory.
-  include("C:/Users/34575/Desktop/Code/STM32/SMC_F429/cmake-build-release-stm32/Project/Dev/HW_201/cmake_install.cmake")
+  include("/home/ktkuri/Desktop/SMC_F429/cmake-build-release-stm32/Project/Dev/HW_201/cmake_install.cmake")
 endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for the subdirectory.
-  include("C:/Users/34575/Desktop/Code/STM32/SMC_F429/cmake-build-release-stm32/Project/Dev/KEY/cmake_install.cmake")
+  include("/home/ktkuri/Desktop/SMC_F429/cmake-build-release-stm32/Project/Dev/KEY/cmake_install.cmake")
 endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for the subdirectory.
-  include("C:/Users/34575/Desktop/Code/STM32/SMC_F429/cmake-build-release-stm32/Project/Dev/LED/cmake_install.cmake")
+  include("/home/ktkuri/Desktop/SMC_F429/cmake-build-release-stm32/Project/Dev/LED/cmake_install.cmake")
 endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for the subdirectory.
-  include("C:/Users/34575/Desktop/Code/STM32/SMC_F429/cmake-build-release-stm32/Project/Dev/PWM/cmake_install.cmake")
+  include("/home/ktkuri/Desktop/SMC_F429/cmake-build-release-stm32/Project/Dev/PWM/cmake_install.cmake")
 endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for the subdirectory.
-  include("C:/Users/34575/Desktop/Code/STM32/SMC_F429/cmake-build-release-stm32/Project/Dev/TB6612/cmake_install.cmake")
+  include("/home/ktkuri/Desktop/SMC_F429/cmake-build-release-stm32/Project/Dev/TB6612/cmake_install.cmake")
 endif()
 

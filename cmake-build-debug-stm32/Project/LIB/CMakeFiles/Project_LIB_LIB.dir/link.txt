@@ -1,2 +1,2 @@
 arm-none-eabi-ar qc libProject_LIB_LIB.a CMakeFiles/Project_LIB_LIB.dir/Control/ControlTask.c.obj CMakeFiles/Project_LIB_LIB.dir/Control/control.c.obj CMakeFiles/Project_LIB_LIB.dir/PID/pid.c.obj CMakeFiles/Project_LIB_LIB.dir/Tools/tools.c.obj
-C:\PROGRA~2\ARMGNU~1\133167~1.3RE\bin\AR17F9~1.EXE libProject_LIB_LIB.a
+/usr/bin/arm-none-eabi-ranlib libProject_LIB_LIB.a

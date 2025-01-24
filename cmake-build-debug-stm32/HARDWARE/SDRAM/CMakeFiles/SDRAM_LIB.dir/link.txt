@@ -1,2 +1,2 @@
 arm-none-eabi-ar qc libSDRAM_LIB.a CMakeFiles/SDRAM_LIB.dir/sdram.c.obj
-C:\PROGRA~2\ARMGNU~1\133167~1.3RE\bin\AR17F9~1.EXE libSDRAM_LIB.a
+/usr/bin/arm-none-eabi-ranlib libSDRAM_LIB.a

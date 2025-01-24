@@ -1,6 +1,5 @@
 file(REMOVE_RECURSE
   "CMakeFiles/SDRAM_LIB.dir/sdram.c.obj"
-  "CMakeFiles/SDRAM_LIB.dir/sdram.c.obj.d"
   "libSDRAM_LIB.a"
   "libSDRAM_LIB.pdb"
 )

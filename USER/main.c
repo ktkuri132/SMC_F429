@@ -50,7 +50,7 @@ Init_Serial:
     Stde_DataTypeDef_Init(&USART3_DataBuff);
     Stde_DataTypeDef_Init(&UART5_DataBuff);
     Stde_DataTypeDef_Init(&UART4_DataBuff);
-+=
+
 Init_Project:
     Project_BSP_PWM_TIM2_Init();   printf("初始化PWM\n");  
     Project_BSP_Encoding_Init();   printf("初始化编码器\n");

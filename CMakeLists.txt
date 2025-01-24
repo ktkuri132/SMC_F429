@@ -1,7 +1,7 @@
 #参考CubeMX生成的CMakeLists.txt文件进行修改和添加注释,若有疑问,请联系作者邮箱3457532883@qq.com
 set(CMAKE_SYSTEM_NAME Generic)
 set(CMAKE_SYSTEM_VERSION 1)
-cmake_minimum_required(VERSION 3.29)
+cmake_minimum_required(VERSION 3.28)
 
 # 指定交叉编译工具链arm-none-eabi-gcc,添加到环境变量中,或者在此处直接指定绝对路径
 set(CMAKE_C_COMPILER arm-none-eabi-gcc)
@@ -61,7 +61,7 @@ add_subdirectory(RTOS)
 add_subdirectory(USER)
 
 # 添加链接脚本
-set(LINKER_SCRIPT ${CMAKE_SOURCE_DIR}/CORE/STM32F429IGTX_FLASH.ld)
+set(LINKER_SCRIPT ${CMAKE_SOURCE_DIR}/CORE/STM32F429IGTx_FLASH.ld)
 
 # 添加链接选项,生成map文件
 add_link_options(-Wl,-gc-sections,--print-memory-usage,-Map=${PROJECT_BINARY_DIR}/${PROJECT_NAME}.map)

@@ -2,7 +2,7 @@
 #define _CONTROL_
 #include <Project.h>
 
-
+uint8_t Project_LIB_ControlStrat();
 
 
 #endif // !_CONTROL_

@@ -1,0 +1,3 @@
+file(REMOVE_RECURSE
+  "libTOUCH_LIB.a"
+)

@@ -1,0 +1,2 @@
+arm-none-eabi-ar qc libusart_LIB.a CMakeFiles/usart_LIB.dir/Serial.c.obj CMakeFiles/usart_LIB.dir/stm32f4xx_usart.c.obj CMakeFiles/usart_LIB.dir/usart.c.obj
+/usr/bin/arm-none-eabi-ranlib libusart_LIB.a

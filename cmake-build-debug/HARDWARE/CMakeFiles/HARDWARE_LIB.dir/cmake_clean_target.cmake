@@ -1,0 +1,3 @@
+file(REMOVE_RECURSE
+  "libHARDWARE_LIB.a"
+)

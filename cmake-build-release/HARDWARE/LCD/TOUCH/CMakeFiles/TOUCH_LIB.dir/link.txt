@@ -1,0 +1,2 @@
+arm-none-eabi-ar qc libTOUCH_LIB.a CMakeFiles/TOUCH_LIB.dir/ctiic.c.obj CMakeFiles/TOUCH_LIB.dir/ft5206.c.obj CMakeFiles/TOUCH_LIB.dir/gt9xxx.c.obj CMakeFiles/TOUCH_LIB.dir/touch.c.obj
+/usr/bin/arm-none-eabi-ranlib libTOUCH_LIB.a

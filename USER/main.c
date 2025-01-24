@@ -19,6 +19,8 @@ extern "C"
 #include "OLED/OLED.h"
 #include "MPU6050/inv_mpu.h"
 
+#include <LIB/Control/control.h>
+
 // 定义串口数据结构
 Stde_DataTypeDef USART2_DataBuff;
 Stde_DataTypeDef USART3_DataBuff;

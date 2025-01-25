@@ -4,11 +4,24 @@ set(CMAKE_DEPENDS_IN_PROJECT_ONLY OFF)
 
 # The set of languages for which implicit dependencies are needed:
 set(CMAKE_DEPENDS_LANGUAGES
+  "C"
+  )
+# The set of files for implicit dependencies of each language:
+set(CMAKE_DEPENDS_CHECK_C
+  "/home/ktkuri/Desktop/SMC_F429/HARDWARE/SDRAM/sdram.c" "/home/ktkuri/Desktop/SMC_F429/cmake-build-debug-stm32/HARDWARE/SDRAM/CMakeFiles/SDRAM_LIB.dir/sdram.c.obj"
+  )
+set(CMAKE_C_COMPILER_ID "GNU")
+
+# The include file search paths:
+set(CMAKE_C_TARGET_INCLUDE_PATH
+  "/home/ktkuri/Desktop/SMC_F429/BSP"
+  "/home/ktkuri/Desktop/SMC_F429/CORE"
+  "/home/ktkuri/Desktop/SMC_F429/HARDWARE/SDRAM"
+  "/home/ktkuri/Desktop/SMC_F429/BSP/gpio"
   )
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
-  "C:/Users/34575/Desktop/Code/STM32/SMC_F429/HARDWARE/SDRAM/sdram.c" "HARDWARE/SDRAM/CMakeFiles/SDRAM_LIB.dir/sdram.c.obj" "gcc" "HARDWARE/SDRAM/CMakeFiles/SDRAM_LIB.dir/sdram.c.obj.d"
   )
 
 # Targets to which this target links which contain Fortran sources.

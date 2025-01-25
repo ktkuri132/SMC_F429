@@ -1,6 +1,5 @@
 file(REMOVE_RECURSE
   "CMakeFiles/KEY_LIB.dir/key.c.obj"
-  "CMakeFiles/KEY_LIB.dir/key.c.obj.d"
   "libKEY_LIB.a"
   "libKEY_LIB.pdb"
 )

@@ -1,6 +1,5 @@
 file(REMOVE_RECURSE
   "CMakeFiles/USER_LIB.dir/RTOSTask.c.obj"
-  "CMakeFiles/USER_LIB.dir/RTOSTask.c.obj.d"
   "libUSER_LIB.a"
   "libUSER_LIB.pdb"
 )

@@ -1,2 +1,2 @@
 arm-none-eabi-ar qc libportable_LIB.a CMakeFiles/portable_LIB.dir/heap_4.c.obj CMakeFiles/portable_LIB.dir/port.c.obj
-C:\PROGRA~2\ARMGNU~1\133167~1.3RE\bin\AR17F9~1.EXE libportable_LIB.a
+/usr/bin/arm-none-eabi-ranlib libportable_LIB.a

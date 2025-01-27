@@ -1,8 +1,8 @@
-# Install script for directory: /home/ktkuri/Desktop/SMC_F429/BSP/spi
+# Install script for directory: C:/Users/34575/Desktop/Code/STM32/SMC_F429/BSP/spi
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
-  set(CMAKE_INSTALL_PREFIX "/usr/local")
+  set(CMAKE_INSTALL_PREFIX "C:/Program Files (x86)/SMC")
 endif()
 string(REGEX REPLACE "/$" "" CMAKE_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}")
 

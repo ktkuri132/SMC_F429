@@ -30,19 +30,22 @@
 #include "task.h"
 #include "croutine.h"
 
-/* Remove the whole file is co-routines are not being used. */
+/* 要使用协程,那就打开 */
 #if ( configUSE_CO_ROUTINES != 0 )
 
 /*
- * Some kernel aware debuggers require data to be viewed to be global, rather
- * than file scope.
+ *        有些调试器在调试操作系统内核时,需要访问和查看的数据必须是全局变量,而不能是文件范围内的静态变量.
+ *      为了满足这些调试器的需求,代码中提供了一个条件编译选项 portREMOVE_STATIC_QUALIFIER,
+ *      如果定义了这个宏,预处理时,static 就会被当作宏来处理而不是关键字 static ,
+ *      使得这些变量变为全局变量.这样,调试器就可以访问这些变量了.
+ * 
  */
     #ifdef portREMOVE_STATIC_QUALIFIER
         #define static
     #endif
 
 
-/* Lists for ready and blocked co-routines. --------------------*/
+//* 这里定义了 预备 和 阻塞 状态的链表 --------------------*/
     static List_t pxReadyCoRoutineLists[ configMAX_CO_ROUTINE_PRIORITIES ]; /*< Prioritised ready co-routines. */
     static List_t xDelayedCoRoutineList1;                                   /*< Delayed co-routines. */
     static List_t xDelayedCoRoutineList2;                                   /*< Delayed co-routines (two lists are used - one for delays that have overflowed the current tick count. */

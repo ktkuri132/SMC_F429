@@ -595,31 +595,31 @@ CMakeFiles/SMC.elf.dir/all: BSP/CMakeFiles/BSP_LIB.dir/all
 CMakeFiles/SMC.elf.dir/all: BSP/gpio/CMakeFiles/gpio_LIB.dir/all
 CMakeFiles/SMC.elf.dir/all: BSP/i2c/CMakeFiles/i2c_LIB.dir/all
 CMakeFiles/SMC.elf.dir/all: BSP/spi/CMakeFiles/spi_LIB.dir/all
-CMakeFiles/SMC.elf.dir/all: CORE/CMakeFiles/CORE_LIB.dir/all
-CMakeFiles/SMC.elf.dir/all: BSP/usart/CMakeFiles/usart_LIB.dir/all
 CMakeFiles/SMC.elf.dir/all: HARDWARE/CMakeFiles/HARDWARE_LIB.dir/all
+CMakeFiles/SMC.elf.dir/all: HARDWARE/LCD/CMakeFiles/LCD_LIB.dir/all
+CMakeFiles/SMC.elf.dir/all: BSP/usart/CMakeFiles/usart_LIB.dir/all
+CMakeFiles/SMC.elf.dir/all: CORE/CMakeFiles/CORE_LIB.dir/all
 CMakeFiles/SMC.elf.dir/all: HARDWARE/LCD/GUI/CMakeFiles/GUI_LIB.dir/all
 CMakeFiles/SMC.elf.dir/all: HARDWARE/LCD/TOUCH/CMakeFiles/TOUCH_LIB.dir/all
-CMakeFiles/SMC.elf.dir/all: HARDWARE/LCD/CMakeFiles/LCD_LIB.dir/all
 CMakeFiles/SMC.elf.dir/all: HARDWARE/MPU6050/CMakeFiles/MPU6050_LIB.dir/all
 CMakeFiles/SMC.elf.dir/all: HARDWARE/OLED/CMakeFiles/OLED_LIB.dir/all
 CMakeFiles/SMC.elf.dir/all: HARDWARE/SDRAM/CMakeFiles/SDRAM_LIB.dir/all
 CMakeFiles/SMC.elf.dir/all: Project/CMakeFiles/Project_LIB.dir/all
 CMakeFiles/SMC.elf.dir/all: Project/Dev/CMakeFiles/Project_Dev_LIB.dir/all
-CMakeFiles/SMC.elf.dir/all: Project/Dev/ADC/CMakeFiles/ADC_LIB.dir/all
-CMakeFiles/SMC.elf.dir/all: Project/Dev/HW_201/CMakeFiles/HW_201_LIB.dir/all
-CMakeFiles/SMC.elf.dir/all: Project/Dev/KEY/CMakeFiles/KEY_LIB.dir/all
 CMakeFiles/SMC.elf.dir/all: Project/Dev/LED/CMakeFiles/LED_LIB.dir/all
-CMakeFiles/SMC.elf.dir/all: Project/Dev/PWM/CMakeFiles/PWM_LIB.dir/all
+CMakeFiles/SMC.elf.dir/all: Project/Dev/HW_201/CMakeFiles/HW_201_LIB.dir/all
+CMakeFiles/SMC.elf.dir/all: Project/Dev/ADC/CMakeFiles/ADC_LIB.dir/all
+CMakeFiles/SMC.elf.dir/all: Project/Dev/KEY/CMakeFiles/KEY_LIB.dir/all
 CMakeFiles/SMC.elf.dir/all: Project/Dev/TB6612/CMakeFiles/TB6612_LIB.dir/all
 CMakeFiles/SMC.elf.dir/all: Project/LIB/CMakeFiles/Project_LIB_LIB.dir/all
-CMakeFiles/SMC.elf.dir/all: Project/LIB/PID/CMakeFiles/PID_LIB.dir/all
+CMakeFiles/SMC.elf.dir/all: Project/Dev/PWM/CMakeFiles/PWM_LIB.dir/all
 CMakeFiles/SMC.elf.dir/all: Project/LIB/Control/CMakeFiles/Control_LIB.dir/all
-CMakeFiles/SMC.elf.dir/all: RTOS/portable/CMakeFiles/portable_LIB.dir/all
 CMakeFiles/SMC.elf.dir/all: Project/LIB/Tools/CMakeFiles/Tools_LIB.dir/all
+CMakeFiles/SMC.elf.dir/all: Project/LIB/PID/CMakeFiles/PID_LIB.dir/all
+CMakeFiles/SMC.elf.dir/all: RTOS/portable/CMakeFiles/portable_LIB.dir/all
+CMakeFiles/SMC.elf.dir/all: USER/CMakeFiles/USER_LIB.dir/all
 CMakeFiles/SMC.elf.dir/all: RTOS/CMakeFiles/RTOS_LIB.dir/all
 CMakeFiles/SMC.elf.dir/all: RTOS/comment/CMakeFiles/comment_LIB.dir/all
-CMakeFiles/SMC.elf.dir/all: USER/CMakeFiles/USER_LIB.dir/all
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\SMC.elf.dir\build.make CMakeFiles/SMC.elf.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\SMC.elf.dir\build.make CMakeFiles/SMC.elf.dir/build
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=C:\Users\34575\Desktop\Code\STM32\SMC_F429\cmake-build-debug-stm32\CMakeFiles --progress-num=73,74 "Built target SMC.elf"
@@ -804,9 +804,9 @@ CORE/CMakeFiles/CORE_LIB.dir/clean:
 # Target rules for target HARDWARE/CMakeFiles/HARDWARE_LIB.dir
 
 # All Build rule for target.
+HARDWARE/CMakeFiles/HARDWARE_LIB.dir/all: HARDWARE/LCD/CMakeFiles/LCD_LIB.dir/all
 HARDWARE/CMakeFiles/HARDWARE_LIB.dir/all: HARDWARE/LCD/GUI/CMakeFiles/GUI_LIB.dir/all
 HARDWARE/CMakeFiles/HARDWARE_LIB.dir/all: HARDWARE/LCD/TOUCH/CMakeFiles/TOUCH_LIB.dir/all
-HARDWARE/CMakeFiles/HARDWARE_LIB.dir/all: HARDWARE/LCD/CMakeFiles/LCD_LIB.dir/all
 HARDWARE/CMakeFiles/HARDWARE_LIB.dir/all: HARDWARE/MPU6050/CMakeFiles/MPU6050_LIB.dir/all
 HARDWARE/CMakeFiles/HARDWARE_LIB.dir/all: HARDWARE/OLED/CMakeFiles/OLED_LIB.dir/all
 HARDWARE/CMakeFiles/HARDWARE_LIB.dir/all: HARDWARE/SDRAM/CMakeFiles/SDRAM_LIB.dir/all
@@ -993,16 +993,16 @@ HARDWARE/SDRAM/CMakeFiles/SDRAM_LIB.dir/clean:
 
 # All Build rule for target.
 Project/CMakeFiles/Project_LIB.dir/all: Project/Dev/CMakeFiles/Project_Dev_LIB.dir/all
-Project/CMakeFiles/Project_LIB.dir/all: Project/Dev/ADC/CMakeFiles/ADC_LIB.dir/all
-Project/CMakeFiles/Project_LIB.dir/all: Project/Dev/HW_201/CMakeFiles/HW_201_LIB.dir/all
-Project/CMakeFiles/Project_LIB.dir/all: Project/Dev/KEY/CMakeFiles/KEY_LIB.dir/all
 Project/CMakeFiles/Project_LIB.dir/all: Project/Dev/LED/CMakeFiles/LED_LIB.dir/all
-Project/CMakeFiles/Project_LIB.dir/all: Project/Dev/PWM/CMakeFiles/PWM_LIB.dir/all
+Project/CMakeFiles/Project_LIB.dir/all: Project/Dev/HW_201/CMakeFiles/HW_201_LIB.dir/all
+Project/CMakeFiles/Project_LIB.dir/all: Project/Dev/ADC/CMakeFiles/ADC_LIB.dir/all
+Project/CMakeFiles/Project_LIB.dir/all: Project/Dev/KEY/CMakeFiles/KEY_LIB.dir/all
 Project/CMakeFiles/Project_LIB.dir/all: Project/Dev/TB6612/CMakeFiles/TB6612_LIB.dir/all
 Project/CMakeFiles/Project_LIB.dir/all: Project/LIB/CMakeFiles/Project_LIB_LIB.dir/all
-Project/CMakeFiles/Project_LIB.dir/all: Project/LIB/PID/CMakeFiles/PID_LIB.dir/all
+Project/CMakeFiles/Project_LIB.dir/all: Project/Dev/PWM/CMakeFiles/PWM_LIB.dir/all
 Project/CMakeFiles/Project_LIB.dir/all: Project/LIB/Control/CMakeFiles/Control_LIB.dir/all
 Project/CMakeFiles/Project_LIB.dir/all: Project/LIB/Tools/CMakeFiles/Tools_LIB.dir/all
+Project/CMakeFiles/Project_LIB.dir/all: Project/LIB/PID/CMakeFiles/PID_LIB.dir/all
 	$(MAKE) $(MAKESILENT) -f Project\CMakeFiles\Project_LIB.dir\build.make Project/CMakeFiles/Project_LIB.dir/depend
 	$(MAKE) $(MAKESILENT) -f Project\CMakeFiles\Project_LIB.dir\build.make Project/CMakeFiles/Project_LIB.dir/build
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=C:\Users\34575\Desktop\Code\STM32\SMC_F429\cmake-build-debug-stm32\CMakeFiles --progress-num=52,53,54,55,56,57,58,59,60 "Built target Project_LIB"
@@ -1028,12 +1028,12 @@ Project/CMakeFiles/Project_LIB.dir/clean:
 # Target rules for target Project/Dev/CMakeFiles/Project_Dev_LIB.dir
 
 # All Build rule for target.
-Project/Dev/CMakeFiles/Project_Dev_LIB.dir/all: Project/Dev/ADC/CMakeFiles/ADC_LIB.dir/all
-Project/Dev/CMakeFiles/Project_Dev_LIB.dir/all: Project/Dev/HW_201/CMakeFiles/HW_201_LIB.dir/all
-Project/Dev/CMakeFiles/Project_Dev_LIB.dir/all: Project/Dev/KEY/CMakeFiles/KEY_LIB.dir/all
 Project/Dev/CMakeFiles/Project_Dev_LIB.dir/all: Project/Dev/LED/CMakeFiles/LED_LIB.dir/all
-Project/Dev/CMakeFiles/Project_Dev_LIB.dir/all: Project/Dev/PWM/CMakeFiles/PWM_LIB.dir/all
+Project/Dev/CMakeFiles/Project_Dev_LIB.dir/all: Project/Dev/HW_201/CMakeFiles/HW_201_LIB.dir/all
+Project/Dev/CMakeFiles/Project_Dev_LIB.dir/all: Project/Dev/ADC/CMakeFiles/ADC_LIB.dir/all
+Project/Dev/CMakeFiles/Project_Dev_LIB.dir/all: Project/Dev/KEY/CMakeFiles/KEY_LIB.dir/all
 Project/Dev/CMakeFiles/Project_Dev_LIB.dir/all: Project/Dev/TB6612/CMakeFiles/TB6612_LIB.dir/all
+Project/Dev/CMakeFiles/Project_Dev_LIB.dir/all: Project/Dev/PWM/CMakeFiles/PWM_LIB.dir/all
 	$(MAKE) $(MAKESILENT) -f Project\Dev\CMakeFiles\Project_Dev_LIB.dir\build.make Project/Dev/CMakeFiles/Project_Dev_LIB.dir/depend
 	$(MAKE) $(MAKESILENT) -f Project\Dev\CMakeFiles\Project_Dev_LIB.dir\build.make Project/Dev/CMakeFiles/Project_Dev_LIB.dir/build
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=C:\Users\34575\Desktop\Code\STM32\SMC_F429\cmake-build-debug-stm32\CMakeFiles --progress-num=46,47,48,49,50,51 "Built target Project_Dev_LIB"
@@ -1215,9 +1215,9 @@ Project/Dev/TB6612/CMakeFiles/TB6612_LIB.dir/clean:
 # Target rules for target Project/LIB/CMakeFiles/Project_LIB_LIB.dir
 
 # All Build rule for target.
-Project/LIB/CMakeFiles/Project_LIB_LIB.dir/all: Project/LIB/PID/CMakeFiles/PID_LIB.dir/all
 Project/LIB/CMakeFiles/Project_LIB_LIB.dir/all: Project/LIB/Control/CMakeFiles/Control_LIB.dir/all
 Project/LIB/CMakeFiles/Project_LIB_LIB.dir/all: Project/LIB/Tools/CMakeFiles/Tools_LIB.dir/all
+Project/LIB/CMakeFiles/Project_LIB_LIB.dir/all: Project/LIB/PID/CMakeFiles/PID_LIB.dir/all
 	$(MAKE) $(MAKESILENT) -f Project\LIB\CMakeFiles\Project_LIB_LIB.dir\build.make Project/LIB/CMakeFiles/Project_LIB_LIB.dir/depend
 	$(MAKE) $(MAKESILENT) -f Project\LIB\CMakeFiles\Project_LIB_LIB.dir\build.make Project/LIB/CMakeFiles/Project_LIB_LIB.dir/build
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=C:\Users\34575\Desktop\Code\STM32\SMC_F429\cmake-build-debug-stm32\CMakeFiles --progress-num=61,62,63,64 "Built target Project_LIB_LIB"

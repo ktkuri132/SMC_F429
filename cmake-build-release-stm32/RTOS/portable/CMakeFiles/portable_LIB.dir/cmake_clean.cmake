@@ -1,6 +1,8 @@
 file(REMOVE_RECURSE
   "CMakeFiles/portable_LIB.dir/heap_4.c.obj"
+  "CMakeFiles/portable_LIB.dir/heap_4.c.obj.d"
   "CMakeFiles/portable_LIB.dir/port.c.obj"
+  "CMakeFiles/portable_LIB.dir/port.c.obj.d"
   "libportable_LIB.a"
   "libportable_LIB.pdb"
 )

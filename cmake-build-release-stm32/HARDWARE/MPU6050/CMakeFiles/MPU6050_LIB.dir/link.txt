@@ -1,2 +1,2 @@
 arm-none-eabi-ar qc libMPU6050_LIB.a CMakeFiles/MPU6050_LIB.dir/inv_mpu.c.obj CMakeFiles/MPU6050_LIB.dir/inv_mpu_dmp_motion_driver.c.obj
-/usr/bin/arm-none-eabi-ranlib libMPU6050_LIB.a
+C:\PROGRA~2\ARMGNU~1\133167~1.3RE\bin\AR17F9~1.EXE libMPU6050_LIB.a

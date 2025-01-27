@@ -1,8 +1,8 @@
-# Install script for directory: /home/ktkuri/Desktop/SMC_F429/HARDWARE/LCD
+# Install script for directory: C:/Users/34575/Desktop/Code/STM32/SMC_F429/HARDWARE/LCD
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
-  set(CMAKE_INSTALL_PREFIX "/usr/local")
+  set(CMAKE_INSTALL_PREFIX "C:/Program Files (x86)/SMC")
 endif()
 string(REGEX REPLACE "/$" "" CMAKE_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}")
 
@@ -39,11 +39,11 @@ endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for the subdirectory.
-  include("/home/ktkuri/Desktop/SMC_F429/cmake-build-release-stm32/HARDWARE/LCD/GUI/cmake_install.cmake")
+  include("C:/Users/34575/Desktop/Code/STM32/SMC_F429/cmake-build-release-stm32/HARDWARE/LCD/GUI/cmake_install.cmake")
 endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for the subdirectory.
-  include("/home/ktkuri/Desktop/SMC_F429/cmake-build-release-stm32/HARDWARE/LCD/TOUCH/cmake_install.cmake")
+  include("C:/Users/34575/Desktop/Code/STM32/SMC_F429/cmake-build-release-stm32/HARDWARE/LCD/TOUCH/cmake_install.cmake")
 endif()
 

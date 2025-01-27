@@ -1,2 +1,2 @@
 arm-none-eabi-ar qc libHARDWARE_LIB.a CMakeFiles/HARDWARE_LIB.dir/LCD/GUI/exti.c.obj CMakeFiles/HARDWARE_LIB.dir/LCD/TOUCH/ctiic.c.obj CMakeFiles/HARDWARE_LIB.dir/LCD/TOUCH/ft5206.c.obj CMakeFiles/HARDWARE_LIB.dir/LCD/TOUCH/gt9xxx.c.obj CMakeFiles/HARDWARE_LIB.dir/LCD/TOUCH/touch.c.obj CMakeFiles/HARDWARE_LIB.dir/LCD/lcd.c.obj CMakeFiles/HARDWARE_LIB.dir/LCD/ltdc.c.obj CMakeFiles/HARDWARE_LIB.dir/MPU6050/inv_mpu.c.obj CMakeFiles/HARDWARE_LIB.dir/MPU6050/inv_mpu_dmp_motion_driver.c.obj CMakeFiles/HARDWARE_LIB.dir/OLED/OLED.c.obj CMakeFiles/HARDWARE_LIB.dir/OLED/OLED_Data.c.obj CMakeFiles/HARDWARE_LIB.dir/SDRAM/sdram.c.obj
-/usr/bin/arm-none-eabi-ranlib libHARDWARE_LIB.a
+C:\PROGRA~2\ARMGNU~1\133167~1.3RE\bin\AR17F9~1.EXE libHARDWARE_LIB.a

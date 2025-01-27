@@ -1,8 +1,6 @@
 file(REMOVE_RECURSE
   "CMakeFiles/spi_LIB.dir/hardspi.c.obj"
-  "CMakeFiles/spi_LIB.dir/hardspi.c.obj.d"
   "CMakeFiles/spi_LIB.dir/softspi.c.obj"
-  "CMakeFiles/spi_LIB.dir/softspi.c.obj.d"
   "libspi_LIB.a"
   "libspi_LIB.pdb"
 )

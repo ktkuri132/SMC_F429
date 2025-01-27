@@ -1,2 +1,2 @@
 arm-none-eabi-ar qc libTools_LIB.a CMakeFiles/Tools_LIB.dir/tools.c.obj
-C:\PROGRA~2\ARMGNU~1\133167~1.3RE\bin\AR17F9~1.EXE libTools_LIB.a
+/usr/bin/arm-none-eabi-ranlib libTools_LIB.a

@@ -45,11 +45,11 @@
     #endif
 
 
-//* 这里定义了 预备 和 阻塞 状态的链表 --------------------*/
-    static List_t pxReadyCoRoutineLists[ configMAX_CO_ROUTINE_PRIORITIES ]; /*< Prioritised ready co-routines. */
-    static List_t xDelayedCoRoutineList1;                                   /*< Delayed co-routines. */
-    static List_t xDelayedCoRoutineList2;                                   /*< Delayed co-routines (two lists are used - one for delays that have overflowed the current tick count. */
-    static List_t * pxDelayedCoRoutineList = NULL;                          /*< Points to the delayed co-routine list currently being used. */
+//* 这里定义了 就绪 和 阻塞 状态的链表 --------------------*/
+    static List_t pxReadyCoRoutineLists[ configMAX_CO_ROUTINE_PRIORITIES ]; /*< 就绪协程的优先级 */
+    static List_t xDelayedCoRoutineList1;                                   /*< 协程延迟(管理系统滴答计时范围内的延迟) */
+    static List_t xDelayedCoRoutineList2;                                   /*< 协程延迟(管理超过系统滴计时范围外的延时) */
+    static List_t * pxDelayedCoRoutineList = NULL;                          /*< 一个指向链表的指针,用于管理延迟时间在系统滴答计数范围内的协程. */
     static List_t * pxOverflowDelayedCoRoutineList = NULL;                  /*< Points to the delayed co-routine list currently being used to hold co-routines that have overflowed the current tick count. */
     static List_t xPendingReadyCoRoutineList;                               /*< Holds co-routines that have been readied by an external event.  They cannot be added directly to the ready lists as the ready lists cannot be accessed by interrupts. */
 

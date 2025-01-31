@@ -1,2 +1,0 @@
-arm-none-eabi-ar qc libPID_LIB.a CMakeFiles/PID_LIB.dir/pid.c.obj
-/usr/bin/arm-none-eabi-ranlib libPID_LIB.a

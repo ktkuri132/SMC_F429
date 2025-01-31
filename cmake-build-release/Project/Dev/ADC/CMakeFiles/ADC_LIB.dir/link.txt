@@ -1,2 +1,0 @@
-arm-none-eabi-ar qc libADC_LIB.a CMakeFiles/ADC_LIB.dir/adc.c.obj CMakeFiles/ADC_LIB.dir/stm32f4xx_adc.c.obj
-/usr/bin/arm-none-eabi-ranlib libADC_LIB.a

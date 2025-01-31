@@ -1,3 +1,0 @@
-file(REMOVE_RECURSE
-  "libSDRAM_LIB.a"
-)

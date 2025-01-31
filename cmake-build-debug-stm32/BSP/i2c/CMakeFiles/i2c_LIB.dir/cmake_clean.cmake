@@ -1,7 +1,10 @@
 file(REMOVE_RECURSE
   "CMakeFiles/i2c_LIB.dir/hardi2c.c.obj"
+  "CMakeFiles/i2c_LIB.dir/hardi2c.c.obj.d"
   "CMakeFiles/i2c_LIB.dir/softi2c.c.obj"
+  "CMakeFiles/i2c_LIB.dir/softi2c.c.obj.d"
   "CMakeFiles/i2c_LIB.dir/stm32f4xx_i2c.c.obj"
+  "CMakeFiles/i2c_LIB.dir/stm32f4xx_i2c.c.obj.d"
   "libi2c_LIB.a"
   "libi2c_LIB.pdb"
 )

@@ -1,6 +1,8 @@
 file(REMOVE_RECURSE
   "CMakeFiles/MPU6050_LIB.dir/inv_mpu.c.obj"
+  "CMakeFiles/MPU6050_LIB.dir/inv_mpu.c.obj.d"
   "CMakeFiles/MPU6050_LIB.dir/inv_mpu_dmp_motion_driver.c.obj"
+  "CMakeFiles/MPU6050_LIB.dir/inv_mpu_dmp_motion_driver.c.obj.d"
   "libMPU6050_LIB.a"
   "libMPU6050_LIB.pdb"
 )

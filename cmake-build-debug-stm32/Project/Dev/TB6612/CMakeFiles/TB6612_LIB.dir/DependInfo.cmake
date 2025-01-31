@@ -4,28 +4,11 @@ set(CMAKE_DEPENDS_IN_PROJECT_ONLY OFF)
 
 # The set of languages for which implicit dependencies are needed:
 set(CMAKE_DEPENDS_LANGUAGES
-  "C"
-  )
-# The set of files for implicit dependencies of each language:
-set(CMAKE_DEPENDS_CHECK_C
-  "/home/ktkuri/Desktop/SMC_F429/Project/Dev/TB6612/tb6612_port.c" "/home/ktkuri/Desktop/SMC_F429/cmake-build-debug-stm32/Project/Dev/TB6612/CMakeFiles/TB6612_LIB.dir/tb6612_port.c.obj"
-  )
-set(CMAKE_C_COMPILER_ID "GNU")
-
-# The include file search paths:
-set(CMAKE_C_TARGET_INCLUDE_PATH
-  "/home/ktkuri/Desktop/SMC_F429/CORE"
-  "/home/ktkuri/Desktop/SMC_F429/BSP"
-  "/home/ktkuri/Desktop/SMC_F429/RTOS"
-  "/home/ktkuri/Desktop/SMC_F429/HARDWARE"
-  "/home/ktkuri/Desktop/SMC_F429/USER"
-  "/home/ktkuri/Desktop/SMC_F429/Project/Dev/.."
-  "/home/ktkuri/Desktop/SMC_F429/Project/Dev/TB6612"
-  "/home/ktkuri/Desktop/SMC_F429/Project/Dev/TB6612/../.."
   )
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
+  "/home/ktkuri/Desktop/SMC_F429/Project/Dev/TB6612/tb6612_port.c" "Project/Dev/TB6612/CMakeFiles/TB6612_LIB.dir/tb6612_port.c.obj" "gcc" "Project/Dev/TB6612/CMakeFiles/TB6612_LIB.dir/tb6612_port.c.obj.d"
   )
 
 # Targets to which this target links which contain Fortran sources.

@@ -6,5 +6,5 @@ C_DEFINES =
 
 C_INCLUDES = -I/home/ktkuri/Desktop/SMC_F429/CORE -I/home/ktkuri/Desktop/SMC_F429/BSP -I/home/ktkuri/Desktop/SMC_F429/RTOS -I/home/ktkuri/Desktop/SMC_F429/HARDWARE -I/home/ktkuri/Desktop/SMC_F429/USER -I/home/ktkuri/Desktop/SMC_F429/Project
 
-C_FLAGS = -g -std=gnu11 -fdiagnostics-color=always -mfloat-abi=hard -mfpu=fpv4-sp-d16 -mcpu=cortex-m4 -mthumb -mthumb-interwork -ffunction-sections -fdata-sections -fno-common -fmessage-length=0 -Og -g
+C_FLAGS = -std=gnu11 -fdiagnostics-color=always -mfloat-abi=hard -mfpu=fpv4-sp-d16 -mcpu=cortex-m4 -mthumb -mthumb-interwork -ffunction-sections -fdata-sections -fno-common -fmessage-length=0 -Og -g
 

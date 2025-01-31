@@ -1,6 +1,5 @@
 file(REMOVE_RECURSE
   "CMakeFiles/HW_201_LIB.dir/hw201.c.obj"
-  "CMakeFiles/HW_201_LIB.dir/hw201.c.obj.d"
   "libHW_201_LIB.a"
   "libHW_201_LIB.pdb"
 )

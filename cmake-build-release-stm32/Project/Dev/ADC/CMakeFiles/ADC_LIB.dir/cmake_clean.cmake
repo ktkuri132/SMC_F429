@@ -1,8 +1,6 @@
 file(REMOVE_RECURSE
   "CMakeFiles/ADC_LIB.dir/adc.c.obj"
-  "CMakeFiles/ADC_LIB.dir/adc.c.obj.d"
   "CMakeFiles/ADC_LIB.dir/stm32f4xx_adc.c.obj"
-  "CMakeFiles/ADC_LIB.dir/stm32f4xx_adc.c.obj.d"
   "libADC_LIB.a"
   "libADC_LIB.pdb"
 )

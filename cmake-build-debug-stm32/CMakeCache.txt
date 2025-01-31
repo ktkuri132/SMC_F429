@@ -42,7 +42,7 @@ CMAKE_ASM_FLAGS_RELWITHDEBINFO:STRING=-O2 -g -DNDEBUG
 
 //Choose the type of build, options are: None Debug Release RelWithDebInfo
 // MinSizeRel ...
-CMAKE_BUILD_TYPE:STRING=Debug
+CMAKE_BUILD_TYPE:STRING=
 
 //Id string of the compiler for the CodeBlocks IDE. Automatically
 // detected when left empty
@@ -58,13 +58,8 @@ CMAKE_CODEBLOCKS_MAKE_ARGUMENTS:STRING=-j16
 //Enable colored diagnostics throughout.
 CMAKE_COLOR_DIAGNOSTICS:BOOL=ON
 
-<<<<<<< HEAD
-//No help, variable specified on the command line.
-CMAKE_CXX_COMPILER:UNINITIALIZED=C:/Program Files (x86)/Arm GNU Toolchain arm-none-eabi/13.3 rel1/bin/arm-none-eabi-g++.exe
-=======
 //CXX compiler
 CMAKE_CXX_COMPILER:STRING=/usr/bin/arm-none-eabi-g++
->>>>>>> f4973603216bbe1cb8eeba9353ddcfa5da0e96ee
 
 //A wrapper around 'ar' adding the appropriate '--plugin' option
 // for the GCC compiler
@@ -89,13 +84,8 @@ CMAKE_CXX_FLAGS_RELEASE:STRING=-O3 -DNDEBUG
 //Flags used by the CXX compiler during RELWITHDEBINFO builds.
 CMAKE_CXX_FLAGS_RELWITHDEBINFO:STRING=-O2 -g -DNDEBUG
 
-<<<<<<< HEAD
-//No help, variable specified on the command line.
-CMAKE_C_COMPILER:UNINITIALIZED=C:/Program Files (x86)/Arm GNU Toolchain arm-none-eabi/13.3 rel1/bin/arm-none-eabi-gcc.exe
-=======
 //C compiler
 CMAKE_C_COMPILER:STRING=/usr/bin/arm-none-eabi-gcc
->>>>>>> f4973603216bbe1cb8eeba9353ddcfa5da0e96ee
 
 //A wrapper around 'ar' adding the appropriate '--plugin' option
 // for the GCC compiler
@@ -119,9 +109,6 @@ CMAKE_C_FLAGS_RELEASE:STRING=-O3 -DNDEBUG
 
 //Flags used by the C compiler during RELWITHDEBINFO builds.
 CMAKE_C_FLAGS_RELWITHDEBINFO:STRING=-O2 -g -DNDEBUG
-
-//No help, variable specified on the command line.
-CMAKE_DEPENDS_USE_COMPILER:UNINITIALIZED=FALSE
 
 //Path to a program.
 CMAKE_DLLTOOL:FILEPATH=CMAKE_DLLTOOL-NOTFOUND
@@ -153,8 +140,8 @@ CMAKE_INSTALL_PREFIX:PATH=/usr/local
 //Path to a program.
 CMAKE_LINKER:FILEPATH=/usr/bin/arm-none-eabi-ld
 
-//No help, variable specified on the command line.
-CMAKE_MAKE_PROGRAM:UNINITIALIZED=/bin/make
+//Path to a program.
+CMAKE_MAKE_PROGRAM:FILEPATH=/usr/bin/gmake
 
 //Flags used by the linker during the creation of modules during
 // all build types.

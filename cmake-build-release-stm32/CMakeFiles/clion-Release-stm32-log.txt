@@ -1,10 +1,3 @@
-<<<<<<< HEAD
-"C:\Program Files\JetBrains\CLion 2024.3.2\bin\cmake\win\x64\bin\cmake.exe" -DCMAKE_BUILD_TYPE=Release -DCMAKE_MAKE_PROGRAM=C:/MinGW/bin/mingw32-make.exe "-DCMAKE_C_COMPILER=C:/Program Files (x86)/Arm GNU Toolchain arm-none-eabi/13.3 rel1/bin/arm-none-eabi-gcc.exe" "-DCMAKE_CXX_COMPILER=C:/Program Files (x86)/Arm GNU Toolchain arm-none-eabi/13.3 rel1/bin/arm-none-eabi-g++.exe" -G "MinGW Makefiles" -S C:\Users\34575\Desktop\Code\STM32\SMC_F429 -B C:\Users\34575\Desktop\Code\STM32\SMC_F429\cmake-build-release-stm32
--- Maximum optimization for speed
--- Configuring done (0.0s)
--- Generating done (0.4s)
--- Build files have been written to: C:/Users/34575/Desktop/Code/STM32/SMC_F429/cmake-build-release-stm32
-=======
 /opt/clion/clion-2024.3.2/bin/cmake/linux/x64/bin/cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_MAKE_PROGRAM=/bin/make -DCMAKE_C_COMPILER=/bin/arm-none-eabi-gcc -DCMAKE_CXX_COMPILER=/bin/arm-none-eabi-g++ -DCMAKE_DEPENDS_USE_COMPILER=FALSE -G "CodeBlocks - Unix Makefiles" -S /home/ktkuri/Desktop/SMC_F429 -B /home/ktkuri/Desktop/SMC_F429/cmake-build-release-stm32
 CMake Deprecation Warning:
   Support for "Extra Generators" like
@@ -31,6 +24,5 @@ CMake Deprecation Warning:
 -- Detecting CXX compile features - done
 -- Maximum optimization for speed
 -- Configuring done (0.2s)
--- Generating done (0.0s)
+-- Generating done (0.1s)
 -- Build files have been written to: /home/ktkuri/Desktop/SMC_F429/cmake-build-release-stm32
->>>>>>> f4973603216bbe1cb8eeba9353ddcfa5da0e96ee

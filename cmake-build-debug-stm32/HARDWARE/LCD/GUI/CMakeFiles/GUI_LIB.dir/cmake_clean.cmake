@@ -1,5 +1,6 @@
 file(REMOVE_RECURSE
   "CMakeFiles/GUI_LIB.dir/exti.c.obj"
+  "CMakeFiles/GUI_LIB.dir/exti.c.obj.d"
   "libGUI_LIB.a"
   "libGUI_LIB.pdb"
 )

@@ -4,31 +4,19 @@ set(CMAKE_DEPENDS_IN_PROJECT_ONLY OFF)
 
 # The set of languages for which implicit dependencies are needed:
 set(CMAKE_DEPENDS_LANGUAGES
-  "C"
-  )
-# The set of files for implicit dependencies of each language:
-set(CMAKE_DEPENDS_CHECK_C
-  "/home/ktkuri/Desktop/SMC_F429/RTOS/comment/croutine.c" "/home/ktkuri/Desktop/SMC_F429/cmake-build-debug-stm32/RTOS/CMakeFiles/RTOS_LIB.dir/comment/croutine.c.obj"
-  "/home/ktkuri/Desktop/SMC_F429/RTOS/comment/event_groups.c" "/home/ktkuri/Desktop/SMC_F429/cmake-build-debug-stm32/RTOS/CMakeFiles/RTOS_LIB.dir/comment/event_groups.c.obj"
-  "/home/ktkuri/Desktop/SMC_F429/RTOS/comment/list.c" "/home/ktkuri/Desktop/SMC_F429/cmake-build-debug-stm32/RTOS/CMakeFiles/RTOS_LIB.dir/comment/list.c.obj"
-  "/home/ktkuri/Desktop/SMC_F429/RTOS/comment/queue.c" "/home/ktkuri/Desktop/SMC_F429/cmake-build-debug-stm32/RTOS/CMakeFiles/RTOS_LIB.dir/comment/queue.c.obj"
-  "/home/ktkuri/Desktop/SMC_F429/RTOS/comment/stream_buffer.c" "/home/ktkuri/Desktop/SMC_F429/cmake-build-debug-stm32/RTOS/CMakeFiles/RTOS_LIB.dir/comment/stream_buffer.c.obj"
-  "/home/ktkuri/Desktop/SMC_F429/RTOS/comment/tasks.c" "/home/ktkuri/Desktop/SMC_F429/cmake-build-debug-stm32/RTOS/CMakeFiles/RTOS_LIB.dir/comment/tasks.c.obj"
-  "/home/ktkuri/Desktop/SMC_F429/RTOS/comment/timers.c" "/home/ktkuri/Desktop/SMC_F429/cmake-build-debug-stm32/RTOS/CMakeFiles/RTOS_LIB.dir/comment/timers.c.obj"
-  "/home/ktkuri/Desktop/SMC_F429/RTOS/portable/heap_4.c" "/home/ktkuri/Desktop/SMC_F429/cmake-build-debug-stm32/RTOS/CMakeFiles/RTOS_LIB.dir/portable/heap_4.c.obj"
-  "/home/ktkuri/Desktop/SMC_F429/RTOS/portable/port.c" "/home/ktkuri/Desktop/SMC_F429/cmake-build-debug-stm32/RTOS/CMakeFiles/RTOS_LIB.dir/portable/port.c.obj"
-  )
-set(CMAKE_C_COMPILER_ID "GNU")
-
-# The include file search paths:
-set(CMAKE_C_TARGET_INCLUDE_PATH
-  "/home/ktkuri/Desktop/SMC_F429/CORE"
-  "/home/ktkuri/Desktop/SMC_F429/RTOS/comment"
-  "/home/ktkuri/Desktop/SMC_F429/RTOS/portable"
   )
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
+  "/home/ktkuri/Desktop/SMC_F429/RTOS/comment/croutine.c" "RTOS/CMakeFiles/RTOS_LIB.dir/comment/croutine.c.obj" "gcc" "RTOS/CMakeFiles/RTOS_LIB.dir/comment/croutine.c.obj.d"
+  "/home/ktkuri/Desktop/SMC_F429/RTOS/comment/event_groups.c" "RTOS/CMakeFiles/RTOS_LIB.dir/comment/event_groups.c.obj" "gcc" "RTOS/CMakeFiles/RTOS_LIB.dir/comment/event_groups.c.obj.d"
+  "/home/ktkuri/Desktop/SMC_F429/RTOS/comment/list.c" "RTOS/CMakeFiles/RTOS_LIB.dir/comment/list.c.obj" "gcc" "RTOS/CMakeFiles/RTOS_LIB.dir/comment/list.c.obj.d"
+  "/home/ktkuri/Desktop/SMC_F429/RTOS/comment/queue.c" "RTOS/CMakeFiles/RTOS_LIB.dir/comment/queue.c.obj" "gcc" "RTOS/CMakeFiles/RTOS_LIB.dir/comment/queue.c.obj.d"
+  "/home/ktkuri/Desktop/SMC_F429/RTOS/comment/stream_buffer.c" "RTOS/CMakeFiles/RTOS_LIB.dir/comment/stream_buffer.c.obj" "gcc" "RTOS/CMakeFiles/RTOS_LIB.dir/comment/stream_buffer.c.obj.d"
+  "/home/ktkuri/Desktop/SMC_F429/RTOS/comment/tasks.c" "RTOS/CMakeFiles/RTOS_LIB.dir/comment/tasks.c.obj" "gcc" "RTOS/CMakeFiles/RTOS_LIB.dir/comment/tasks.c.obj.d"
+  "/home/ktkuri/Desktop/SMC_F429/RTOS/comment/timers.c" "RTOS/CMakeFiles/RTOS_LIB.dir/comment/timers.c.obj" "gcc" "RTOS/CMakeFiles/RTOS_LIB.dir/comment/timers.c.obj.d"
+  "/home/ktkuri/Desktop/SMC_F429/RTOS/portable/heap_4.c" "RTOS/CMakeFiles/RTOS_LIB.dir/portable/heap_4.c.obj" "gcc" "RTOS/CMakeFiles/RTOS_LIB.dir/portable/heap_4.c.obj.d"
+  "/home/ktkuri/Desktop/SMC_F429/RTOS/portable/port.c" "RTOS/CMakeFiles/RTOS_LIB.dir/portable/port.c.obj" "gcc" "RTOS/CMakeFiles/RTOS_LIB.dir/portable/port.c.obj.d"
   )
 
 # Targets to which this target links which contain Fortran sources.

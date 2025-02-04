@@ -28,6 +28,8 @@ extern "C"
 #define Right CCR2
 // 定义PWM输出最大值
 #define MAX_PWM 9000
+
+
 // 定义从串口读出的数据
 #define OpenMVData  USART_Deal(&USART2_DataBuff,1)
 #define K210Data    USART_Deal(&USART3_DataBuff,1)
@@ -68,9 +70,9 @@ uint8_t Project_BSP_GetKey();
 
 #ifdef __cplusplus
 }
-#endif // DEBUG
+#endif
 
 
 
 
-#endif // ! _
+#endif

@@ -43,7 +43,7 @@ float Project_BSP_GetADC()
 {
     float ADC_Value;
     ADC_Value = ADC_GetConversionValue(ADC1);
-    ADC_Value = (ADC_Value/4095)*3.26;
+    ADC_Value = ADC_Value/4095*3.26;
     ADC_Value -= 2.316;
     ADC_Value = ADC_Value/0.83*100;
     ADC_Value = ADC_Value>100?100:ADC_Value;

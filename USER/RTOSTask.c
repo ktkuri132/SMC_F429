@@ -104,7 +104,7 @@ Mode_1:     // 加入监测MPU6050
         taskEXIT_CRITICAL();
         vTaskDelayUntil(&xLastWakeTime, xFrequency_5);
     }
-Mode_2:     // 加入监测OpenMV
+Mode_2:     // 加入监测OpeMV
     while (1)
     {
         // 进入临界区
@@ -192,6 +192,7 @@ void Task4_LEDPlay(uint8_t Mode)
         break;
     case 2:
         goto Yellow_LED;
+        break;
     default:
         break;
     }

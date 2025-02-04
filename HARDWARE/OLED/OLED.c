@@ -1,5 +1,8 @@
 #include "OLED.h"
 
+#include <stdio.h>
+#include <tgmath.h>
+
 #ifdef __OLED_
 
 uint8_t OLED_DisplayBuf[8][128];

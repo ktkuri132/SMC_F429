@@ -1,5 +1,6 @@
 #include "softi2c.h"     // 此处定义片上软件IIC
 
+
 void delay_us(uint32_t nus)
 {
 	SysTick->LOAD = nus * 1; 
@@ -207,8 +208,7 @@ u8 Soft_IIC_Read_Len(u8 addr,u8 reg,u8 len,u8 *buf)
  	Soft_IIC_Start(); 
 	Soft_IIC_Send_Byte(addr|0);//发送器件地址+写命令	
 	if(Soft_IIC_Wait_Ack())	//等待应答
-	{;		 
-		printf("未检测到MPU6050");
+	{;
 		Soft_IIC_Stop();
 		return 1;
 	}

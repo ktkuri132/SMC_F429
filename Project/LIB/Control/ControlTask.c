@@ -28,6 +28,7 @@ uint8_t Project_LIB_ControlStrat()
 {
     //  Data_Save_from_Camer();
     printf("%d\n",Data_Save_from_Camer());
+    printf("111\n");
     // Project_LIB_ControlTask();
 }
 
@@ -45,9 +46,5 @@ void Project_LIB_ControlTask()
 }
 
 
-/// @brief  控制帮助函数
-void Project_LIB_ControlHelp() {
-
-}
 
 

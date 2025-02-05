@@ -91,59 +91,106 @@ void NVIC_Configuration(void)
   * @}
   */
 
-void _exit() {
-
+int _kill(int pid, int sig)
+{
+    (void)pid;
+    (void)sig;
+    return -1;
 }
 
-void _read_r()
+void _exit (int status)
 {
+    _kill(status, -1);
+    while (1) {}    /* Make sure we hang here */
+}
 
+int _close(int file)
+{
+    (void)file;
+    return -1;
 }
 
 
-void _lseek_r()
+int _fstat(int file, struct stat *st)
 {
-
+    (void)file;
+    return 0;
 }
 
-void _kill_r()
+int _isatty(int file)
 {
-
+    (void)file;
+    return 1;
 }
 
-void _isatty_r()
+int _lseek(int file, int ptr, int dir)
 {
-
+    (void)file;
+    (void)ptr;
+    (void)dir;
+    return 0;
 }
 
-void _getpid_r()
+int _open(char *path, int flags, ...)
 {
-
+    (void)path;
+    (void)flags;
+    /* Pretend like we always fail */
+    return -1;
 }
 
-void _fstat_r()
+int _wait(int *status)
 {
-
+    (void)status;
+    return -1;
 }
 
-void _close_r()
+int _unlink(char *name)
 {
-
+    (void)name;
+    return -1;
 }
 
-void _write_r()
+int _times(struct tms *buf)
 {
-
+    (void)buf;
+    return -1;
 }
 
-void _sbrk()
+int _stat(char *file, struct stat *st)
 {
-
+    (void)file;
+    return 0;
 }
 
-void _open_r()
+int _link(char *old, char *new)
 {
+    (void)old;
+    (void)new;
+    return -1;
+}
 
+int _fork(void)
+{
+    return -1;
+}
+
+int _execve(char *name, char **argv, char **env)
+{
+    (void)name;
+    (void)argv;
+    (void)env;
+    return -1;
+}
+
+int _sbrk(int incr) {
+    (void)incr;
+    return -1;
+}
+
+int _getpid(void) {
+    (void)1;
+    return 1;
 }
 
 

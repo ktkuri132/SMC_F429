@@ -5,11 +5,24 @@
 // 串口重定向:实现_write函数,默认使用串口1
 int _write(int file, char *ptr, int len)
 {
+    (void)file;
     int i = 0;
     for (i = 0; i < len; i++)
     {
         while ((USART1->SR & USART_SR_TXE) == 0);
         USART1->DR = ptr[i];
+    }
+    return len;
+}
+
+int _read(int file, char *ptr, int len)
+{
+    (void)file;
+    int DataIdx;
+
+    for (DataIdx = 0; DataIdx < len; DataIdx++)
+    {
+        *ptr++ = USART1->DR;
     }
     return len;
 }

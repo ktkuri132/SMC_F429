@@ -13,11 +13,11 @@ extern "C"
 #include <Project/Project.h>
 #include <Project/Dev/HW_201/hw201.h>
 
-#include "RTOSTaskConfig.h"
-#include "usart/Serial.h"
-#include "usart/usart.h"
-#include "OLED/OLED.h"
-#include "MPU6050/inv_mpu.h"
+#include <RTOSTaskConfig.h>
+#include <usart/Serial.h>
+#include <usart/usart.h>
+#include <OLED/OLED.h>
+#include <MPU6050/inv_mpu.h>
 
 #include <LIB/Control/control.h>
 

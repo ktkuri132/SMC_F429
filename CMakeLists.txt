@@ -82,7 +82,8 @@ target_link_libraries(${PROJECT_NAME}.elf BSP_LIB CORE_LIB HARDWARE_LIB Project_
 
 set(ROOT_DIR ${CMAKE_SOURCE_DIR})
 
-include_directories(${CMAKE_SOURCE_DIR})
+include_directories(CORE Project BSP HARDWARE RTOS USER)
+
 
 # 添加头文件路径
 target_include_directories(${PROJECT_NAME}.elf PUBLIC ${ROOT_DIR})

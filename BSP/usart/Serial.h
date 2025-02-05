@@ -1,9 +1,11 @@
 #ifndef SERIAL_TOOL
 #define SERIAL_TOOL
 
-#include "stm32f4xx.h"
-#include "stdio.h"
-
+#include <stm32f4xx.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include  "usart.h"
 void usart_send_string(USART_TypeDef *USARTx ,uint8_t *data);
 
 

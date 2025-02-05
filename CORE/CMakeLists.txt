@@ -11,5 +11,5 @@ target_include_directories(${DIR_NAME}_LIB PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})
 
 target_include_directories(${DIR_NAME}_LIB PRIVATE ${CMAKE_SOURCE_DIR}/BSP)
 target_include_directories(${DIR_NAME}_LIB PRIVATE ${CMAKE_SOURCE_DIR}/USER)
-target_include_directories(${DIR_NAME}_LIB PRIVATE ${CMAKE_SOURCE_DIR}/Project)
+target_include_directories(${DIR_NAME}_LIB PRIVATE ${CMAKE_SOURCE_DIR}/HARDWARE)
 

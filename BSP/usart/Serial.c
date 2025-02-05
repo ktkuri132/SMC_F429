@@ -1,18 +1,5 @@
 #include "Serial.h"
 
-
-// 串口重定向:实现_write函数,默认使用串口1
-int _write(int file, char *ptr, int len)
-{
-    int i = 0;
-    for (i = 0; i < len; i++)
-    {
-        while ((USART1->SR & USART_SR_TXE) == 0);
-        USART1->DR = ptr[i];
-    }
-    return len;
-}
-
 // 通用串口发送函数
 void usart_send_string(USART_TypeDef *USARTx ,uint8_t *data)
 {

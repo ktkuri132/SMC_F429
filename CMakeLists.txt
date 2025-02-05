@@ -72,7 +72,7 @@ add_link_options(-T ${LINKER_SCRIPT})
 # add_definitions(-DDEBUG -DUSE_HAL_DRIVER -DSTM32F429xx)
 
 # 生成可执行文件
-add_executable(${PROJECT_NAME}.elf ${CMAKE_SOURCE_DIR}/USER/main.c ${LINKER_SCRIPT})
+add_executable(${PROJECT_NAME}.elf main.c ${LINKER_SCRIPT})
 
 # 忽略warning
 # target_compile_options(${PROJECT_NAME}.elf PRIVATE -W)
@@ -84,14 +84,9 @@ set(ROOT_DIR ${CMAKE_SOURCE_DIR})
 
 include_directories(${CMAKE_SOURCE_DIR})
 
-# 添加头文件路径
-target_include_directories(${PROJECT_NAME}.elf PUBLIC ${ROOT_DIR})
-target_include_directories(${PROJECT_NAME}.elf PRIVATE ${ROOT_DIR}/CORE)
-target_include_directories(${PROJECT_NAME}.elf PRIVATE ${ROOT_DIR}/Project)
-target_include_directories(${PROJECT_NAME}.elf PRIVATE ${ROOT_DIR}/BSP)
-target_include_directories(${PROJECT_NAME}.elf PRIVATE ${ROOT_DIR}/HARDWARE)
-target_include_directories(${PROJECT_NAME}.elf PRIVATE ${ROOT_DIR}/RTOS)
-target_include_directories(${PROJECT_NAME}.elf PRIVATE ${ROOT_DIR}/USER)
+# 为main.c添加头文件路径
+target_include_directories(${PROJECT_NAME}.elf PRIVATE CORE Project BSP HARDWARE RTOS USER)
+
 
 # 定义其他类型的可执行文件
 set(HEX_FILE ${PROJECT_BINARY_DIR}/${PROJECT_NAME}.hex)

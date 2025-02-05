@@ -7,19 +7,19 @@ extern "C"
 {
 #endif
 
-#include <sys.h>
+#include <BSP/sys.h>
 #include <RTOS/comment/FreeRTOS.h>
 #include <RTOS/comment/task.h>
 #include <Project/Project.h>
 #include <Project/Dev/HW_201/hw201.h>
 
-#include "RTOSTaskConfig.h"
-#include "usart/Serial.h"
-#include "usart/usart.h"
-#include "OLED/OLED.h"
-#include "MPU6050/inv_mpu.h"
+#include "USER/RTOSTaskConfig.h"
+#include "BSP/usart/Serial.h"
+#include "BSP/usart/usart.h"
+#include "HARDWARE/OLED/OLED.h"
+#include "HARDWARE/MPU6050/inv_mpu.h"
 
-#include <LIB/Control/control.h>
+#include <Project/LIB/Control/control.h>
 
 // 定义串口数据结构
 Stde_DataTypeDef USART2_DataBuff;
@@ -119,6 +119,22 @@ void USART3_IRQHandler()
     if(USART3->SR & USART_SR_RXNE)
     {
         STDE_UART(USART3,&USART3_DataBuff);
+    }
+}
+
+void UART4_IRQHandler()
+{
+    if(UART4->SR & USART_SR_RXNE)
+    {
+        STDE_UART(UART4,&UART4_DataBuff);
+    }
+}
+
+void UART5_IRQHandler()
+{
+    if(UART5->SR & USART_SR_RXNE)
+    {
+        STDE_UART(UART5,&UART5_DataBuff);
     }
 }
 

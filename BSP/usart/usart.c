@@ -1,4 +1,4 @@
-#include "Project.h"
+#include <sys.h>
 #include "usart.h"
 #include "Serial.h"
 
@@ -226,18 +226,4 @@ void bsp_uart_5_inti(uint32_t baudrate)
 
 extern Stde_DataTypeDef USART3_DataBuff,UART5_DataBuff,UART4_DataBuff;
 
-void UART4_IRQHandler()
-{
-    if(UART4->SR & USART_SR_RXNE)
-    {
-        STDE_UART(UART4,&UART4_DataBuff);
-    }
-}
 
-void UART5_IRQHandler()
-{
-    if(UART5->SR & USART_SR_RXNE)
-    {
-        STDE_UART(UART5,&UART5_DataBuff);
-    }
-}

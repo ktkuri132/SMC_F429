@@ -26,7 +26,7 @@ extern Stde_DataTypeDef USART3_DataBuff,UART5_DataBuff,UART4_DataBuff;    // dec
 uint8_t Project_LIB_ControlStrat()
 {
     //  Data_Save_from_Camer();
-    printf("%d\n",Data_Save_from_Camer());
+    // printf("%d\n",Data_Save_from_Camer());
     // Project_LIB_ControlTask();
 }
 

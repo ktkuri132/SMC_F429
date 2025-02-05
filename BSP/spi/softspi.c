@@ -1,5 +1,6 @@
 #include "softspi.h"
 
+#undef __STM32F4xx_GPIO_H
 
 //*------------------------------------------------------通用接口--------------------------------------------
 void Soft_W_SCK(uint8_t x)
@@ -47,31 +48,35 @@ void Soft_W_CS3(uint8_t x)
 void Soft_SPI_Init(void)
 {
     #ifdef __STM32F4xx_GPIO_H
-    RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOA, ENABLE);
-    RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOA, ENABLE);
-	
+    RCC_AHB1PeriphClockCmd(GetGPIOPeriphClock(SOFT_SPI_CS1_PORT), ENABLE);
+    RCC_AHB1PeriphClockCmd(GetGPIOPeriphClock(SOFT_SPI_MOSI_PORT), ENABLE);
+    RCC_AHB1PeriphClockCmd(GetGPIOPeriphClock(SOFT_SPI_MISO_PORT), ENABLE);
+    RCC_AHB1PeriphClockCmd(GetGPIOPeriphClock(SOFT_SPI_SCK_PORT), ENABLE);
+
 	GPIO_InitTypeDef GPIO_InitStructure;
  	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_OUT;
-    GPIO_InitStructure.GPIO_OType=GPIO_OType_PP;
-	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
-	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_12;
- 	GPIO_Init(GPIOB, &GPIO_InitStructure);
-	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_13;
- 	GPIO_Init(GPIOB, &GPIO_InitStructure);
-	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_14;
- 	GPIO_Init(GPIOB, &GPIO_InitStructure);
-	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_15;
- 	GPIO_Init(GPIOB, &GPIO_InitStructure);
-	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_8;
- 	GPIO_Init(GPIOA, &GPIO_InitStructure);
+    GPIO_InitStructure.GPIO_OType= GPIO_OType_PP;
+	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_100MHz;
+	GPIO_InitStructure.GPIO_Pin = SOFT_SPI_CS1_PIN;
+ 	GPIO_Init(SOFT_SPI_CS1_PORT, &GPIO_InitStructure);
+	GPIO_InitStructure.GPIO_Pin = SOFT_SPI_MOSI_PIN;
+ 	GPIO_Init(SOFT_SPI_MOSI_PORT, &GPIO_InitStructure);
+    GPIO_InitStructure.GPIO_Pin = SOFT_SPI_SCK_PIN;
+ 	GPIO_Init(SOFT_SPI_SCK_PORT, &GPIO_InitStructure);
+
+    GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IN;
+	GPIO_InitStructure.GPIO_Pin = SOFT_SPI_MISO_PIN;
+ 	GPIO_Init(SOFT_SPI_MISO_PORT, &GPIO_InitStructure);
+
+
 	#else
     // 初始化通用接口
     bsp_gpio_init(SOFT_SPI_SCK_PORT, SOFT_SPI_SCK_PIN, SYS_GPIO_MODE_OUT, SYS_GPIO_OTYPE_PP, SYS_GPIO_SPEED_HIGH, SYS_GPIO_PUPD_PU);
     bsp_gpio_init(SOFT_SPI_MOSI_PORT, SOFT_SPI_MOSI_PIN, SYS_GPIO_MODE_OUT, SYS_GPIO_OTYPE_PP, SYS_GPIO_SPEED_HIGH, SYS_GPIO_PUPD_PU);
-    bsp_gpio_init(SOFT_SPI_MISO_PORT, SOFT_SPI_MISO_PIN, SYS_GPIO_MODE_OUT, SYS_GPIO_OTYPE_PP, SYS_GPIO_SPEED_HIGH, SYS_GPIO_PUPD_PU);
+    bsp_gpio_init(SOFT_SPI_MISO_PORT, SOFT_SPI_MISO_PIN, SYS_GPIO_MODE_IN, SYS_GPIO_OTYPE_PP, SYS_GPIO_SPEED_HIGH, SYS_GPIO_PUPD_PU);
     bsp_gpio_init(SOFT_SPI_CS1_PORT, SOFT_SPI_CS1_PIN, SYS_GPIO_MODE_OUT, SYS_GPIO_OTYPE_PP, SYS_GPIO_SPEED_HIGH, SYS_GPIO_PUPD_PU);
-    bsp_gpio_init(SOFT_SPI_CS2_PORT, SOFT_SPI_CS2_PIN, SYS_GPIO_MODE_OUT, SYS_GPIO_OTYPE_PP, SYS_GPIO_SPEED_HIGH, SYS_GPIO_PUPD_PU);
-    bsp_gpio_init(SOFT_SPI_CS3_PORT, SOFT_SPI_CS3_PIN, SYS_GPIO_MODE_OUT, SYS_GPIO_OTYPE_PP, SYS_GPIO_SPEED_HIGH, SYS_GPIO_PUPD_PU);
+    // bsp_gpio_init(SOFT_SPI_CS2_PORT, SOFT_SPI_CS2_PIN, SYS_GPIO_MODE_OUT, SYS_GPIO_OTYPE_PP, SYS_GPIO_SPEED_HIGH, SYS_GPIO_PUPD_PU);
+    // bsp_gpio_init(SOFT_SPI_CS3_PORT, SOFT_SPI_CS3_PIN, SYS_GPIO_MODE_OUT, SYS_GPIO_OTYPE_PP, SYS_GPIO_SPEED_HIGH, SYS_GPIO_PUPD_PU);
     // 初始化兼容接口
     // bsp_gpio_init(SOFT_SPI_DC_PORT,SOFT_SPI_DC_PIN,SYS_GPIO_MODE_OUT, SYS_GPIO_OTYPE_PP, SYS_GPIO_SPEED_HIGH, SYS_GPIO_PUPD_PU);
     // bsp_gpio_init(SOFT_SPI_RES_PORT,SOFT_SPI_RES_PIN,SYS_GPIO_MODE_OUT, SYS_GPIO_OTYPE_PP, SYS_GPIO_SPEED_HIGH, SYS_GPIO_PUPD_PU);

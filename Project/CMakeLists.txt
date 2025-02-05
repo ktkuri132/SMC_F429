@@ -13,7 +13,7 @@ file(GLOB_RECURSE ${DIR_NAME}_Source
         Dev/HW_201/*.c
         Dev/KEY/*.c
         Dev/LED/*.c
-        DEV/PWM/*.c
+        Dev/PWM/*.c
         Dev/TB6612/*.c
         LIB/Control/*.c
         LIB/PID/*.c

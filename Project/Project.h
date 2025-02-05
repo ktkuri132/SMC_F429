@@ -36,9 +36,9 @@ extern "C"
 
 
 /*  project function in BSP folder    */
-void    Project_BSP_PWM_TIM2_Init();
-void    Project_BSP_Encoding_Init();
-void    Project_BSP_TB6612_Init();
+void Project_BSP_PWM_TIM2_Init();
+void Project_BSP_Encoding_Init();
+void Project_BSP_TB6612_Init();
 // void    Project_BSP_HW201_Init();
 // uint8_t Project_BSP_HW201_Get();
 

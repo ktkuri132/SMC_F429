@@ -5,23 +5,24 @@
 #define  __SOFTSPI_
 
 #include "sys.h"
+#include <stddef.h>
 
 
 // SPI协议通用接口
 #define SOFT_SPI_SCK_PORT   GPIOB
-#define SOFT_SPI_MOSI_PORT  GPIOB
-#define SOFT_SPI_MISO_PORT  GPIOB
+#define SOFT_SPI_MOSI_PORT  GPIOF
+#define SOFT_SPI_MISO_PORT  GPIOF
 #define SOFT_SPI_CS1_PORT   GPIOB
-#define SOFT_SPI_CS2_PORT   GPIOB
-#define SOFT_SPI_CS3_PORT   GPIOB
+#define SOFT_SPI_CS2_PORT   NULL
+#define SOFT_SPI_CS3_PORT   NULL
 
-#define SOFT_SPI_SCK_PIN    SYS_GPIO_PIN8
-#define SOFT_SPI_MOSI_PIN   SYS_GPIO_PIN9
-#define SOFT_SPI_MISO_PIN   0
+#define SOFT_SPI_SCK_PIN    SYS_GPIO_PIN2
+#define SOFT_SPI_MOSI_PIN   SYS_GPIO_PIN8
+#define SOFT_SPI_MISO_PIN   SYS_GPIO_PIN9
 
-#define SOFT_SPI_CS1_PIN    SYS_GPIO_PIN11
-#define SOFT_SPI_CS2_PIN    0
-#define SOFT_SPI_CS3_PIN    0
+#define SOFT_SPI_CS1_PIN    SYS_GPIO_PIN6
+#define SOFT_SPI_CS2_PIN    NULL
+#define SOFT_SPI_CS3_PIN    NULL
 
 // 部分SPI外设的兼容接口
 // #define SOFT_SPI_DC_PORT  GPIOB

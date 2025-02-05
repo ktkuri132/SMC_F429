@@ -1,5 +1,6 @@
 #include "stm32f4xx.h"
 #include "misc.h"
+#include "stm32f4xx_rcc.h"
 
 #define SysTick_CLKSource_HCLK_Div8    ((uint32_t)0xFFFFFFFB)
 #define SysTick_CLKSource_HCLK         ((uint32_t)0x00000004)
@@ -84,10 +85,46 @@ void NVIC_Configuration(void)
 
 }
 
+uint32_t GetGPIOPeriphClock(GPIO_TypeDef * GPIOx) {
+    if (GPIOx == GPIOA) {
+        return RCC_AHB1Periph_GPIOA;
+    }
+    else if (GPIOx == GPIOB) {
+        return RCC_AHB1Periph_GPIOB;
+    }
+    else if (GPIOx == GPIOC) {
+        return RCC_AHB1Periph_GPIOC;
+    }
+    else if (GPIOx == GPIOD) {
+        return RCC_AHB1Periph_GPIOD;
+    }
+    else if (GPIOx == GPIOE) {
+        return RCC_AHB1Periph_GPIOE;
+    }
+    else if (GPIOx == GPIOF) {
+        return RCC_AHB1Periph_GPIOF;
+    }
+    else if (GPIOx == GPIOG) {
+        return RCC_AHB1Periph_GPIOG;
+    }
+    else if (GPIOx == GPIOH) {
+        return RCC_AHB1Periph_GPIOH;
+    }
+    else if (GPIOx == GPIOI) {
+        return RCC_AHB1Periph_GPIOI;
+    }
+    else if (GPIOx == GPIOJ) {
+        return RCC_AHB1Periph_GPIOJ;
+    }
+    else if (GPIOx == GPIOK) {
+        return RCC_AHB1Periph_GPIOK;
+    }
+}
+
 
 /**
  * 
- * 这些几把库函数老是报警告，定义它们就不报警告了
+ * 不使用标准库的重定向
   * @}
   */
 
@@ -111,7 +148,7 @@ int _read(int file, char *ptr, int len)
 
     for (DataIdx = 0; DataIdx < len; DataIdx++)
     {
-        *ptr++ = USART2->DR;
+        *ptr++ = USART1->DR;
     }
 
     return len;

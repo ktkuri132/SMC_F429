@@ -14,6 +14,7 @@ file(GLOB_RECURSE ${DIR_NAME}_Source
         MPU6050/*.c
         OLED/*.c
         SDRAM/*.c
+        W25Q64/*.c
 )
 
 # 生成库文件

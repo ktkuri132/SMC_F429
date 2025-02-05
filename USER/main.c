@@ -92,10 +92,11 @@ Init_Project:
 // 创建任务句柄
 TaskHandle_t *Task1_SystemStart_Handle;
 
-TaskHandle_t *Task3_Project_Display_MPU6050_Handle;
-TaskHandle_t *Task3_Project_Display_OpenMV_Handle;
-TaskHandle_t *Task3_Project_Display_Voltage_Handle;
-TaskHandle_t *Task3_Project_Display_Time_Handle;
+TaskHandle_t *Task3_Project_Display_Mode_1_Handle;
+TaskHandle_t *Task3_Project_Display_Mode_2_Handle;
+TaskHandle_t *Task3_Project_Display_Mode_3_Handle;
+TaskHandle_t *Task3_Project_Display_Mode_4_Handle;
+TaskHandle_t *Task3_Project_Display_Mode_2_1_Handle;
 
 TaskHandle_t *Task4_LEDPlayR_Handle;
 TaskHandle_t *Task4_LEDPlayY_Handle;
@@ -108,9 +109,9 @@ int main()
     // xTaskCreate((TaskFunction_t)Task3_Project_Display,"DisPlay_MPU6050",1024,
     //                             1,10,Task3_Project_Display_MPU6050_Handle);
     xTaskCreate((TaskFunction_t)Task3_Project_Display,"DisPlay_Camer",1024,
-                                2,10,Task3_Project_Display_OpenMV_Handle);
+                                2,10,Task3_Project_Display_Mode_2_Handle);
     xTaskCreate((TaskFunction_t)Task3_Project_Display,"DisPlay_Voltage",1024,
-                                3,10,Task3_Project_Display_Voltage_Handle);   
+                                3,10,Task3_Project_Display_Mode_3_Handle);   
     // xTaskCreate((TaskFunction_t)Task3_Project_Display,"DisPlay_Time",1024,
     //                             4,10,Task3_Project_Display_Time_Handle);                                                      
     // xTaskCreate((TaskFunction_t)Task4_LEDPlay,"Task4_LEDPlay",1024,

@@ -113,7 +113,7 @@ void STDE_UART(USART_TypeDef *USARTx,Stde_DataTypeDef* DataTypeStruct)
                 case '1':DataTypeStruct->UART_DATA_TYPE=1;break;
                 // 其他数据格式......
                 case '2':DataTypeStruct->UART_DATA_TYPE=2;break;
-                // 检测：命令数据格式
+                // 检测：命令数据格式比如‘p’
                 case 'p':
                     DataTypeStruct->UART_DATA_TYPE='p';
                     DataTypeStruct->CMD_Callback();

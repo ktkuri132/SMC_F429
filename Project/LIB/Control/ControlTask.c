@@ -21,26 +21,33 @@ extern Stde_DataTypeDef USART3_DataBuff,UART5_DataBuff,UART4_DataBuff;    // dec
  *
  */
 
+extern uint8_t RLContrl;
 
 /// @brief 控制状态
 uint8_t Project_LIB_ControlStrat()
 {
-    //  Data_Save_from_Camer();
-    printf("%d\n",Data_Save_from_Camer());
-    // Project_LIB_ControlTask();
+    Data_Save_from_Camer();     // 存储次数超过两次自动锁定不再进入
+    Data_Get_from_Camer();      
+    Project_LIB_ControlTask();
 }
 
 /// @brief 控制任务
 void Project_LIB_ControlTask()
 {
-    
-    static PID pidForLine;                                              //* 创建PID结构体
-    PID_TypeStructInit(&pidForLine,10,-10,0,120,PID_forLine,NULL);     //* 初始化
+    static PID pidForLine;                                              // 创建PID结构体
+    PID_TypeStructInit(&pidForLine,10,-10,0,120,PID_forLine,NULL);     // 初始化
 
     pidForLine.PID_Update1(&pidForLine);    
-    // printf("%d\n",pidForLine.output);                            //* 计算                             //* 发送数据
-    Project_LIB_Motor_Load(3000-pidForLine.output,3000+pidForLine.output);        //* 装载到电机
-
+    // printf("%d\n",pidForLine.output);   
+    if(RLContrl == 1){
+        Project_LIB_Motor_Load(-5000,5000);
+    }                               
+    else if(RLContrl == 2){
+        Project_LIB_Motor_Load(5000,-5000);
+    }                       
+    else{
+        Project_LIB_Motor_Load(3000-pidForLine.output,3000+pidForLine.output);        // 装载到电机
+    }
 }
 
 

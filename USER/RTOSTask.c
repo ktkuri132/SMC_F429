@@ -5,10 +5,11 @@ uint8_t ucHeap[ configTOTAL_HEAP_SIZE ] __attribute__((section(".ext_sram")));
 
 extern Stde_DataTypeDef USART2_DataBuff,USART3_DataBuff,UART5_DataBuff,UART4_DataBuff;
 
-extern TaskHandle_t *Task3_Project_Display_MPU6050_Handle;
-extern TaskHandle_t *Task3_Project_Display_OpenMV_Handle;
-extern TaskHandle_t *Task3_Project_Display_Voltage_Handle;
-extern TaskHandle_t *Task3_Project_Display_Time_Handle;
+extern TaskHandle_t *Task3_Project_Display_Mode_1_Handle;
+extern TaskHandle_t *Task3_Project_Display_Mode_2_Handle;
+extern TaskHandle_t *Task3_Project_Display_Mode_3_Handle;
+extern TaskHandle_t *Task3_Project_Display_Mode_4_Handle;
+extern TaskHandle_t *Task3_Project_Display_Mode_2_1_Handle;
 extern TaskHandle_t *Task4_LEDPlayR_Handle;
 extern TaskHandle_t *Task4_LEDPlayY_Handle;
 
@@ -54,6 +55,8 @@ float pitch,roll,yaw;
 short gyro[3];
 extern uint8_t MotorStrat_1,MotorStrat_2,MotorStrat_3;
 
+uint8_t TaskDeletSign = 0;      // 函数删除信号
+
 /// @brief 显示输出
 /// @param Mode 显示模式
 void Task3_Project_Display(uint8_t Mode)
@@ -76,6 +79,10 @@ void Task3_Project_Display(uint8_t Mode)
         {
             goto Mode_2;
         }break;
+            case 21:
+            {
+                goto Mode_2_1;
+            }break;
         case 3:
         {
             goto Mode_3;
@@ -99,14 +106,48 @@ Mode_1:     // 加入监测MPU6050
         // 退出临界区
         taskEXIT_CRITICAL();
         vTaskDelayUntil(&xLastWakeTime, xFrequency_5);
+        if(TaskDeletSign == 1){
+            goto Mode_1_Out;
+        }
     }
+Mode_1_Out:
+    vTaskDelete(Task3_Project_Display_Mode_1_Handle);
+    TaskDeletSign = 0;  // 回应删除信号
+    return 0;
 Mode_2:     // 加入监测OpenMV
+    while (1)
+    {
+        // 进入临界区
+        taskENTER_CRITICAL();   
+        // 检查任务是否删除，放前面给予任务最后一次运行机会，放后面不运行最后一次
+        if(TaskDeletSign == 2){
+            vTaskDelete(Task3_Project_Display_Mode_2_Handle);
+            TaskDeletSign = 0;  // 回应删除信号
+        }
+        OLED_Printf(0,8,OLED_6X8,"OpenMV:%d",OpenMVData);
+        OLED_Printf(0,16,OLED_6X8,"K210:%d,%d",CamerData[0],CamerData[1]);
+        OLED_Update();
+        if(USART_Deal(&USART2_DataBuff,0)==1)
+        {
+            MotorStrat_3 = 1;
+        }
+        else
+        {
+            MotorStrat_3 = 0;
+        }
+        
+        // 退出临界区
+        taskEXIT_CRITICAL();
+        vTaskDelayUntil(&xLastWakeTime, xFrequency_5);
+        
+    }
+Mode_2_1:
     while (1)
     {
         // 进入临界区
         taskENTER_CRITICAL();
         OLED_Printf(0,8,OLED_6X8,"OpenMV:%d",OpenMVData);
-        OLED_Printf(0,32,OLED_6X8,"K210:%d,%d",CamerData[0],CamerData[1]);
+        OLED_Printf(0,32,OLED_6X8,"K210:%d,%d",K210Data,CamerData[3]);
         OLED_Update();
         if(USART_Deal(&USART2_DataBuff,0)==1)
         {
@@ -119,7 +160,14 @@ Mode_2:     // 加入监测OpenMV
         // 退出临界区
         taskEXIT_CRITICAL();
         vTaskDelayUntil(&xLastWakeTime, xFrequency_5);
+        if(TaskDeletSign == 21){
+            goto Mode_2_1_Out;
+        }
     }
+Mode_2_1_Out:
+    vTaskDelete(Task3_Project_Display_Mode_2_1_Handle);
+    TaskDeletSign = 0;  // 回应删除信号
+    return 0;
 Mode_3:     // 加入监测电池电压
     while (1)
     {
@@ -140,7 +188,14 @@ Mode_3:     // 加入监测电池电压
         // 退出临界区
         taskEXIT_CRITICAL();
         vTaskDelayUntil(&xLastWakeTime, xFrequency_100);
+        if(TaskDeletSign == 3){
+            goto Mode_3_Out;
+        }
     }
+Mode_3_Out:
+    vTaskDelete(Task3_Project_Display_Mode_3_Handle);
+    TaskDeletSign = 0;  // 回应删除信号
+    return 0;
 Mode_4:
     static hour,min,sec;
     while (1)
@@ -170,7 +225,14 @@ Mode_4:
         // 退出临界区
         taskEXIT_CRITICAL();
         vTaskDelayUntil(&xLastWakeTime, xFrequency_1000);
+        if(TaskDeletSign == 4){
+            goto Mode_4_Out;
+        }
     }
+Mode_4_Out:
+    vTaskDelete(Task3_Project_Display_Mode_4_Handle);
+    TaskDeletSign = 0;  // 回应删除信号
+    return 0;
 }
 
 
@@ -188,6 +250,7 @@ void Task4_LEDPlay(uint8_t Mode)
         break;
     case 2:
         goto Yellow_LED;
+        break;
     default:
         break;
     }
@@ -200,6 +263,8 @@ Red_LED:
         vTaskDelayUntil(&xLastWakeTime, xFrequency);
         RunCounst--;
     }
+    vTaskDelete(Task4_LEDPlayR_Handle);
+    return 0;
 Yellow_LED:
     while (RunCounst)
     {
@@ -209,7 +274,8 @@ Yellow_LED:
         vTaskDelayUntil(&xLastWakeTime, xFrequency);
         RunCounst--;
     }
-    
+    vTaskDelete(Task4_LEDPlayY_Handle);
+    return 0;
 }
 
 
@@ -238,12 +304,12 @@ void Task5_KeyScan()
 
         if(!Project_BSP_HW201_Get())
         {
-            OLED_Printf(0,32,OLED_6X8,"HW201:1");
+            OLED_Printf(0,64,OLED_6X8,"HW201:1");
             MotorStrat_2 = 1;
         }
         else
         {
-            OLED_Printf(0,32,OLED_6X8,"HW201:0");
+            OLED_Printf(0,64,OLED_6X8,"HW201:0");
             MotorStrat_2 = 0;
         }
         vTaskDelayUntil(&xLastWakeTime, xFrequency);

@@ -1,2 +1,0 @@
-arm-none-eabi-ar qc libKEY_LIB.a CMakeFiles/KEY_LIB.dir/key.c.obj
-/usr/bin/arm-none-eabi-ranlib libKEY_LIB.a

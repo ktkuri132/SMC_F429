@@ -1,2 +1,0 @@
-arm-none-eabi-ar qc libi2c_LIB.a CMakeFiles/i2c_LIB.dir/hardi2c.c.obj CMakeFiles/i2c_LIB.dir/softi2c.c.obj CMakeFiles/i2c_LIB.dir/stm32f4xx_i2c.c.obj
-C:\PROGRA~2\ARMGNU~1\133167~1.3RE\bin\AR17F9~1.EXE libi2c_LIB.a

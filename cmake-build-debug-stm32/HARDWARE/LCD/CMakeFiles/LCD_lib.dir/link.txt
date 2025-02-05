@@ -1,2 +1,0 @@
-arm-none-eabi-ar qc libLCD_LIB.a CMakeFiles/LCD_LIB.dir/GUI/exti.c.obj CMakeFiles/LCD_LIB.dir/TOUCH/ctiic.c.obj CMakeFiles/LCD_LIB.dir/TOUCH/ft5206.c.obj CMakeFiles/LCD_LIB.dir/TOUCH/gt9xxx.c.obj CMakeFiles/LCD_LIB.dir/TOUCH/touch.c.obj CMakeFiles/LCD_LIB.dir/lcd.c.obj CMakeFiles/LCD_LIB.dir/ltdc.c.obj
-C:\PROGRA~2\ARMGNU~1\133167~1.3RE\bin\AR17F9~1.EXE libLCD_LIB.a

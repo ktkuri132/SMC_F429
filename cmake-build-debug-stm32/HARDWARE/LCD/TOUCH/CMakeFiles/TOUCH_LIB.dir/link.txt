@@ -1,2 +1,0 @@
-arm-none-eabi-ar qc libTOUCH_LIB.a CMakeFiles/TOUCH_LIB.dir/ctiic.c.obj CMakeFiles/TOUCH_LIB.dir/ft5206.c.obj CMakeFiles/TOUCH_LIB.dir/gt9xxx.c.obj CMakeFiles/TOUCH_LIB.dir/touch.c.obj
-C:\PROGRA~2\ARMGNU~1\133167~1.3RE\bin\AR17F9~1.EXE libTOUCH_LIB.a

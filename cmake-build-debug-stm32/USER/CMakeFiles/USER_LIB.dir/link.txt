@@ -1,2 +1,0 @@
-arm-none-eabi-ar qc libUSER_LIB.a CMakeFiles/USER_LIB.dir/RTOSTask.c.obj
-C:\PROGRA~2\ARMGNU~1\133167~1.3RE\bin\AR17F9~1.EXE libUSER_LIB.a

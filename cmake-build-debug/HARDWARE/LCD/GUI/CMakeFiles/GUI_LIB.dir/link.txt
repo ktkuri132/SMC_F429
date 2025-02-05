@@ -1,2 +1,0 @@
-arm-none-eabi-ar qc libGUI_LIB.a CMakeFiles/GUI_LIB.dir/exti.c.obj
-/usr/bin/arm-none-eabi-ranlib libGUI_LIB.a

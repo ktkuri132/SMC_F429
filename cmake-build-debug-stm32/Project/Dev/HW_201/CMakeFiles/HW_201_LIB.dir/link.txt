@@ -1,2 +1,0 @@
-arm-none-eabi-ar qc libHW_201_LIB.a CMakeFiles/HW_201_LIB.dir/hw201.c.obj
-C:\PROGRA~2\ARMGNU~1\133167~1.3RE\bin\AR17F9~1.EXE libHW_201_LIB.a

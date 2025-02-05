@@ -1,3 +1,0 @@
-file(REMOVE_RECURSE
-  "libMPU6050_LIB.a"
-)

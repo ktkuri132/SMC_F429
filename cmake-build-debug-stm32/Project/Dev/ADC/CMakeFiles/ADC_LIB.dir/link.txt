@@ -1,2 +1,0 @@
-arm-none-eabi-ar qc libADC_LIB.a CMakeFiles/ADC_LIB.dir/adc.c.obj CMakeFiles/ADC_LIB.dir/stm32f4xx_adc.c.obj
-C:\PROGRA~2\ARMGNU~1\133167~1.3RE\bin\AR17F9~1.EXE libADC_LIB.a

@@ -2,7 +2,7 @@
 #define __LCD_H		
 #ifdef __LCD_GUI_
 
-#include <gpio.h>	 
+#include <gpio/gpio.h>
 #include "stdlib.h" 
 #include <sys.h>
 //#include "font.h"

@@ -5,9 +5,10 @@
 #ifdef __cplusplus
  extern "C" {
 #endif
-
+#include "stm32f4xx.h"
 #include "sys.h"
 #include "lcd_gui.h"
+#include "lcd.h"
 
 
 void Button_check(uint8_t *act_sign,uint8_t button_num,uint16_t x,uint16_t y,uint16_t w,uint16_t h,char *string);

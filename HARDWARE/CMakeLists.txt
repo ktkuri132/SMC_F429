@@ -9,6 +9,7 @@ file(GLOB_RECURSE ${DIR_NAME}_Source
         ./*.c
         LCD/*.c
         LCD/GUI/*.c
+#        LCD/GUI/*.cpp
         LCD/TOUCH/*.c
         MPU6050/*.c
         OLED/*.c

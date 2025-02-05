@@ -60,8 +60,9 @@ Init_Project:
     Project_BSP_Buzzer_Init();     printf("初始化蜂鸣器\n");
     Project_BSP_ADC_Init();        printf("初始化ADC\n");
     Project_BSP_KEY_Init();        printf("初始化按键\n");
-    Project_LIB_TIM3_Init(10);     printf("初始化定时器\n");
-    main();
+    // Project_LIB_TIM3_Init(10);     printf("初始化定时器\n");
+    // main();
+    Test();
 }
 
 // 创建任务句柄

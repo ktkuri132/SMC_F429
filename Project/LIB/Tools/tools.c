@@ -8,12 +8,27 @@
 #include <comment/task.h>
 extern Stde_DataTypeDef USART3_DataBuff,UART5_DataBuff,UART4_DataBuff;
 
-extern TaskHandle_t *Task3_Project_Display_MPU6050_Handle;
-extern TaskHandle_t *Task3_Project_Display_OpenMV_Handle;
-extern TaskHandle_t *Task3_Project_Display_Voltage_Handle;
-extern TaskHandle_t *Task3_Project_Display_Time_Handle;
+extern TaskHandle_t *Task3_Project_Display_Mode_1_Handle;
+extern TaskHandle_t *Task3_Project_Display_Mode_2_Handle;
+extern TaskHandle_t *Task3_Project_Display_Mode_2_1_Handle;
+extern TaskHandle_t *Task3_Project_Display_Mode_3_Handle;
+extern TaskHandle_t *Task3_Project_Display_Mode_4_Handle;
 extern TaskHandle_t *Task4_LEDPlayR_Handle;
 extern TaskHandle_t *Task4_LEDPlayY_Handle;
+
+extern uint8_t TaskDeletSign;
+
+/// @brief 无条件固定运行次数的函数接口
+/// @param Fp 运行函数
+/// @param Count 运行函数
+/// @return 
+uint8_t Temp_Run(void *(Fp)(),uint8_t Count)
+{
+    static i = 0;
+    if(i<Count){
+        Fp();
+    }
+}
 
 /// @brief get the value of encoder on TIM4 and TIM5
 void Project_LIB_Get_Encoder_Value(uint16_t *value1,uint16_t *value2)
@@ -106,30 +121,81 @@ void Project_LIB_Motor_Load(int32_t leftMotor,int32_t RightMotor)
 
 
 uint8_t CamerData[4];
+uint8_t DataLock = 0;   // 规定数据存储次数，静态变量实现自锁与解锁
+
+uint8_t RLContrl = 0;
+
 /// @brief 将从串口读出的数据保存到Data中
 /// @return -2 相等返回 -1 返回出现扫描空挡 0，1 返回当前存储的位置
 uint8_t Data_Save_from_Camer()
 {
-    static uint8_t Temp;
-    if(Temp==K210Data){
-        return -2;    //  上次和这次数据一样
-    }
-    Temp = K210Data;    // 刷新临时数据
-    static uint8_t i;
-    if(Temp){   // 如果识别到了数字
-        if(!CamerData[i]){     // 如果缓冲数组的目前为止为空
-            CamerData[i] = Temp;        // 填入数字
-            if(!i){     // 返回0闪红灯
-                xTaskCreate((TaskFunction_t)Task4_LEDPlay,"Red_LED",512,1,10,Task4_LEDPlayR_Handle);
+    if(!DataLock){
+        static uint8_t Temp,i;
+        if(Temp==K210Data){
+            if(i == 1){     // 存入一个数字，选择性锁定存储
+                if(MotorStrat_2){       // 此时若电机被启动，直接强行锁定
+                    DataLock = 1;
+                    if(CamerData[0] == 1){
+                        RLContrl = 1;
+                    }
+                    else{
+                        RLContrl = 2;
+                    }
+                }
             }
-            else if(i){ // 返回1闪黄灯
-                xTaskCreate((TaskFunction_t)Task4_LEDPlay,"Yellow_LED",512,2,10,Task4_LEDPlayY_Handle);
+            return -2;    //  上次和这次数据一样
+        }
+        Temp = K210Data;    // 刷新临时数据
+        if(Temp){   // 如果识别到了数字
+            if(!CamerData[i]){     // 如果缓冲数组目前为止为空
+                CamerData[i] = Temp;        // 填入数字
+                if(!i){     // 返回0闪红灯
+                    xTaskCreate((TaskFunction_t)Task4_LEDPlay,"Red_LED",512,1,10,Task4_LEDPlayR_Handle);
+                }
+                else{ // 返回1闪黄灯
+                    xTaskCreate((TaskFunction_t)Task4_LEDPlay,"Yellow_LED",512,2,10,Task4_LEDPlayY_Handle);
+                }
+                i++;
+                if(i == 2){     // 存入两个数字，直接锁定数据存入
+                    DataLock = 1;
+                }
+                return i;
             }
-            i++;
-            return i;
+        }
+        else{   // 程序运行到这里，说明出现了扫描空挡
+            return -1;   // 返回3只会出现在，第一次出现扫描空挡的瞬间
         }
     }
-    else{   // 程序运行到这里，说明出现了扫描空挡
-        return -1;   // 返回3只会出现在，第一次出现扫描空挡的瞬间
+}
+
+
+
+/// @brief 将从串口识别到的数字进行识别配对
+/// @return 
+uint8_t Data_Get_from_Camer()
+{
+    if(DataLock){
+        static uint8_t n = 0;   // 删除任务的信号只发送一次
+        if(!n){
+            TaskDeletSign = 2;
+            n++;
+        }
+        if(!TaskDeletSign){     // 删除任务已完成
+            static uint8_t i = 0;       // 创建任务的函数也只调用一次
+            if(!i){
+                xTaskCreate((TaskFunction_t)Task3_Project_Display,"DisPlay_Camer",1024,
+                                        21,10,Task3_Project_Display_Mode_2_1_Handle);
+                i++;
+            }
+            static uint8_t Temp = 0;
+            // 首先判断，是存了一个还是两个数字
+            if(CamerData[1]){
+                
+            }
+        }
+        else{
+            return 1;   //删除任务未完成
+        }
     }
 }
+

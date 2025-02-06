@@ -17,7 +17,6 @@ void Test(){
   W25Q64_ReadData(0x00000000,&MID,1);
   printf("MID:%x,DID:%d\n",MID,DID);
   while(1){
-    bsp_systick_delay_ms(1000);
-    // printf("MID:%d,DID:%d\n",MID,DID);
+
   }
 }

@@ -134,3 +134,4 @@ void W25Q64_ReadData(uint32_t Address, uint8_t *DataArray, uint32_t Count)
 	}
 	Soft_SPI_Stop();								//SPI终止
 }
+

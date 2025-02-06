@@ -6,22 +6,23 @@
 
 
 #include <gpio/gpio.h>
+// #include "gpio.h"
 
 // SPI协议通用接口
-#define SOFT_SPI_SCK_PORT   GPIOB
+#define SOFT_SPI_SCK_PORT   GPIOF
 #define SOFT_SPI_MOSI_PORT  GPIOF
 #define SOFT_SPI_MISO_PORT  GPIOF
-#define SOFT_SPI_CS_PORT    GPIOB
+#define SOFT_SPI_CS_PORT    GPIOF
 
-#define SOFT_SPI_SCK_PIN    SYS_GPIO_PIN2
-#define SOFT_SPI_MOSI_PIN   SYS_GPIO_PIN8
-#define SOFT_SPI_MISO_PIN   SYS_GPIO_PIN9
+#define SOFT_SPI_SCK_PIN    SYS_GPIO_PIN7
+#define SOFT_SPI_MOSI_PIN   SYS_GPIO_PIN9
+#define SOFT_SPI_MISO_PIN   SYS_GPIO_PIN8
 #define SOFT_SPI_CS_PIN     SYS_GPIO_PIN6
 
-#define Soft_SPI_W_CS(x)     PFout(6)//bsp_gpio_pin_set(SOFT_SPI_CS_PORT,SOFT_SPI_CS_PIN,x)
-#define Soft_SPI_W_SCK(x)    PFout(2)//bsp_gpio_pin_set(SOFT_SPI_SCK_PORT,SOFT_SPI_SCK_PIN,x)
-#define Soft_SPI_W_MOSI(x)   PFout(8)//bsp_gpio_pin_set(SOFT_SPI_MOSI_PORT,SOFT_SPI_MOSI_PIN,x)
-#define Soft_SPI_R_MISO()    PFin(9)//bsp_gpio_pin_get(SOFT_SPI_MISO_PORT,SOFT_SPI_MISO_PIN)
+#define Soft_SPI_W_CS(x)     GPIO_WriteBit(SOFT_SPI_CS_PORT,SOFT_SPI_CS_PIN,x)
+#define Soft_SPI_W_SCK(x)    GPIO_WriteBit(SOFT_SPI_SCK_PORT,SOFT_SPI_SCK_PIN,x)
+#define Soft_SPI_W_MOSI(x)   GPIO_WriteBit(SOFT_SPI_MOSI_PORT,SOFT_SPI_MOSI_PIN,x)
+#define Soft_SPI_R_MISO()    GPIO_ReadInputDataBit(SOFT_SPI_MISO_PORT,SOFT_SPI_MISO_PIN)
 
 void Soft_SPI_Init(void);
 void Soft_SPI_SendByte(uint8_t CS,uint8_t Byte);

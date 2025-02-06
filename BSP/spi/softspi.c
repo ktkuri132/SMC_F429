@@ -1,7 +1,45 @@
 #include "softspi.h"
-
 #include <sys.h>
 
+#ifndef Soft_SPI_W_CS
+
+void Soft_SPI_W_CS(uint8_t BitValue)
+{
+	#ifdef __STM32F4xx_GPIO_H
+	GPIO_WriteBit(SOFT_SPI_CS_PORT, SOFT_SPI_CS_PIN, (BitAction)BitValue);
+	#else
+	bsp_gpio_pin_set(SOFT_SPI_CS_PORT,SOFT_SPI_CS_PIN,BitValue);
+	#endif
+}
+
+void Soft_SPI_W_SCK(uint8_t BitValue)
+{
+	#ifdef __STM32F4xx_GPIO_H
+	GPIO_WriteBit(SOFT_SPI_SCK_PORT, SOFT_SPI_SCK_PIN, (BitAction)BitValue);
+	#else
+	bsp_gpio_pin_set(SOFT_SPI_SCK_PORT,SOFT_SPI_SCK_PIN,BitValue);
+	#endif
+}
+
+void Soft_SPI_W_MOSI(uint8_t BitValue)
+{
+	#ifdef __STM32F4xx_GPIO_H
+	GPIO_WriteBit(SOFT_SPI_MOSI_PORT, SOFT_SPI_MOSI_PIN, (BitAction)BitValue);
+	#else
+	bsp_gpio_pin_set(SOFT_SPI_MOSI_PORT,SOFT_SPI_MOSI_PIN,BitValue);
+	#endif
+}
+
+uint8_t Soft_SPI_R_MISO(void)
+{
+	#ifdef __STM32F4xx_GPIO_H
+	return GPIO_ReadInputDataBit(SOFT_SPI_MISO_PORT, SOFT_SPI_MISO_PIN);
+	#else
+	return bsp_gpio_pin_get(SOFT_SPI_MISO_PORT,SOFT_SPI_MISO_PIN);
+	#endif
+}
+
+#endif
 
 /*引脚初始化*/
 void Soft_SPI_Init(void)

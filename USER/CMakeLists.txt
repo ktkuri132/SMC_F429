@@ -9,6 +9,7 @@ file(GLOB_RECURSE ${DIR_NAME}_Source ./*.c)
 
 # 生成库文件
 add_library(${DIR_NAME}_LIB ${${DIR_NAME}_Source})
+target_link_libraries(${DIR_NAME}_LIB BSP_LIB CORE_LIB HARDWARE_LIB)
 
 target_include_directories(${DIR_NAME}_LIB PRIVATE ${CMAKE_SOURCE_DIR})
 target_include_directories(${DIR_NAME}_LIB PRIVATE ${CMAKE_SOURCE_DIR}/CORE)

@@ -1,5 +1,6 @@
 #include "stm32f4xx.h"
 #include "stm32f4xx_rcc.h"
+
 uint32_t GetGPIOPeriphClock(GPIO_TypeDef * GPIOx) {
     if (GPIOx == GPIOA) {
         return RCC_AHB1Periph_GPIOA;

@@ -39,8 +39,8 @@
 
 #define W25Q64_DUMMY_BYTE							0xFF
 
-#define Soft_SPI_Start  Soft_SPI_W_CS(0)
-#define Soft_SPI_Stop   Soft_SPI_W_CS(1)
+#define Soft_SPI_Start()  Soft_SPI_W_CS(0)
+#define Soft_SPI_Stop()   Soft_SPI_W_CS(1)
 
 void W25Q64_Init(void);
 void W25Q64_ReadID(uint8_t *MID, uint16_t *DID);

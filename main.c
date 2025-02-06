@@ -1,25 +1,26 @@
 // #define __RELEASE
 #define __DEBUG
-#include <Project/Dev/PWM/stm32f4xx_tim.h>
+#include <Dev/PWM/stm32f4xx_tim.h>
 
 #ifdef __cplusplus
 extern "C"
 {
 #endif
 
-#include <BSP/sys.h>
-#include <RTOS/comment/FreeRTOS.h>
-#include <RTOS/comment/task.h>
-#include <Project/Project.h>
-#include <Project/Dev/HW_201/hw201.h>
+#include <sys.h>
+#include <comment/FreeRTOS.h>
+#include <comment/task.h>
+#include <Project.h>
+#include <Dev/HW_201/hw201.h>
 
-#include "USER/RTOSTaskConfig.h"
-#include "BSP/usart/Serial.h"
-#include "BSP/usart/usart.h"
-#include "HARDWARE/OLED/OLED.h"
-#include "HARDWARE/MPU6050/inv_mpu.h"
+#include "RTOSTaskConfig.h"
+#include "usart/Serial.h"
+#include "usart/usart.h"
+#include "OLED/OLED.h"
+#include "MPU6050/inv_mpu.h"
+#include <W25Q64/spiFlash.h>
 
-#include <Project/LIB/Control/control.h>
+#include <LIB/Control/control.h>
 
 // 定义串口数据结构
 Stde_DataTypeDef USART2_DataBuff;
@@ -67,11 +68,11 @@ Init_Project:
 
 // 创建任务句柄
 TaskHandle_t *Task1_SystemStart_Handle;
-
-TaskHandle_t *Task3_Project_Display_MPU6050_Handle;
-TaskHandle_t *Task3_Project_Display_OpenMV_Handle;
-TaskHandle_t *Task3_Project_Display_Voltage_Handle;
-TaskHandle_t *Task3_Project_Display_Time_Handle;
+TaskHandle_t *Task3_Project_Display_Mode_1_Handle;
+TaskHandle_t *Task3_Project_Display_Mode_2_Handle;
+TaskHandle_t *Task3_Project_Display_Mode_2_1_Handle;
+TaskHandle_t *Task3_Project_Display_Mode_3_Handle;
+TaskHandle_t *Task3_Project_Display_Mode_4_Handle;
 
 TaskHandle_t *Task4_LEDPlayR_Handle;
 TaskHandle_t *Task4_LEDPlayY_Handle;
@@ -84,9 +85,9 @@ int main()
     // xTaskCreate((TaskFunction_t)Task3_Project_Display,"DisPlay_MPU6050",1024,
     //                             1,10,Task3_Project_Display_MPU6050_Handle);
     xTaskCreate((TaskFunction_t)Task3_Project_Display,"DisPlay_Camer",1024,
-                                2,10,Task3_Project_Display_OpenMV_Handle);
+                                2,10,Task3_Project_Display_Mode_2_Handle);
     xTaskCreate((TaskFunction_t)Task3_Project_Display,"DisPlay_Voltage",1024,
-                                3,10,Task3_Project_Display_Voltage_Handle);   
+                                3,10,Task3_Project_Display_Mode_3_Handle);
     // xTaskCreate((TaskFunction_t)Task3_Project_Display,"DisPlay_Time",1024,
     //                             4,10,Task3_Project_Display_Time_Handle);                                                      
     // xTaskCreate((TaskFunction_t)Task4_LEDPlay,"Task4_LEDPlay",1024,

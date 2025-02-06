@@ -1,5 +1,40 @@
 #include "stm32f4xx.h"
-
+#include "stm32f4xx_rcc.h"
+uint32_t GetGPIOPeriphClock(GPIO_TypeDef * GPIOx) {
+    if (GPIOx == GPIOA) {
+        return RCC_AHB1Periph_GPIOA;
+    }
+    else if (GPIOx == GPIOB) {
+        return RCC_AHB1Periph_GPIOB;
+    }
+    else if (GPIOx == GPIOC) {
+        return RCC_AHB1Periph_GPIOC;
+    }
+    else if (GPIOx == GPIOD) {
+        return RCC_AHB1Periph_GPIOD;
+    }
+    else if (GPIOx == GPIOE) {
+        return RCC_AHB1Periph_GPIOE;
+    }
+    else if (GPIOx == GPIOF) {
+        return RCC_AHB1Periph_GPIOF;
+    }
+    else if (GPIOx == GPIOG) {
+        return RCC_AHB1Periph_GPIOG;
+    }
+    else if (GPIOx == GPIOH) {
+        return RCC_AHB1Periph_GPIOH;
+    }
+    else if (GPIOx == GPIOI) {
+        return RCC_AHB1Periph_GPIOI;
+    }
+    else if (GPIOx == GPIOJ) {
+        return RCC_AHB1Periph_GPIOJ;
+    }
+    else if (GPIOx == GPIOK) {
+        return RCC_AHB1Periph_GPIOK;
+    }
+}
 
 /**
  * @brief       GPIO通用设置

@@ -16,7 +16,7 @@ extern TaskHandle_t *Task3_Project_Display_Mode_4_Handle;
 extern TaskHandle_t *Task4_LEDPlayR_Handle;
 extern TaskHandle_t *Task4_LEDPlayY_Handle;
 
-extern uint8_t TaskDeletSign;
+uint8_t TaskDeletSign;
 
 /// @brief 无条件固定运行次数的函数接口
 /// @param Fp 运行函数
@@ -24,7 +24,7 @@ extern uint8_t TaskDeletSign;
 /// @return 
 uint8_t Temp_Run(void *(Fp)(),uint8_t Count)
 {
-    static i = 0;
+    static uint8_t i = 0;
     if(i<Count){
         Fp();
     }

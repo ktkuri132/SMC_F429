@@ -65,6 +65,8 @@ void Project_BSP_Buzzer_OFF();
 void Project_BSP_KEY_Init();
 uint8_t Project_BSP_GetKey();
 
+// Tools
+uint8_t Data_Get_from_Camer();
 
 #ifdef __cplusplus
 }

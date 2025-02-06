@@ -48,7 +48,7 @@
 #undef Peripheral_SPI
 #undef Peripheral_IIC
 
-#define OLED_CS SOFT_SPI_CS1_PIN
+#define OLED_CS SOFT_SPI_CS_PIN
 
 
 #endif

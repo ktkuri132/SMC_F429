@@ -74,6 +74,8 @@ add_link_options(-T ${LINKER_SCRIPT})
 # 生成可执行文件
 add_executable(${PROJECT_NAME}.elf main.c ${LINKER_SCRIPT})
 
+
+
 # 忽略warning
 # target_compile_options(${PROJECT_NAME}.elf PRIVATE -W)
 
@@ -97,3 +99,5 @@ add_custom_command(TARGET ${PROJECT_NAME}.elf POST_BUILD
         COMMAND ${CMAKE_OBJCOPY} -Obinary $<TARGET_FILE:${PROJECT_NAME}.elf> ${BIN_FILE}
         COMMENT "Building ${HEX_FILE}
 Building ${BIN_FILE}")
+
+

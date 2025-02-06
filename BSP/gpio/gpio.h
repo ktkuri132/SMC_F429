@@ -4,7 +4,7 @@
 #include "stm32f4xx.h"
 #include "stm32f4xx_gpio.h"
 #define BITBAND(addr, bitnum) ((addr & 0xF0000000)+0x2000000+((addr &0xFFFFF)<<5)+(bitnum<<2)) 
-#define MEM_ADDR(addr)  *((volatile unsigned long  *)(addr)) 
+#define MEM_ADDR(addr)  *((volatile unsigned long  *)(addr))
 #define BIT_ADDR(addr, bitnum)   MEM_ADDR(BITBAND(addr, bitnum)) 
 
 #define GPIOA_ODR_Addr    (GPIOA_BASE+20) //0x40020014
@@ -119,6 +119,7 @@ void bsp_gpio_init(GPIO_TypeDef *GPIOx, uint32_t PINx, uint32_t mode, uint32_t o
 void bsp_gpio_af_set(GPIO_TypeDef *GPIOx, uint16_t PINx, uint8_t AFx);
 void bsp_gpio_pin_set(GPIO_TypeDef *GPIOx, uint16_t PINx, uint8_t status);
 uint8_t bsp_gpio_pin_get(GPIO_TypeDef *GPIOx, uint16_t PINx);
+uint32_t GetGPIOPeriphClock(GPIO_TypeDef * GPIOx);
 
 
 

@@ -24,7 +24,6 @@ typedef enum
 void NVIC_Configuration(void);
 void bsp_systick_delay_us(uint32_t nus);
 void bsp_systick_delay_ms(uint32_t nms);
-uint32_t GetGPIOPeriphClock(GPIO_TypeDef * GPIOx);
 
 // #define delay_us(x) bsp_systick_delay_us(x)
 

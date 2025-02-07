@@ -11,8 +11,6 @@
 
 extern Stde_DataTypeDef USART2_DataBuff;
 
-
-
 /// @brief PID 对于直线的专用控制函数
 void PID_forLine(PID *pid)
 {
@@ -22,11 +20,11 @@ void PID_forLine(PID *pid)
     pid->integral += pid->error;
     pid->integral *= pid->Ki;
     // 积分限幅
-    if(pid->integral > pid->max_integral)
+    if (pid->integral > pid->max_integral)
     {
         pid->integral = pid->max_integral;
     }
-    else if(pid->integral < -pid->max_integral)
+    else if (pid->integral < -pid->max_integral)
     {
         pid->integral = -pid->max_integral;
     }
@@ -35,20 +33,18 @@ void PID_forLine(PID *pid)
 
     pid->output = pid->Kp * pid->error + pid->Ki * pid->integral + pid->Kd * pid->derivative;
     // 输出限幅
-    if(pid->output > pid->max_output)
+    if (pid->output > pid->max_output)
     {
         pid->output = pid->max_output;
     }
-    else if(pid->output < -pid->max_output)
+    else if (pid->output < -pid->max_output)
     {
         pid->output = -pid->max_output;
     }
     pid->last_error = pid->error;
 }
 
-
 /// @brief PID 对于转向的专用控制函数
 void PID_forTurn(PID *pid)
 {
-    
 }

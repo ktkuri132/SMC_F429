@@ -19,5 +19,6 @@ void Test()
 	printf("MID:%x,DID:%d\n", MID, DID);
 	while (1)
 	{
+		
 	}
 }

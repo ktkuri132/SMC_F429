@@ -5,6 +5,9 @@
 #define SysTick_CLKSource_HCLK_Div8    ((uint32_t)0xFFFFFFFB)
 #define SysTick_CLKSource_HCLK         ((uint32_t)0x00000004)
 
+/*
+ * @brief 配置系统延迟函数
+*/
 
 /// @brief systick delay time in us
 /// @param nus 
@@ -29,6 +32,8 @@ void bsp_systick_delay_ms(uint32_t nms)
         bsp_systick_delay_us(1000);
     }
 }
+
+/// @brief 配置系统中断优先级分组
 
 /// @brief NVIC interrupt configuration 
 void NVIC_Configuration(void)
@@ -83,8 +88,21 @@ void NVIC_Configuration(void)
 
 }
 
+#include <W25Q64/spiFlash.h>
 
+/// @brief 将数据送进备份区
+void PushBackup()
+{
+    #ifdef SPIFLASH_H
+        
+    #endif
+}
 
+/// @brief 将备份数据
+void ReadBackup()
+{
+    
+}
 
 /**
  * 

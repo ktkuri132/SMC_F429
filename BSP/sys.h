@@ -19,7 +19,6 @@ typedef enum
 }BitAction;
 
 #endif
-//#include <lcd_gui.h>
 
 void NVIC_Configuration(void);
 void bsp_systick_delay_us(uint32_t nus);

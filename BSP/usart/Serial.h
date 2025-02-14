@@ -53,7 +53,7 @@ void STDE_UART(USART_TypeDef * USARTx,Stde_DataTypeDef* DataTypeStruct);
 uint16_t USART_Deal(Stde_DataTypeDef* DataTypeStruct,uint8_t point_note);
 
 
-#elif defined BIE_Serial        // 专用于模拟PC交互shell脚本协议
+#elif defined BIE_Serial        // 专用于串口命令行终端交互协议
 
 typedef struct 
 {

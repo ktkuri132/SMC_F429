@@ -34,6 +34,9 @@ void Project_BSP_ADC_Init()
     ADC_RegularChannelConfig(ADC1,ADC_Channel_8,1,ADC_SampleTime_480Cycles);
     ADC_Cmd(ADC1,ENABLE);
     ADC_SoftwareStartConv(ADC1);
+
+    printf("初始化ADC\n");
+
     
 }
 

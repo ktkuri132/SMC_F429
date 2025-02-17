@@ -105,6 +105,7 @@
  * Some kernel aware debuggers require the data the debugger needs access to to
  * be global, rather than file scope.
  */
+#define portREMOVE_STATIC_QUALIFIER
 #ifdef portREMOVE_STATIC_QUALIFIER
     #define static
 #endif

@@ -13,4 +13,7 @@ void Project_BSP_TB6612_Init()
     GPIO_Init(GPIOA, &GPIO_InitStructure);
     GPIO_InitStructure.GPIO_Pin = GPIO_Pin_1;
     GPIO_Init(GPIOC, &GPIO_InitStructure);
+
+    printf("初始化TB6612\n");
+
 }

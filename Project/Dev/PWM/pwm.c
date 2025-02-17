@@ -34,6 +34,8 @@ void Project_BSP_PWM_TIM2_Init()
 	//使能TIM2
 	TIM_Cmd(TIM2, ENABLE);
 	
+	printf("初始化PWM\n");
+
 }
 
 
@@ -75,5 +77,7 @@ void Project_BSP_Encoding_Init()
 	//初始化TIM5编码器模式
 	TIM_EncoderInterfaceConfig(TIM5, TIM_EncoderMode_TI12, TIM_ICPolarity_Rising, TIM_ICPolarity_Rising);
 	TIM_Cmd(TIM5, ENABLE);
+	
+	printf("初始化编码器\n");
 }
 

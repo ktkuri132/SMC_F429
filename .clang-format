@@ -1,0 +1,7 @@
+# BasedOnStyle: Microsoft
+BasedOnStyle: Google
+IndentWidth: 4
+# UseTab: true
+# ColumnLimit: 100
+# AlignConsecutiveAssignments: true
+# AlignTrailingComments: true

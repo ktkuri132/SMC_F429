@@ -11,6 +11,8 @@
 
 // 任务函数
 void Task1_SystemStrat(uint8_t Mode);
+void Task_HeapManager();
+
 void Task2_Project_Init();
 void Task3_Project_Display(uint8_t Mode);
 void Task4_LEDPlay(uint8_t Mode);

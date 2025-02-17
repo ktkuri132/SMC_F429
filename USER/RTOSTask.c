@@ -216,7 +216,24 @@ Yellow_LED:
     
 }
 
+void Task_HeapManager()
+{
+    TickType_t xLastWakeTime;
+    const TickType_t xFrequency = pdMS_TO_TICKS(1000); // 任务周期为 100 毫秒
+    // 初始化 xLastWakeTime 变量为当前时间
+    xLastWakeTime = xTaskGetTickCount();
+    while(1)
+    {
+        taskENTER_CRITICAL();
+        vTaskDelayUntil(&xLastWakeTime, xFrequency);
+        printf("heap:%d\n",xPortGetFreeHeapSize());
+        vTaskDelayUntil(&xLastWakeTime, xFrequency);
+        taskEXIT_CRITICAL();
+    }
+    
 
+
+}
 
 
 void Task5_KeyScan()

@@ -52,6 +52,8 @@ void Project_LIB_TIM3_Init(uint8_t ms)
     TIM_ClearFlag(TIM3, TIM_FLAG_Update);
     TIM_ITConfig(TIM3, TIM_IT_Update, ENABLE);
     TIM_Cmd(TIM3, ENABLE);
+    
+    printf("初始化定时器\n");
 }
 
 uint8_t MotorStrat_1 = 1; //  电机启动最高优先级：电源控制    默认插上跳线帽为标准功耗，开启电机，拔下跳线帽为低功耗，关闭电机

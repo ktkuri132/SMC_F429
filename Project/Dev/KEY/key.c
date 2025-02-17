@@ -14,6 +14,10 @@ void Project_BSP_KEY_Init()
     GPIO_Init(GPIOC,&GPIO_InitStructure);
     GPIO_InitStructure.GPIO_Pin = GPIO_Pin_13;
     GPIO_Init(GPIOB,&GPIO_InitStructure);
+
+    printf("初始化按键\n");
+
+
 }
 
 uint8_t Project_BSP_GetKey()

@@ -14,6 +14,8 @@ void Project_BSP_LED_Init()
     Project_BSP_LED_OFF(0);
     Project_BSP_LED_OFF(1);
 
+    printf("初始化LED\n");
+
 }
 
 void Project_BSP_LED_ON(uint8_t LED)
@@ -50,6 +52,9 @@ void Project_BSP_Buzzer_Init()
     GPIO_InitStructure.GPIO_Speed = GPIO_Speed_100MHz;
     GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_NOPULL;
     GPIO_Init(GPIOA,&GPIO_InitStructure);
+
+    printf("初始化蜂鸣器\n");
+
 }
 
 void Project_BSP_Buzzer_ON()

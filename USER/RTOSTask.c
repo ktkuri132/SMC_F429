@@ -6,7 +6,7 @@
 #include "RTOSTaskConfig.h"
 
 // 设置任务栈
-uint8_t ucHeap[ configTOTAL_HEAP_SIZE ] __attribute__((section(".ext_sram")));
+uint8_t ucHeap[ configTOTAL_HEAP_SIZE ] __attribute__((section(".ext_sdram")));
 
 extern Stde_DataTypeDef USART2_DataBuff,USART3_DataBuff,UART5_DataBuff,UART4_DataBuff;
 

@@ -199,7 +199,7 @@ SECTIONS
    .ext_sdram (NOLOAD) :
     {
         . = ALIGN(4);
-        *(.ext_sram)
+        *(.ext_sdram)
         . = ALIGN(4);
     } >EXTSDRAM
 

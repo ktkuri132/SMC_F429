@@ -128,7 +128,7 @@ Mode_3:     // 加入监测电池电压
     while (1)
     {
         // 进入临界区
-        taskENTER_CRITICAL();
+        // taskENTER_CRITICAL();
         OLED_DrawRectangle(100,0,28,16,OLED_UNFILLED);
         OLED_Printf(104,4,OLED_6X8,"%.0f",Project_BSP_GetADC());
         OLED_ShowChar(116,4,'%',OLED_6X8);
@@ -142,7 +142,7 @@ Mode_3:     // 加入监测电池电压
         }
         // OLED_Update();
         // 退出临界区
-        taskEXIT_CRITICAL();
+        // taskEXIT_CRITICAL();
         vTaskDelayUntil(&xLastWakeTime, xFrequency_100);
     }
 Mode_4:
@@ -150,7 +150,7 @@ Mode_4:
     while (1)
     {
         // 进入临界区
-        taskENTER_CRITICAL();
+        // taskENTER_CRITICAL();
         OLED_Printf(0,16,OLED_6X8,"time:%d:%d:%d",hour,min,sec);
         if(sec==60)
         {
@@ -172,7 +172,7 @@ Mode_4:
         }
         // OLED_Update();
         // 退出临界区
-        taskEXIT_CRITICAL();
+        // taskEXIT_CRITICAL();
         vTaskDelayUntil(&xLastWakeTime, xFrequency_1000);
     }
 }
@@ -204,6 +204,7 @@ Red_LED:
         vTaskDelayUntil(&xLastWakeTime, xFrequency);
         RunCounst--;
     }
+    vTaskDelete(Task4_LEDPlayR_Handle);
 Yellow_LED:
     while (RunCounst)
     {
@@ -213,6 +214,7 @@ Yellow_LED:
         vTaskDelayUntil(&xLastWakeTime, xFrequency);
         RunCounst--;
     }
+    vTaskDelete(Task4_LEDPlayY_Handle);
     
 }
 
@@ -229,9 +231,6 @@ void Task_HeapManager()
         printf("heap:%d\n",xPortGetFreeHeapSize());
         taskEXIT_CRITICAL();
     }
-    
-
-
 }
 
 
@@ -257,12 +256,12 @@ void Task5_KeyScan()
 
         if(!Project_BSP_HW201_Get())
         {
-            OLED_Printf(0,32,OLED_6X8,"HW201:1");
+            OLED_Printf(0,48,OLED_6X8,"HW201:1");
             MotorStrat_2 = 1;
         }
         else
         {
-            OLED_Printf(0,32,OLED_6X8,"HW201:0");
+            OLED_Printf(0,48,OLED_6X8,"HW201:0");
             MotorStrat_2 = 0;
         }
         vTaskDelayUntil(&xLastWakeTime, xFrequency);

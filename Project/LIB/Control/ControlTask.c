@@ -29,7 +29,7 @@ uint8_t Project_LIB_ControlStrat()
 {
     Data_Save_from_Camer(); // 存储次数超过两次自动锁定不再进入
     Data_Get_from_Camer();
-    Project_LIB_ControlTask();
+    // Project_LIB_ControlTask();
 }
 
 /// @brief 控制任务

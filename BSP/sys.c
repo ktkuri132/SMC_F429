@@ -99,26 +99,26 @@ void ReadBackup() {}
  * @}
  */
 
-int __attribute__((__weak__)) _write(int file, char *ptr, int len) {
+int _write(int file, char *ptr, int len) {
     (void)file;
-    int DataIdx;
-
-    for (DataIdx = 0; DataIdx < len; DataIdx++) {
-        USART1->DR=(*ptr++);
+    int i = 0;
+    for (i = 0; i < len; i++) {
+        while ((USART1->SR & USART_SR_TXE) == 0);
+        USART1->DR = ptr[i];
     }
     return len;
 }
 
-int __attribute__((__weak__)) _read(int file, char *ptr, int len) {
+int _read(int file, char *ptr, int len) {
     (void)file;
     int DataIdx;
 
     for (DataIdx = 0; DataIdx < len; DataIdx++) {
         *ptr++ = USART1->DR;
     }
-
     return len;
 }
+
 
 int __attribute__((__weak__)) _kill(int pid, int sig) {
     (void)pid;

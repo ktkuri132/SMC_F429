@@ -80,32 +80,34 @@ TaskHandle_t *Task5_KeyScan_Handle;
 
 int main() {
 	
-    if(xTaskCreate((TaskFunction_t)Task_HeapManager, "HeapManager", 1024, NULL,
-                10, Task_HeapMangae_Handle)!=pdPASS){
+    if(xTaskCreate((TaskFunction_t)Task_HeapManager, "HeapManager", 1024, 
+                NULL,9, Task_HeapMangae_Handle)!=pdPASS){
 					printf("HeapManager创建失败\n");
 				}
     // xTaskCreate((TaskFunction_t)Task1_SystemStrat,"SystemStrat",1024,
     //                             1,10,Task1_SystemStart_Handle);
-    if(xTaskCreate((TaskFunction_t)Task3_Project_Display,"DisPlay_MPU6050",512,
-                1,10,Task3_Project_Display_Mode_1_Handle)!=pdPASS){
+    if(xTaskCreate((TaskFunction_t)Task3_Project_Display,"DisPlay_MPU6050",1024,
+                1,9,Task3_Project_Display_Mode_1_Handle)!=pdPASS){
                     printf("DisPlay_MPU6050创建失败\n");
                 }
-    if(xTaskCreate((TaskFunction_t)Task3_Project_Display, "DisPlay_Camer", 1024, 2,
-                10, Task3_Project_Display_Mode_2_Handle)!=pdPASS){
+    if(xTaskCreate((TaskFunction_t)Task3_Project_Display, "DisPlay_Camer", 1024, 
+                2,9, Task3_Project_Display_Mode_2_Handle)!=pdPASS){
 					printf("DisPlay_Camer创建失败\n");
 				}
-    if(xTaskCreate((TaskFunction_t)Task3_Project_Display, "DisPlay_Voltage", 5*1024,
-                3, 10, Task3_Project_Display_Mode_3_Handle)!=pdPASS){
+    if(xTaskCreate((TaskFunction_t)Task3_Project_Display, "DisPlay_Voltage", 1024,
+                3, 9, Task3_Project_Display_Mode_3_Handle)!=pdPASS){
 					printf("DisPlay_Voltage创建失败\n");
 				}
-    // xTaskCreate((TaskFunction_t)Task3_Project_Display,"DisPlay_Time",1024,
-    //                             4,10,Task3_Project_Display_Time_Handle);
+    if(xTaskCreate((TaskFunction_t)Task3_Project_Display,"DisPlay_Time",1024,
+                4,9,Task3_Project_Display_Mode_4_Handle)!=pdPASS){
+                    printf("DisPlay_Time创建失败\n");
+                }
     // xTaskCreate((TaskFunction_t)Task4_LEDPlay,"Task4_LEDPlay",1024,
     //                             NULL,10,Task4_LEDPlay_Handle);
-    // if(xTaskCreate((TaskFunction_t)Task5_KeyScan, "Task5_KeyScan", 128, NULL, 10,
-                // Task5_KeyScan_Handle)!=pdPASS){
-					// printf("Task5_KeyScan创建失败\n");
-				// }
+    if(xTaskCreate((TaskFunction_t)Task5_KeyScan, "Task5_KeyScan", 1024, 
+                NULL, 9,Task5_KeyScan_Handle)!=pdPASS){
+					printf("Task5_KeyScan创建失败\n");
+				}
     vTaskStartScheduler();
 }
 

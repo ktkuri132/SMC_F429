@@ -1,14 +1,17 @@
-#include <Project/Project.h>
 #include <BSP/usart/Serial.h>
 #include <HARDWARE/MPU6050/inv_mpu.h>
+#include <OLED/OLED.h>
 #include <Project/Dev/HW_201/hw201.h>
+#include <Project/Project.h>
 #include <RTOS/comment/task.h>
-#include "RTOSTaskConfig.h"
+#include <RTOSTaskConfig.h>
+#include <stdint.h>
 
 // 设置任务栈
-uint8_t ucHeap[ configTOTAL_HEAP_SIZE ] __attribute__((section(".ccmram")));
+uint8_t ucHeap[configTOTAL_HEAP_SIZE] __attribute__((section(".ccmram")));
 
-extern Stde_DataTypeDef USART2_DataBuff,USART3_DataBuff,UART5_DataBuff,UART4_DataBuff;
+extern Stde_DataTypeDef USART2_DataBuff, USART3_DataBuff, UART5_DataBuff,
+    UART4_DataBuff;
 
 extern TaskHandle_t *Task3_Project_Display_MPU6050_Handle;
 extern TaskHandle_t *Task3_Project_Display_OpenMV_Handle;
@@ -17,127 +20,131 @@ extern TaskHandle_t *Task3_Project_Display_Time_Handle;
 extern TaskHandle_t *Task4_LEDPlayR_Handle;
 extern TaskHandle_t *Task4_LEDPlayY_Handle;
 
-extern uint8_t CamerData[4];
+extern uint8_t CamerData[4], CamerVerify[4];
 
 /// @brief 系统启动线程：协助完成模式选择，图象识别
-void Task1_SystemStrat(uint8_t Mode)
-{
+void Task1_SystemStrat(uint8_t Mode) {
     TickType_t xLastWakeTime;
-    const TickType_t xFrequency_5 = pdMS_TO_TICKS(5); // 任务周期为 5 毫秒
+    const TickType_t xFrequency_5 = pdMS_TO_TICKS(5);  // 任务周期为 5 毫秒
 
     // 初始化 xLastWakeTime 变量为当前时间
     xLastWakeTime = xTaskGetTickCount();
     static uint8_t Image_identify_Return;
-    switch (Mode)
-    {
-    case 1:
-        goto Image_identify;
-        break;
-    default:
-        break;
+    switch (Mode) {
+        case 1:
+            goto Image_identify;
+            break;
+        default:
+            break;
     }
 Image_identify:
-    do{
-        Image_identify_Return = Data_Save_from_Camer();     // 刷新数据存储
-        if(!Image_identify_Return){     // 返回0闪红灯
-            xTaskCreate((TaskFunction_t)Task4_LEDPlay,"Red_LED",512,1,10,Task4_LEDPlayR_Handle);
+    do {
+        Image_identify_Return = Data_Save_from_Camer();  // 刷新数据存储
+        if (!Image_identify_Return) {                    // 返回0闪红灯
+            xTaskCreate((TaskFunction_t)Task4_LEDPlay, "Red_LED", 512, 1, 10,
+                        Task4_LEDPlayR_Handle);
+        } else if (Image_identify_Return) {  // 返回1闪黄灯
+            xTaskCreate((TaskFunction_t)Task4_LEDPlay, "Yellow_LED", 512, 2, 10,
+                        Task4_LEDPlayY_Handle);
         }
-        else if(Image_identify_Return){ // 返回1闪黄灯
-            xTaskCreate((TaskFunction_t)Task4_LEDPlay,"Yellow_LED",512,2,10,Task4_LEDPlayY_Handle);
-        }
-        xTaskDelayUntil(&xLastWakeTime,xFrequency_5);   // 释放线程，每5ms刷新一次线程
-    }while ((Image_identify_Return == -2)||(Image_identify_Return == -1));
+        xTaskDelayUntil(&xLastWakeTime,
+                        xFrequency_5);  // 释放线程，每5ms刷新一次线程
+    } while ((Image_identify_Return == -2) || (Image_identify_Return == -1));
 }
 
-void Task2_Project_Init()
-{
-    
-}
+void Task2_Project_Init() {}
 
-float pitch,roll,yaw;
+float pitch, roll, yaw;
 short gyro[3];
-extern uint8_t MotorStrat_1,MotorStrat_2,MotorStrat_3;
+extern uint8_t MotorStrat_1, MotorStrat_2, MotorStrat_3;
+extern uint8_t DataLock;
 
 /// @brief 显示输出
 /// @param Mode 显示模式
-void Task3_Project_Display(uint8_t Mode)
-{
+void Task3_Project_Display(uint8_t Mode) {
     TickType_t xLastWakeTime;
-    const TickType_t xFrequency_5 = pdMS_TO_TICKS(5); // 任务周期为 5 毫秒
-    const TickType_t xFrequency_100 = pdMS_TO_TICKS(100); // 任务周期为 100 毫秒
-    const TickType_t xFrequency_1000 = pdMS_TO_TICKS(2000); // 任务周期为 2秒
+    const TickType_t xFrequency_5 = pdMS_TO_TICKS(5);  // 任务周期为 5 毫秒
+    const TickType_t xFrequency_100 =
+        pdMS_TO_TICKS(100);  // 任务周期为 100 毫秒
+    const TickType_t xFrequency_1000 = pdMS_TO_TICKS(2000);  // 任务周期为 2秒
 
     // 初始化 xLastWakeTime 变量为当前时间
     xLastWakeTime = xTaskGetTickCount();
-    switch (Mode)
-    {
-        case 1:
-        {
+    switch (Mode) {
+        case 1: {
             goto Mode_1;
-        }
-        break;
-        case 2:
-        {
+        } break;
+        case 2: {
             goto Mode_2;
-        }break;
-        case 3:
-        {
+        } break;
+        case 21: {
+            goto Mode_21;
+        } break;
+        case 3: {
             goto Mode_3;
-        }break;
-        case 4:
-        {
+        } break;
+        case 4: {
             goto Mode_4;
-        }break;
-    default:
-        break;
+        } break;
+        default:
+            break;
     }
 
-Mode_1:     // 加入监测MPU6050
-    while(1)
-    {
+Mode_1:  // 加入监测MPU6050
+    while (1) {
         // 进入临界区
         taskENTER_CRITICAL();
-        mpu_dmp_get_data(&pitch,&roll,&yaw);    
-        OLED_Printf(0,24,OLED_6X8,"MPU6050:%f",yaw);
+        mpu_dmp_get_data(&pitch, &roll, &yaw);
+        OLED_Printf(0, 24, OLED_6X8, "MPU6050:%f", yaw);
         OLED_Update();
         // 退出临界区
         taskEXIT_CRITICAL();
         vTaskDelayUntil(&xLastWakeTime, xFrequency_5);
     }
-Mode_2:     // 加入监测OpenMV
-    while (1)
-    {
+Mode_2:  // 加入监测摄像头
+    while (1) {
         // 进入临界区
         taskENTER_CRITICAL();
-        OLED_Printf(0,8,OLED_6X8,"OpenMV:%d",OpenMVData);
-        OLED_Printf(0,32,OLED_6X8,"K210:%d,%d",CamerData[0],CamerData[1]);
+        OLED_Printf(0, 8, OLED_6X8, "OpenMV:%d", OpenMVData);
+        OLED_Printf(0, 32, OLED_6X8, "K210:%d,%d,%d,%d", CamerData[0], CamerData[1],CamerData[2],CamerData[3]);
         OLED_Update();
-        if(USART_Deal(&USART2_DataBuff,0)==1)
-        {
+
+        if (USART_Deal(&USART2_DataBuff, 0) == 1) {
             MotorStrat_3 = 1;
-        }
-        else
-        {
+        } else {
             MotorStrat_3 = 0;
         }
         // 退出临界区
         taskEXIT_CRITICAL();
         vTaskDelayUntil(&xLastWakeTime, xFrequency_5);
     }
-Mode_3:     // 加入监测电池电压
-    while (1)
-    {
+Mode_21:
+    while (1) {
+        // 进入临界区
+        taskENTER_CRITICAL();
+        OLED_Printf(0, 8, OLED_6X8, "OpenMV:%d", OpenMVData);
+        OLED_Printf(0, 32, OLED_6X8, "K210:%d,%d,%d,%d", CamerVerify[0], CamerVerify[1],CamerVerify[2],CamerVerify[3]);
+        OLED_Update();
+
+        if (USART_Deal(&USART2_DataBuff, 0) == 1) {
+            MotorStrat_3 = 1;
+        } else {
+            MotorStrat_3 = 0;
+        }
+        // 退出临界区
+        taskEXIT_CRITICAL();
+        vTaskDelayUntil(&xLastWakeTime, xFrequency_5);
+    }
+Mode_3:  // 加入监测电池电压
+    while (1) {
         // 进入临界区
         // taskENTER_CRITICAL();
-        OLED_DrawRectangle(100,0,28,16,OLED_UNFILLED);
-        OLED_Printf(104,4,OLED_6X8,"%.0f",Project_BSP_GetADC());
-        OLED_ShowChar(116,4,'%',OLED_6X8);
-        if(!Project_BSP_GetADC())
-        {
-            MotorStrat_1 = 0;       // 电池当前电量为0
-        }
-        else
-        {
+        OLED_DrawRectangle(100, 0, 28, 16, OLED_UNFILLED);
+        OLED_Printf(104, 4, OLED_6X8, "%.0f", Project_BSP_GetADC());
+        OLED_ShowChar(116, 4, '%', OLED_6X8);
+        if (!Project_BSP_GetADC()) {
+            MotorStrat_1 = 0;  // 电池当前电量为0
+        } else {
             MotorStrat_1 = 1;
         }
         // OLED_Update();
@@ -146,28 +153,22 @@ Mode_3:     // 加入监测电池电压
         vTaskDelayUntil(&xLastWakeTime, xFrequency_100);
     }
 Mode_4:
-    static int hour,min,sec;
-    while (1)
-    {
+    static int hour, min, sec;
+    while (1) {
         // 进入临界区
         // taskENTER_CRITICAL();
-        OLED_Printf(0,16,OLED_6X8,"time:%d:%d:%d",hour,min,sec);
-        if(sec==60)
-        {
-            sec=0;
+        OLED_Printf(0, 16, OLED_6X8, "time:%d:%d:%d", hour, min, sec);
+        if (sec == 60) {
+            sec = 0;
             min++;
-            if(min==60)
-            {
-                min=0;
+            if (min == 60) {
+                min = 0;
                 hour++;
-                if(hour==24)
-                {
-                    hour=0;
+                if (hour == 24) {
+                    hour = 0;
                 }
             }
-        }
-        else
-        {
+        } else {
             sec++;
         }
         // OLED_Update();
@@ -177,27 +178,23 @@ Mode_4:
     }
 }
 
-
-void Task4_LEDPlay(uint8_t Mode)
-{
+void Task4_LEDPlay(uint8_t Mode) {
     TickType_t xLastWakeTime;
-    const TickType_t xFrequency = pdMS_TO_TICKS(1000); // 任务周期为 100 毫秒
+    const TickType_t xFrequency = pdMS_TO_TICKS(1000);  // 任务周期为 100 毫秒
     // 初始化 xLastWakeTime 变量为当前时间
     xLastWakeTime = xTaskGetTickCount();
     uint8_t RunCounst = 2;
-    switch (Mode)
-    {
-    case 1:
-        goto Red_LED;
-        break;
-    case 2:
-        goto Yellow_LED;
-    default:
-        break;
+    switch (Mode) {
+        case 1:
+            goto Red_LED;
+            break;
+        case 2:
+            goto Yellow_LED;
+        default:
+            break;
     }
 Red_LED:
-    while(RunCounst)
-    {
+    while (RunCounst) {
         Project_BSP_LED_ON(0);
         vTaskDelayUntil(&xLastWakeTime, xFrequency);
         Project_BSP_LED_OFF(0);
@@ -206,8 +203,7 @@ Red_LED:
     }
     vTaskDelete(Task4_LEDPlayR_Handle);
 Yellow_LED:
-    while (RunCounst)
-    {
+    while (RunCounst) {
         Project_BSP_LED_ON(1);
         vTaskDelayUntil(&xLastWakeTime, xFrequency);
         Project_BSP_LED_OFF(1);
@@ -215,64 +211,44 @@ Yellow_LED:
         RunCounst--;
     }
     vTaskDelete(Task4_LEDPlayY_Handle);
-    
 }
 
-void Task_HeapManager()
-{
+void Task_DebugLog() {
     TickType_t xLastWakeTime;
-    const TickType_t xFrequency = pdMS_TO_TICKS(1000); // 任务周期为 100 毫秒
+    const TickType_t xFrequency = pdMS_TO_TICKS(1000);  // 任务周期为 100 毫秒
     // 初始化 xLastWakeTime 变量为当前时间
     xLastWakeTime = xTaskGetTickCount();
-    while(1)
-    {
+    while (1) {
         taskENTER_CRITICAL();
         vTaskDelayUntil(&xLastWakeTime, xFrequency);
-        printf("heap:%d\n",xPortGetFreeHeapSize());
+        // printf("heap:%d\n",xPortGetFreeHeapSize());
+        // printf("sit %d,%d\n", USART_Deal(&USART3_DataBuff, 0),USART_Deal(&USART3_DataBuff, 1));
         taskEXIT_CRITICAL();
     }
 }
 
-
-void Task5_KeyScan()
-{
+void Task5_KeyScan() {
     TickType_t xLastWakeTime;
-    const TickType_t xFrequency = pdMS_TO_TICKS(100); // 任务周期为 100 毫秒
+    const TickType_t xFrequency = pdMS_TO_TICKS(100);  // 任务周期为 100 毫秒
 
     // 初始化 xLastWakeTime 变量为当前时间
     xLastWakeTime = xTaskGetTickCount();
-    while(1)
-    {
+    while (1) {
         uint8_t temp = Project_BSP_GetKey();
-        
-        if(temp)
-        {
+
+        if (temp) {
             Project_BSP_Buzzer_ON();
-        }
-        else 
-        {
+        } else {
             Project_BSP_Buzzer_OFF();
         }
 
-        if(!Project_BSP_HW201_Get())
-        {
-            OLED_Printf(0,48,OLED_6X8,"HW201:1");
+        if (!Project_BSP_HW201_Get()) {
+            OLED_Printf(0, 48, OLED_6X8, "HW201:1");
             MotorStrat_2 = 1;
-        }
-        else
-        {
-            OLED_Printf(0,48,OLED_6X8,"HW201:0");
+        } else {
+            OLED_Printf(0, 48, OLED_6X8, "HW201:0");
             MotorStrat_2 = 0;
         }
         vTaskDelayUntil(&xLastWakeTime, xFrequency);
-
     }
 }
-
-
-
-
-
-
-
-

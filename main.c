@@ -66,7 +66,7 @@ Init_Project:
 
 // 创建任务句柄
 TaskHandle_t *Task1_SystemStart_Handle;
-TaskHandle_t *Task_HeapMangae_Handle;
+TaskHandle_t *Task_DebugLog_Handle;
 TaskHandle_t *Task3_Project_Display_Mode_1_Handle;
 TaskHandle_t *Task3_Project_Display_Mode_2_Handle;
 TaskHandle_t *Task3_Project_Display_Mode_2_1_Handle;
@@ -80,8 +80,8 @@ TaskHandle_t *Task5_KeyScan_Handle;
 
 int main() {
 	
-    if(xTaskCreate((TaskFunction_t)Task_HeapManager, "HeapManager", 1024, 
-                NULL,9, Task_HeapMangae_Handle)!=pdPASS){
+    if(xTaskCreate((TaskFunction_t)Task_DebugLog, "DebugLog", 1024, 
+                NULL,9, Task_DebugLog_Handle)!=pdPASS){
 					printf("HeapManager创建失败\n");
 				}
     // xTaskCreate((TaskFunction_t)Task1_SystemStrat,"SystemStrat",1024,

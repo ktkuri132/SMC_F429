@@ -29,6 +29,7 @@ extern "C"
 // 定义从串口读出的数据
 #define OpenMVData USART_Deal(&USART2_DataBuff, 1)
 #define K210Data USART_Deal(&USART3_DataBuff, 1)
+#define K210Site USART_Deal(&USART3_DataBuff, 2)
 #define HFYCar USART_Deal(&UART4_DataBuff, 1)
 
     /*  project function in BSP folder    */
@@ -42,7 +43,7 @@ extern "C"
     void Project_LIB_Get_Encoder_Value(uint16_t *value1, uint16_t *value2);
     void Project_LIB_TIM3_Init(uint8_t ms);
     void Project_LIB_Motor_Load(int32_t leftMotor, int32_t RightMotor);
-    uint8_t Data_Save_from_Camer();
+    int8_t Data_Save_from_Camer();
     void Project_LIB_ControlTask();
 
     // ADC
@@ -62,7 +63,7 @@ extern "C"
     uint8_t Project_BSP_GetKey();
 
     // Tools
-    uint8_t Data_Get_from_Camer();
+    int8_t Data_Get_from_Camer();
 
 #ifdef __cplusplus
 }

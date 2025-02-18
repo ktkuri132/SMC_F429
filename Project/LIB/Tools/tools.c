@@ -4,6 +4,8 @@
 #include <RTOSTaskConfig.h>
 #include <comment/task.h>
 #include <misc.h>
+#include <stdint.h>
+#include <stdio.h>
 #include <usart/Serial.h>
 extern Stde_DataTypeDef USART3_DataBuff, UART5_DataBuff, UART4_DataBuff;
 
@@ -102,11 +104,19 @@ uint8_t RLContrl = 0;
 
 /// @brief 将从串口读出的数据保存到Data中
 /// @return -2 相等返回 -1 返回出现扫描空挡 0，1 返回当前存储的位置
-uint8_t Data_Save_from_Camer() {
+int8_t Data_Save_from_Camer() {
+    static uint8_t i = 0;
     if (!DataLock) {
-        static uint8_t Temp, i;
-        if (Temp == K210Data) {
-            if (i == 1) {            // 存入一个数字，选择性锁定存储
+        static uint8_t TempNum, TempSite;
+        if (!K210Data) {
+            if (MotorStrat_2) {  // 此时若电机被启动，直接强行锁定
+                DataLock = 1;
+                return i;
+            }
+            return -1;
+        }
+        if (TempNum == K210Data) {
+            if (i == 2) {            // 存入一个数字，选择性锁定存储
                 if (MotorStrat_2) {  // 此时若电机被启动，直接强行锁定
                     DataLock = 1;
                     if (CamerData[0] == 1) {
@@ -118,20 +128,23 @@ uint8_t Data_Save_from_Camer() {
             }
             return -2;  //  上次和这次数据一样
         }
-        Temp = K210Data;              // 刷新临时数据
-        if (Temp) {                   // 如果识别到了数字
-            if (!CamerData[i]) {      // 如果缓冲数组目前为止为空
-                CamerData[i] = Temp;  // 填入数字
-                if (!i) {             // 返回0闪红灯
+        TempNum = K210Data;  // 刷新临时数据
+        printf("TempNum:%d\n", TempNum);
+        TempSite = K210Site;
+        if (TempNum) {                        // 如果识别到了数字
+            if (!CamerData[i]) {              // 如果缓冲数组目前为止为空
+                CamerData[i] = TempNum;       // 填入数字
+                CamerData[i + 1] = TempSite;  // 填入坐标
+                if (!i) {                     // 返回0闪红灯
                     xTaskCreate((TaskFunction_t)Task4_LEDPlay, "Red_LED", 1024,
                                 1, 10, Task4_LEDPlayR_Handle);
                 } else {  // 返回1闪黄灯
-                    xTaskCreate((TaskFunction_t)Task4_LEDPlay, "Yellow_LED",1024,
-                                2, 10, Task4_LEDPlayY_Handle);
+                    xTaskCreate((TaskFunction_t)Task4_LEDPlay, "Yellow_LED",
+                                1024, 2, 10, Task4_LEDPlayY_Handle);
                 }
-                i++;
-                if (i == 2) {  // 存入两个数字，直接锁定数据存入
-                    DataLock = 1;
+                i += 2;
+                if (i == 4) {  // 存入两个数字，直接锁定数据存入
+                    DataLock = 2;
                 }
                 return i;
             }
@@ -139,31 +152,68 @@ uint8_t Data_Save_from_Camer() {
             return -1;  // 返回3只会出现在，第一次出现扫描空挡的瞬间
         }
     }
+    return i;
 }
+
+uint8_t CamerVerify[4];
 
 /// @brief 将从串口识别到的数字进行识别配对
 /// @return
-uint8_t Data_Get_from_Camer() {
+int8_t Data_Get_from_Camer() {
     if (DataLock) {
-        static uint8_t n = 0;  // 删除任务的信号只发送一次
-        if (!n) {
-            TaskDeletSign = 2;
-            n++;
+        static uint8_t i = 0;  // 创建任务的函数也只调用一次
+        if (!i) {
+            vTaskDelete(Task3_Project_Display_Mode_2_Handle);
+            xTaskCreate((TaskFunction_t)Task3_Project_Display, "DisPlay_Camer",
+                        1024, 21, 10, Task3_Project_Display_Mode_2_1_Handle);
+            i++;
         }
-        if (!TaskDeletSign) {      // 删除任务已完成
-            static uint8_t i = 0;  // 创建任务的函数也只调用一次
-            if (!i) {
-                xTaskCreate((TaskFunction_t)Task3_Project_Display,
-                            "DisPlay_Camer", 1024, 21, 10,
-                            Task3_Project_Display_Mode_2_1_Handle);
-                i++;
+        // 首先判断，是存了一个还是两个数字
+        switch (DataLock) {
+            case 1: {
+                if (!K210Data) {
+                    return -1;
+                }
+                if (CamerData[0] == K210Data) {
+                    CamerVerify[0] = K210Data;
+                    if (K210Site > 60) {
+                        CamerVerify[1] = 1;
+                        return 1;  // 右边
+                    } else {
+                        CamerVerify[1] = 2;
+                        return 2;  // 左边
+                    }
+                }
+            } break;
+            case 2: {
+                if (!K210Data) {
+                    return -1;
+                }
+                if (CamerData[0] == K210Data) {
+                    CamerVerify[0] = K210Data;
+                    if (K210Site > 60) {
+                        CamerVerify[1] = 1;
+                        return 1;  // 右边
+                    } else {
+                        CamerVerify[1] = 2;
+                        return 2;  // 左边
+                    }
+                }
+                if (CamerData[2] == K210Data) {
+                    CamerVerify[0] = K210Data;
+                    if (K210Site > 60) {
+                        CamerVerify[1] = 1;
+                        return 1;  // 右边
+                    } else {
+                        CamerVerify[1] = 2;
+                        return 2;  // 左边
+                    }
+                }
             }
-            static uint8_t Temp = 0;
-            // 首先判断，是存了一个还是两个数字
-            if (CamerData[1]) {
-            }
-        } else {
-            return 1;  // 删除任务未完成
+            default:
+                break;
         }
+
+        return -1;  // 删除任务未完成
     }
 }

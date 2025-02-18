@@ -49,7 +49,7 @@ typedef struct
 void CMD_Callback();
 void DR_Eevet_Callback();
 void Stde_DataTypeDef_Init(Stde_DataTypeDef *data);
-void STDE_UART(USART_TypeDef * USARTx,Stde_DataTypeDef* DataTypeStruct);
+uint8_t STDE_UART(USART_TypeDef * USARTx,Stde_DataTypeDef* DataTypeStruct);
 uint16_t USART_Deal(Stde_DataTypeDef* DataTypeStruct,uint8_t point_note);
 
 

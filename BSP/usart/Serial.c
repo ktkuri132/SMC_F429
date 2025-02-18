@@ -1,4 +1,5 @@
 #include "Serial.h"
+#include <stdint.h>
 
 // 通用串口发送函数
 void usart_send_string(USART_TypeDef *USARTx ,uint8_t *data)
@@ -51,7 +52,7 @@ void Stde_DataTypeDef_Init(Stde_DataTypeDef *data)
 }
 
 /// @brief STDE串口协议处理函数
-void STDE_UART(USART_TypeDef *USARTx,Stde_DataTypeDef* DataTypeStruct)
+uint8_t STDE_UART(USART_TypeDef *USARTx,Stde_DataTypeDef* DataTypeStruct)
 {
     DataTypeStruct->c = USARTx->DR;   //获取第一个字符
     // printf("%c",DataTypeStruct->c);

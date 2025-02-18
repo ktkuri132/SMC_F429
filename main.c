@@ -80,10 +80,10 @@ TaskHandle_t *Task5_KeyScan_Handle;
 
 int main() {
 	
-    // if(xTaskCreate((TaskFunction_t)Task_HeapManager, "HeapManager", 1024, NULL,
-    //             10, Task_HeapMangae_Handle)!=pdPASS){
-	// 				printf("HeapManager创建失败\n");
-	// 			}
+    if(xTaskCreate((TaskFunction_t)Task_HeapManager, "HeapManager", 1024, NULL,
+                10, Task_HeapMangae_Handle)!=pdPASS){
+					printf("HeapManager创建失败\n");
+				}
     // xTaskCreate((TaskFunction_t)Task1_SystemStrat,"SystemStrat",1024,
     //                             1,10,Task1_SystemStart_Handle);
     if(xTaskCreate((TaskFunction_t)Task3_Project_Display,"DisPlay_MPU6050",512,

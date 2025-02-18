@@ -227,7 +227,6 @@ void Task_HeapManager()
         taskENTER_CRITICAL();
         vTaskDelayUntil(&xLastWakeTime, xFrequency);
         printf("heap:%d\n",xPortGetFreeHeapSize());
-        vTaskDelayUntil(&xLastWakeTime, xFrequency);
         taskEXIT_CRITICAL();
     }
     

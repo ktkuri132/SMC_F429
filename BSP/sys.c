@@ -1,6 +1,7 @@
+#include <errno.h>
+
 #include "misc.h"
 #include "stm32f4xx.h"
-#include <errno.h>
 #define SysTick_CLKSource_HCLK_Div8 ((uint32_t)0xFFFFFFFB)
 #define SysTick_CLKSource_HCLK ((uint32_t)0x00000004)
 
@@ -98,6 +99,27 @@ void ReadBackup() {}
  * @}
  */
 
+int __attribute__((__weak__)) _write(int file, char *ptr, int len) {
+    (void)file;
+    int DataIdx;
+
+    for (DataIdx = 0; DataIdx < len; DataIdx++) {
+        USART1->DR=(*ptr++);
+    }
+    return len;
+}
+
+int __attribute__((__weak__)) _read(int file, char *ptr, int len) {
+    (void)file;
+    int DataIdx;
+
+    for (DataIdx = 0; DataIdx < len; DataIdx++) {
+        *ptr++ = USART1->DR;
+    }
+
+    return len;
+}
+
 int __attribute__((__weak__)) _kill(int pid, int sig) {
     (void)pid;
     (void)sig;
@@ -174,9 +196,7 @@ int __attribute__((__weak__)) _execve(char *name, char **argv, char **env) {
     return -1;
 }
 
-
 static uint8_t *__sbrk_heap_end = NULL;
-
 
 void __attribute__((__weak__)) _sbrk(int incr) {
     extern uint8_t _end;             /* Symbol defined in the linker script */

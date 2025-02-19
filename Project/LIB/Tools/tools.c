@@ -7,6 +7,7 @@
 #include <stdint.h>
 #include <stdio.h>
 #include <usart/Serial.h>
+#include "OLED/OLED.h"
 extern Stde_DataTypeDef USART3_DataBuff, UART5_DataBuff, UART4_DataBuff;
 
 extern TaskHandle_t *Task3_Project_Display_Mode_1_Handle;
@@ -97,19 +98,19 @@ void Project_LIB_Motor_Load(int32_t leftMotor, int32_t RightMotor) {
     }
 }
 
-uint8_t CamerData[4];
+uint8_t CamerData[4];  // [0] 数字1 [1] 坐标1 [2] 数字2 [3] 坐标2
 uint8_t DataLock = 0;  // 规定数据存储次数，静态变量实现自锁与解锁
+extern uint8_t Key_Value;
 
-uint8_t RLContrl = 0;
-
-/// @brief 将从串口读出的数据保存到Data中
-/// @return -2 相等返回 -1 返回出现扫描空挡 0，1 返回当前存储的位置
+/// @brief 将从串口读出的数据保存到CamerData中
+/// @return <0 未完成 
+/// @return >0 完成
 int8_t Data_Save_from_Camer() {
     static uint8_t i = 0;
     if (!DataLock) {
         static uint8_t TempNum, TempSite;
         if (!K210Data) {
-            if (MotorStrat_2) {  // 此时若电机被启动，直接强行锁定
+            if (MotorStrat_2 || (Key_Value==1)) {  // 此时若电机被启动，直接强行锁定
                 DataLock = 1;
                 return i;
             }
@@ -117,19 +118,13 @@ int8_t Data_Save_from_Camer() {
         }
         if (TempNum == K210Data) {
             if (i == 2) {            // 存入一个数字，选择性锁定存储
-                if (MotorStrat_2) {  // 此时若电机被启动，直接强行锁定
+                if (MotorStrat_2||(Key_Value==1)) {  // 此时若电机被启动，直接强行锁定
                     DataLock = 1;
-                    if (CamerData[0] == 1) {
-                        RLContrl = 1;
-                    } else {
-                        RLContrl = 2;
-                    }
                 }
             }
             return -2;  //  上次和这次数据一样
         }
         TempNum = K210Data;  // 刷新临时数据
-        printf("TempNum:%d\n", TempNum);
         TempSite = K210Site;
         if (TempNum) {                        // 如果识别到了数字
             if (!CamerData[i]) {              // 如果缓冲数组目前为止为空
@@ -161,13 +156,11 @@ uint8_t CamerVerify[4];
 /// @return
 int8_t Data_Get_from_Camer() {
     if (DataLock) {
-        static uint8_t i = 0;  // 创建任务的函数也只调用一次
-        if (!i) {
-            vTaskDelete(Task3_Project_Display_Mode_2_Handle);
-            xTaskCreate((TaskFunction_t)Task3_Project_Display, "DisPlay_Camer",
-                        1024, 21, 10, Task3_Project_Display_Mode_2_1_Handle);
-            i++;
+        static uint8_t m = 0;
+        if (K210Data && !m) {
+            return -1;
         }
+        m = 1;
         // 首先判断，是存了一个还是两个数字
         switch (DataLock) {
             case 1: {
@@ -200,12 +193,12 @@ int8_t Data_Get_from_Camer() {
                     }
                 }
                 if (CamerData[2] == K210Data) {
-                    CamerVerify[0] = K210Data;
+                    CamerVerify[2] = K210Data;
                     if (K210Site > 60) {
-                        CamerVerify[1] = 1;
+                        CamerVerify[3] = 1;
                         return 1;  // 右边
                     } else {
-                        CamerVerify[1] = 2;
+                        CamerVerify[3] = 2;
                         return 2;  // 左边
                     }
                 }

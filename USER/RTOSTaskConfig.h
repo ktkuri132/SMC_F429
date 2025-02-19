@@ -9,7 +9,7 @@
 #define TASK_START_TOPADDR (StackType_t)(SDRAM_ADDR + TASK_STACK_SIZE)
 
 // 任务函数
-void Task1_SystemStrat(uint8_t Mode);
+void Task1_SystemStrat();
 void Task_DebugLog();
 
 void Task2_Project_Init();

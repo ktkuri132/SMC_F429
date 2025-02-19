@@ -1,6 +1,7 @@
-#include "../Project/Project.h" // include the project header file
-#include "../BSP/usart/Serial.h"
-#include "LIB/PID/pid.h"
+#include <Project/Project.h> // include the project header file
+#include <BSP/usart/Serial.h>
+#include <LIB/PID/pid.h>
+#include <stdint.h>
 extern Stde_DataTypeDef USART3_DataBuff, UART5_DataBuff, UART4_DataBuff; // declare the data buffer
 
 /*
@@ -22,15 +23,31 @@ extern Stde_DataTypeDef USART3_DataBuff, UART5_DataBuff, UART4_DataBuff; // decl
  *
  */
 
-extern uint8_t RLContrl;
+
+extern uint8_t CamerVerify[4]; 
+extern uint8_t DataLock;
+
+uint8_t RLContrl;
+
+void Dire_select(){
+    if(CamerVerify[0])
+    {
+        RLContrl = CamerVerify[1];
+    }
+    if(CamerVerify[2])
+    {
+        RLContrl = CamerVerify[3];
+    }
+}
 
 /// @brief 控制状态
-uint8_t Project_LIB_ControlStrat()
+int8_t Project_LIB_ControlStrat()
 {
-    
     Data_Save_from_Camer();
     Data_Get_from_Camer();
-    // Project_LIB_ControlTask();
+    
+    Dire_select();
+    Project_LIB_ControlTask();
 }
 
 /// @brief 控制任务
@@ -41,16 +58,16 @@ void Project_LIB_ControlTask()
 
     pidForLine.PID_Update1(&pidForLine);
     // printf("%d\n",pidForLine.output);
-    if (RLContrl == 1)
+    if (RLContrl == 2)
     {
-        Project_LIB_Motor_Load(-5000, 5000);
+        Project_LIB_Motor_Load(-2000, 2000);
     }
-    else if (RLContrl == 2)
+    else if (RLContrl == 1)
     {
-        Project_LIB_Motor_Load(5000, -5000);
+        Project_LIB_Motor_Load(2000+800, -2000+800);
     }
     else
     {
-        Project_LIB_Motor_Load(3000 - pidForLine.output, 3000 + pidForLine.output); // 装载到电机
+        Project_LIB_Motor_Load(2000 - pidForLine.output, 2000 + pidForLine.output); // 装载到电机
     }
 }

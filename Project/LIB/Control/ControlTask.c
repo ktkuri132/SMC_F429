@@ -39,7 +39,9 @@ void Dire_select(){
         RLContrl = CamerVerify[3];
     }
 }
-
+/*
+    Data_Get_from_Camer识别到数字之后,这个坐标信息就不能再被改变
+*/
 /// @brief 控制状态
 int8_t Project_LIB_ControlStrat()
 {

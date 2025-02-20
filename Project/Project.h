@@ -63,6 +63,8 @@ extern "C"
     uint8_t Project_BSP_GetKey();
 
     // Tools
+    void OpenMV_Camera_Callback();
+    uint8_t Temp_Run(void *(Fp)());
     int8_t Data_Get_from_Camer();
 
 #ifdef __cplusplus

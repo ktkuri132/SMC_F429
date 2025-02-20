@@ -11,7 +11,7 @@
 /* 片上IIC驱动头文件  */
 // #include <hardi2c.h>     // 此处定义片上硬件IIC
 // 此处定义片上软件IIC
-#include "../../BSP/i2c/softi2c.h"
+#include <i2c/softi2c.h>
 /*  片上SPI驱动头文件    */
 // #include <softspi.h>     // 实测通用软件SPI不能用以OLED驱动
 

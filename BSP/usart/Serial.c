@@ -35,8 +35,8 @@ __attribute__((weak)) void DR_Eevet_Callback()
 // 初始化函数，模拟类的构造函数
 void Stde_DataTypeDef_Init(Stde_DataTypeDef *data)
 {
-    data->CMD_Callback = CMD_Callback;
-    data->DR_Eevet_Callback = DR_Eevet_Callback;
+    // data->CMD_Callback = CMD_Callback;
+    // data->DR_Eevet_Callback = DR_Eevet_Callback;
     data->c = 0;
     data->UART_Strat = 0;
     data->UART_End = 0;
@@ -55,7 +55,6 @@ void Stde_DataTypeDef_Init(Stde_DataTypeDef *data)
 uint8_t STDE_UART(USART_TypeDef *USARTx,Stde_DataTypeDef* DataTypeStruct)
 {
     DataTypeStruct->c = USARTx->DR;   //获取第一个字符
-    // printf("%c",DataTypeStruct->c);
     if(DataTypeStruct->c=='s')          //如果是开始字符
     {
         DataTypeStruct->UART_Strat = 1;     //开始接收
@@ -80,7 +79,6 @@ uint8_t STDE_UART(USART_TypeDef *USARTx,Stde_DataTypeDef* DataTypeStruct)
         memset(DataTypeStruct->USART_array,0,sizeof(DataTypeStruct->USART_array));   //清空USART_array数组
 
         // 数据帧结束，产生回调事件
-        DataTypeStruct->DR_Eevet_Callback();
 
         return 0;
     }
@@ -102,14 +100,14 @@ uint8_t STDE_UART(USART_TypeDef *USARTx,Stde_DataTypeDef* DataTypeStruct)
                 // 其他数据格式......
                 case '2':DataTypeStruct->UART_DATA_TYPE=2;break;
                 // 检测：命令数据格式
-                case 'p':
-                    DataTypeStruct->UART_DATA_TYPE='p';
-                    DataTypeStruct->CMD_Callback();
+                case '3':DataTypeStruct->UART_DATA_TYPE=3;break;
+                case 'p':DataTypeStruct->UART_DATA_TYPE='p';
                 break;
 
                 default:break;
                     
             }
+            // DataTypeStruct->UART_DATA_TYPE_Callback(DataTypeStruct);    // 根据不同的数据格式产生回调事件
             DataTypeStruct->Res_Data_type=0;   //关闭数据格式检测
         }
 

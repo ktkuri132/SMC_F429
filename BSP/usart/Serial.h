@@ -19,26 +19,25 @@ void usart_send_string(USART_TypeDef *USARTx ,uint8_t *data);
 
 #elif defined STDE_Serial       // St,d,..E 串口协议,用于常规通信
 
-typedef struct 
+typedef struct stdDT
 {
-    __IO void (*CMD_Callback)();        // 命令模式回调函数（可选）
-    __IO void (*DR_Eevet_Callback)();   // 结束帧回调函数（可选）
+    void (*CMD_Callback)();        // 命令模式回调函数（可选）
+    void (*DR_Eevet_Callback)();   // 结束帧回调函数（可选）
+    void (*UART_DATA_TYPE_Callback)(struct Stde_DataTypeDef *DataTypeStruct);   // 数据类型回调函数（可选
+    uint8_t c;                     // 单次数据
 
-    __IO uint8_t c;                     // 单次数据
+    uint8_t UART_Strat;            // 数据传输起始标志位
+    uint8_t UART_End;              // 数据传输结束标志位
 
-    __IO uint8_t UART_Strat;            // 数据传输起始标志位
-    __IO uint8_t UART_End;              // 数据传输结束标志位
+    uint8_t Res_Data_type;         //数据格式检测标志位
+    uint8_t UART_DATA_TYPE;        //真实数据格式
 
-    __IO uint8_t Res_Data_type;         //数据格式检测标志位
-    __IO uint8_t UART_DATA_TYPE;        //真实数据格式
+    uint8_t Res_note;              //数据节点
+    uint8_t Res_len;               //接收数据的下标
+    uint8_t UART_NOTE;             //本次数据节点
+    uint8_t UART_LEN;              //本次接收数据的长度
 
-    __IO uint8_t Res_note;              //数据节点
-    __IO uint8_t Res_len;               //接收数据的下标
-
-    __IO uint8_t UART_NOTE;             //本次数据节点
-    __IO uint8_t UART_LEN;              //本次接收数据的长度
-
-    __IO uint8_t UART_NOTE_LEN[20];     //某次数据指定节点的数据长度
+    uint8_t UART_NOTE_LEN[20];     //某次数据指定节点的数据长度
 
     uint8_t USART_array[10][10];   // 数据长度酌情调整
 

@@ -1,24 +1,42 @@
-//
-// Created by 34575 on 25-2-5.
-//
-#include <stdio.h>
-#include <W25Q64/spiFlash.h>
+#include <BSP/usart/Serial.h>
+#include <HARDWARE/MPU6050/inv_mpu.h>
+#include <OLED/OLED.h>
+#include <Project/LIB/PID/pid.h>
+
+
+extern float pitch, roll, yaw;
+static uint8_t RLContrl = 0;
+
+void Turn_Control()
+{
+    static PID pidForLine;                                               // 创建PID结构体
+    PID_TypeStructInit(&pidForLine, 10, -10, 0, 120, PID_forLine, NULL); // 初始化
+
+    pidForLine.PID_Update1(&pidForLine);
+    // printf("%d\n",pidForLine.output);
+    if (RLContrl == 2)
+    {
+        Project_LIB_Motor_Load(-2000, 2000);
+    }
+    else if (RLContrl == 1)
+    {
+        Project_LIB_Motor_Load(2000+800, -2000+800);
+    }
+    else
+    {
+        Project_LIB_Motor_Load(2000 - pidForLine.output, 2000 + pidForLine.output); // 装载到电机
+    }
+}
+
+void Test_Turn()
+{
+
+}
+
+
 void Test()
 {
 
-	W25Q64_Init();
-
-	uint8_t MID;
-	uint16_t DID;
-	uint8_t DataArry[1] = {0x78};
-	W25Q64_ReadID(&MID, &DID);
-	// W25Q64_ReadData(0x00000000,&MID,1);
-	printf("MID:%d,DID:%d\n", MID, DID);
-	// W25Q64_PageProgram(0x00000000,DataArry,1);
-	W25Q64_ReadData(0x00000000, &MID, 1);
-	printf("MID:%x,DID:%d\n", MID, DID);
-	while (1)
-	{
-		
-	}
+    OLED_Printf(0, 24, OLED_6X8, "MPU6050:%f", yaw);
+    OLED_Update();
 }

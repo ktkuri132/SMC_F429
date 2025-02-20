@@ -27,7 +27,7 @@ extern Stde_DataTypeDef USART3_DataBuff, UART5_DataBuff, UART4_DataBuff; // decl
 extern uint8_t CamerVerify[4]; 
 extern uint8_t DataLock;
 
-uint8_t RLContrl;
+static uint8_t RLContrl;
 
 void Dire_select(){
     if(CamerVerify[0])
@@ -50,6 +50,22 @@ int8_t Project_LIB_ControlStrat()
     
     Dire_select();
     Project_LIB_ControlTask();
+}
+
+
+/*
+    关于转向的细节:
+        1.k210识别到数字之后,这个坐标信息就不能再被改变,除非转向过程结束
+        2.如何检测转向过程结束?
+            2.1.用MPU6050,在接受到转向指令后,取当前的yaw值,然后在转向过程中,不断的取yaw值,当yaw值与初始值相差一定角度时,认为转向结束
+            2.2.用Openmv,在转向期间,观察是否扫到分叉路的直线,扫到直线就开始走直线,并认为转向结束
+        3.1.假如是有两个数字,检测到转向结束后,坐标信息就可以被改变了,开启识别下一个数字的流程
+        3.2.假如是只有一个数字,转向结束进入返回模式,由新的系统控制
+*/
+
+void Turn()
+{
+    
 }
 
 /// @brief 控制任务

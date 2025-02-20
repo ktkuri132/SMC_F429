@@ -3,5 +3,6 @@
 
 
 void BSP_Init();
+void Test_Turn();
 
 #endif

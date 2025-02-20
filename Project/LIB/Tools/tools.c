@@ -7,7 +7,6 @@
 #include <stdint.h>
 #include <stdio.h>
 #include <usart/Serial.h>
-#include "OLED/OLED.h"
 extern Stde_DataTypeDef USART3_DataBuff, UART5_DataBuff, UART4_DataBuff;
 
 extern TaskHandle_t *Task3_Project_Display_Mode_1_Handle;
@@ -24,10 +23,11 @@ uint8_t TaskDeletSign;
 /// @param Fp 运行函数
 /// @param Count 运行函数
 /// @return
-uint8_t Temp_Run(void *(Fp)(), uint8_t Count) {
+uint8_t Temp_Run(void *(Fp)()) {
     static uint8_t i = 0;
-    if (i < Count) {
+    if (!i) {
         Fp();
+        i++;
     }
 }
 
@@ -98,28 +98,50 @@ void Project_LIB_Motor_Load(int32_t leftMotor, int32_t RightMotor) {
     }
 }
 
-uint8_t CamerData[4];  // [0] 数字1 [1] 坐标1 [2] 数字2 [3] 坐标2
-uint8_t DataLock = 0;  // 规定数据存储次数，静态变量实现自锁与解锁
+void OpenMV_Camera_Callback(Stde_DataTypeDef *DataTypeStruct)
+{
+    uint8_t Temp_Data =  DataTypeStruct->UART_DATA_TYPE;
+
+    if(Temp_Data == 1){
+        printf("OpenMV_Camera_Callback: 0x01\n");
+    }
+    else if(Temp_Data == 2){
+        printf("OpenMV_Camera_Callback: 0x02\n");
+    }
+    else if(Temp_Data == 3){
+        printf("OpenMV_Camera_Callback: 0x03\n");
+    }
+}
+
+
+uint8_t CamerData[4];      // [0] 数字1 [1] 坐标1 [2] 数字2 [3] 坐标2
+uint8_t SaveDataLock = 0;  // 规定数据存储次数，静态变量实现自锁与解锁
 extern uint8_t Key_Value;
 
-/// @brief 将从串口读出的数据保存到CamerData中
-/// @return <0 未完成 
+/// @brief 将从串口读出的数据保存到CamerData中,原本读取数字是不用获取坐标信息的,但是当时写错了,后来也就没改过来,函数的运行条件是SaveDataLock必须为0
+/// @param MotorStrat_2 电机启动条件之一,根据具体需要提供给这个函数
+/// @param Key_Value 按键按下的键值,根据具体需要提供给这个函数
+/// @param K210Data 从k210摄像头传来的数字数据,根据具体需要提供给这个函数
+/// @param K210Site 从k210摄像头传来的坐标数据,根据具体需要提供给这个函数
+/// @return <0 未完成
 /// @return >0 完成
 int8_t Data_Save_from_Camer() {
     static uint8_t i = 0;
-    if (!DataLock) {
+    if (!SaveDataLock) {
         static uint8_t TempNum, TempSite;
         if (!K210Data) {
-            if (MotorStrat_2 || (Key_Value==1)) {  // 此时若电机被启动，直接强行锁定
-                DataLock = 1;
+            if (MotorStrat_2 ||
+                (Key_Value == 1)) {  // 此时若电机被启动，直接强行锁定
+                SaveDataLock = 1;
                 return i;
             }
             return -1;
         }
         if (TempNum == K210Data) {
-            if (i == 2) {            // 存入一个数字，选择性锁定存储
-                if (MotorStrat_2||(Key_Value==1)) {  // 此时若电机被启动，直接强行锁定
-                    DataLock = 1;
+            if (i == 2) {  // 存入一个数字，选择性锁定存储
+                if (MotorStrat_2 ||
+                    (Key_Value == 1)) {  // 此时若电机被启动，直接强行锁定
+                    SaveDataLock = 1;
                 }
             }
             return -2;  //  上次和这次数据一样
@@ -139,7 +161,7 @@ int8_t Data_Save_from_Camer() {
                 }
                 i += 2;
                 if (i == 4) {  // 存入两个数字，直接锁定数据存入
-                    DataLock = 2;
+                    SaveDataLock = 2;
                 }
                 return i;
             }
@@ -152,61 +174,66 @@ int8_t Data_Save_from_Camer() {
 
 uint8_t CamerVerify[4];
 
-/// @brief 将从串口识别到的数字进行识别配对
+/// @brief 将从串口识别到的数字进行识别配对,函数运行的第一优先级是SaveDataLock必须为1,第二优先级是VerifyDataLock必须为0
 /// @return
 int8_t Data_Get_from_Camer() {
-    if (DataLock) {
-        static uint8_t m = 0;
-        if (K210Data && !m) {
-            return -1;
-        }
-        m = 1;
-        // 首先判断，是存了一个还是两个数字
-        switch (DataLock) {
-            case 1: {
-                if (!K210Data) {
-                    return -1;
-                }
-                if (CamerData[0] == K210Data) {
-                    CamerVerify[0] = K210Data;
-                    if (K210Site > 60) {
-                        CamerVerify[1] = 1;
-                        return 1;  // 右边
-                    } else {
-                        CamerVerify[1] = 2;
-                        return 2;  // 左边
-                    }
-                }
-            } break;
-            case 2: {
-                if (!K210Data) {
-                    return -1;
-                }
-                if (CamerData[0] == K210Data) {
-                    CamerVerify[0] = K210Data;
-                    if (K210Site > 60) {
-                        CamerVerify[1] = 1;
-                        return 1;  // 右边
-                    } else {
-                        CamerVerify[1] = 2;
-                        return 2;  // 左边
-                    }
-                }
-                if (CamerData[2] == K210Data) {
-                    CamerVerify[2] = K210Data;
-                    if (K210Site > 60) {
-                        CamerVerify[3] = 1;
-                        return 1;  // 右边
-                    } else {
-                        CamerVerify[3] = 2;
-                        return 2;  // 左边
-                    }
-                }
+    static uint8_t VerifyDataLock = 0;
+    if (SaveDataLock) {
+        if (!VerifyDataLock) {
+            static uint8_t m = 0;
+            if (K210Data && !m) {
+                return -1;
             }
-            default:
-                break;
-        }
+            m = 1;
+            // 首先判断，是存了一个还是两个数字
+            switch (SaveDataLock) {
+                case 1: {
+                    if (!K210Data) {
+                        return -1;
+                    }
+                    if (CamerData[0] == K210Data) {
+                        CamerVerify[0] = K210Data;
+                        if (K210Site > 60) {
+                            CamerVerify[1] = 1;
+                            VerifyDataLock = 1;
+                            return 1;  // 右边
+                        } else {
+                            CamerVerify[1] = 2;
+                            VerifyDataLock = 1;
+                            return 2;  // 左边
+                        }
+                    }
+                } break;
+                case 2: {
+                    if (!K210Data) {
+                        return -1;
+                    }
+                    if (CamerData[0] == K210Data) {
+                        CamerVerify[0] = K210Data;
+                        if (K210Site > 60) {
+                            CamerVerify[1] = 1;
+                            return 1;  // 右边
+                        } else {
+                            CamerVerify[1] = 2;
+                            return 2;  // 左边
+                        }
+                    }
+                    if (CamerData[2] == K210Data) {
+                        CamerVerify[2] = K210Data;
+                        if (K210Site > 60) {
+                            CamerVerify[3] = 1;
+                            return 1;  // 右边
+                        } else {
+                            CamerVerify[3] = 2;
+                            return 2;  // 左边
+                        }
+                    }
+                }
+                default:
+                    break;
+            }
 
-        return -1;  // 删除任务未完成
+            return -1;  // 删除任务未完成
+        }
     }
 }

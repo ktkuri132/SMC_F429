@@ -18,6 +18,7 @@ extern "C"
 
 // 外挂外设驱动
 #include <HARDWARE/OLED/OLED.h>
+#include <usart/Serial.h>
 // 项目头文件
 
 // 定义电机接口寄存器
@@ -63,7 +64,7 @@ extern "C"
     uint8_t Project_BSP_GetKey();
 
     // Tools
-    void OpenMV_Camera_Callback();
+    void OpenMV_Camera_Callback(Stde_DataTypeDef *DataTypeStruct);
     uint8_t Temp_Run(void *(Fp)());
     int8_t Data_Get_from_Camer();
 

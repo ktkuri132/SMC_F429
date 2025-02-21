@@ -29,15 +29,21 @@ extern uint8_t DataLock;
 
 static uint8_t RLContrl;
 
+uint8_t SiteLock = 0;
+
+/// @brief 只要进入转向选择,运行一次后,无法继续运行,除非SiteLock被解锁,解锁的条件是OpenMV识别到十字路口,数据类型返回3
 void Dire_select(){
-    if(CamerVerify[0])
-    {
-        RLContrl = CamerVerify[1];
+    do{
+        if(CamerVerify[0])
+        {
+            RLContrl = CamerVerify[1];
+        }
+        if(CamerVerify[2])
+        {
+            RLContrl = CamerVerify[3];
+        }
     }
-    if(CamerVerify[2])
-    {
-        RLContrl = CamerVerify[3];
-    }
+    while (SiteLock);
 }
 /*
     Data_Get_from_Camer识别到数字之后,这个坐标信息就不能再被改变
@@ -46,9 +52,10 @@ void Dire_select(){
 int8_t Project_LIB_ControlStrat()
 {
     Data_Save_from_Camer();
-    Data_Get_from_Camer();
-    
-    Dire_select();
+    int8_t dgfc_return =  Data_Get_from_Camer();    // 只要识别到数字,才能进入转向选择
+    if (dgfc_return > 0) {
+        Dire_select();
+    }
     Project_LIB_ControlTask();
 }
 

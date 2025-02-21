@@ -19,7 +19,7 @@ void usart_send_string(USART_TypeDef *USARTx ,uint8_t *data);
 
 #elif defined STDE_Serial       // St,d,..E 串口协议,用于常规通信
 
-typedef struct stdDT
+typedef struct
 {
     void (*CMD_Callback)();        // 命令模式回调函数（可选）
     void (*DR_Eevet_Callback)();   // 结束帧回调函数（可选）

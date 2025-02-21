@@ -43,8 +43,9 @@ Init_BSP:  // 初始化基本外设
     NVIC_Configuration();
 
 Init_Serial:
-    USART2_DataBuff.UART_DATA_TYPE_Callback = OpenMV_Camera_Callback;
+
     Stde_DataTypeDef_Init(&USART2_DataBuff);
+    USART2_DataBuff.UART_DATA_TYPE_Callback = OpenMV_Camera_Callback;
     Stde_DataTypeDef_Init(&USART3_DataBuff);
     Stde_DataTypeDef_Init(&UART5_DataBuff);
     Stde_DataTypeDef_Init(&UART4_DataBuff);

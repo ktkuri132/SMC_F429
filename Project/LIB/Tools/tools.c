@@ -103,13 +103,13 @@ void OpenMV_Camera_Callback(Stde_DataTypeDef *DataTypeStruct)
     uint8_t Temp_Data =  DataTypeStruct->UART_DATA_TYPE;
 
     if(Temp_Data == 1){
-        printf("OpenMV_Camera_Callback: 0x01\n");
+
     }
     else if(Temp_Data == 2){
-        printf("OpenMV_Camera_Callback: 0x02\n");
+
     }
     else if(Temp_Data == 3){
-        printf("OpenMV_Camera_Callback: 0x03\n");
+
     }
 }
 
@@ -179,7 +179,6 @@ uint8_t CamerVerify[4];
 int8_t Data_Get_from_Camer() {
     static uint8_t VerifyDataLock = 0;
     if (SaveDataLock) {
-        if (!VerifyDataLock) {
             static uint8_t m = 0;
             if (K210Data && !m) {
                 return -1;
@@ -195,11 +194,9 @@ int8_t Data_Get_from_Camer() {
                         CamerVerify[0] = K210Data;
                         if (K210Site > 60) {
                             CamerVerify[1] = 1;
-                            VerifyDataLock = 1;
                             return 1;  // 右边
                         } else {
                             CamerVerify[1] = 2;
-                            VerifyDataLock = 1;
                             return 2;  // 左边
                         }
                     }
@@ -235,5 +232,4 @@ int8_t Data_Get_from_Camer() {
 
             return -1;  // 删除任务未完成
         }
-    }
 }

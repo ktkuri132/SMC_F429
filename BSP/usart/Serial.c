@@ -20,23 +20,14 @@ void usart_send_string(USART_TypeDef *USARTx ,uint8_t *data)
 
 #elif defined STDE_Serial       // st,d,..e 串口协议,用于常规通信
 
-// 命令模式回调函数
-__attribute__((weak)) void CMD_Callback() 
-{
-    //处理命令
-}
 
-// 数据接收完成回调函数
-__attribute__((weak)) void DR_Eevet_Callback()
-{
-    //处理命令
-}
 
 // 初始化函数，模拟类的构造函数
 void Stde_DataTypeDef_Init(Stde_DataTypeDef *data)
 {
-    // data->CMD_Callback = CMD_Callback;
-    // data->DR_Eevet_Callback = DR_Eevet_Callback;
+    data->CMD_Callback = NULL;
+    data->DR_Eevet_Callback = NULL;
+    data->UART_DATA_TYPE_Callback = NULL;
     data->c = 0;
     data->UART_Strat = 0;
     data->UART_End = 0;
@@ -107,7 +98,7 @@ uint8_t STDE_UART(USART_TypeDef *USARTx,Stde_DataTypeDef* DataTypeStruct)
                 default:break;
                     
             }
-            // DataTypeStruct->UART_DATA_TYPE_Callback(DataTypeStruct);    // 根据不同的数据格式产生回调事件
+            (DataTypeStruct->UART_DATA_TYPE_Callback != NULL) ? DataTypeStruct->UART_DATA_TYPE_Callback(DataTypeStruct) : 0;
             DataTypeStruct->Res_Data_type=0;   //关闭数据格式检测
         }
 

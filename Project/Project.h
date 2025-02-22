@@ -41,7 +41,7 @@ extern "C"
     // uint8_t Project_BSP_HW201_Get();
 
     /*    project funtion in LIB folder    */
-    void Project_LIB_Get_Encoder_Value(uint32_t *value1, uint32_t *value2);
+    void Project_LIB_Get_Encoder_Value(int8_t *value1, int8_t *value2);
     void Project_LIB_TIM3_Init(uint8_t ms);
     void Project_LIB_Motor_Load(int32_t leftMotor, int32_t RightMotor);
     int8_t Data_Save_from_Camer();

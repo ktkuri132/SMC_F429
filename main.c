@@ -1,6 +1,7 @@
 // #define __RELEASE
 #include <Dev/PWM/stm32f4xx_tim.h>
 #include <stdio.h>
+#include <LIB/PID/pid.h>
 
 #ifdef __cplusplus
 extern "C" {
@@ -20,6 +21,8 @@ extern "C" {
 #include "usart/Serial.h"
 #include "usart/usart.h"
 
+#include <Project.h>
+
 // 定义串口数据结构
 Stde_DataTypeDef USART2_DataBuff;
 Stde_DataTypeDef USART3_DataBuff;
@@ -33,9 +36,9 @@ int main();
 /// @brief 主函数运行完了自动复位
 void BSP_Init() {
 Init_BSP:  // 初始化基本外设
+    bsp_usart_1_inti(115200);
     OLED_Init();
     mpu_dmp_init();
-    bsp_usart_1_inti(115200);
     bsp_usart_2_inti(250000);  // OpenMV摄像头通信
     bsp_usart_3_inti(115200);  // 数字识别摄像头
     bsp_uart_4_inti(115200);   // 无线串口
@@ -60,7 +63,10 @@ Init_Project:
     Project_BSP_ADC_Init();
     Project_BSP_KEY_Init();
     Project_LIB_TIM3_Init(10);
-    Init_Control:
+
+Init_Control:
+    
+
     main();
     // Test();
 }
@@ -82,7 +88,7 @@ int main() {
     vTaskStartScheduler();
 }
 
-uint32_t Rvalue,Lvalue;
+int8_t Rvalue, Lvalue;
 
 void TIM3_IRQHandler() {
     if (TIM_GetITStatus(TIM3, TIM_IT_Update)) {

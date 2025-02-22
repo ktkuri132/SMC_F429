@@ -39,7 +39,7 @@ void Project_BSP_PWM_TIM2_Init()
 }
 
 
-// @brief 设置TIM4_CH12_12_13--TIM15_CH12_H10_11的编码器模式
+// @brief 设置TIM4_CH12_12_13--TIM5_CH12_H10_11的编码器模式
 void Project_BSP_Encoding_Init()
 {
 	RCC_APB1PeriphClockCmd(RCC_APB1Periph_TIM4|RCC_APB1Periph_TIM5, ENABLE);
@@ -51,8 +51,8 @@ void Project_BSP_Encoding_Init()
 	bsp_gpio_af_set(GPIOD,SYS_GPIO_PIN12,2);
 	bsp_gpio_af_set(GPIOD,SYS_GPIO_PIN13,2);
 
-	bsp_gpio_af_set(GPIOH,SYS_GPIO_PIN10,9);
-	bsp_gpio_af_set(GPIOH,SYS_GPIO_PIN11,9);
+	bsp_gpio_af_set(GPIOH,SYS_GPIO_PIN10,2);
+	bsp_gpio_af_set(GPIOH,SYS_GPIO_PIN11,2);
 
 	//初始化TIM4
 	TIM_TimeBaseInitTypeDef TIM_TimeBaseStructure;

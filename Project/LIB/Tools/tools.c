@@ -32,7 +32,7 @@ uint8_t Temp_Run(void *(Fp)()) {
 }
 
 /// @brief get the value of encoder on TIM4 and TIM5
-void Project_LIB_Get_Encoder_Value(uint32_t *value1, uint32_t *value2) {
+void Project_LIB_Get_Encoder_Value(int8_t *value1, int8_t *value2) {
     *value1 = TIM4->CNT;
     *value2 = TIM5->CNT;
     TIM4->CNT = 0;

@@ -60,6 +60,7 @@ Init_Project:
     Project_BSP_ADC_Init();
     Project_BSP_KEY_Init();
     Project_LIB_TIM3_Init(10);
+    Init_Control:
     main();
     // Test();
 }
@@ -70,7 +71,7 @@ TaskHandle_t Task_DebugLog_Handle = NULL;
 
 int main() {
     if (xTaskCreate((TaskFunction_t)Task_DebugLog, "DebugLog", 1024, NULL, 9,
-                    Task_DebugLog_Handle) != pdPASS) {
+                    &Task_DebugLog_Handle) != pdPASS) {
         printf("HeapManager创建失败\n");
     }
     if (xTaskCreate((TaskFunction_t)Task1_SystemStrat, "SystemStrat", 1024,
@@ -81,11 +82,13 @@ int main() {
     vTaskStartScheduler();
 }
 
+uint32_t Rvalue,Lvalue;
+
 void TIM3_IRQHandler() {
     if (TIM_GetITStatus(TIM3, TIM_IT_Update)) {
         TIM_ClearITPendingBit(TIM3, TIM_IT_Update);
+        Project_LIB_Get_Encoder_Value(&Rvalue, &Lvalue);
         Project_LIB_ControlStrat();
-        // Test_Turn();
     }
 }
 

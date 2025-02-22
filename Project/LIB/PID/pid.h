@@ -13,6 +13,7 @@ typedef struct PID_TypeDef
     /* function  */
     void (*PID_Update1)(struct PID_TypeDef *pid);
     void (*PID_Update2)(struct PID_TypeDef *pid);
+    void (*PID_Update3)(struct PID_TypeDef *pid);
     /* data */
     int32_t error;
     int32_t last_error;
@@ -68,7 +69,7 @@ void __attribute__((weak)) PID_Update(PID *pid)
 }
 
 
-void PID_TypeStructInit(PID *pid,int16_t kp,int16_t kd,int16_t ki,int16_t current,void *lineControl,void *turnControl);
+void PID_TypeStructInit(PID *pid,int16_t kp,int16_t kd,int16_t ki,int16_t target);
 void PID_forLine(PID *pid);
 void PID_forTurn(PID *pid);
 

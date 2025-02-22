@@ -27,37 +27,47 @@ extern Stde_DataTypeDef USART3_DataBuff, UART5_DataBuff, UART4_DataBuff; // decl
 extern uint8_t CamerVerify[4]; 
 extern uint8_t DataLock;
 
-static uint8_t RLContrl;
-
+uint8_t RLContrl = 0;
 uint8_t SiteLock = 0;
 
 /// @brief 只要进入转向选择,运行一次后,无法继续运行,除非SiteLock被解锁,解锁的条件是OpenMV识别到十字路口,数据类型返回3
-void Dire_select(){
-    do{
-        if(CamerVerify[0])
-        {
-            RLContrl = CamerVerify[1];
-        }
-        if(CamerVerify[2])
-        {
-            RLContrl = CamerVerify[3];
+uint8_t Temp_Dire_select(){
+    uint8_t Temp_RLContrl;
+    if(CamerVerify[0])
+    {
+        Temp_RLContrl = CamerVerify[1];
+    }
+    if(CamerVerify[2])
+    {
+        Temp_RLContrl = CamerVerify[3];
+    }
+    return Temp_RLContrl;
+}
+
+void Dire_select(uint8_t Temp_RLContrl) {
+    if (SiteLock==3) {
+        if(Temp_RLContrl) {
+            RLContrl = Temp_RLContrl;
         }
     }
-    while (SiteLock);
 }
+
+uint8_t Temp_RLContrl = 0;
 /*
     Data_Get_from_Camer识别到数字之后,这个坐标信息就不能再被改变
 */
 /// @brief 控制状态
-int8_t Project_LIB_ControlStrat()
-{
+int8_t Project_LIB_ControlStrat(){
     Data_Save_from_Camer();
     int8_t dgfc_return =  Data_Get_from_Camer();    // 只要识别到数字,才能进入转向选择
-    if (dgfc_return > 0) {
-        Dire_select();
+
+    if (dgfc_return > 0) {      //大于0表示识别到数字
+        Temp_RLContrl = Temp_Dire_select();
     }
+    Dire_select(Temp_RLContrl);
     Project_LIB_ControlTask();
 }
+
 
 
 /*
@@ -75,21 +85,27 @@ void Turn()
     
 }
 
-/// @brief 控制任务
-void Project_LIB_ControlTask()
-{
-    static PID pidForLine;                                               // 创建PID结构体
-    PID_TypeStructInit(&pidForLine, 10, -10, 0, 120, PID_forLine, NULL); // 初始化
+extern uint32_t Rvalue,Lvalue;
 
-    pidForLine.PID_Update1(&pidForLine);
+/// @brief 控制任务
+void Project_LIB_ControlTask(){
+    static PID pidForLine;                                               // 创建PID结构体
+    static PID pidforspeed;
+    do {
+        PID_TypeStructInit(&pidForLine, 10, -10, 0, 150); // 初始化
+        pidForLine.PID_Update1 = PID_forLine;
+        pidForLine.PID_Update1(&pidForLine);
+    }while (0);
+    
+
     // printf("%d\n",pidForLine.output);
-    if (RLContrl == 2)
+    if (RLContrl == 1)
     {
-        Project_LIB_Motor_Load(-2000, 2000);
+        Project_LIB_Motor_Load(3000, 7000);
     }
-    else if (RLContrl == 1)
+    else if (RLContrl == 2)
     {
-        Project_LIB_Motor_Load(2000+800, -2000+800);
+        Project_LIB_Motor_Load(7000, 3000);
     }
     else
     {

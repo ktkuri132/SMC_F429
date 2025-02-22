@@ -32,9 +32,11 @@ uint8_t Temp_Run(void *(Fp)()) {
 }
 
 /// @brief get the value of encoder on TIM4 and TIM5
-void Project_LIB_Get_Encoder_Value(uint16_t *value1, uint16_t *value2) {
+void Project_LIB_Get_Encoder_Value(uint32_t *value1, uint32_t *value2) {
     *value1 = TIM4->CNT;
     *value2 = TIM5->CNT;
+    TIM4->CNT = 0;
+    TIM5->CNT = 0;
 }
 
 void Project_LIB_TIM3_Init(uint8_t ms) {
@@ -54,8 +56,7 @@ void Project_LIB_TIM3_Init(uint8_t ms) {
     printf("初始化定时器\n");
 }
 
-uint8_t MotorStrat_1 =
-    1;  //  电机启动最高优先级：电源控制
+uint8_t MotorStrat_1 = 1;  //  电机启动最高优先级：电源控制
         //  默认插上跳线帽为标准功耗，开启电机，拔下跳线帽为低功耗，关闭电机
 uint8_t MotorStrat_2 = 0;  //  电机启动第二优先级：药品放置
                            //  默认放置药品就开启电机，拿走药品就关闭电机
@@ -98,18 +99,23 @@ void Project_LIB_Motor_Load(int32_t leftMotor, int32_t RightMotor) {
     }
 }
 
+extern uint8_t SiteLock;
+
 void OpenMV_Camera_Callback(Stde_DataTypeDef *DataTypeStruct)
 {
     uint8_t Temp_Data =  DataTypeStruct->UART_DATA_TYPE;
 
     if(Temp_Data == 1){
-
+        SiteLock = 1;
+        // printf("SiteLock = 1\n");
     }
     else if(Temp_Data == 2){
-
+        SiteLock = 2;
+        // printf("SiteLock = 2\n");
     }
     else if(Temp_Data == 3){
-
+        SiteLock = 3;
+        // printf("SiteLock = 3\n");
     }
 }
 
@@ -175,7 +181,7 @@ int8_t Data_Save_from_Camer() {
 uint8_t CamerVerify[4];
 
 /// @brief 将从串口识别到的数字进行识别配对,函数运行的第一优先级是SaveDataLock必须为1,第二优先级是VerifyDataLock必须为0
-/// @return
+/// @return >0 得到方向 <0 未完成
 int8_t Data_Get_from_Camer() {
     static uint8_t VerifyDataLock = 0;
     if (SaveDataLock) {

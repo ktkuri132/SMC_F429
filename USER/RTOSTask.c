@@ -96,6 +96,18 @@ void Task1_SystemStrat() {
                 taskEXIT_CRITICAL();
             } break;
         }
+        if (!OpenMVData) {
+            if (Task_DebugLog_Handle!=NULL) {
+                vTaskDelete(Task_DebugLog_Handle);
+                Task_DebugLog_Handle = NULL;
+            }
+        }
+        else {
+            if (Task_DebugLog_Handle==NULL) {
+                xTaskCreate((TaskFunction_t)Task_DebugLog, "DebugLog", 1024, NULL, 9,
+                    &Task_DebugLog_Handle);
+            }
+        }
         vTaskDelayUntil(&xLastWakeTime, xFrequency);
     }
 }
@@ -181,7 +193,7 @@ Mode_21:
                     CamerVerify[1], CamerVerify[2], CamerVerify[3]);
         OLED_Update();
 
-        if (USART_Deal(&USART2_DataBuff, 0) == 1) {
+        if (USART2_DataBuff.UART_DATA_TYPE != 2) {
             MotorStrat_3 = 1;
         } else {
             MotorStrat_3 = 0;
@@ -268,6 +280,9 @@ Yellow_LED:
     vTaskDelete(Task4_LEDPlayY_Handle);
 }
 
+extern uint8_t SiteLock;
+extern uint8_t Temp_RLContrl;
+
 void Task_DebugLog() {
     TickType_t xLastWakeTime;
     const TickType_t xFrequency = pdMS_TO_TICKS(1000);  // 任务周期为 1秒
@@ -275,12 +290,12 @@ void Task_DebugLog() {
     xLastWakeTime = xTaskGetTickCount();
     while (1) {
         taskENTER_CRITICAL();
-        vTaskDelayUntil(&xLastWakeTime, xFrequency);
         printf("剩余栈大小:%d\n", xPortGetFreeHeapSize());
         printf("任务数量:%d\n", uxTaskGetNumberOfTasks());
-        // printf("sit %d,%d\n", USART_Deal(&USART3_DataBuff,
-        // 0),USART_Deal(&USART3_DataBuff, 1));
-        // printf("DataLock:%d\n", DataLock);
+        printf("Openmv:%d\n", OpenMVData);
+        printf("SiteLock:%d\n", SiteLock);
+        printf("Temp_RLContrl:%d\n", Temp_RLContrl);
+        vTaskDelayUntil(&xLastWakeTime, xFrequency);
         taskEXIT_CRITICAL();
     }
 }

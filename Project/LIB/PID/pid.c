@@ -8,7 +8,7 @@
  * 如有更多需求，可在结构体内添加，初始化函数中加入接口
  */
 
-void PID_TypeStructInit(PID *pid,int16_t kp,int16_t kd,int16_t ki,int16_t target,void *lineControl,void *turnControl)
+void PID_TypeStructInit(PID *pid,int16_t kp,int16_t kd,int16_t ki,int16_t target)
 {
     pid->max_output = MAX_PWM;
     pid->max_integral = 7200;
@@ -17,20 +17,4 @@ void PID_TypeStructInit(PID *pid,int16_t kp,int16_t kd,int16_t ki,int16_t target
     pid->Kp = kp;
     pid->Kd = kd;
     pid->Ki = ki;
-    if(lineControl == NULL)
-    {
-        pid->PID_Update1 = PID_Update;
-    }
-    else
-    {
-        pid->PID_Update1 = lineControl;
-    }
-    if(turnControl == NULL)
-    {
-        pid->PID_Update2 = PID_Update;
-    }
-    else 
-    {
-        pid->PID_Update2 = turnControl;
-    }
 }

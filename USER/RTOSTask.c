@@ -101,6 +101,7 @@ void Task1_SystemStrat()
     // 按键配置:1->确定 2->向下选择 3->返回
     while (1)
     {
+
         OLED_Printf(0, 16, OLED_6X8, "key:%d", Key_Value);
         switch (Key_Value)
         {
@@ -339,7 +340,7 @@ void Task_DebugLog()
         printf("任务数量:%d\n", uxTaskGetNumberOfTasks());
         printf("Openmv:%d\n", OpenMVData);
         printf("SiteLock:%d\n", SiteLock);
-        printf("Temp_RLContrl:%d\n", Temp_RLContrl);
+        printf("RLContrl:%d\n", RLContrl);
         printf("Rvalue:%d,Lvalue:%d\n", Rvalue, Lvalue);
         vTaskDelayUntil(&xLastWakeTime, xFrequency);
         taskEXIT_CRITICAL();

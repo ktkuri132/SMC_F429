@@ -1,4 +1,5 @@
 // #define __RELEASE
+#include "stm32f4xx.h"
 #include <Dev/PWM/stm32f4xx_tim.h>
 #include <stdio.h>
 #include <LIB/PID/pid.h>
@@ -36,9 +37,9 @@ int main();
 /// @brief 主函数运行完了自动复位
 void BSP_Init() {
 Init_BSP:  // 初始化基本外设
-    bsp_usart_1_inti(115200);
     OLED_Init();
     mpu_dmp_init();
+    bsp_usart_1_inti(115200);
     bsp_usart_2_inti(250000);  // OpenMV摄像头通信
     bsp_usart_3_inti(115200);  // 数字识别摄像头
     bsp_uart_4_inti(115200);   // 无线串口
@@ -63,7 +64,7 @@ Init_Project:
     Project_BSP_ADC_Init();
     Project_BSP_KEY_Init();
     Project_LIB_TIM3_Init(10);
-
+    // Project_LIB_TIM1_Init(3);
 Init_Control:
     
 
@@ -95,6 +96,18 @@ void TIM3_IRQHandler() {
         TIM_ClearITPendingBit(TIM3, TIM_IT_Update);
         Project_LIB_Get_Encoder_Value(&Rvalue, &Lvalue);
         Project_LIB_ControlStrat();
+    }
+}
+
+extern uint8_t RLContrl;
+
+void TIM1_UP_TIM10_IRQndler() {
+    if (TIM_GetITStatus(TIM1, TIM_IT_Update)) {
+        TIM_ClearITPendingBit(TIM1, TIM_IT_Update);
+        if(USART2_DataBuff.UART_DATA_TYPE == 1){
+            RLContrl =0;
+            TIM_Cmd(TIM1, DISABLE);
+        }
     }
 }
 

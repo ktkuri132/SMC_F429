@@ -53,8 +53,23 @@ void Project_LIB_TIM3_Init(uint8_t ms) {
     TIM_ITConfig(TIM3, TIM_IT_Update, ENABLE);
     TIM_Cmd(TIM3, ENABLE);
 
-    printf("初始化定时器\n");
+    printf("初始化定时器3\n");
 }
+
+void Project_LIB_TIM1_Init(uint8_t ms) {
+    TIM_TimeBaseInitTypeDef TIM_TimeBaseStructure;
+    RCC_APB2PeriphClockCmd(RCC_APB2Periph_TIM1, ENABLE);
+    TIM_TimeBaseStructure.TIM_Period = 1000 * ms - 1;
+    TIM_TimeBaseStructure.TIM_Prescaler = 84 - 1;
+    TIM_TimeBaseStructure.TIM_ClockDivision = TIM_CKD_DIV1;
+    TIM_TimeBaseStructure.TIM_CounterMode = TIM_CounterMode_Up;
+    TIM_TimeBaseInit(TIM1, &TIM_TimeBaseStructure);
+    TIM_ClearFlag(TIM1, TIM_FLAG_Update);
+    TIM_ITConfig(TIM1, TIM_IT_Update, ENABLE);
+    TIM_Cmd(TIM1, DISABLE);
+    printf("初始化定时器1\n");
+}
+
 
 uint8_t MotorStrat_1 = 1;  //  电机启动最高优先级：电源控制
         //  默认插上跳线帽为标准功耗，开启电机，拔下跳线帽为低功耗，关闭电机
@@ -115,6 +130,7 @@ void OpenMV_Camera_Callback(Stde_DataTypeDef *DataTypeStruct)
     }
     else if(Temp_Data == 3){
         SiteLock = 3;
+        // TIM_Cmd(TIM1, ENABLE);
         // printf("SiteLock = 3\n");
     }
 }

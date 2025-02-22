@@ -68,7 +68,7 @@ void NVIC_Configuration(void) {
 
     // 配置 UART5 中断优先级 蓝牙串口
     NVIC_InitStructure.NVIC_IRQChannel = UART5_IRQn;
-    NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 3;
+    NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 4;
     NVIC_InitStructure.NVIC_IRQChannelSubPriority = 0;
     NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
     NVIC_Init(&NVIC_InitStructure);
@@ -76,6 +76,13 @@ void NVIC_Configuration(void) {
     // 配置定时器1 中断优先级 PID控制的定时器
     NVIC_InitStructure.NVIC_IRQChannel = TIM3_IRQn;
     NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 1;
+    NVIC_InitStructure.NVIC_IRQChannelSubPriority = 0;
+    NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
+    NVIC_Init(&NVIC_InitStructure);
+
+    // 配置定时器1 中断优先级 转向检测的定时器
+    NVIC_InitStructure.NVIC_IRQChannel = TIM1_UP_TIM10_IRQn;
+    NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 2;
     NVIC_InitStructure.NVIC_IRQChannelSubPriority = 0;
     NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
     NVIC_Init(&NVIC_InitStructure);

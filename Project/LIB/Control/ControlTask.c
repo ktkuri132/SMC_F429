@@ -119,7 +119,6 @@ void Project_LIB_ControlTask()
     }
     else if (RLContrl == 1)
     {
-
         Project_LIB_Motor_Load(7000, -2000);
     }
     else

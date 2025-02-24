@@ -3,8 +3,7 @@
 #include <Project/Project.h> // include the project header file
 #include <stdint.h>
 #include <stdio.h>
-extern Stde_DataTypeDef USART3_DataBuff, UART5_DataBuff,
-    UART4_DataBuff; // declare the data buffer
+extern Stde_DataTypeDef USART3_DataBuff, UART5_DataBuff,UART4_DataBuff; // declare the data buffer
 
 /*
  *  函数返回规则：1 成功，0 失败
@@ -27,43 +26,52 @@ extern Stde_DataTypeDef USART3_DataBuff, UART5_DataBuff,
  */
 
 extern uint8_t CamerVerify[4];
-extern uint8_t DataLock;
+extern uint8_t SaveDataLock;
 
 uint8_t RLContrl = 0;
 uint8_t SiteLock = 0;
 
-/// @brief
-/// 只要进入转向选择,运行一次后,无法继续运行,除非SiteLock被解锁,解锁的条件是OpenMV识别到十字路口,数据类型返回3
+/// @brief 只要进入转向选择,运行一次后,无法继续运行,除非SiteLock被解锁,解锁的条件是OpenMV识别到十字路口,数据类型返回3
 uint8_t Temp_Dire_select()
 {
-    uint8_t Temp_RLContrl;
+    uint8_t Temp_RLControl=0;
     if (CamerVerify[0])
     {
-        Temp_RLContrl = CamerVerify[1];
+        Temp_RLControl = CamerVerify[1];
     }
     if (CamerVerify[2])
     {
-        Temp_RLContrl = CamerVerify[3];
+        Temp_RLControl = CamerVerify[3];
     }
-    return Temp_RLContrl;
+    return Temp_RLControl;
 }
 
-void Dire_select(uint8_t Temp_RLContrl)
+uint8_t Temp_RLContrl = 0;
+uint8_t Turn_sign = 0;
+
+void Dire_select(uint8_t Temp)
 {
     if (SiteLock == 3)
     {
-        if (Temp_RLContrl)
+        if (!Turn_sign) {
+            SaveDataLock--;
+            Turn_sign = 1;
+        }
+        if (Temp)
         {
-            RLContrl = Temp_RLContrl;
+            RLContrl = Temp;
         }
     }
-    else
+    else if (SiteLock==1)
     {
+        RLContrl = 0;
+    }
+    else {
         RLContrl = 0;
     }
 }
 
-uint8_t Temp_RLContrl = 0;
+
 /*
     Data_Get_from_Camer识别到数字之后,这个坐标信息就不能再被改变
 */
@@ -103,28 +111,33 @@ void Project_LIB_ControlTask()
 {
     static PID pidForLine; // 创建PID结构体
     static PID pidforspeed;
+    static PID pidforturn;
 
-    PID_TypeStructInit(&pidForLine, 10, -10, 0, 150);   // 初始化
-    PID_TypeStructInit(&pidforspeed, 400, -10, 2, 16); // 初始化
+    PID_TypeStructInit(&pidforspeed, 400, -10, 2, 16); // 为保持恒定速度不受电池电量影响
+    PID_TypeStructInit(&pidForLine, 8, -8, 0, 180);   // 初始化寻线PID
+    PID_TypeStructInit(&pidforturn, 500, -10, 0, 50);  // 为转向时不受电池电量影响
+
     pidForLine.PID_Update1  = PID_forLine;
     pidforspeed.PID_Update1 = speedControl;
+    pidforturn.PID_Update1 = TurnControl;
 
     pidForLine.PID_Update1(&pidForLine);
     pidforspeed.PID_Update1(&pidforspeed);
 
     // 1000 6000
-    if (RLContrl == 2)
+    if (RLContrl == 2)      // 左拐
     {
-        Project_LIB_Motor_Load(-2000, 7000);
+        pidforturn.PID_Update1(&pidforturn);
+        Project_LIB_Motor_Load(pidforturn.output, 0);
     }
-    else if (RLContrl == 1)
+    else if (RLContrl == 1)     // 右拐
     {
-        Project_LIB_Motor_Load(7000, -2000);
+        pidforturn.PID_Update1(&pidforturn);
+        Project_LIB_Motor_Load(0,pidforturn.output);
     }
     else
     {
-
-        Project_LIB_Motor_Load(pidforspeed.output - pidForLine.output,
-                               pidforspeed.output + pidForLine.output); // 装载到电机
+        Project_LIB_Motor_Load(pidforspeed.output + pidForLine.output,
+                               pidforspeed.output - pidForLine.output); // 装载到电机
     }
 }

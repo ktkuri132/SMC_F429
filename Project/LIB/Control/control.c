@@ -87,3 +87,40 @@ void speedControl(PID *pid){
     }
     pid->last_error = pid->error;
 }
+
+void TurnControl(PID *pid) {
+
+    (Rvalue<0)?(Rvalue=-Rvalue):Rvalue;
+    (Lvalue<0)?(Lvalue=-Lvalue):Lvalue;
+
+    pid->current = Rvalue+Lvalue;
+
+    pid->error = pid->target - pid->current;
+    pid->integral += pid->error;
+    pid->integral *= pid->Ki;
+    // 积分限幅
+    if (pid->integral > pid->max_integral)
+    {
+        pid->integral = pid->max_integral;
+    }
+    else if (pid->integral < -pid->max_integral)
+    {
+        pid->integral = -pid->max_integral;
+    }
+
+    pid->derivative = pid->error - pid->last_error;
+
+    pid->output = pid->Kp * pid->error + pid->Ki * pid->integral + pid->Kd * pid->derivative;
+    // 输出限幅
+    if (pid->output > pid->max_output)
+    {
+        pid->output = pid->max_output;
+    }
+    else if (pid->output < -pid->max_output)
+    {
+        pid->output = -pid->max_output;
+    }
+    (pid->output>0) ? (pid->output):(-pid->output);
+    pid->last_error = pid->error;
+
+}

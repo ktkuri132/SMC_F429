@@ -73,5 +73,6 @@ void PID_TypeStructInit(PID *pid,int16_t kp,int16_t kd,int16_t ki,int16_t target
 void PID_forLine(PID *pid);
 void PID_forTurn(PID *pid);
 void speedControl(PID *pid);
+void TurnControl(PID *pid);
 
 #endif // __PID__

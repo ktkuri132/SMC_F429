@@ -135,7 +135,7 @@ void Task2_Project_Init()
 float pitch, roll, yaw;
 short gyro[3];
 extern uint8_t MotorStrat_1, MotorStrat_2, MotorStrat_3;
-extern uint8_t DataLock;
+extern uint8_t SaveDataLock;
 
 /// @brief 显示输出
 /// @param Mode 显示模式

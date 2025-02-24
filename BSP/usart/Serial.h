@@ -43,10 +43,8 @@ typedef struct
 
     uint8_t Data[10][10];          // 数据长度酌情调整
 
-}Stde_DataTypeDef;
+} Stde_DataTypeDef;
 
-void CMD_Callback();
-void DR_Eevet_Callback();
 void Stde_DataTypeDef_Init(Stde_DataTypeDef *data);
 uint8_t STDE_UART(USART_TypeDef * USARTx,Stde_DataTypeDef* DataTypeStruct);
 uint16_t USART_Deal(Stde_DataTypeDef* DataTypeStruct,uint8_t point_note);

@@ -97,13 +97,13 @@ void TIM3_IRQHandler() {
     }
 }
 
-extern uint8_t RLContrl;
+extern uint8_t RLControl;
 
 void TIM1_UP_TIM10_IRQndler() {
     if (TIM_GetITStatus(TIM1, TIM_IT_Update)) {
         TIM_ClearITPendingBit(TIM1, TIM_IT_Update);
         if(USART2_DataBuff.UART_DATA_TYPE == 1){
-            RLContrl =0;
+            RLControl =0;
             TIM_Cmd(TIM1, DISABLE);
         }
     }

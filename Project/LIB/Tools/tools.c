@@ -138,6 +138,7 @@ void OpenMV_Camera_Callback(Stde_DataTypeDef *DataTypeStruct)
 
 uint8_t CamerData[4];      // [0] 数字1 [1] 坐标1 [2] 数字2 [3] 坐标2
 uint8_t SaveDataLock = 0;  // 规定数据存储次数，静态变量实现自锁与解锁
+uint8_t VerifyDataLock = 0;
 extern uint8_t Key_Value;
 
 /// @brief 将从串口读出的数据保存到CamerData中,原本读取数字是不用获取坐标信息的,但是当时写错了,后来也就没改过来,函数的运行条件是SaveDataLock必须为0
@@ -184,8 +185,9 @@ int8_t Data_Save_from_Camer() {
                 i += 2;
                 if (i == 4) {  // 存入两个数字，直接锁定数据存入
                     SaveDataLock = 2;
+                    return i;
                 }
-                return i;
+                return -1;
             }
         } else {        // 程序运行到这里，说明出现了扫描空挡
             return -1;  // 返回3只会出现在，第一次出现扫描空挡的瞬间
@@ -199,7 +201,6 @@ uint8_t CamerVerify[4];
 /// @brief 将从串口识别到的数字进行识别配对,函数运行的第一优先级是SaveDataLock必须为1,第二优先级是VerifyDataLock必须为0
 /// @return >0 得到方向 <0 未完成
 int8_t Data_Get_from_Camer() {
-    static uint8_t VerifyDataLock = 0;
     if (SaveDataLock) {
             static uint8_t m = 0;
             if (K210Data && !m) {

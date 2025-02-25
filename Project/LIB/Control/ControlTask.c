@@ -3,6 +3,7 @@
 #include <Project/Project.h> // include the project header file
 #include <stdint.h>
 #include <stdio.h>
+#include <sys/types.h>
 extern Stde_DataTypeDef USART3_DataBuff, UART5_DataBuff,UART4_DataBuff; // declare the data buffer
 
 /*
@@ -28,7 +29,7 @@ extern Stde_DataTypeDef USART3_DataBuff, UART5_DataBuff,UART4_DataBuff; // decla
 extern uint8_t CamerVerify[4];
 extern uint8_t SaveDataLock;
 
-uint8_t RLContrl = 0;
+uint8_t RLControl = 0;
 uint8_t SiteLock = 0;
 
 /// @brief 只要进入转向选择,运行一次后,无法继续运行,除非SiteLock被解锁,解锁的条件是OpenMV识别到十字路口,数据类型返回3
@@ -47,27 +48,34 @@ uint8_t Temp_Dire_select()
 }
 
 uint8_t Temp_RLContrl = 0;
-uint8_t Turn_sign = 0;
-
+uint8_t Turn_const=0;
+extern uint8_t VerifyDataLock;
+uint8_t old_RLControl = 0;
 void Dire_select(uint8_t Temp)
 {
+    old_RLControl = RLControl;
     if (SiteLock == 3)
     {
-        if (!Turn_sign) {
-            SaveDataLock--;
-            Turn_sign = 1;
-        }
         if (Temp)
         {
-            RLContrl = Temp;
+            RLControl = Temp;
         }
     }
     else if (SiteLock==1)
     {
-        RLContrl = 0;
+        RLControl = 0;
     }
     else {
-        RLContrl = 0;
+        RLControl = 0;
+    }
+    // 比较前后两次的转向选择是否一致，不一致说明转向状态发生了改变，第一次说明是开始转向，第二次说明转向结束
+    if (old_RLControl != RLControl) {
+        Turn_const++;
+        if (Turn_const == 2) {      // 变化方向满两次，验证数据锁次数-1,并且转向状态清零，变化次数清零
+            VerifyDataLock --;
+            Turn_const = 0;
+            Temp_RLContrl=0;
+        }
     }
 }
 
@@ -78,15 +86,26 @@ void Dire_select(uint8_t Temp)
 /// @brief 控制状态
 int8_t Project_LIB_ControlStrat()
 {
-    Data_Save_from_Camer();
-    int8_t dgfc_return = Data_Get_from_Camer(); // 只要识别到数字,才能进入转向选择
-
-    if (dgfc_return > 0)
-    { // 大于0表示识别到数字
-        Temp_RLContrl = Temp_Dire_select();
+    int8_t dsfc_return = Data_Save_from_Camer();
+    if (dsfc_return>0) {
+        static uint8_t i=0;     //此处强调验证数据锁的初始化只能进行一次
+        if (!i) {
+            VerifyDataLock = (SaveDataLock)?((SaveDataLock==1)?1:2):0;
+            i = 1;
+        }
     }
-    Dire_select(Temp_RLContrl);
+    // 验证数据锁还有次数就还能继续运行
+    if (VerifyDataLock) {
+        int8_t dgfc_return = Data_Get_from_Camer(); // 只要识别到数字,才能进入转向选择
+
+        if (dgfc_return > 0)
+        { // 大于0表示识别到数字
+            Temp_RLContrl = Temp_Dire_select();
+        }
+        Dire_select(Temp_RLContrl);
+    }
     Project_LIB_ControlTask();
+
 }
 
 /*
@@ -125,12 +144,12 @@ void Project_LIB_ControlTask()
     pidforspeed.PID_Update1(&pidforspeed);
 
     // 1000 6000
-    if (RLContrl == 2)      // 左拐
+    if (RLControl == 2)      // 左拐
     {
         pidforturn.PID_Update1(&pidforturn);
         Project_LIB_Motor_Load(pidforturn.output, 0);
     }
-    else if (RLContrl == 1)     // 右拐
+    else if (RLControl == 1)     // 右拐
     {
         pidforturn.PID_Update1(&pidforturn);
         Project_LIB_Motor_Load(0,pidforturn.output);

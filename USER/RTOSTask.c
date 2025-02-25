@@ -49,22 +49,9 @@ void Func_inKeyVaule_1()
     taskEXIT_CRITICAL();
 }
 
-extern uint8_t RLContrl;
+extern uint8_t RLControl;
 
-void Turn_Monitor()
-{
-    while (USART2_DataBuff.UART_DATA_TYPE != 1)
-    {
-        vTaskDelay(5);
-    }
 
-    if (Turn_Monitor_Handle != NULL)
-    {
-        RLContrl = 0;
-        vTaskDelete(Turn_Monitor_Handle);
-        Turn_Monitor_Handle = NULL;
-    }
-}
 
 /// @brief 系统启动主线程：完成模式选择，图象识别
 void Task1_SystemStrat()
@@ -101,7 +88,6 @@ void Task1_SystemStrat()
     // 按键配置:1->确定 2->向下选择 3->返回
     while (1)
     {
-
         OLED_Printf(0, 16, OLED_6X8, "key:%d", Key_Value);
         switch (Key_Value)
         {
@@ -123,13 +109,20 @@ void Task1_SystemStrat()
         }
         break;
         }
-        
+
+
+
         vTaskDelayUntil(&xLastWakeTime, xFrequency);
     }
 }
 
-void Task2_Project_Init()
+/// @brief 转向状态检测
+void STEERING_STATUS_DETECTION()
 {
+    TickType_t xLastWakeTime;
+    while (1) {
+
+    }
 }
 
 float pitch, roll, yaw;
@@ -340,7 +333,7 @@ void Task_DebugLog()
         printf("任务数量:%d\n", uxTaskGetNumberOfTasks());
         printf("Openmv:%d\n", OpenMVData);
         printf("SiteLock:%d\n", SiteLock);
-        printf("RLContrl:%d\n", RLContrl);
+        printf("RLControl:%d\n", RLControl);
         printf("Rvalue:%d,Lvalue:%d\n", Rvalue, Lvalue);
         vTaskDelayUntil(&xLastWakeTime, xFrequency);
         taskEXIT_CRITICAL();

@@ -46,7 +46,7 @@ extern "C"
     void Project_LIB_TIM1_Init(uint8_t ms);
     void Project_LIB_Motor_Load(int32_t leftMotor, int32_t RightMotor);
     int8_t Data_Save_from_Camer();
-    void Project_LIB_ControlTask();
+    void Project_LIB_ControlTask(uint8_t rlControl);
 
     // ADC
     void Project_BSP_ADC_Init();

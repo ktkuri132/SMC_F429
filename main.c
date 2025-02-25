@@ -30,6 +30,12 @@ Stde_DataTypeDef USART3_DataBuff;
 Stde_DataTypeDef UART5_DataBuff;
 Stde_DataTypeDef UART4_DataBuff;
 
+extern uint8_t Key_Value;
+
+NCtrl nctrl;
+MCtrl mctrl;
+FCtrl fctrl;
+
 extern float pitch, roll, yaw;
 
 void Test();
@@ -66,6 +72,7 @@ Init_Project:
     Project_LIB_TIM3_Init(10);
     // Project_LIB_TIM1_Init(3);
 Init_Control:
+    nctrl.Control_Init = control_near_Init;
     main();
     // Test();
 }
@@ -84,6 +91,11 @@ int main() {
         printf("SystemStrat创建失败\n");
     }
 
+    // 初始化控制结构体
+    nctrl.Control_Init();
+    // mctrl.Control_Init();
+    // fctrl.Control_Init();
+
     vTaskStartScheduler();
 }
 
@@ -93,7 +105,18 @@ void TIM3_IRQHandler() {
     if (TIM_GetITStatus(TIM3, TIM_IT_Update)) {
         TIM_ClearITPendingBit(TIM3, TIM_IT_Update);
         Project_LIB_Get_Encoder_Value(&Rvalue, &Lvalue);
-        Project_LIB_ControlStrat();
+        // Project_LIB_ControlStrat();
+        switch (Key_Value) {
+            case 1:     // 运行近段病房模式
+                nctrl.ControlTask();
+                break;
+            case 2:     // 运行中段病房模式
+                mctrl.ControlTask();
+                break;
+            case 3:     // 运行远段病房模式
+                fctrl.ControlTask();
+                break;
+        }
     }
 }
 

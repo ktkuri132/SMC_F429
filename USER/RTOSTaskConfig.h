@@ -1,6 +1,6 @@
 #ifndef __RTOS_TASK_CONFIG_H
 #define __RTOS_TASK_CONFIG_H
-#include <RTOS/comment//FreeRTOS.h>
+#include <RTOS/comment/FreeRTOS.h>
 #include <Project/Project.h>
 #define SDRAM_ADDR 0xC0000000
 // 设置任务堆栈大小  单位:字节

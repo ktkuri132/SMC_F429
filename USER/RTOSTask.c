@@ -1,3 +1,4 @@
+#include "LIB/Control/control.h"
 #include <BSP/usart/Serial.h>
 #include <HARDWARE/MPU6050/inv_mpu.h>
 #include <OLED/OLED.h>
@@ -26,6 +27,10 @@ TaskHandle_t Task4_LEDPlayY_Handle = NULL;
 TaskHandle_t Task5_KeyScan_Handle  = NULL;
 
 TaskHandle_t Turn_Monitor_Handle = NULL;
+
+extern NCtrl nctrl;
+extern MCtrl mctrl;
+extern FCtrl fctrl;
 
 extern uint8_t CamerData[4], CamerVerify[4];
 
@@ -184,8 +189,7 @@ Mode_2: // 加入监测摄像头
         // 进入临界区
         taskENTER_CRITICAL();
         // OLED_Printf(0, 8, OLED_6X8, "OpenMV:%d", OpenMVData);
-        OLED_Printf(0, 8, OLED_6X8, "K210 Get:%d,%d,%d,%d", CamerData[0], CamerData[1],
-                    CamerData[2], CamerData[3]);
+        OLED_Printf(0, 8, OLED_6X8, "K210 Get:%d",nctrl.Temp_RLContrl);
         // OLED_Printf(0, 40, OLED_6X8, "K210 Verify:%d,%d,%d,%d",
         // CamerVerify[0],
         //             CamerVerify[1], CamerVerify[2], CamerVerify[3]);
@@ -209,8 +213,7 @@ Mode_21:
         // 进入临界区
         taskENTER_CRITICAL();
         OLED_Printf(0, 8, OLED_6X8, "OpenMV:%d", OpenMVData);
-        OLED_Printf(0, 16, OLED_6X8, "K210:%d,%d,%d,%d", CamerVerify[0], CamerVerify[1],
-                    CamerVerify[2], CamerVerify[3]);
+        OLED_Printf(0, 16, OLED_6X8, "K210:%d",nctrl.Temp_RLContrl);
         OLED_Update();
 
         if (USART2_DataBuff.UART_DATA_TYPE != 2)
@@ -332,8 +335,8 @@ void Task_DebugLog()
         printf("剩余栈大小:%d\n", xPortGetFreeHeapSize());
         printf("任务数量:%d\n", uxTaskGetNumberOfTasks());
         printf("Openmv:%d\n", OpenMVData);
-        printf("SiteLock:%d\n", SiteLock);
-        printf("RLControl:%d\n", RLControl);
+        printf("SiteLock:%d\n", nctrl.SiteLock);
+        printf("RLControl:%d\n", nctrl.RLControl);
         printf("Rvalue:%d,Lvalue:%d\n", Rvalue, Lvalue);
         vTaskDelayUntil(&xLastWakeTime, xFrequency);
         taskEXIT_CRITICAL();

@@ -71,7 +71,7 @@ Init_Project:
     Project_BSP_KEY_Init();
     Project_LIB_TIM3_Init(10);
     // Project_LIB_TIM1_Init(3);
-Init_Control:
+Init_Control:       // 注册初始化函数
     nctrl.Control_Init = control_near_Init;
     main();
     // Test();

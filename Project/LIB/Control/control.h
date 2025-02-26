@@ -9,7 +9,9 @@ void control_near_Init();
 int8_t Data_Save_from_Camer_near();
 
 
-
+typedef struct Control {
+    int8_t (*Data_Save_from_Camer)();
+}ctrl;
 
 typedef struct Control_near {
     uint8_t CamerData[2];
@@ -22,7 +24,6 @@ typedef struct Control_near {
     uint8_t old_RLControl;
     
     void (*Control_Init)();
-    int8_t (*Data_Save_from_Camer)();
     int8_t (*Data_Get_from_Camer)();
     uint8_t (*Temp_Dire_select)();
     void (*Dire_select)(uint8_t Temp);

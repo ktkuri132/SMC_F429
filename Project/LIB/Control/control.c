@@ -110,7 +110,7 @@ int8_t Data_Save_from_Camer_near()
 
 void control_near_Init()
 {
-    nctrl.Data_Get_from_Camer = Data_Save_from_Camer_near;
+    nctrl.Data_Save_from_Camer = Data_Save_from_Camer_near;
     nctrl.ControlTask = near_ctrlTask;
     nctrl.Dire_select = Dire_select_near;
 

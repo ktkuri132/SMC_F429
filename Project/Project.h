@@ -15,12 +15,16 @@ extern "C"
 // 片上外设驱动
 // OS支持
 #include <RTOS/comment/FreeRTOS.h>
-
 // 外挂外设驱动
 #include <HARDWARE/OLED/OLED.h>
 #include <usart/Serial.h>
 // 项目头文件
+#include <LIB/Control/control.h>
 
+extern Stde_DataTypeDef USART2_DataBuff;
+extern Stde_DataTypeDef USART3_DataBuff;
+extern Stde_DataTypeDef UART5_DataBuff;
+extern Stde_DataTypeDef UART4_DataBuff;
 // 定义电机接口寄存器
 #define Motor TIM2
 #define Left CCR1

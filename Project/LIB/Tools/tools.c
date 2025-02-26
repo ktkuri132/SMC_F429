@@ -9,39 +9,11 @@
 #include <stdio.h>
 #include <usart/Serial.h>
 
-extern Stde_DataTypeDef USART3_DataBuff, UART5_DataBuff, UART4_DataBuff;
-
-extern TaskHandle_t *Task3_Project_Display_Mode_1_Handle;
-extern TaskHandle_t *Task3_Project_Display_Mode_2_Handle;
-extern TaskHandle_t *Task3_Project_Display_Mode_2_1_Handle;
-extern TaskHandle_t *Task3_Project_Display_Mode_3_Handle;
-extern TaskHandle_t *Task3_Project_Display_Mode_4_Handle;
-extern TaskHandle_t *Task4_LEDPlayR_Handle;
-extern TaskHandle_t *Task4_LEDPlayY_Handle;
-
-extern NCtrl nctrl;
-extern MCtrl mctrl;
-extern FCtrl fctrl;
-
-uint8_t TaskDeletSign;
-
-// extern NCtrl nctrl;
-// extern MCtrl mctrl;
-// extern FCtrl fctrl;
-
-/// @brief 无条件固定运行次数的函数接口
-/// @param Fp 运行函数
-/// @param Count 运行函数
-/// @return
-uint8_t Temp_Run(void *(Fp)())
-{
-    static uint8_t i = 0;
-    if (!i)
-    {
-        Fp();
-        i++;
-    }
-}
+extern Stde_DataTypeDef USART2_DataBuff;
+extern Stde_DataTypeDef USART3_DataBuff;
+extern Stde_DataTypeDef UART5_DataBuff;
+extern Stde_DataTypeDef UART4_DataBuff;
+extern ctrl *Base;
 
 /// @brief get the value of encoder on TIM4 and TIM5
 void Project_LIB_Get_Encoder_Value(int8_t *value1, int8_t *value2)
@@ -85,21 +57,16 @@ void Project_LIB_TIM1_Init(uint8_t ms)
     printf("初始化定时器1\n");
 }
 
-uint8_t MotorStrat_1 = 1; //  电机启动最高优先级：电源控制
-                          //  默认插上跳线帽为标准功耗，开启电机，拔下跳线帽为低功耗，关闭电机
-uint8_t MotorStrat_2 = 0; //  电机启动第二优先级：药品放置
-                          //  默认放置药品就开启电机，拿走药品就关闭电机
-uint8_t MotorStrat_3 = 0; //  电机启动第三优先级：巡线识别
-                          //  默认巡线识别就开启电机，停止巡线识别就关闭电机
+
 
 /// @brief Motor load function for left and right
 void Project_LIB_Motor_Load(int32_t leftMotor, int32_t RightMotor)
 {
-    if (MotorStrat_1)
+    if (Base->MotorStrat_1)
     {
-        if (MotorStrat_2)
+        if (Base->MotorStrat_2)
         {
-            if (MotorStrat_3)
+            if (Base->MotorStrat_3)
             {
                 if (leftMotor < 0)
                 {
@@ -156,17 +123,17 @@ void OpenMV_Camera_Callback(Stde_DataTypeDef *DataTypeStruct)
 
     if (Temp_Data == 1)
     {
-        nctrl.SiteLock = 1;
+        Base->SiteLock = 1;
         // printf("SiteLock = 1\n");
     }
     else if (Temp_Data == 2)
     {
-        nctrl.SiteLock = 2;
+        Base->SiteLock = 2;
         // printf("SiteLock = 2\n");
     }
     else if (Temp_Data == 3)
     {
-        nctrl.SiteLock = 3;
+        Base->SiteLock = 3;
         // TIM_Cmd(TIM1, ENABLE);
         // printf("SiteLock = 3\n");
     }

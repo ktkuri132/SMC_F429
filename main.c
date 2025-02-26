@@ -15,6 +15,7 @@ extern "C" {
 #include <comment/FreeRTOS.h>
 #include <comment/task.h>
 #include <sys.h>
+#include "main.h"
 
 #include "MPU6050/inv_mpu.h"
 #include "OLED/OLED.h"
@@ -30,16 +31,9 @@ Stde_DataTypeDef USART3_DataBuff;
 Stde_DataTypeDef UART5_DataBuff;
 Stde_DataTypeDef UART4_DataBuff;
 
-extern uint8_t Key_Value;
+// 定义控制结构体指针
+ctrl *Base;
 
-NCtrl nctrl;
-MCtrl mctrl;
-FCtrl fctrl;
-
-extern float pitch, roll, yaw;
-
-void Test();
-int main();
 /// @brief 主函数运行完了自动复位
 void BSP_Init() {
 Init_BSP:  // 初始化基本外设
@@ -53,12 +47,14 @@ Init_BSP:  // 初始化基本外设
     NVIC_Configuration();
 
 Init_Serial:
-
     Stde_DataTypeDef_Init(&USART2_DataBuff);
     USART2_DataBuff.UART_DATA_TYPE_Callback = OpenMV_Camera_Callback;
     Stde_DataTypeDef_Init(&USART3_DataBuff);
     Stde_DataTypeDef_Init(&UART5_DataBuff);
     Stde_DataTypeDef_Init(&UART4_DataBuff);
+
+Init_Control:       // 控制结构体初始化函数
+    Base = Control_Struct_Inti();
 
 Init_Project:
     Project_BSP_PWM_TIM2_Init();
@@ -70,9 +66,7 @@ Init_Project:
     Project_BSP_ADC_Init();
     Project_BSP_KEY_Init();
     Project_LIB_TIM3_Init(10);
-    // Project_LIB_TIM1_Init(3);
-Init_Control:       // 注册初始化函数
-    nctrl.Control_Init = control_near_Init;
+
     main();
     // Test();
 }
@@ -92,43 +86,17 @@ int main() {
     }
 
     // 初始化控制结构体
-    nctrl.Control_Init();
-    // mctrl.Control_Init();
-    // fctrl.Control_Init();
 
     vTaskStartScheduler();
 }
 
-int8_t Rvalue, Lvalue;
+
 
 void TIM3_IRQHandler() {
     if (TIM_GetITStatus(TIM3, TIM_IT_Update)) {
         TIM_ClearITPendingBit(TIM3, TIM_IT_Update);
-        Project_LIB_Get_Encoder_Value(&Rvalue, &Lvalue);
-        // Project_LIB_ControlStrat();
-        switch (Key_Value) {
-            case 1:     // 运行近段病房模式
-                nctrl.ControlTask();
-                break;
-            case 2:     // 运行中段病房模式
-                mctrl.ControlTask();
-                break;
-            case 3:     // 运行远段病房模式
-                fctrl.ControlTask();
-                break;
-        }
-    }
-}
-
-extern uint8_t RLControl;
-
-void TIM1_UP_TIM10_IRQndler() {
-    if (TIM_GetITStatus(TIM1, TIM_IT_Update)) {
-        TIM_ClearITPendingBit(TIM1, TIM_IT_Update);
-        if(USART2_DataBuff.UART_DATA_TYPE == 1){
-            RLControl =0;
-            TIM_Cmd(TIM1, DISABLE);
-        }
+        Project_LIB_Get_Encoder_Value(&(Base->Rvalue), &(Base->Lvalue));
+        Base->ControlTask();
     }
 }
 

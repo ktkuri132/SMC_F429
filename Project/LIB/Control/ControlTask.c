@@ -10,11 +10,6 @@
  *
  */
 
-extern Stde_DataTypeDef USART3_DataBuff, UART5_DataBuff, UART4_DataBuff; // declare the data buffer
-
-extern NCtrl nctrl;
-extern MCtrl mctrl;
-extern FCtrl fctrl;
 
 /*
  *  函数返回规则：1 成功，0 失败
@@ -36,6 +31,24 @@ extern FCtrl fctrl;
  *
  */
 
+extern Stde_DataTypeDef USART2_DataBuff;
+extern Stde_DataTypeDef USART3_DataBuff;
+extern Stde_DataTypeDef UART5_DataBuff;
+extern Stde_DataTypeDef UART4_DataBuff;
+extern ctrl *Base;
+
+
+void __ControlTask(){
+    Base->Data_Save_from_Camer();
+    switch (Base->Key_Value) {
+        case 1:
+        
+            break;
+
+        default:
+            break;
+    }
+}
 
 
 #ifdef OLD_CODE
@@ -137,9 +150,6 @@ int8_t __attribute__((__weak__)) Project_LIB_ControlStrat()
         3.2.假如是只有一个数字,转向结束进入返回模式,由新的系统控制
 */
 
-void Turn()
-{
-}
 
 extern int8_t Rvalue, Lvalue;
 

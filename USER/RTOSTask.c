@@ -21,42 +21,10 @@ TaskHandle_t Task3_Project_Display_Mode_2_Handle   = NULL;
 TaskHandle_t Task3_Project_Display_Mode_2_1_Handle = NULL;
 TaskHandle_t Task3_Project_Display_Mode_3_Handle   = NULL;
 TaskHandle_t Task3_Project_Display_Mode_4_Handle   = NULL;
-
 TaskHandle_t Task4_LEDPlayR_Handle = NULL;
 TaskHandle_t Task4_LEDPlayY_Handle = NULL;
 TaskHandle_t Task5_KeyScan_Handle  = NULL;
-
-TaskHandle_t Turn_Monitor_Handle = NULL;
-
-extern NCtrl nctrl;
-extern MCtrl mctrl;
-extern FCtrl fctrl;
-
-extern uint8_t CamerData[4], CamerVerify[4];
-
-uint8_t Key_Value;
-
-void Func_inKeyVaule_1()
-{
-    taskENTER_CRITICAL();
-    // 数字收集完成,删除对应显示程序
-    vTaskDelete(Task3_Project_Display_Mode_2_Handle);
-    Task3_Project_Display_Mode_2_Handle = NULL;
-    // 刷新OLED
-    OLED_Clear();
-    OLED_Update();
-    // 创建读取显示任务
-    if (xTaskCreate((TaskFunction_t)Task3_Project_Display, "DisPlay_Camer", 1024, 21, 9,
-                    Task3_Project_Display_Mode_2_Handle) != pdPASS)
-    {
-        printf("DisPlay_Camer创建失败\n");
-    }
-    taskEXIT_CRITICAL();
-}
-
-extern uint8_t RLControl;
-
-
+extern ctrl *Base;
 
 /// @brief 系统启动主线程：完成模式选择，图象识别
 void Task1_SystemStrat()
@@ -93,8 +61,8 @@ void Task1_SystemStrat()
     // 按键配置:1->确定 2->向下选择 3->返回
     while (1)
     {
-        OLED_Printf(0, 16, OLED_6X8, "key:%d", Key_Value);
-        switch (Key_Value)
+        OLED_Printf(0, 16, OLED_6X8, "key:%d", Base->Key_Value);
+        switch (Base->Key_Value)
         {
         case 1: {
             taskENTER_CRITICAL();
@@ -114,9 +82,6 @@ void Task1_SystemStrat()
         }
         break;
         }
-
-
-
         vTaskDelayUntil(&xLastWakeTime, xFrequency);
     }
 }
@@ -132,8 +97,6 @@ void STEERING_STATUS_DETECTION()
 
 float pitch, roll, yaw;
 short gyro[3];
-extern uint8_t MotorStrat_1, MotorStrat_2, MotorStrat_3;
-extern uint8_t SaveDataLock;
 
 /// @brief 显示输出
 /// @param Mode 显示模式
@@ -189,7 +152,7 @@ Mode_2: // 加入监测摄像头
         // 进入临界区
         taskENTER_CRITICAL();
         // OLED_Printf(0, 8, OLED_6X8, "OpenMV:%d", OpenMVData);
-        OLED_Printf(0, 8, OLED_6X8, "K210 Get:%d",nctrl.Temp_RLContrl);
+        OLED_Printf(0, 8, OLED_6X8, "K210 Get:%d",Base->Temp_RLContrl);
         // OLED_Printf(0, 40, OLED_6X8, "K210 Verify:%d,%d,%d,%d",
         // CamerVerify[0],
         //             CamerVerify[1], CamerVerify[2], CamerVerify[3]);
@@ -213,16 +176,16 @@ Mode_21:
         // 进入临界区
         taskENTER_CRITICAL();
         OLED_Printf(0, 8, OLED_6X8, "OpenMV:%d", OpenMVData);
-        OLED_Printf(0, 16, OLED_6X8, "K210:%d",nctrl.Temp_RLContrl);
+        OLED_Printf(0, 16, OLED_6X8, "K210:%d",Base->Temp_RLContrl);
         OLED_Update();
 
         if (USART2_DataBuff.UART_DATA_TYPE != 2)
         {
-            MotorStrat_3 = 1;
+            Base->MotorStrat_3 = 1;
         }
         else
         {
-            MotorStrat_3 = 0;
+            Base->MotorStrat_3 = 0;
         }
         // 退出临界区
         taskEXIT_CRITICAL();
@@ -238,11 +201,11 @@ Mode_3: // 加入监测电池电压
         OLED_ShowChar(116, 4, '%', OLED_6X8);
         if (!Project_BSP_GetADC())
         {
-            MotorStrat_1 = 0; // 电池当前电量为0
+            Base->MotorStrat_1 = 0; // 电池当前电量为0
         }
         else
         {
-            MotorStrat_1 = 1;
+            Base->MotorStrat_1 = 1;
         }
         // OLED_Update();
         // 退出临界区
@@ -307,7 +270,7 @@ Red_LED:
         vTaskDelayUntil(&xLastWakeTime, xFrequency);
         RunCounst--;
     }
-    vTaskDelete(Task4_LEDPlayR_Handle);
+    vTaskDelete(NULL);
 Yellow_LED:
     while (RunCounst)
     {
@@ -317,7 +280,7 @@ Yellow_LED:
         vTaskDelayUntil(&xLastWakeTime, xFrequency);
         RunCounst--;
     }
-    vTaskDelete(Task4_LEDPlayY_Handle);
+    vTaskDelete(NULL);
 }
 
 extern uint8_t SiteLock;
@@ -326,6 +289,7 @@ extern int8_t Rvalue, Lvalue;
 void Task_DebugLog()
 {
     TickType_t xLastWakeTime;
+    extern Stde_DataTypeDef UART4_DataBuff;
     const TickType_t xFrequency = pdMS_TO_TICKS(1000); // 任务周期为 1秒
     // 初始化 xLastWakeTime 变量为当前时间
     xLastWakeTime = xTaskGetTickCount();
@@ -335,9 +299,9 @@ void Task_DebugLog()
         printf("剩余栈大小:%d\n", xPortGetFreeHeapSize());
         printf("任务数量:%d\n", uxTaskGetNumberOfTasks());
         printf("Openmv:%d\n", OpenMVData);
-        printf("SiteLock:%d\n", nctrl.SiteLock);
-        printf("RLControl:%d\n", nctrl.RLControl);
-        printf("Rvalue:%d,Lvalue:%d\n", Rvalue, Lvalue);
+        printf("SiteLock:%d\n", Base->SiteLock);
+        printf("RLControl:%d\n", Base->RLControl);
+        printf("Rvalue:%d,Lvalue:%d\n", Base->Rvalue, Base->Lvalue);
         vTaskDelayUntil(&xLastWakeTime, xFrequency);
         taskEXIT_CRITICAL();
     }
@@ -352,9 +316,9 @@ void Task5_KeyScan()
     xLastWakeTime = xTaskGetTickCount();
     while (1)
     {
-        Key_Value = Project_BSP_GetKey();
+        Base->Key_Value = Project_BSP_GetKey();
 
-        if (Key_Value)
+        if (Base->Key_Value)
         {
             Project_BSP_Buzzer_ON();
         }
@@ -366,12 +330,12 @@ void Task5_KeyScan()
         if (!Project_BSP_HW201_Get())
         {
             OLED_Printf(0, 48, OLED_6X8, "HW201:1");
-            MotorStrat_2 = 1;
+            Base->MotorStrat_2 = 1;
         }
         else
         {
             OLED_Printf(0, 48, OLED_6X8, "HW201:0");
-            MotorStrat_2 = 0;
+            Base->MotorStrat_2 = 0;
         }
         vTaskDelayUntil(&xLastWakeTime, xFrequency);
     }

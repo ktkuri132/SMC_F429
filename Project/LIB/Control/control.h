@@ -4,17 +4,22 @@
 #include <stdint.h>
 
 int8_t Project_LIB_ControlStrat();
-
 void control_near_Init();
-int8_t Data_Save_from_Camer_near();
+int8_t __Data_Save_from_Camer();
+void __ControlTask();
 
 
 typedef struct Control {
-    int8_t (*Data_Save_from_Camer)();
-}ctrl;
 
-typedef struct Control_near {
-    uint8_t CamerData[2];
+    uint8_t MotorStrat_1; //  电机启动最高优先级：电源控制，默认为1
+                          //  默认插上跳线帽为标准功耗，开启电机，拔下跳线帽为低功耗，关闭电机
+    uint8_t MotorStrat_2; //  电机启动第二优先级：药品放置，默认为0
+                            //  默认放置药品就开启电机，拿走药品就关闭电机
+    uint8_t MotorStrat_3; //  电机启动第三优先级：巡线识别，默认为0
+                          //  默认巡线识别就开启电机，停止巡线识别就关闭电机
+   
+    uint8_t Key_Value;
+    uint8_t CamerData[4];
     uint8_t SaveDataLock;
     uint8_t VerifyDataLock;
     uint8_t SiteLock;
@@ -22,22 +27,25 @@ typedef struct Control_near {
     uint8_t Temp_RLContrl;
     int8_t Rvalue, Lvalue;
     uint8_t old_RLControl;
-    
+
     void (*Control_Init)();
+    int8_t (*Data_Save_from_Camer)();
     int8_t (*Data_Get_from_Camer)();
     uint8_t (*Temp_Dire_select)();
     void (*Dire_select)(uint8_t Temp);
     void (*ControlTask)();
+}ctrl;
+
+ctrl* Control_Struct_Inti();
+
+typedef struct Control_near {
+    ctrl Base;
+    void (*Check_Num)();
 } NCtrl;
 
 
 typedef struct Control_min {
-    uint8_t CamerData[2];
-    uint8_t SaveDataLock;
-    uint8_t VerifyDataLock;
-    uint8_t SiteLock;
-    uint8_t RLControl;
-    int8_t Rvalue, Lvalue;
+    ctrl Base;
 
     void (*Control_Init)();
     void (*Data_Save_from_Camer)();
@@ -48,12 +56,8 @@ typedef struct Control_min {
 
 
 typedef struct Control_far {
-    uint8_t CamerData[2];
-    uint8_t SaveDataLock;
-    uint8_t VerifyDataLock;
-    uint8_t SiteLock;
-    uint8_t RLControl;
-    int8_t Rvalue, Lvalue;
+
+    ctrl Base;
 
     void (*Control_Init)();
     void (*Data_Save_from_Camer)();

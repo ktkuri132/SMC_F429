@@ -33,6 +33,7 @@ Stde_DataTypeDef UART4_DataBuff;
 
 // 定义控制结构体指针
 ctrl *Base;
+nctrl *Near;
 
 /// @brief 主函数运行完了自动复位
 void BSP_Init() {
@@ -53,8 +54,9 @@ Init_Serial:
     Stde_DataTypeDef_Init(&UART5_DataBuff);
     Stde_DataTypeDef_Init(&UART4_DataBuff);
 
-Init_Control:       // 控制结构体初始化函数
-    Base = Control_Struct_Inti();
+Init_Control:       
+    Base = Control_Struct_Inti();   // 初始化控制结构体
+    Near = Near_Struct_Inti();      // 继承控制结构体
 
 Init_Project:
     Project_BSP_PWM_TIM2_Init();

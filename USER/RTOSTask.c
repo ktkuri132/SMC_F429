@@ -25,6 +25,7 @@ TaskHandle_t Task4_LEDPlayR_Handle = NULL;
 TaskHandle_t Task4_LEDPlayY_Handle = NULL;
 TaskHandle_t Task5_KeyScan_Handle  = NULL;
 extern ctrl *Base;
+extern nctrl *Near;
 
 /// @brief 系统启动主线程：完成模式选择，图象识别
 void Task1_SystemStrat()
@@ -152,7 +153,7 @@ Mode_2: // 加入监测摄像头
         // 进入临界区
         taskENTER_CRITICAL();
         // OLED_Printf(0, 8, OLED_6X8, "OpenMV:%d", OpenMVData);
-        OLED_Printf(0, 8, OLED_6X8, "K210 Get:%d",Base->Temp_RLContrl);
+        OLED_Printf(0, 8, OLED_6X8, "K210 Get:%d,%d",Base->CamerData[0],Near->Base->CamerData[0]);
         // OLED_Printf(0, 40, OLED_6X8, "K210 Verify:%d,%d,%d,%d",
         // CamerVerify[0],
         //             CamerVerify[1], CamerVerify[2], CamerVerify[3]);
@@ -176,7 +177,7 @@ Mode_21:
         // 进入临界区
         taskENTER_CRITICAL();
         OLED_Printf(0, 8, OLED_6X8, "OpenMV:%d", OpenMVData);
-        OLED_Printf(0, 16, OLED_6X8, "K210:%d",Base->Temp_RLContrl);
+        OLED_Printf(0, 16, OLED_6X8, "K210:%d",Base->CamerData[0]);
         OLED_Update();
 
         if (USART2_DataBuff.UART_DATA_TYPE != 2)
@@ -301,7 +302,7 @@ void Task_DebugLog()
         printf("Openmv:%d\n", OpenMVData);
         printf("SiteLock:%d\n", Base->SiteLock);
         printf("RLControl:%d\n", Base->RLControl);
-        printf("Rvalue:%d,Lvalue:%d\n", Base->Rvalue, Base->Lvalue);
+        printf("Temp_RLContrl:%d\n", Base->Temp_RLContrl);
         vTaskDelayUntil(&xLastWakeTime, xFrequency);
         taskEXIT_CRITICAL();
     }
@@ -316,9 +317,11 @@ void Task5_KeyScan()
     xLastWakeTime = xTaskGetTickCount();
     while (1)
     {
-        Base->Key_Value = Project_BSP_GetKey();
+        if (Project_BSP_GetKey()) {
+            Base->Key_Value = Project_BSP_GetKey();
+        }
 
-        if (Base->Key_Value)
+        if (Project_BSP_GetKey())
         {
             Project_BSP_Buzzer_ON();
         }

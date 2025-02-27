@@ -5,8 +5,7 @@
 
 int8_t Project_LIB_ControlStrat();
 void control_near_Init();
-int8_t __Data_Save_from_Camer();
-void __ControlTask();
+
 
 
 typedef struct Control {
@@ -34,15 +33,23 @@ typedef struct Control {
     uint8_t (*Temp_Dire_select)();
     void (*Dire_select)(uint8_t Temp);
     void (*ControlTask)();
+    void (*Back)();
 }ctrl;
 
+void  __Dire_select(uint8_t Temp);
 ctrl* Control_Struct_Inti();
+int8_t __Data_Save_from_Camer();
+void __ControlTask();
+
 
 typedef struct Control_near {
-    ctrl Base;
-    void (*Check_Num)();
-} NCtrl;
+    ctrl *Base;
+    uint8_t Turn_Const;
+    void (*nearControl)();
+} nctrl;
 
+void __nearControl();
+nctrl *Near_Struct_Inti();
 
 typedef struct Control_min {
     ctrl Base;

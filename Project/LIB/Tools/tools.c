@@ -137,6 +137,11 @@ void OpenMV_Camera_Callback(Stde_DataTypeDef *DataTypeStruct)
         // TIM_Cmd(TIM1, ENABLE);
         // printf("SiteLock = 3\n");
     }
+    else if(Temp_Data == 4)
+    {
+        Base->SiteLock = 4;
+    }
+
 }
 
 

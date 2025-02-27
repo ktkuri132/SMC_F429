@@ -4,6 +4,7 @@
 #include <RTOSTaskConfig.h>
 #include <comment/task.h>
 #include <stdint.h>
+#include <stdio.h>
 
 /*
  * 这里为什么要提供一个通用，还建议开发者提供专用的PID算法，通用的只有单极PID
@@ -17,7 +18,7 @@ extern Stde_DataTypeDef USART3_DataBuff;
 extern Stde_DataTypeDef UART5_DataBuff;
 extern Stde_DataTypeDef UART4_DataBuff;
 extern ctrl *Base;
-
+extern nctrl *Near;
 
 
 ctrl *Control_Struct_Inti(){
@@ -27,9 +28,21 @@ ctrl *Control_Struct_Inti(){
         .MotorStrat_2 = 0,
         .MotorStrat_3 = 0,
         .ControlTask = __ControlTask,
-        .Data_Save_from_Camer = __Data_Save_from_Camer
+        .Data_Save_from_Camer = __Data_Save_from_Camer,
+       .Dire_select = __Dire_select,
     };
     return &base;
+}
+
+nctrl *Near_Struct_Inti(){
+    static nctrl near = {
+        .nearControl = __nearControl,
+    };
+
+    // 避免静态变量的初始化不是常量
+    near.Base = Base;
+
+    return &near;
 }
 
 int8_t __Data_Save_from_Camer()
@@ -95,5 +108,55 @@ int8_t __Data_Save_from_Camer()
     return i;
 }
 
+#define __Near Near->Base
+
+void __nearControl(){
+
+    if(__Near->CamerData[0] == 1){
+        __Near->Temp_RLContrl = 2;
+    }
+    else if(__Near->CamerData[0] == 2){
+        __Near->Temp_RLContrl = 1;
+    }
 
 
+    __Dire_select(__Near->Temp_RLContrl);
+}
+
+void  __Dire_select(uint8_t Temp)
+{
+    static uint8_t Turn_const = 0;
+    static uint8_t Turn_start=0;
+    static uint8_t Turn_end = 0;
+    Base->old_RLControl = Base->RLControl;
+    if (Base->SiteLock == 3)
+    {
+        if (Temp)
+        {
+            Base->RLControl = Temp;
+        }
+    }
+    else
+    {
+        Base->RLControl = 0;
+    }
+
+    // 比较前后两次的转向选择是否一致，不一致说明转向状态发生了改变，第一次说明是开始转向，第二次说明转向结束
+    if (Base->old_RLControl != Base->RLControl)
+    {
+        Turn_const++;
+
+        if (Turn_const == 2)
+        { // 变化方向满两次，验证数据锁次数-1,并且转向状态清零，变化次数清零
+            Base->VerifyDataLock--;
+            Turn_const    = 0;
+            Base->Temp_RLContrl = 0;
+            Base->CamerData[0] = 0;
+        }
+    }
+}
+
+
+void __Back(){
+    
+}

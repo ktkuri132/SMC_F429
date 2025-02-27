@@ -36,18 +36,19 @@ extern Stde_DataTypeDef USART3_DataBuff;
 extern Stde_DataTypeDef UART5_DataBuff;
 extern Stde_DataTypeDef UART4_DataBuff;
 extern ctrl *Base;
-
+extern nctrl *Near;
 
 void __ControlTask(){
     Base->Data_Save_from_Camer();
     switch (Base->Key_Value) {
         case 1:
-        
+            Near->nearControl();
             break;
 
         default:
             break;
     }
+    Project_LIB_ControlTask(Near->Base->RLControl);
 }
 
 
@@ -181,6 +182,10 @@ void Project_LIB_ControlTask(uint8_t rlControl)
     {
         pidforturn.PID_Update1(&pidforturn);
         Project_LIB_Motor_Load(0, pidforturn.output);
+    }
+    else if (rlControl == 3) // 直线
+    {
+        Project_LIB_Motor_Load(pidforspeed.output, pidforspeed.output);
     }
     else
     {

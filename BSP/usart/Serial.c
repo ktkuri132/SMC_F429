@@ -88,10 +88,11 @@ uint8_t STDE_UART(USART_TypeDef *USARTx,Stde_DataTypeDef* DataTypeStruct)
                 
                 // 检测数据格式
                 case '1':DataTypeStruct->UART_DATA_TYPE=1;break;
-                // 其他数据格式......
+                case '3':DataTypeStruct->UART_DATA_TYPE=3;break;
+                case '4':DataTypeStruct->UART_DATA_TYPE=4;break;
                 case '2':DataTypeStruct->UART_DATA_TYPE=2;break;
                 // 检测：命令数据格式
-                case '3':DataTypeStruct->UART_DATA_TYPE=3;break;
+                
                 case 'p':DataTypeStruct->UART_DATA_TYPE='p';
                 break;
 

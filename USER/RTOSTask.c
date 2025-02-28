@@ -153,7 +153,7 @@ Mode_2: // 加入监测摄像头
         // 进入临界区
         taskENTER_CRITICAL();
         // OLED_Printf(0, 8, OLED_6X8, "OpenMV:%d", OpenMVData);
-        OLED_Printf(0, 8, OLED_6X8, "K210 Get:%d,%d",Base->CamerData[0],Near->Base->CamerData[0]);
+        OLED_Printf(0, 8, OLED_6X8, "K210 Get:%d",Base->CamerData[0]);
         // OLED_Printf(0, 40, OLED_6X8, "K210 Verify:%d,%d,%d,%d",
         // CamerVerify[0],
         //             CamerVerify[1], CamerVerify[2], CamerVerify[3]);
@@ -177,7 +177,7 @@ Mode_21:
         // 进入临界区
         taskENTER_CRITICAL();
         OLED_Printf(0, 8, OLED_6X8, "OpenMV:%d", OpenMVData);
-        OLED_Printf(0, 16, OLED_6X8, "K210:%d",Base->CamerData[0]);
+        OLED_Printf(0, 16, OLED_6X8, "K210:%d",Base->CamerData[1]);
         OLED_Update();
 
         if (USART2_DataBuff.UART_DATA_TYPE != 2)
@@ -186,7 +186,7 @@ Mode_21:
         }
         else
         {
-            Base->MotorStrat_3 = 0;
+            Base->MotorStrat_3 = 1;
         }
         // 退出临界区
         taskEXIT_CRITICAL();

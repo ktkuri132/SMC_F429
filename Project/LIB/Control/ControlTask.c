@@ -160,36 +160,40 @@ void Project_LIB_ControlTask(uint8_t rlControl)
     static PID pidForLine; // 创建PID结构体
     static PID pidforspeed;
     static PID pidforturn;
+    static PID pidForback;
 
     PID_TypeStructInit(&pidforspeed, 400, -10, 2, 16); // 为保持恒定速度不受电池电量影响
-    PID_TypeStructInit(&pidForLine, 8, -8, 0, 180);    // 初始化寻线PID
-    PID_TypeStructInit(&pidforturn, 500, -10, 0, 50);  // 为转向时不受电池电量影响
+    PID_TypeStructInit(&pidForLine, 8, -8, 0, 180);    // 初始化寻线PID,目标值：中线坐标
+    PID_TypeStructInit(&pidforturn, 500, -10, 0, 70);  // 为转向时不受电池电量影响
+    PID_TypeStructInit(&pidForback, 10, -10, 0, 1700);  // 为调头时不受电池电量影响
 
     pidForLine.PID_Update1  = PID_forLine;
     pidforspeed.PID_Update1 = speedControl;
     pidforturn.PID_Update1  = TurnControl;
+    pidForback.PID_Update1  = BackControl;
 
     pidForLine.PID_Update1(&pidForLine);
     pidforspeed.PID_Update1(&pidforspeed);
-
+    
     // 1000 6000
     if (rlControl == 2) // 左拐
     {
         pidforturn.PID_Update1(&pidforturn);
-        Project_LIB_Motor_Load(pidforturn.output, 0);
+        Base->Motor_Load(pidforturn.output, 0);
     }
     else if (rlControl == 1) // 右拐
     {
         pidforturn.PID_Update1(&pidforturn);
-        Project_LIB_Motor_Load(0, pidforturn.output);
+        Base->Motor_Load(0, pidforturn.output);
     }
-    else if (rlControl == 3) // 直线
+    else if (rlControl == 3) // 调头
     {
-        Project_LIB_Motor_Load(pidforspeed.output, pidforspeed.output);
+        Base->Motor_Load(-2000, 2000);
     }
     else
     {
-        Project_LIB_Motor_Load(pidforspeed.output + pidForLine.output,
+        
+        Base->Motor_Load(pidforspeed.output + pidForLine.output,
                                pidforspeed.output - pidForLine.output); // 装载到电机
     }
 }

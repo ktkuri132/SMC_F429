@@ -60,7 +60,7 @@ void Project_LIB_TIM1_Init(uint8_t ms)
 
 
 /// @brief Motor load function for left and right
-void Project_LIB_Motor_Load(int32_t leftMotor, int32_t RightMotor)
+void forward_Motor_Load(int32_t leftMotor, int32_t RightMotor)
 {
     if (Base->MotorStrat_1)
     {
@@ -115,7 +115,60 @@ void Project_LIB_Motor_Load(int32_t leftMotor, int32_t RightMotor)
     }
 }
 
-extern uint8_t SiteLock;
+void back_Motor_Load(int32_t leftMotor, int32_t RightMotor)
+{
+    if (Base->MotorStrat_1)
+    {
+        if (!Base->MotorStrat_2)
+        {
+            if (Base->MotorStrat_3)
+            {
+                if (leftMotor < 0)
+                {
+                    LeftForward Motor->Left = -leftMotor;
+                }
+                else if (leftMotor > 0)
+                {
+                    LeftBackward Motor->Left = leftMotor;
+                }
+                else
+                {
+                    Motor->Left = 0;
+                }
+                if (RightMotor < 0)
+                {
+                    RightForward Motor->Right = -RightMotor;
+                }
+                else if (RightMotor > 0)
+                {
+                    RightBackward Motor->Right = RightMotor;
+                }
+                else
+                {
+                    Motor->Right = 0;
+                }
+            }
+            else
+            {
+                Motor->Left  = 0;
+                Motor->Right = 0;
+                AllStop
+            }
+        }
+        else
+        {
+            Motor->Left  = 0;
+            Motor->Right = 0;
+            AllStop
+        }
+    }
+    else
+    {
+        Motor->Left  = 0;
+        Motor->Right = 0;
+        AllStop
+    }
+}
 
 void OpenMV_Camera_Callback(Stde_DataTypeDef *DataTypeStruct)
 {
@@ -126,11 +179,6 @@ void OpenMV_Camera_Callback(Stde_DataTypeDef *DataTypeStruct)
         Base->SiteLock = 1;
         // printf("SiteLock = 1\n");
     }
-    else if (Temp_Data == 2)
-    {
-        Base->SiteLock = 2;
-        // printf("SiteLock = 2\n");
-    }
     else if (Temp_Data == 3)
     {
         Base->SiteLock = 3;
@@ -140,6 +188,11 @@ void OpenMV_Camera_Callback(Stde_DataTypeDef *DataTypeStruct)
     else if(Temp_Data == 4)
     {
         Base->SiteLock = 4;
+    }
+    else if (Temp_Data == 2)
+    {
+        Base->SiteLock = 2;
+        // printf("SiteLock = 2\n");
     }
 
 }

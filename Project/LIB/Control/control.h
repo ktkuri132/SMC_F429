@@ -16,7 +16,6 @@ typedef struct Control {
                             //  默认放置药品就开启电机，拿走药品就关闭电机
     uint8_t MotorStrat_3; //  电机启动第三优先级：巡线识别，默认为0
                           //  默认巡线识别就开启电机，停止巡线识别就关闭电机
-   
     uint8_t Key_Value;
     uint8_t CamerData[4];
     uint8_t SaveDataLock;
@@ -26,8 +25,9 @@ typedef struct Control {
     uint8_t Temp_RLContrl;
     int8_t Rvalue, Lvalue;
     uint8_t old_RLControl;
-
+    uint8_t Back_sign;
     void (*Control_Init)();
+    void (*Motor_Load)(int32_t leftMotor, int32_t RightMotor);
     int8_t (*Data_Save_from_Camer)();
     int8_t (*Data_Get_from_Camer)();
     uint8_t (*Temp_Dire_select)();
@@ -40,7 +40,7 @@ void  __Dire_select(uint8_t Temp);
 ctrl* Control_Struct_Inti();
 int8_t __Data_Save_from_Camer();
 void __ControlTask();
-
+void __Back();
 
 typedef struct Control_near {
     ctrl *Base;

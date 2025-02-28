@@ -48,7 +48,8 @@ extern Stde_DataTypeDef UART4_DataBuff;
     void Project_LIB_Get_Encoder_Value(int8_t *value1, int8_t *value2);
     void Project_LIB_TIM3_Init(uint8_t ms);
     void Project_LIB_TIM1_Init(uint8_t ms);
-    void Project_LIB_Motor_Load(int32_t leftMotor, int32_t RightMotor);
+    void forward_Motor_Load(int32_t leftMotor, int32_t RightMotor);
+    void back_Motor_Load(int32_t leftMotor, int32_t RightMotor);
     int8_t Data_Save_from_Camer();
     void Project_LIB_ControlTask(uint8_t rlControl);
 

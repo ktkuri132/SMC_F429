@@ -74,5 +74,6 @@ void PID_forLine(PID *pid);
 void PID_forTurn(PID *pid);
 void speedControl(PID *pid);
 void TurnControl(PID *pid);
+void BackControl(PID *pid);
 
 #endif // __PID__

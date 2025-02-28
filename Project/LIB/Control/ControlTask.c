@@ -164,7 +164,7 @@ void Project_LIB_ControlTask(uint8_t rlControl)
 
     PID_TypeStructInit(&pidforspeed, 400, -10, 2, 16); // 为保持恒定速度不受电池电量影响
     PID_TypeStructInit(&pidForLine, 8, -8, 0, 180);    // 初始化寻线PID,目标值：中线坐标
-    PID_TypeStructInit(&pidforturn, 500, -10, 0, 70);  // 为转向时不受电池电量影响
+    PID_TypeStructInit(&pidforturn, 500, -10, 0, 50);  // 为转向时不受电池电量影响
     PID_TypeStructInit(&pidForback, 10, -10, 0, 1700);  // 为调头时不受电池电量影响
 
     pidForLine.PID_Update1  = PID_forLine;

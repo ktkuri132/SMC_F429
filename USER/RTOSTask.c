@@ -186,7 +186,7 @@ Mode_21:
         }
         else
         {
-            Base->MotorStrat_3 = 1;
+            Base->MotorStrat_3 = Base->MotorStrat_3_POINT;
         }
         // 退出临界区
         taskEXIT_CRITICAL();

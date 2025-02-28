@@ -125,11 +125,11 @@ void back_Motor_Load(int32_t leftMotor, int32_t RightMotor)
             {
                 if (leftMotor < 0)
                 {
-                    LeftForward Motor->Left = -leftMotor;
+                    LeftBackward Motor->Left = -leftMotor;
                 }
                 else if (leftMotor > 0)
                 {
-                    LeftBackward Motor->Left = leftMotor;
+                    LeftForward Motor->Left = leftMotor;
                 }
                 else
                 {
@@ -137,11 +137,11 @@ void back_Motor_Load(int32_t leftMotor, int32_t RightMotor)
                 }
                 if (RightMotor < 0)
                 {
-                    RightForward Motor->Right = -RightMotor;
+                    RightBackward Motor->Right = -RightMotor;
                 }
                 else if (RightMotor > 0)
                 {
-                    RightBackward Motor->Right = RightMotor;
+                    RightForward Motor->Right = RightMotor;
                 }
                 else
                 {

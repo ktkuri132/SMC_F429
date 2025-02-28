@@ -25,6 +25,7 @@ ctrl *Control_Struct_Inti() {
     static ctrl base = {
         .MotorStrat_1         = 1,
         .MotorStrat_2         = 0,
+        .MotorStrat_3_POINT   = 1,
         .MotorStrat_3         = 0,
         .Motor_Load           = forward_Motor_Load,
         .ControlTask          = __ControlTask,
@@ -155,6 +156,7 @@ void __Back() {
     if (Base->Back_sign) {
         if (Base->SiteLock == 1) {
             Base->Back_sign  = 0;
+            Base->MotorStrat_3_POINT = 0;
             Base->Motor_Load = back_Motor_Load;
         }
     }

@@ -14,6 +14,7 @@ typedef struct Control {
                           //  默认插上跳线帽为标准功耗，开启电机，拔下跳线帽为低功耗，关闭电机
     uint8_t MotorStrat_2; //  电机启动第二优先级：药品放置，默认为0
                             //  默认放置药品就开启电机，拿走药品就关闭电机
+    uint8_t MotorStrat_3_POINT;
     uint8_t MotorStrat_3; //  电机启动第三优先级：巡线识别，默认为0
                           //  默认巡线识别就开启电机，停止巡线识别就关闭电机
     uint8_t Key_Value;

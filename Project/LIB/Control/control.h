@@ -19,6 +19,7 @@ typedef struct Control {
                           //  默认巡线识别就开启电机，停止巡线识别就关闭电机
     uint8_t Key_Value;
     uint8_t CamerData[4];
+    uint8_t CamerVerify[4];
     uint8_t SaveDataLock;
     uint8_t VerifyDataLock;
     uint8_t SiteLock;
@@ -27,11 +28,11 @@ typedef struct Control {
     int8_t Rvalue, Lvalue;
     uint8_t old_RLControl;
     uint8_t Back_sign;
+    uint8_t Turn_const;
     void (*Control_Init)();
     void (*Motor_Load)(int32_t leftMotor, int32_t RightMotor);
     int8_t (*Data_Save_from_Camer)();
     int8_t (*Data_Get_from_Camer)();
-    uint8_t (*Temp_Dire_select)();
     void (*Dire_select)(uint8_t Temp);
     void (*ControlTask)();
     void (*Back)();
@@ -53,14 +54,16 @@ void __nearControl();
 nctrl *Near_Struct_Inti();
 
 typedef struct Control_min {
-    ctrl Base;
+    ctrl *Base;
+    void (*minControl)();
+    uint8_t (*Temp_Dire_select)();
 
-    void (*Control_Init)();
-    void (*Data_Save_from_Camer)();
-    void (*Data_Get_from_Camer)();
-    void (*Temp_Dire_select)();
-    void (*ControlTask)();
-} MCtrl;
+} mctrl;
+
+mctrl *Min_Struct_Inti();
+void __minControl();
+int8_t __Data_Get_from_Camer();
+uint8_t __Temp_Dire_select();
 
 
 typedef struct Control_far {
@@ -72,6 +75,6 @@ typedef struct Control_far {
     void (*Data_Get_from_Camer)();
     void (*Temp_Dire_select)();
     void (*ControlTask)();
-} FCtrl;
+} fctrl;
 
 #endif // !_CONTROL_

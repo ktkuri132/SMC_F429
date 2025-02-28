@@ -1,7 +1,8 @@
 #include "softi2c.h"     // 此处定义片上软件IIC
 
 void delay_us(uint32_t nus)
-{
+{//我们的组函数
+	//我们的主函数
 	SysTick->LOAD = nus * 1; 
     SysTick->VAL = 0x00; 
     SysTick->CTRL |= SysTick_CTRL_ENABLE_Msk; 

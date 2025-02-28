@@ -63,9 +63,7 @@ void Task1_SystemStrat()
     while (1)
     {
         OLED_Printf(0, 16, OLED_6X8, "key:%d", Base->Key_Value);
-        switch (Base->Key_Value)
-        {
-        case 1: {
+        if (Base->Key_Value) {
             taskENTER_CRITICAL();
             // 数字收集完成,删除对应显示程序
             vTaskDelete(Task3_Project_Display_Mode_2_Handle);
@@ -80,8 +78,6 @@ void Task1_SystemStrat()
                 printf("DisPlay_Camer创建失败\n");
             }
             taskEXIT_CRITICAL();
-        }
-        break;
         }
         vTaskDelayUntil(&xLastWakeTime, xFrequency);
     }

@@ -173,7 +173,7 @@ Mode_21:
         // 进入临界区
         taskENTER_CRITICAL();
         OLED_Printf(0, 8, OLED_6X8, "OpenMV:%d", OpenMVData);
-        OLED_Printf(0, 16, OLED_6X8, "K210:%d",Base->CamerData[1]);
+        OLED_Printf(0, 16, OLED_6X8, "K210:%d",Base->CamerData[0]);
         OLED_Update();
 
         if (USART2_DataBuff.UART_DATA_TYPE != 2)

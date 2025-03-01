@@ -59,7 +59,7 @@ mctrl *Min_Struct_Inti() {
     // 避免静态变量的初始化不是常量
     min.Base                      = Base;
     min.Base->VerifyDataLock      = 1;
-    min.Base->Turn_const          = 4;
+    min.Base->Turn_const          = 3;
     min.Base->Data_Get_from_Camer = __Data_Get_from_Camer;
     return &min;
 }
@@ -135,7 +135,6 @@ int8_t __Data_Get_from_Camer() {
         } else {
             Base->Key_Value = 3;
         }
-
         return -1;  // 删除任务未完成
     }
 }
@@ -148,7 +147,6 @@ void __nearControl() {
             Near->Dire_Load_ENABLE = 0;
         }
     }
-    
     if (Near->Dire_Load_ENABLE) {
         if (!Base->Back_sign) {
             if (Base->CamerData[0] == 1) {
@@ -167,6 +165,8 @@ void __minControl() {
     Base->Data_Get_from_Camer();
 
     Min->Temp_Dire_select();
+
+    Base->Back();
 
     __Dire_select(Base->Temp_RLContrl);
 }

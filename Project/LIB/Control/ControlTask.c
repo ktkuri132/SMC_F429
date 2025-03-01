@@ -5,31 +5,6 @@
 #include <stdint.h>
 #include <sys/types.h>
 
-/*
- *  既然题目看错了，那我就不管了，直接开始堆史山吧
- *
- */
-
-/*
- *  函数返回规则：1 成功，0 失败
- *
- *  启动流程：
- *        1. 检查数字是否成功存储
- *              1.1. 装载药瓶之前的读取的数字都是要存储的数字
- *              1.2.
- * 根据存储数字的个数决定药房的位置，1个数字近端病房，2个数字中间病房，3个数字远端病房
- *        2. 检查药品是否装载完毕（装载药瓶之后的读取的数字都是要比较的数字）
- *  正常运行流程：
- *        1. OpenMV扫描
- *        2. 检查是否扫到十字路口
- *              2.1. 扫到十字路口，停车
- *              2.2. 打开串口通信，等待接收数字识别数据
- *              2.3. 接收到数据，与存储的数据进行比对，决定转向
- *              2.4. 读取MPU6050，开始转向
- *        3. 检查是否扫到十字路口
- *
- */
-
 extern Stde_DataTypeDef USART2_DataBuff;
 extern Stde_DataTypeDef USART3_DataBuff;
 extern Stde_DataTypeDef UART5_DataBuff;
@@ -49,7 +24,10 @@ void Mode_chose() {
 }
 
 void __ControlTask() {
-    Base->Data_Save_from_Camer();
+    int8_t dsfc_return = Base->Data_Save_from_Camer();
+    if(dsfc_return < 0) {
+        return;
+    }
     Mode_chose();
     switch (Base->Key_Value) {
         case 1:
@@ -180,6 +158,8 @@ void Project_LIB_ControlTask(uint8_t rlControl) {
     } else if (rlControl == 3)  // 调头
     {
         Base->Motor_Load(-2000, 2000);
+    } else if (rlControl == 4) {  // 停车
+        Base->Motor_Load(0, 0);
     } else {
         Base->Motor_Load(pidforspeed.output + pidForLine.output,
                          pidforspeed.output - pidForLine.output);  // 装载到电机

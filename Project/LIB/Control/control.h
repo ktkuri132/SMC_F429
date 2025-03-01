@@ -29,6 +29,8 @@ typedef struct Control {
     uint8_t old_RLControl;
     uint8_t Back_sign;
     uint8_t Turn_const;
+    uint8_t Turn_start;
+    
     void (*Control_Init)();
     void (*Motor_Load)(int32_t leftMotor, int32_t RightMotor);
     int8_t (*Data_Save_from_Camer)();
@@ -46,6 +48,7 @@ void __Back();
 
 typedef struct Control_near {
     ctrl *Base;
+    uint8_t Dire_Load_ENABLE;
     uint8_t Turn_Const;
     void (*nearControl)();
 } nctrl;

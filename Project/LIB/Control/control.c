@@ -39,13 +39,14 @@ ctrl *Control_Struct_Inti() {
 
 nctrl *Near_Struct_Inti() {
     static nctrl near = {
-        .nearControl = __nearControl,
+        .nearControl      = __nearControl,
+        .Dire_Load_ENABLE = 1,
     };
 
     // 避免静态变量的初始化不是常量
     near.Base                 = Base;
     near.Base->VerifyDataLock = 1;
-    near.Base->Turn_const     = 2;
+    near.Base->Turn_const     = 1;
     return &near;
 }
 
@@ -70,9 +71,9 @@ int8_t __Data_Save_from_Camer() {
     if (!Base->SaveDataLock) {
         static uint8_t TempNum, TempSite;
         if (!K210Data) {
-            if (Base->MotorStrat_2 || (Base->Key_Value == 1)) {  // 此时若电机被启动，直接强行锁定
+            if (Base->MotorStrat_2) {  // 此时若电机被启动，直接强行锁定
                 Base->SaveDataLock = 1;
-                return i;
+                return -1;
             }
             return -1;
         }
@@ -101,15 +102,15 @@ int8_t __Data_Save_from_Camer() {
                 i += 2;
                 if (i == 4) {  // 存入两个数字，直接锁定数据存入
                     Base->SaveDataLock = 2;
-                    return i;
+                    return 2;
                 }
-                return -1;
+                return 1;
             }
         } else {        // 程序运行到这里，说明出现了扫描空挡
             return -1;  // 返回3只会出现在，第一次出现扫描空挡的瞬间
         }
     }
-    return i;
+    return 1;
 }
 
 int8_t __Data_Get_from_Camer() {
@@ -125,10 +126,10 @@ int8_t __Data_Get_from_Camer() {
         if (Base->CamerData[0] == K210Data) {
             Base->CamerVerify[0] = K210Data;
             if (K210Site > 60) {
-                Base->CamerVerify[1] = 1;
+                Base->CamerVerify[1] = 2;
                 return 1;  // 右边
             } else {
-                Base->CamerVerify[1] = 2;
+                Base->CamerVerify[1] = 1;
                 return 2;  // 左边
             }
         } else {
@@ -140,11 +141,21 @@ int8_t __Data_Get_from_Camer() {
 }
 
 void __nearControl() {
-    if (!Base->Back_sign) {
-        if (Base->CamerData[0] == 1) {
-            Base->Temp_RLContrl = 2;
-        } else if (Base->CamerData[0] == 2) {
-            Base->Temp_RLContrl = 1;
+    if (Base->SiteLock == 1) {
+        if (Base->Turn_start) {
+            Base->Temp_RLContrl    = 0;
+            Base->Turn_start       = 0;
+            Near->Dire_Load_ENABLE = 0;
+        }
+    }
+    
+    if (Near->Dire_Load_ENABLE) {
+        if (!Base->Back_sign) {
+            if (Base->CamerData[0] == 1) {
+                Base->Temp_RLContrl = 2;
+            } else if (Base->CamerData[0] == 2) {
+                Base->Temp_RLContrl = 1;
+            }
         }
     }
     Base->Back();
@@ -179,8 +190,6 @@ uint8_t __Temp_Dire_select() {
 
 void __Dire_select(uint8_t Temp) {
     static uint8_t Turn_const = 0;
-    static uint8_t Turn_start = 0;
-    static uint8_t Turn_end   = 0;
     Base->old_RLControl       = Base->RLControl;
     if (Base->SiteLock == 3) {
         if (Temp) {
@@ -196,16 +205,33 @@ void __Dire_select(uint8_t Temp) {
 
         if (Turn_const ==
             Base->Turn_const) {  // 变化方向满两次，验证数据锁次数-1,并且转向状态清零，变化次数清零
+            Base->Turn_start = 1;
             Base->VerifyDataLock ? Base->VerifyDataLock-- : 0;
-            Turn_const          = 0;
-            Base->Temp_RLContrl = 0;
-            Base->CamerData[1]  = Base->CamerData[0];  // 备份转向数据
-            Base->CamerData[0]  = 0;
         }
     }
 }
 
-void __Back() {
+__attribute__((__weak__)) void __Back() {
+    if (!Base->VerifyDataLock) {
+        if (Base->SiteLock == 4) {
+            Base->Back_sign = 1;
+            Base->Temp_RLContrl = Base->CamerData[0];
+            Base->VerifyDataLock = 1;
+            if (Base->SiteLock != 1) {
+                Base->RLControl = 3;
+            }
+        }
+    }
+    if (Base->Back_sign) {
+        if (Base->SiteLock == 1) {
+            Base->Back_sign          = 0;
+            Base->MotorStrat_3_POINT = 0;
+            Base->Motor_Load         = back_Motor_Load;
+        }
+    }
+}
+
+void _Back() {
     if (!Base->VerifyDataLock) {
         if (Base->SiteLock == 4) {
             Base->Back_sign = 1;
@@ -218,13 +244,6 @@ void __Back() {
             if (Base->SiteLock != 1) {
                 Base->RLControl = 3;
             }
-        }
-    }
-    if (Base->Back_sign) {
-        if (Base->SiteLock == 1) {
-            Base->Back_sign          = 0;
-            Base->MotorStrat_3_POINT = 0;
-            Base->Motor_Load         = back_Motor_Load;
         }
     }
 }

@@ -29,12 +29,26 @@ void __ControlTask() {
         return;
     }
     Mode_chose();
+    
     switch (Base->Key_Value) {
         case 1:
+        {
+            static uint8_t i = 0;
+            if(!i) {
+                Near = Near_Struct_Inti();      // 继承控制结构体
+                i = 1;
+            }
             Near->nearControl();
+        }
             break;
-        case 2:
+        case 2:{
+            static uint8_t i = 0;
+            if(!i) {
+                Min = Min_Struct_Inti();        // 继承控制结构体
+                i = 1;
+            }
             Min->minControl();
+        }
             break;
         default:
             break;

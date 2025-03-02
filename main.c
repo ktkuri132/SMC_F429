@@ -57,9 +57,7 @@ Init_Serial:
 
 Init_Control:       
     Base = Control_Struct_Inti();   // 初始化控制结构体
-    Near = Near_Struct_Inti();      // 继承控制结构体
-    Min = Min_Struct_Inti();        // 继承控制结构体
-
+    
 Init_Project:
     Project_BSP_PWM_TIM2_Init();
     Project_BSP_Encoding_Init();

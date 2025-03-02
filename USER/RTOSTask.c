@@ -299,6 +299,16 @@ void Task_DebugLog()
         printf("SiteLock:%d\n", Base->SiteLock);
         printf("RLControl:%d\n", Base->RLControl);
         printf("Temp_RLContrl:%d\n", Base->Temp_RLContrl);
+        printf("MotorStrat_2:%d\n", Base->MotorStrat_2);
+        printf("MotorStrat_3:%d\n", Base->MotorStrat_3);
+        printf("MotorStrat_3_POINT:%d\n", Base->MotorStrat_3_POINT);
+        printf("MotorStrat_1:%d\n", Base->MotorStrat_1);
+        printf("Back_sign:%d\n", Base->Back_sign);
+        printf("Key_Value:%d\n", Base->Key_Value);
+        printf("VerifyDataLock:%d\n", Base->VerifyDataLock);
+        printf("SaveDataLock:%d\n", Base->SaveDataLock);
+        printf("CamerData:%d\n", Base->CamerData[0]);
+        printf("CamerVerify:%d,%d,%d,%d\n", Base->CamerVerify[0], Base->CamerVerify[1], Base->CamerVerify[2], Base->CamerVerify[3]);
         vTaskDelayUntil(&xLastWakeTime, xFrequency);
         taskEXIT_CRITICAL();
     }

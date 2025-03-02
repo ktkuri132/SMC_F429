@@ -159,6 +159,12 @@ void __nearControl() {
     Base->Back();
 
     __Dire_select(Base->Temp_RLContrl);
+
+    if(Base->Back_sign == 3) {
+        if(Base->SiteLock == 2 || Base->SiteLock == 4){
+            Base->RLControl = 4;
+        }
+    }
 }
 
 void __minControl() {
@@ -169,6 +175,8 @@ void __minControl() {
     Base->Back();
 
     __Dire_select(Base->Temp_RLContrl);
+
+    
 }
 
 uint8_t __Temp_Dire_select() {
@@ -195,6 +203,12 @@ void __Dire_select(uint8_t Temp) {
         if (Temp) {
             Base->RLControl = Temp;
         }
+        static uint8_t i = 0;
+        if(!i){
+            Base->VerifyDataLock = 0;
+            i = 1;
+        }
+            
     } else if (Base->SiteLock == 1) {
         Base->RLControl = 0;
     }
@@ -202,7 +216,7 @@ void __Dire_select(uint8_t Temp) {
     // 比较前后两次的转向选择是否一致，不一致说明转向状态发生了改变，第一次说明是开始转向，第二次说明转向结束
     if (Base->old_RLControl != Base->RLControl) {
         Turn_const++;
-
+        
         if (Turn_const ==
             Base->Turn_const) {  // 变化方向满两次，验证数据锁次数-1,并且转向状态清零，变化次数清零
             Base->Turn_start = 1;
@@ -211,39 +225,52 @@ void __Dire_select(uint8_t Temp) {
     }
 }
 
-__attribute__((__weak__)) void __Back() {
-    if (!Base->VerifyDataLock) {
-        if (Base->SiteLock == 4) {
-            Base->Back_sign = 1;
-            Base->Temp_RLContrl = Base->CamerData[0];
-            Base->VerifyDataLock = 1;
-            if (Base->SiteLock != 1) {
-                Base->RLControl = 3;
-            }
-        }
-    }
-    if (Base->Back_sign) {
-        if (Base->SiteLock == 1) {
-            Base->Back_sign          = 0;
-            Base->MotorStrat_3_POINT = 0;
-            // Base->Motor_Load         = back_Motor_Load;
-        }
-    }
-}
+// __attribute__((__weak__)) void _Back() {
+//     if (!Base->VerifyDataLock) {
+//         if (Base->SiteLock == 4) {
+//             Base->Back_sign = 1;
+//             Base->Temp_RLContrl = Base->CamerData[0];
+//             Base->VerifyDataLock = 1;
+//             if (Base->SiteLock != 1) {
+//                 Base->RLControl = 3;
+//             }
+//         }
+//     }
+//     if (Base->Back_sign) {
+//         if (Base->SiteLock == 1) {
+//             Base->Back_sign          = 0;
+//             Base->MotorStrat_3_POINT = 0;
+//             // Base->Motor_Load         = back_Motor_Load;
+//         }
+//     }
+// }
 
-void _Back() {
+void __Back() {
     if (!Base->VerifyDataLock) {
         if (Base->SiteLock == 4) {
-            Base->Back_sign = 1;
-            if (Base->CamerData[1] == 1) {
-                Base->CamerData[0] = 2;
-            } else if (Base->CamerData[1] == 2) {
-                Base->CamerData[0] = 1;
+            if (!Base->Back_sign) {
+                Base->Back_sign      = 1;
+                Base->Temp_RLContrl  = Base->CamerData[0];
             }
-            Base->VerifyDataLock = 1;
+        }
+        if (Base->Back_sign == 1) {
+            Base->RLControl = 4;
+        }
+        if (!Base->MotorStrat_2) {
+            Base->Back_sign = 2;
             if (Base->SiteLock != 1) {
-                Base->RLControl = 3;
+                Base->RLControl = 3;                
+                Base->MotorStrat_3_POINT = 1;
+                Base->Motor_Load = back_Motor_Load;
+                Base->VerifyDataLock = 1;
             }
+        }
+        return;
+    }
+    if(Base->SiteLock == 1) {
+        if(Base->Back_sign == 2) {
+            Base->Back_sign = 3;
+            Base->MotorStrat_3_POINT = 0;
         }
     }
 }

@@ -226,7 +226,7 @@ __attribute__((__weak__)) void __Back() {
         if (Base->SiteLock == 1) {
             Base->Back_sign          = 0;
             Base->MotorStrat_3_POINT = 0;
-            Base->Motor_Load         = back_Motor_Load;
+            // Base->Motor_Load         = back_Motor_Load;
         }
     }
 }

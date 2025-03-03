@@ -25,35 +25,35 @@ void Mode_chose() {
 
 void __ControlTask() {
     int8_t dsfc_return = Base->Data_Save_from_Camer();
-    if(dsfc_return < 0) {
+    if (dsfc_return < 0) {
         return;
     }
-    Mode_chose();
-    
+    static uint8_t i=0;
+    if(!i){
+        Mode_chose();
+        i++;
+    } 
     switch (Base->Key_Value) {
-        case 1:
-        {
+        case 1: {
             static uint8_t i = 0;
-            if(!i) {
-                Near = Near_Struct_Inti();      // 继承控制结构体
-                i = 1;
+            if (!i) {
+                Near = Near_Struct_Inti();  // 继承控制结构体
+                i    = 1;
             }
             Near->nearControl();
-        }
-            break;
-        case 2:{
+        } break;
+        case 2: {
             static uint8_t i = 0;
-            if(!i) {
-                Min = Min_Struct_Inti();        // 继承控制结构体
-                i = 1;
+            if (!i) {
+                Min = Min_Struct_Inti();  // 继承控制结构体
+                i   = 1;
             }
             Min->minControl();
-        }
-            break;
+        } break;
         default:
             break;
     }
-    Project_LIB_ControlTask(Near->Base->RLControl);
+    Project_LIB_ControlTask(Base->RLControl);
 }
 
 #ifdef OLD_CODE

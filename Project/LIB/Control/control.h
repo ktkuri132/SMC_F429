@@ -58,7 +58,11 @@ nctrl *Near_Struct_Inti();
 
 typedef struct Control_min {
     ctrl *Base;
+    uint8_t Turn_const;
+    uint8_t Dire_Load_ENABLE;
+    uint8_t __StieLock[4];
     void (*minControl)();
+    void (*Turn_Sign)();
     uint8_t (*Temp_Dire_select)();
 
 } mctrl;

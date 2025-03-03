@@ -26,6 +26,7 @@ TaskHandle_t Task4_LEDPlayY_Handle = NULL;
 TaskHandle_t Task5_KeyScan_Handle  = NULL;
 extern ctrl *Base;
 extern nctrl *Near;
+extern mctrl *Min;
 
 /// @brief 系统启动主线程：完成模式选择，图象识别
 void Task1_SystemStrat()
@@ -299,16 +300,16 @@ void Task_DebugLog()
         printf("SiteLock:%d\n", Base->SiteLock);
         printf("RLControl:%d\n", Base->RLControl);
         printf("Temp_RLContrl:%d\n", Base->Temp_RLContrl);
+        printf("Turn_const:%d\n", Min->Turn_const);
+        printf("Dire_Load_ENABLE:%d\n", Min->Dire_Load_ENABLE);
         printf("MotorStrat_2:%d\n", Base->MotorStrat_2);
         printf("MotorStrat_3:%d\n", Base->MotorStrat_3);
         printf("MotorStrat_3_POINT:%d\n", Base->MotorStrat_3_POINT);
-        printf("MotorStrat_1:%d\n", Base->MotorStrat_1);
         printf("Back_sign:%d\n", Base->Back_sign);
         printf("Key_Value:%d\n", Base->Key_Value);
         printf("VerifyDataLock:%d\n", Base->VerifyDataLock);
-        printf("SaveDataLock:%d\n", Base->SaveDataLock);
         printf("CamerData:%d\n", Base->CamerData[0]);
-        printf("CamerVerify:%d,%d,%d,%d\n", Base->CamerVerify[0], Base->CamerVerify[1], Base->CamerVerify[2], Base->CamerVerify[3]);
+        printf("CamerVerify:%d,%d\n", Base->CamerVerify[0], Base->CamerVerify[1]);
         vTaskDelayUntil(&xLastWakeTime, xFrequency);
         taskEXIT_CRITICAL();
     }

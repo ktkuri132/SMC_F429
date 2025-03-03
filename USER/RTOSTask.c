@@ -88,9 +88,7 @@ void Task1_SystemStrat()
 void STEERING_STATUS_DETECTION()
 {
     TickType_t xLastWakeTime;
-    while (1) {
-
-    }
+    
 }
 
 float pitch, roll, yaw;
@@ -174,7 +172,7 @@ Mode_21:
         // 进入临界区
         taskENTER_CRITICAL();
         OLED_Printf(0, 8, OLED_6X8, "OpenMV:%d", OpenMVData);
-        OLED_Printf(0, 16, OLED_6X8, "K210:%d",Base->CamerData[0]);
+        OLED_Printf(0, 16, OLED_6X8, "K210:%d,%d",Base->CamerData[0],Base->CamerData[2]);
         OLED_Update();
 
         if (USART2_DataBuff.UART_DATA_TYPE != 2)
@@ -281,9 +279,7 @@ Yellow_LED:
     vTaskDelete(NULL);
 }
 
-extern uint8_t SiteLock;
-extern uint8_t Temp_RLContrl;
-extern int8_t Rvalue, Lvalue;
+
 void Task_DebugLog()
 {
     TickType_t xLastWakeTime;

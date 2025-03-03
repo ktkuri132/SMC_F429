@@ -3,6 +3,7 @@
 #include <comment/task.h>
 #include <stdint.h>
 #include <stdio.h>
+#include <threads.h>
 
 #include "LIB/PID/pid.h"
 #include "Project.h"
@@ -21,6 +22,7 @@ extern Stde_DataTypeDef UART4_DataBuff;
 extern ctrl *Base;
 extern nctrl *Near;
 extern mctrl *Min;
+extern fctrl *Far;
 
 ctrl *Control_Struct_Inti() {
     static ctrl base = {
@@ -63,6 +65,17 @@ mctrl *Min_Struct_Inti() {
     min.Base->Turn_const          = 3;
     min.Base->Data_Get_from_Camer = __Data_Get_from_Camer;
     return &min;
+}
+
+fctrl *Far_Struct_Inti() {
+    static fctrl far = {
+        .farControl   = __farControl,
+        .SaveDataLock = 0,
+    };
+
+    // 避免静态变量的初始化不是常量
+    far.Base = Base;
+    return &far;
 }
 
 int8_t __Data_Save_from_Camer() {
@@ -116,11 +129,6 @@ int8_t __Data_Save_from_Camer() {
 
 int8_t __Data_Get_from_Camer() {
     if (Base->SaveDataLock) {
-        static uint8_t m = 0;
-        if (K210Data && !m) {
-            return -1;
-        }
-        m = 1;
         if (!K210Data) {
             return -1;
         }
@@ -134,15 +142,15 @@ int8_t __Data_Get_from_Camer() {
                 return 2;  // 左边
             }
         }
-        return -1;  // 删除任务未完成
+        return -1;
     }
 }
 
 void __nearControl() {
     if (Base->SiteLock == 1) {
-        if (Base->Turn_start) {
+        if (Near->Turn_start) {
             Base->Temp_RLContrl    = 0;
-            Base->Turn_start       = 0;
+            Near->Turn_start       = 0;
             Near->Dire_Load_ENABLE = 0;
         }
     }
@@ -180,39 +188,62 @@ void __minControl() {
     }
 
     __Dire_select(Base->Temp_RLContrl);
+
+    MTurn_Strat();
+}
+
+void __farControl() {  // 确认是不是真的没有正确的数字
+}
+
+void MTurn_Strat() {
+    static uint8_t i = 0;
+    if (Min->Turn_strat[i] == Base->CamerVerify[1]) {
+        return;
+    } else {
+        Min->Turn_strat[i + 1] = Base->CamerVerify[1];
+        i++;
+    }
 }
 
 uint8_t __Temp_Dire_select() {
+    static uint8_t i = 0;
     if (Base->Back_sign != 3) {
         if (Base->CamerVerify[0]) {
             Base->Temp_RLContrl = Base->CamerVerify[1];
         }
-        if (Base->Temp_RLContrl) {
-            if (Base->Temp_RLContrl == 1) {
-                Base->CamerData[0] = 2;
-            } else if (Base->Temp_RLContrl == 2) {
-                Base->CamerData[0] = 2;
-            }
-        }
+
     } else {
         if (Base->Temp_RLContrl) {
             if (Base->CamerVerify[1] == 1) {
                 Base->Temp_RLContrl = 2;
+                Base->CamerData[0]  = 1;
+
             } else if (Base->CamerVerify[1] == 2) {
                 Base->Temp_RLContrl = 1;
+                Base->CamerData[0]  = 2;
             }
         }
     }
     if (Base->Back_sign == 3) {
         if (Base->SiteLock == 3) {
             Min->Turn_const = 1;
+
         } else if (Base->SiteLock == 1) {
             if (Min->Turn_const) {
                 Base->Temp_RLContrl = 0;
             }
         }
-    }
 
+        if (Min->Turn_strat[i + 1]) {
+            if (!Min->Turn_strat[i]) {
+                Base->CamerVerify[1]   = Min->Turn_strat[i + 1];
+                Min->Turn_strat[i + 1] = 0;
+            }
+            if (Min->Turn_strat[i] != Min->Turn_strat[i + 1]) {
+                Base->CamerVerify[1] = Min->Turn_strat[i];
+            }
+        }
+    }
     return 0;
 }
 
@@ -239,7 +270,7 @@ void __Dire_select(uint8_t Temp) {
 
         if (Turn_const ==
             Base->Turn_const) {  // 变化方向满两次，验证数据锁次数-1,并且转向状态清零，变化次数清零
-            Base->Turn_start = 1;
+            Near->Turn_start = 1;
             Base->VerifyDataLock ? Base->VerifyDataLock-- : 0;
         }
     }

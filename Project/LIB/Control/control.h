@@ -29,8 +29,8 @@ typedef struct Control {
     uint8_t old_RLControl;
     uint8_t Back_sign;
     uint8_t Turn_const;
-    uint8_t Turn_start;
-    
+    uint8_t Turn_gather;
+
     void (*Control_Init)();
     void (*Motor_Load)(int32_t leftMotor, int32_t RightMotor);
     int8_t (*Data_Save_from_Camer)();
@@ -49,7 +49,9 @@ void __Back();
 typedef struct Control_near {
     ctrl *Base;
     uint8_t Dire_Load_ENABLE;
-    uint8_t Turn_Const;
+    uint8_t Turn_const;
+    uint8_t Turn_start;
+
     void (*nearControl)();
 } nctrl;
 
@@ -60,7 +62,7 @@ typedef struct Control_min {
     ctrl *Base;
     uint8_t Turn_const;
     uint8_t Dire_Load_ENABLE;
-    uint8_t __StieLock[4];
+    uint8_t Turn_strat[4];
     void (*minControl)();
     void (*Turn_Sign)();
     uint8_t (*Temp_Dire_select)();
@@ -71,17 +73,17 @@ mctrl *Min_Struct_Inti();
 void __minControl();
 int8_t __Data_Get_from_Camer();
 uint8_t __Temp_Dire_select();
+void MTurn_Strat();
 
 
 typedef struct Control_far {
 
-    ctrl Base;
-
-    void (*Control_Init)();
-    void (*Data_Save_from_Camer)();
-    void (*Data_Get_from_Camer)();
-    void (*Temp_Dire_select)();
-    void (*ControlTask)();
+    ctrl *Base;
+    uint8_t SaveDataLock;
+    void (*farControl)();
 } fctrl;
+
+fctrl *Far_Struct_Inti();
+void __farControl();
 
 #endif // !_CONTROL_

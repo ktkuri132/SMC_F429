@@ -12,6 +12,7 @@ extern Stde_DataTypeDef UART4_DataBuff;
 extern ctrl *Base;
 extern nctrl *Near;
 extern mctrl *Min;
+extern fctrl *Far;
 
 void Mode_chose() {
     if (Base->CamerData[0]) {
@@ -28,11 +29,11 @@ void __ControlTask() {
     if (dsfc_return < 0) {
         return;
     }
-    static uint8_t i=0;
-    if(!i){
+    static uint8_t i = 0;
+    if (!i) {
         Mode_chose();
         i++;
-    } 
+    }
     switch (Base->Key_Value) {
         case 1: {
             static uint8_t i = 0;
@@ -49,6 +50,14 @@ void __ControlTask() {
                 i   = 1;
             }
             Min->minControl();
+        } break;
+        case 3: {
+            static uint8_t i = 0;
+            if (!i) {
+                Far = Far_Struct_Inti();  // 继承控制结构体
+                i   = 1;
+            }
+            Far->farControl();
         } break;
         default:
             break;
@@ -128,17 +137,9 @@ int8_t __attribute__((__weak__)) Project_LIB_ControlStrat() {
 }
 #endif
 
-/*
-    关于转向的细节:
-        1.k210识别到数字之后,这个坐标信息就不能再被改变,除非转向过程结束
-        2.如何检测转向过程结束?
-            2.1.用MPU6050,在接受到转向指令后,取当前的yaw值,然后在转向过程中,不断的取yaw值,当yaw值与初始值相差一定角度时,认为转向结束
-            2.2.用Openmv,在转向期间,观察是否扫到分叉路的直线,扫到直线就开始走直线,并认为转向结束
-        3.1.假如是有两个数字,检测到转向结束后,坐标信息就可以被改变了,开启识别下一个数字的流程
-        3.2.假如是只有一个数字,转向结束进入返回模式,由新的系统控制
-*/
+void scan(){
 
-extern int8_t Rvalue, Lvalue;
+}
 
 /// @brief 控制任务
 void Project_LIB_ControlTask(uint8_t rlControl) {
@@ -174,7 +175,14 @@ void Project_LIB_ControlTask(uint8_t rlControl) {
         Base->Motor_Load(-2000, 2000);
     } else if (rlControl == 4) {  // 停车
         Base->Motor_Load(0, 0);
-    } else {
+    } 
+    else if(rlControl == 5){
+        Base->Motor_Load(0, 2000);
+    }
+    else if(rlControl == 6){
+        Base->Motor_Load(2000, 0);
+    }
+    else {
         Base->Motor_Load(pidforspeed.output + pidForLine.output,
                          pidforspeed.output - pidForLine.output);  // 装载到电机
     }

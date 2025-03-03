@@ -35,6 +35,7 @@ Stde_DataTypeDef UART4_DataBuff;
 ctrl *Base;
 nctrl *Near;
 mctrl *Min;
+fctrl *Far;
 
 /// @brief 主函数运行完了自动复位
 void BSP_Init() {

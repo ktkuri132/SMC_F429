@@ -3,7 +3,7 @@
 #include <comment/task.h>
 #include <stdint.h>
 #include <stdio.h>
-#include <threads.h>
+// #include <threads.h>
 
 #include "LIB/PID/pid.h"
 #include "Project.h"
@@ -177,6 +177,8 @@ void __nearControl() {
 void __minControl() {
     Base->Data_Get_from_Camer();
 
+    MTurn_Strat();
+
     Min->Temp_Dire_select();
 
     Base->Back();
@@ -188,8 +190,6 @@ void __minControl() {
     }
 
     __Dire_select(Base->Temp_RLContrl);
-
-    MTurn_Strat();
 }
 
 void __farControl() {  // 确认是不是真的没有正确的数字
@@ -197,11 +197,17 @@ void __farControl() {  // 确认是不是真的没有正确的数字
 
 void MTurn_Strat() {
     static uint8_t i = 0;
-    if (Min->Turn_strat[i] == Base->CamerVerify[1]) {
-        return;
-    } else {
-        Min->Turn_strat[i + 1] = Base->CamerVerify[1];
-        i++;
+    if (Base->CamerVerify[1]) {
+        if (!Min->Turn_strat[i]) {
+            Min->Turn_strat[0] = Base->CamerVerify[1];
+
+            if (Min->Turn_strat[i] == Base->CamerVerify[1]) {
+                return;
+            } else {
+                Min->Turn_strat[i] = Base->CamerVerify[1];
+                i++;
+            }
+        }
     }
 }
 

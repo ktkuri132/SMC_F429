@@ -198,8 +198,10 @@ void __minControl() {
     }
     // 正式转向控制
     __Dire_select(Base->Temp_RLContrl);
-
-    MTurn_Strat();
+    
+    if (Base->Key_Value == 3) {
+        MTurn_Strat();
+    }
 }
 
 /// @brief 远端病房模式（以弃用）
@@ -208,12 +210,12 @@ void __farControl() {  // 确认是不是真的没有正确的数字
 
 /// @brief 转向状态记录函数
 void MTurn_Strat() {
-    static uint8_t i = 0;
+    static uint8_t i             = 0;
     static uint8_t Temp_SiteLock = 1;
     if (Base->Back_sign == 3) {
-        if (i<5) {
-            if(Base->SiteLock == 5 || Base->SiteLock == 6){
-                if(Base->SiteLock != Temp_SiteLock){
+        if (i < 5) {
+            if (Base->SiteLock == 5 || Base->SiteLock == 6) {
+                if (Base->SiteLock != Temp_SiteLock) {
                     i++;
                     Temp_SiteLock = Base->SiteLock;
                     if (Base->SiteLock == 5) {
@@ -222,9 +224,8 @@ void MTurn_Strat() {
                         Base->RLControl = 1;
                     }
                 }
-            }
-            else if(Base->SiteLock == 1){
-                if(i == 1){
+            } else if (Base->SiteLock == 1) {
+                if (i == 1) {
                     Temp_SiteLock = 1;
                 }
             }

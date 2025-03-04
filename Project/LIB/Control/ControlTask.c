@@ -52,12 +52,13 @@ void __ControlTask() {
             Min->minControl();
         } break;
         case 3: {
-            static uint8_t i = 0;
-            if (!i) {
-                Far = Far_Struct_Inti();  // 继承控制结构体
-                i   = 1;
-            }
-            Far->farControl();
+            // static uint8_t i = 0;
+            // if (!i) {
+            //     Far = Far_Struct_Inti();  // 继承控制结构体
+            //     i   = 1;
+            // }
+            // Far->farControl();
+            Min->minControl();
         } break;
         default:
             break;

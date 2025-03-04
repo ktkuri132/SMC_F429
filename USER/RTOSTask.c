@@ -236,6 +236,10 @@ Mode_4:
         // OLED_Update();
         // 退出临界区
         // taskEXIT_CRITICAL();
+        if((min<1)&&(sec>12)){
+            Base->Key_Value = 3;
+            
+        }
         vTaskDelayUntil(&xLastWakeTime, xFrequency_1000);
     }
 }

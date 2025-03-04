@@ -180,11 +180,23 @@ void OpenMV_Camera_Callback(Stde_DataTypeDef *DataTypeStruct)
     }
     else if(Temp_Data == 5)
     {
-        Base->SiteLock = 5;
+        if(Base->Back_sign == 3)
+        {
+            if(Base->Key_Value == 2)
+            {
+                Base->SiteLock = 5;
+            }
+        }
     }
     else if (Temp_Data == 6)
     {
-        Base->SiteLock = 6;
+        if(Base->Back_sign == 3)
+        {
+            if(Base->Key_Value == 2)
+            {
+                Base->SiteLock = 6;
+            }
+        }
     }
     else if (Temp_Data == 3)
     {

@@ -236,10 +236,7 @@ Mode_4:
         // OLED_Update();
         // 退出临界区
         // taskEXIT_CRITICAL();
-        if((min<1)&&(sec>12)){
-            Base->Key_Value = 3;
-            
-        }
+        
         vTaskDelayUntil(&xLastWakeTime, xFrequency_1000);
     }
 }
@@ -297,6 +294,7 @@ void Task_DebugLog()
         printf("剩余栈大小:%d\n", xPortGetFreeHeapSize());
         printf("任务数量:%d\n", uxTaskGetNumberOfTasks());
         printf("Openmv:%d\n", OpenMVData);
+        printf("Rvalue:%d,Lvalue:%d\n", Base->Rvalue, Base->Lvalue);
         printf("SiteLock:%d\n", Base->SiteLock);
         printf("RLControl:%d\n", Base->RLControl);
         printf("Temp_RLContrl:%d\n", Base->Temp_RLContrl);

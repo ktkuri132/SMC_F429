@@ -78,6 +78,7 @@ fctrl *Far_Struct_Inti() {
     return &far;
 }
 
+/// @brief 从摄像头获取数字
 int8_t __Data_Save_from_Camer() {
     static TaskHandle_t *Task4_LEDPlayR_Handle;
     static TaskHandle_t *Task4_LEDPlayY_Handle;
@@ -127,6 +128,7 @@ int8_t __Data_Save_from_Camer() {
     return 1;
 }
 
+/// @brief 从摄像头验证数字
 int8_t __Data_Get_from_Camer() {
     if (Base->SaveDataLock) {
         if (!K210Data) {
@@ -146,6 +148,7 @@ int8_t __Data_Get_from_Camer() {
     }
 }
 
+/// @brief 近端病房模式
 void __nearControl() {
     if (Base->SiteLock == 1) {
         if (Near->Turn_start) {
@@ -154,6 +157,7 @@ void __nearControl() {
             Near->Dire_Load_ENABLE = 0;
         }
     }
+    // 返回状态不允许操作Temp_RLContrl，阉割版临时转向控制
     if (Near->Dire_Load_ENABLE) {
         if (!Base->Back_sign) {
             if (Base->CamerData[0] == 1) {
@@ -163,10 +167,12 @@ void __nearControl() {
             }
         }
     }
+    // 返回执行函数
     Base->Back();
-
+    // 正式转向控制
     __Dire_select(Base->Temp_RLContrl);
 
+    // 已返回状态下，触发遇黑色和白色暂停
     if (Base->Back_sign == 3) {
         if (Base->SiteLock == 2 || Base->SiteLock == 4) {
             Base->RLControl = 4;
@@ -174,51 +180,69 @@ void __nearControl() {
     }
 }
 
+/// @brief 中端病房模式（兼容远端病房）
 void __minControl() {
+    // 从摄像头验证数字
     Base->Data_Get_from_Camer();
-
-    MTurn_Strat();
-
+    // 临时转向控制
     Min->Temp_Dire_select();
 
+    // 返回执行函数
     Base->Back();
 
+    // 已返回状态下，触发遇黑色和白色暂停
     if (Base->Back_sign == 3) {
         if (Base->SiteLock == 2 || Base->SiteLock == 4) {
             Base->RLControl = 4;
         }
     }
-
+    // 正式转向控制
     __Dire_select(Base->Temp_RLContrl);
+
+    MTurn_Strat();
 }
 
+/// @brief 远端病房模式（以弃用）
 void __farControl() {  // 确认是不是真的没有正确的数字
 }
 
+/// @brief 转向状态记录函数
 void MTurn_Strat() {
     static uint8_t i = 0;
-    if (Base->CamerVerify[1]) {
-        if (!Min->Turn_strat[i]) {
-            Min->Turn_strat[0] = Base->CamerVerify[1];
-
-            if (Min->Turn_strat[i] == Base->CamerVerify[1]) {
-                return;
-            } else {
-                Min->Turn_strat[i] = Base->CamerVerify[1];
-                i++;
+    static uint8_t Temp_SiteLock = 1;
+    if (Base->Back_sign == 3) {
+        if (i<5) {
+            if(Base->SiteLock == 5 || Base->SiteLock == 6){
+                if(Base->SiteLock != Temp_SiteLock){
+                    i++;
+                    Temp_SiteLock = Base->SiteLock;
+                    if (Base->SiteLock == 5) {
+                        Base->RLControl = 2;
+                    } else if (Base->SiteLock == 6) {
+                        Base->RLControl = 1;
+                    }
+                }
+            }
+            else if(Base->SiteLock == 1){
+                if(i == 1){
+                    Temp_SiteLock = 1;
+                }
             }
         }
     }
 }
 
+/// @brief 临时转向控制函数
 uint8_t __Temp_Dire_select() {
     static uint8_t i = 0;
     if (Base->Back_sign != 3) {
+        // 非返回状态下，直接根据摄像头数据进行转向
         if (Base->CamerVerify[0]) {
             Base->Temp_RLContrl = Base->CamerVerify[1];
         }
 
     } else {
+        // 返回状态下，根据摄像头数据进行转向
         if (Base->Temp_RLContrl) {
             if (Base->CamerVerify[1] == 1) {
                 Base->Temp_RLContrl = 2;
@@ -230,23 +254,14 @@ uint8_t __Temp_Dire_select() {
             }
         }
     }
-    if (Base->Back_sign == 3) {
+    if (Base->Back_sign == 3) {  // 返回状态下
+        // 扫到十字路口，使能Turn_const
         if (Base->SiteLock == 3) {
             Min->Turn_const = 1;
-
         } else if (Base->SiteLock == 1) {
             if (Min->Turn_const) {
+                // 在在经过十字路口后，再次扫到直线，说明转向结束，此时应该不转向
                 Base->Temp_RLContrl = 0;
-            }
-        }
-
-        if (Min->Turn_strat[i + 1]) {
-            if (!Min->Turn_strat[i]) {
-                Base->CamerVerify[1]   = Min->Turn_strat[i + 1];
-                Min->Turn_strat[i + 1] = 0;
-            }
-            if (Min->Turn_strat[i] != Min->Turn_strat[i + 1]) {
-                Base->CamerVerify[1] = Min->Turn_strat[i];
             }
         }
     }

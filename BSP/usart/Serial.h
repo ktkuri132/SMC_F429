@@ -9,6 +9,24 @@
 void usart_send_string(USART_TypeDef *USARTx ,uint8_t *data);
 
 
+// ANSI 转义序列定义
+
+#define ANSI_CLEAR_SCREEN "\033[2J"                              // 清屏
+#define ANSI_CURSOR_HOME "\033[H"                                // 将光标移动到左上角
+#define ANSI_CURSOR_POSITION(row, col) "\033[" #row ";" #col "H" // 将光标移动到指定位置 (row, col)
+#define ANSI_CURSOR_UP(n) "\033[" #n "A"                         // 将光标向上移动 n 行
+#define ANSI_CURSOR_DOWN(n) "\033[" #n "B"                       // 将光标向下移动 n 行
+#define ANSI_CURSOR_FORWARD(n) "\033[" #n "C"                    // 将光标向前移动 n 列
+#define ANSI_CURSOR_BACKWARD(n) "\033[" #n "D"                   // 将光标向后移动 n 列
+#define ANSI_SAVE_CURSOR "\033[s"                                // 保存光标位置
+#define ANSI_RESTORE_CURSOR "\033[u"                             // 恢复光标位置
+#define ANSI_ERASE_LINE "\033[K"                                 // 擦除从光标到行尾的内容
+#define ANSI_TEXT_BOLD "\033[1m"                                 // 设置文本为粗体
+#define ANSI_TEXT_UNDERLINE "\033[4m"                            // 设置文本为下划线
+#define ANSI_TEXT_REVERSE "\033[7m"                              // 设置文本为反显
+#define ANSI_TEXT_RESET "\033[0m"                                // 重置所有文本属性
+#define ANSI_TEXT_COLOR(color) "\033[" #color "m"                // 设置文本颜色
+
 #define STDE_Serial
 // #define BIE_Serial
 

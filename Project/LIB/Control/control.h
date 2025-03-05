@@ -66,7 +66,6 @@ typedef struct Control_min {
     void (*minControl)();
     void (*Turn_Sign)();
     uint8_t (*Temp_Dire_select)();
-
 } mctrl;
 
 mctrl *Min_Struct_Inti();
@@ -74,7 +73,6 @@ void __minControl();
 int8_t __Data_Get_from_Camer();
 uint8_t __Temp_Dire_select();
 void MTurn_Strat();
-
 
 typedef struct Control_far {
 

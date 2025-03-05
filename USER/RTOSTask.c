@@ -101,7 +101,7 @@ void Task3_Project_Display(uint8_t Mode)
     TickType_t xLastWakeTime;
     const TickType_t xFrequency_5    = pdMS_TO_TICKS(5);    // 任务周期为 5 毫秒
     const TickType_t xFrequency_100  = pdMS_TO_TICKS(100);  // 任务周期为 100 毫秒
-    const TickType_t xFrequency_1000 = pdMS_TO_TICKS(2000); // 任务周期为 2秒
+    const TickType_t xFrequency_1000 = pdMS_TO_TICKS(1000); // 任务周期为 2秒
     // 初始化 xLastWakeTime 变量为当前时间
     xLastWakeTime = xTaskGetTickCount();
     switch (Mode)
@@ -206,7 +206,7 @@ Mode_3: // 加入监测电池电压
         // OLED_Update();
         // 退出临界区
         // taskEXIT_CRITICAL();
-        vTaskDelayUntil(&xLastWakeTime, xFrequency_100);
+        vTaskDelayUntil(&xLastWakeTime, xFrequency_1000);
     }
 Mode_4:
     static int hour, min, sec;
@@ -291,6 +291,7 @@ void Task_DebugLog()
     while (1)
     {
         taskENTER_CRITICAL();
+        printf(ANSI_CLEAR_SCREEN);
         printf("剩余栈大小:%d\n", xPortGetFreeHeapSize());
         printf("任务数量:%d\n", uxTaskGetNumberOfTasks());
         printf("Openmv:%d\n", OpenMVData);
@@ -316,7 +317,7 @@ void Task_DebugLog()
 void Task5_KeyScan()
 {
     TickType_t xLastWakeTime;
-    const TickType_t xFrequency = pdMS_TO_TICKS(100); // 任务周期为 100 毫秒
+    const TickType_t xFrequency = pdMS_TO_TICKS(200); // 任务周期为 100 毫秒
 
     // 初始化 xLastWakeTime 变量为当前时间
     xLastWakeTime = xTaskGetTickCount();

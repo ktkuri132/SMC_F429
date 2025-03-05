@@ -31,6 +31,11 @@ Stde_DataTypeDef USART3_DataBuff;
 Stde_DataTypeDef UART5_DataBuff;
 Stde_DataTypeDef UART4_DataBuff;
 
+PID pidForLine;  // 创建PID结构体
+PID pidforspeed;
+PID pidforturn;
+PID pidForback;
+
 // 定义控制结构体指针
 ctrl *Base;
 nctrl *Near;

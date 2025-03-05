@@ -19,6 +19,10 @@ extern Stde_DataTypeDef USART2_DataBuff;
 extern Stde_DataTypeDef USART3_DataBuff;
 extern Stde_DataTypeDef UART5_DataBuff;
 extern Stde_DataTypeDef UART4_DataBuff;
+extern PID pidForLine;  // 创建PID结构体
+extern PID pidforspeed;
+extern PID pidforturn;
+extern PID pidForback;
 extern ctrl *Base;
 extern nctrl *Near;
 extern mctrl *Min;
@@ -198,7 +202,7 @@ void __minControl() {
     }
     // 正式转向控制
     __Dire_select(Base->Temp_RLContrl);
-    
+
     if (Base->Key_Value == 3) {
         MTurn_Strat();
     }
@@ -241,7 +245,6 @@ uint8_t __Temp_Dire_select() {
         if (Base->CamerVerify[0]) {
             Base->Temp_RLContrl = Base->CamerVerify[1];
         }
-
     } else {
         // 返回状态下，根据摄像头数据进行转向
         if (Base->Temp_RLContrl) {
@@ -281,7 +284,6 @@ void __Dire_select(uint8_t Temp) {
             Base->VerifyDataLock = 0;
             i                    = 1;
         }
-
     } else if (Base->SiteLock == 1) {
         Base->RLControl = 0;
     }
@@ -324,6 +326,21 @@ void __Back() {
         if (Base->Back_sign == 2) {
             Base->Back_sign          = 3;
             Base->MotorStrat_3_POINT = 0;
+        }
+    }
+    if (Base->Back_sign == 3) {
+        if (Base->SiteLock == 1) {
+            static uint8_t i = 0;
+            if (!i) {
+                pidforspeed.target = 10;
+                i                  = 1;
+            }
+        } else if (Base->SiteLock == 3) {
+            static uint8_t j = 0;
+            if (!j) {
+                pidforspeed.target = 16;
+                j                  = 1;
+            }
         }
     }
 }

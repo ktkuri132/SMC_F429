@@ -20,6 +20,15 @@ typedef enum
 
 #endif
 
+/// @brief 系统运行状态结构体
+typedef struct
+{
+    // 输出缓存数组
+    uint8_t PRINTF_ARRAY[100];
+    
+
+}SYS_RUNSTRAT;
+
 void NVIC_Configuration(void);
 void bsp_systick_delay_us(uint32_t nus);
 void bsp_systick_delay_ms(uint32_t nms);

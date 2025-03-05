@@ -1,3 +1,4 @@
+#include <stdint.h>
 #if !defined(__PID__)
 #define __PID__
 
@@ -32,6 +33,13 @@ typedef struct PID_TypeDef
     int32_t Kd;
     
 }PID;
+
+typedef struct {
+    int16_t Kp;
+    int16_t Kd;
+    int16_t Ki;
+    int16_t target;
+}PID_param ;
 
 /// @brief PID的通用控制函数
 /// @param pid 传入的PID结构体

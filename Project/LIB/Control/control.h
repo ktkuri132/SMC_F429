@@ -49,7 +49,7 @@ void  __Dire_select(uint8_t Temp);
 ctrl* Control_Struct_Inti();
 int8_t __Data_Save_from_Camer();
 void __ControlTask();
-uint8_t __CrossManage();
+uint8_t __CrossManageNum();
 void __Back();
 
 typedef struct Control_near {

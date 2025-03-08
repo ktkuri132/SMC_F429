@@ -19,7 +19,7 @@ extern ctrl *Base;
 extern nctrl *Near;
 extern mctrl *Min;
 extern fctrl *Far;
-CrossManage Cross[5];
+CrossManage Cross[5];  // 十字路口管理,主要用于返回
 
 ctrl *Control_Struct_Inti() {
     static ctrl base = {
@@ -181,6 +181,8 @@ void __nearControl() {
 void __minControl() {
     // 从摄像头验证数字
     Base->Data_Get_from_Camer();
+    // 十字路口记录
+    __CrossManage();
     // 临时转向控制
     Min->Temp_Dire_select();
 
@@ -230,7 +232,7 @@ void MTurn_Strat() {
     }
 }
 
-uint8_t __CrossManage() {
+uint8_t __CrossManageNum() {
     static uint8_t i = 0;
     if (!i) {
         if (Base->SiteLock == 1) {
@@ -252,6 +254,8 @@ uint8_t __CrossManage() {
         }
     }
 }
+
+uint8_t __Cross
 
 /// @brief 临时转向控制函数
 uint8_t __Temp_Dire_select() {
@@ -286,17 +290,14 @@ uint8_t __Temp_Dire_select() {
 void __Dire_select(uint8_t Temp) {
     static uint8_t Turn_const = 0;
     Base->old_RLControl       = Base->RLControl;
-    uint8_t m= CrossManage();
     if (Base->SiteLock == 3) {
         if (Temp) {
             Base->RLControl = Temp;
         }
-        if (m) {
-            static uint8_t i = 0;
-            if (!i) {
-                Base->VerifyDataLock = 0;
-                i                    = 1;
-            }
+        static uint8_t i = 0;
+        if (!i) {
+            Base->VerifyDataLock = 0;
+            i                    = 1;
         }
     } else if (Base->SiteLock == 1) {
         Base->RLControl = 0;

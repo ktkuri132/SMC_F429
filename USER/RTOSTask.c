@@ -236,10 +236,10 @@ Mode_4:
         // OLED_Update();
         // 退出临界区
         // taskEXIT_CRITICAL();
-        if((min<1)&&(sec>12)){
-            Base->Key_Value = 3;
+        // if((min<1)&&(sec>12)){
+        //     Base->Key_Value = 3;
             
-        }
+        // }
         vTaskDelayUntil(&xLastWakeTime, xFrequency_1000);
     }
 }
@@ -298,6 +298,7 @@ void Task_DebugLog()
         printf("任务数量:%d\n", uxTaskGetNumberOfTasks());
         printf("Openmv:%d\n", OpenMVData);
         printf("SiteLock:%d\n", Base->SiteLock);
+        printf("经过弯道次数:%d\n", Base->j);
         printf("RLControl:%d\n", Base->RLControl);
         printf("Temp_RLContrl:%d\n", Base->Temp_RLContrl);
         printf("Turn_const:%d\n", Min->Turn_const);

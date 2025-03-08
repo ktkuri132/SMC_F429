@@ -2,12 +2,8 @@
 #include <RTOSTaskConfig.h>
 #include <comment/task.h>
 #include <stdint.h>
-#include <stdio.h>
-// #include <threads.h>
 
-#include "LIB/PID/pid.h"
 #include "Project.h"
-#include "stm32f4xx.h"
 
 /*
  * 这里为什么要提供一个通用，还建议开发者提供专用的PID算法，通用的只有单极PID
@@ -23,6 +19,7 @@ extern ctrl *Base;
 extern nctrl *Near;
 extern mctrl *Min;
 extern fctrl *Far;
+CrossManage Cross[5];
 
 ctrl *Control_Struct_Inti() {
     static ctrl base = {
@@ -198,7 +195,7 @@ void __minControl() {
     }
     // 正式转向控制
     __Dire_select(Base->Temp_RLContrl);
-    
+
     if (Base->Key_Value == 3) {
         MTurn_Strat();
     }
@@ -233,25 +230,42 @@ void MTurn_Strat() {
     }
 }
 
+uint8_t __CrossManage() {
+    static uint8_t i = 0;
+    if (!i) {
+        if (Base->SiteLock == 1) {
+            i = 1;
+            return Base->j;
+        }
+    }
+    if (Base->SiteLock == 3) {
+        if (i) {
+            i = 2;
+            return Base->j;
+        }
+    }
+    if (Base->SiteLock == 1) {
+        if (i == 2) {
+            Base->j++;
+            i = 0;
+            return Base->j;
+        }
+    }
+}
+
 /// @brief 临时转向控制函数
 uint8_t __Temp_Dire_select() {
     static uint8_t i = 0;
-    if (Base->Back_sign != 3) {
-        // 非返回状态下，直接根据摄像头数据进行转向
+    if (Base->Back_sign != 3) {  // 小车宣布返回前，直接根据摄像头数据进行转向
         if (Base->CamerVerify[0]) {
             Base->Temp_RLContrl = Base->CamerVerify[1];
         }
-
-    } else {
-        // 返回状态下，根据摄像头数据进行转向
-        if (Base->Temp_RLContrl) {
+    } else {                        // 宣布返回后，根据之前的转向记录处理转向
+        if (Base->Temp_RLContrl) {  // 假如小车之前有转向记录
             if (Base->CamerVerify[1] == 1) {
                 Base->Temp_RLContrl = 2;
-                Base->CamerData[0]  = 1;
-
             } else if (Base->CamerVerify[1] == 2) {
                 Base->Temp_RLContrl = 1;
-                Base->CamerData[0]  = 2;
             }
         }
     }
@@ -261,8 +275,8 @@ uint8_t __Temp_Dire_select() {
             Min->Turn_const = 1;
         } else if (Base->SiteLock == 1) {
             if (Min->Turn_const) {
-                // 在在经过十字路口后，再次扫到直线，说明转向结束，此时应该不转向
-                Base->Temp_RLContrl = 0;
+                Base->Temp_RLContrl =
+                    0;  // 在在经过十字路口后，再次扫到直线，说明转向结束，此时应该不转向
             }
         }
     }
@@ -272,20 +286,21 @@ uint8_t __Temp_Dire_select() {
 void __Dire_select(uint8_t Temp) {
     static uint8_t Turn_const = 0;
     Base->old_RLControl       = Base->RLControl;
+    uint8_t m= CrossManage();
     if (Base->SiteLock == 3) {
         if (Temp) {
             Base->RLControl = Temp;
         }
-        static uint8_t i = 0;
-        if (!i) {
-            Base->VerifyDataLock = 0;
-            i                    = 1;
+        if (m) {
+            static uint8_t i = 0;
+            if (!i) {
+                Base->VerifyDataLock = 0;
+                i                    = 1;
+            }
         }
-
     } else if (Base->SiteLock == 1) {
         Base->RLControl = 0;
     }
-
     // 比较前后两次的转向选择是否一致，不一致说明转向状态发生了改变，第一次说明是开始转向，第二次说明转向结束
     if (Base->old_RLControl != Base->RLControl) {
         Turn_const++;
@@ -298,32 +313,35 @@ void __Dire_select(uint8_t Temp) {
     }
 }
 
+/// @brief 返回处理函数
 void __Back() {
-    if (!Base->VerifyDataLock) {
-        if (Base->SiteLock == 4) {
-            if (!Base->Back_sign) {
-                Base->Back_sign     = 1;
-                Base->Temp_RLContrl = Base->CamerData[0];
+    if (!Base->VerifyDataLock) {      // 当验证数据锁为0时，说明已经经过路口，此时激活返回控制函数
+        if (Base->SiteLock == 4) {    // 假如扫到黑线
+            if (!Base->Back_sign) {   // 且保证为第一次激活返回控制函数
+                Base->Back_sign = 1;  // 返回控制进入第一阶段：暂停取药
+                if (Base->Key_Value == 1) {  // 记录之前的转向状态，专为近端病房服务
+                    Base->Temp_RLContrl = Base->CamerData[0];
+                }
             }
         }
-        if (Base->Back_sign == 1) {
+        if (Base->Back_sign == 1) {  // 在第一阶段暂停取药时，保证小车停止
             Base->RLControl = 4;
         }
-        if (!Base->MotorStrat_2) {
-            Base->Back_sign = 2;
-            if (Base->SiteLock != 1) {
-                Base->RLControl          = 3;
-                Base->MotorStrat_3_POINT = 1;
-                Base->Motor_Load         = back_Motor_Load;
-                Base->VerifyDataLock     = 1;
+        if (!Base->MotorStrat_2) {                           // 假如处于第一阶段，检测到药品被拿走
+            Base->Back_sign = 2;                             // 就进入第二阶段：调头
+            if (Base->SiteLock != 1) {                       // 调头的时候，保证小车具有一定的特权
+                Base->RLControl          = 3;                // 发出调头指令
+                Base->MotorStrat_3_POINT = 1;                // 不受白色背景停止的影响
+                Base->Motor_Load         = back_Motor_Load;  // 小车启动条件改为：无药品启动
+                Base->VerifyDataLock     = 1;                // 第二阶段初始化完毕，验证数据锁为1
             }
         }
-        return;
+        return;  // 小车在遇到红线之前，一直都是第二阶段
     }
-    if (Base->SiteLock == 1) {
-        if (Base->Back_sign == 2) {
-            Base->Back_sign          = 3;
-            Base->MotorStrat_3_POINT = 0;
+    if (Base->SiteLock == 1) {             // 遇到红线，进入第三阶段
+        if (Base->Back_sign == 2) {        // 保证是第二阶段结束
+            Base->MotorStrat_3_POINT = 0;  // 使得小车受白色背景停止的影响
+            Base->Back_sign = 3;  // 进入第三阶段：返回，此刻返回处理函数使命结束，宣布开始返回
         }
     }
 }

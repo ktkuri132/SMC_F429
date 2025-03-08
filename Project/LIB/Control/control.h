@@ -6,7 +6,10 @@
 int8_t Project_LIB_ControlStrat();
 void control_near_Init();
 
-
+typedef struct {
+    uint8_t CrossNum;   // 路口编号
+    uint8_t CrossState;  // 路口状态
+} CrossManage ;
 
 typedef struct Control {
 
@@ -31,6 +34,8 @@ typedef struct Control {
     uint8_t Turn_const;
     uint8_t Turn_gather;
 
+    uint8_t j;  /*以下为未命名简单变量*/
+
     void (*Control_Init)();
     void (*Motor_Load)(int32_t leftMotor, int32_t RightMotor);
     int8_t (*Data_Save_from_Camer)();
@@ -44,6 +49,7 @@ void  __Dire_select(uint8_t Temp);
 ctrl* Control_Struct_Inti();
 int8_t __Data_Save_from_Camer();
 void __ControlTask();
+uint8_t __CrossManage();
 void __Back();
 
 typedef struct Control_near {

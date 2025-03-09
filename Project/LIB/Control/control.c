@@ -182,7 +182,7 @@ void __minControl() {
     // 从摄像头验证数字
     Base->Data_Get_from_Camer();
     // 十字路口记录
-    __CrossManage();
+    __CrossManageNum();
     // 临时转向控制
     Min->Temp_Dire_select();
 
@@ -255,7 +255,10 @@ uint8_t __CrossManageNum() {
     }
 }
 
-uint8_t __Cross
+uint8_t __Cross()
+{
+
+}
 
 /// @brief 临时转向控制函数
 uint8_t __Temp_Dire_select() {

@@ -102,6 +102,8 @@ void Task3_Project_Display(uint8_t Mode)
     const TickType_t xFrequency_5    = pdMS_TO_TICKS(5);    // 任务周期为 5 毫秒
     const TickType_t xFrequency_100  = pdMS_TO_TICKS(100);  // 任务周期为 100 毫秒
     const TickType_t xFrequency_1000 = pdMS_TO_TICKS(2000); // 任务周期为 2秒
+    static int hour, min, sec;
+
     // 初始化 xLastWakeTime 变量为当前时间
     xLastWakeTime = xTaskGetTickCount();
     switch (Mode)
@@ -209,7 +211,6 @@ Mode_3: // 加入监测电池电压
         vTaskDelayUntil(&xLastWakeTime, xFrequency_100);
     }
 Mode_4:
-    static int hour, min, sec;
     while (1)
     {
         // 进入临界区

@@ -50,15 +50,21 @@ void __ControlTask() {
                 i   = 1;
             }
             Min->minControl();
+            /*模式重新选择*/
+            if(Base->j >= 3){
+                if(Base->Back_sign != 3){
+                    Base->Key_Value = 3;
+                }
+            }
         } break;
         case 3: {
-            // static uint8_t i = 0;
-            // if (!i) {
-            //     Far = Far_Struct_Inti();  // 继承控制结构体
-            //     i   = 1;
-            // }
-            // Far->farControl();
-            Min->minControl();
+            static uint8_t i = 0;
+            if (!i) {
+                Far = Far_Struct_Inti();  // 继承控制结构体
+                i   = 1;
+            }
+            Far->farControl();
+            // Min->minControl();
         } break;
         default:
             break;
@@ -149,8 +155,8 @@ void Project_LIB_ControlTask(uint8_t rlControl) {
     static PID pidforturn;
     static PID pidForback;
 
-    PID_TypeStructInit(&pidforspeed, 400, -10, 2, 20);  // 为保持恒定速度不受电池电量影响
-    PID_TypeStructInit(&pidForLine, 8, -8, 0, 180);     // 初始化寻线PID,目标值：中线坐标
+    PID_TypeStructInit(&pidforspeed, 400, -10, 2, 21);  // 为保持恒定速度不受电池电量影响
+    PID_TypeStructInit(&pidForLine, 10, -7, 0, 160);     // 初始化寻线PID,目标值：中线坐标
     PID_TypeStructInit(&pidforturn, 500, -10, 0, 40);   // 为转向时不受电池电量影响
     PID_TypeStructInit(&pidForback, 10, -10, 0, 1500);  // 为调头时不受电池电量影响
 

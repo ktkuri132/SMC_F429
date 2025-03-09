@@ -69,7 +69,6 @@ Init_Project:
     Project_BSP_ADC_Init();
     Project_BSP_KEY_Init();
     Project_LIB_TIM3_Init(10);
-
     main();
     // Test();
 }

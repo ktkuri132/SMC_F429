@@ -4,6 +4,7 @@
 #include <stdint.h>
 
 #include "Project.h"
+#include "usart/Serial.h"
 
 /*
  * 这里为什么要提供一个通用，还建议开发者提供专用的PID算法，通用的只有单极PID
@@ -53,7 +54,6 @@ mctrl *Min_Struct_Inti() {
     static mctrl min = {
         .minControl       = __minControl,
         .Temp_Dire_select = __Temp_Dire_select,
-        .Dire_Load_ENABLE = 1,
     };
 
     // 避免静态变量的初始化不是常量
@@ -67,11 +67,14 @@ mctrl *Min_Struct_Inti() {
 fctrl *Far_Struct_Inti() {
     static fctrl far = {
         .farControl   = __farControl,
+        .Temp_Dire_select = __Temp_Dire_select,
         .SaveDataLock = 0,
     };
 
     // 避免静态变量的初始化不是常量
     far.Base = Base;
+    far.Base->VerifyDataLock      = 1;
+    far.Base->Data_Get_from_Camer = __Data_Get_from_Camer;
     return &far;
 }
 
@@ -104,13 +107,13 @@ int8_t __Data_Save_from_Camer() {
             if (!Base->CamerData[i]) {              // 如果缓冲数组目前为止为空
                 Base->CamerData[i]     = TempNum;   // 填入数字
                 Base->CamerData[i + 1] = TempSite;  // 填入坐标
-                if (!i) {                           // 返回0闪红灯
-                    xTaskCreate((TaskFunction_t)Task4_LEDPlay, "Red_LED", 1024, 1, 10,
-                                Task4_LEDPlayR_Handle);
-                } else {  // 返回1闪黄灯
-                    xTaskCreate((TaskFunction_t)Task4_LEDPlay, "Yellow_LED", 1024, 2, 10,
-                                Task4_LEDPlayY_Handle);
-                }
+                // if (!i) {                           // 返回0闪红灯
+                //     xTaskCreate((TaskFunction_t)Task4_LEDPlay, "Red_LED", 1024, 1, 10,
+                //                 Task4_LEDPlayR_Handle);
+                // } else {  // 返回1闪黄灯
+                //     xTaskCreate((TaskFunction_t)Task4_LEDPlay, "Yellow_LED", 1024, 2, 10,
+                //                 Task4_LEDPlayY_Handle);
+                // }
                 i += 2;
                 if (i == 4) {  // 存入两个数字，直接锁定数据存入
                     Base->SaveDataLock = 2;
@@ -147,11 +150,9 @@ int8_t __Data_Get_from_Camer() {
 
 /// @brief 近端病房模式
 void __nearControl() {
-    static uint8_t i = 0;
-    i                = __CrossManageNum();
+    __CrossManageNum();
     if (Base->SiteLock == 1) {  // 经过路口一次
-        if (i == 1) {
-            Near->Dire_Load_ENABLE = 0;  // 直接变换转向模式
+        if (Base->j == 1) {
             static uint8_t j       = 0;
             if (!j) {
                 j                    = 1;
@@ -160,13 +161,11 @@ void __nearControl() {
         }
     }
     // 返回状态改变Temp_RLContrl的操作权，阉割版临时转向控制
-    if (Near->Dire_Load_ENABLE) {
-        if (!Base->Back_sign) {
-            if (Base->CamerData[0] == 1) {
-                Base->Temp_RLContrl = 2;
-            } else if (Base->CamerData[0] == 2) {
-                Base->Temp_RLContrl = 1;
-            }
+    if (!Base->Back_sign) {
+        if (Base->CamerData[0] == 1) {
+            Base->Temp_RLContrl = 2;
+        } else if (Base->CamerData[0] == 2) {
+            Base->Temp_RLContrl = 1;
         }
     } else {
         Base->Temp_RLContrl = Base->CamerData[0];
@@ -205,13 +204,26 @@ void __minControl() {
     // 正式转向控制
     __Dire_select(Base->Temp_RLContrl);
 
-    if (Base->Key_Value == 3) {
-        MTurn_Strat();
-    }
+    
 }
 
-/// @brief 远端病房模式（以弃用）
+/// @brief 远端病房模式
 void __farControl() {  // 确认是不是真的没有正确的数字
+    
+    __minControl();
+
+    if(Base->Back_sign == 3){       // 单次运行，清除十字路口记录
+        // Project_BSP_LED_ON(1);
+        static uint8_t i = 0;
+        if(!i){
+            Base->j = 0;
+            i = 1;
+        }
+    }
+
+    if(Base->j < 2){
+        MTurn_Strat();
+    }
 }
 
 /// @brief 转向状态记录函数
@@ -260,6 +272,27 @@ uint8_t __CrossManageNum() {
             return Base->j;
         }
     }
+
+    // static uint8_t j =0;
+    // if (!j) {
+    //     if (Base->SiteLock == 1) {
+    //         j = 1;
+    //         return Base->i;
+    //     }
+    // }
+    // if (Base->SiteLock == 5 || Base->SiteLock == 6) {
+    //     if (j) {
+    //         j = 2;
+    //         return Base->i;
+    //     }
+    // }
+    // if (Base->SiteLock == 1) {
+    //     if (j == 2) {
+    //         Base->i++;
+    //         j = 0;
+    //         return Base->i;
+    //     }
+    // }
 }
 
 uint8_t __Cross() {}
@@ -267,9 +300,10 @@ uint8_t __Cross() {}
 /// @brief 临时转向控制函数
 uint8_t __Temp_Dire_select() {
     static uint8_t i = 0;
-    if (Base->Back_sign != 3) {  // 小车宣布返回前，直接根据摄像头数据进行转向
+    if (!Base->Back_sign) {  // 小车宣布返回前，直接根据摄像头数据进行转向
         if (Base->CamerVerify[0]) {
             Base->Temp_RLContrl = Base->CamerVerify[1];
+            Base->VerifyDataLock = 0;
         }
     } else {                        // 宣布返回后，根据之前的转向记录处理转向
         if (Base->Temp_RLContrl) {  // 假如小车之前有转向记录

@@ -5,40 +5,54 @@ void Project_BSP_LED_Init()
 {
     GPIO_InitTypeDef GPIO_InitStructure;
     RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOC,ENABLE);
+    RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOB,ENABLE);
     GPIO_InitStructure.GPIO_Pin = GPIO_Pin_4|GPIO_Pin_5;
     GPIO_InitStructure.GPIO_Mode = GPIO_Mode_OUT;
     GPIO_InitStructure.GPIO_OType = GPIO_OType_PP;
     GPIO_InitStructure.GPIO_Speed = GPIO_Speed_100MHz;
     GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_DOWN;
     GPIO_Init(GPIOC,&GPIO_InitStructure);
+    GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_DOWN;
+    GPIO_InitStructure.GPIO_Pin = GPIO_Pin_0;
+    GPIO_Init(GPIOB,&GPIO_InitStructure);
     Project_BSP_LED_OFF(0);
     Project_BSP_LED_OFF(1);
-
+    Project_BSP_LED_OFF(2);
     printf("初始化LED\n");
 
 }
 
 void Project_BSP_LED_ON(uint8_t LED)
 {
-    if(LED == 0)
-    {
-        GPIO_ResetBits(GPIOC,GPIO_Pin_4);
-    }
-    else
-    {
-        GPIO_ResetBits(GPIOC,GPIO_Pin_5);
+    switch (LED) {
+        case 0:
+            GPIO_ResetBits(GPIOC,GPIO_Pin_4);
+            break;
+        case 1:
+            GPIO_ResetBits(GPIOC,GPIO_Pin_5);
+            break;
+        case 2:
+            GPIO_ResetBits(GPIOB,GPIO_Pin_0);
+            break;
+        default:
+            break;
     }
 }
 
 void Project_BSP_LED_OFF(uint8_t LED)
 {
-    if(LED == 0)
-    {
-        GPIO_SetBits(GPIOC,GPIO_Pin_4);
-    }
-    else
-    {
-        GPIO_SetBits(GPIOC,GPIO_Pin_5);
+    switch (LED) {
+        case 0:
+            GPIO_SetBits(GPIOC,GPIO_Pin_4);
+            break;
+        case 1:
+            GPIO_SetBits(GPIOC,GPIO_Pin_5);
+            break;
+        case 2:
+            GPIO_SetBits(GPIOB,GPIO_Pin_0);
+            break;
+        default:
+            break;
     }
 }
 

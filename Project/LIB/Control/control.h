@@ -35,6 +35,7 @@ typedef struct Control {
     uint8_t Turn_gather;
 
     uint8_t j;  /*以下为未命名简单变量*/
+    uint8_t i;
 
     void (*Control_Init)();
     void (*Motor_Load)(int32_t leftMotor, int32_t RightMotor);
@@ -67,8 +68,6 @@ nctrl *Near_Struct_Inti();
 typedef struct Control_min {
     ctrl *Base;
     uint8_t Turn_const;
-    uint8_t Dire_Load_ENABLE;
-    uint8_t Turn_strat[4];
     void (*minControl)();
     void (*Turn_Sign)();
     uint8_t (*Temp_Dire_select)();
@@ -86,6 +85,7 @@ typedef struct Control_far {
 
     ctrl *Base;
     uint8_t SaveDataLock;
+    uint8_t (*Temp_Dire_select)();
     void (*farControl)();
 } fctrl;
 

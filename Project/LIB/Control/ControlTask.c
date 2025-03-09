@@ -64,7 +64,6 @@ void __ControlTask() {
                 i   = 1;
             }
             Far->farControl();
-            // Min->minControl();
         } break;
         default:
             break;
@@ -72,81 +71,6 @@ void __ControlTask() {
     Project_LIB_ControlTask(Base->RLControl);
 }
 
-#ifdef OLD_CODE
-extern uint8_t CamerVerify[4];
-extern uint8_t SaveDataLock;
-
-uint8_t RLControl = 0;
-uint8_t SiteLock  = 0;
-
-/// @brief
-/// 只要进入转向选择,运行一次后,无法继续运行,除非SiteLock被解锁,解锁的条件是OpenMV识别到十字路口,数据类型返回3
-uint8_t __attribute__((__weak__)) Temp_Dire_select() {
-    uint8_t Temp_RLControl = 0;
-    if (CamerVerify[0]) {
-        Temp_RLControl = CamerVerify[1];
-    }
-    if (CamerVerify[2]) {
-        Temp_RLControl = CamerVerify[3];
-    }
-    return Temp_RLControl;
-}
-
-uint8_t Temp_RLContrl = 0;
-uint8_t Turn_const    = 0;
-extern uint8_t VerifyDataLock;
-uint8_t old_RLControl = 0;
-void __attribute__((__weak__)) Dire_select(uint8_t Temp) {
-    old_RLControl = RLControl;
-    if (SiteLock == 3) {
-        if (Temp) {
-            RLControl = Temp;
-        }
-    } else if (SiteLock == 1) {
-        RLControl = 0;
-    } else {
-        RLControl = 0;
-    }
-    // 比较前后两次的转向选择是否一致，不一致说明转向状态发生了改变，第一次说明是开始转向，第二次说明转向结束
-    if (old_RLControl != RLControl) {
-        Turn_const++;
-        if (Turn_const == 2) {  // 变化方向满两次，验证数据锁次数-1,并且转向状态清零，变化次数清零
-            VerifyDataLock--;
-            Turn_const    = 0;
-            Temp_RLContrl = 0;
-        }
-    }
-}
-
-/*
-    Data_Get_from_Camer识别到数字之后,这个坐标信息就不能再被改变
-*/
-/// @brief 控制状态
-int8_t __attribute__((__weak__)) Project_LIB_ControlStrat() {
-    int8_t dsfc_return = Data_Save_from_Camer();
-    if (dsfc_return > 0) {
-        static uint8_t i = 0;  // 此处强调验证数据锁的初始化只能进行一次
-        if (!i) {
-            VerifyDataLock = (SaveDataLock) ? ((SaveDataLock == 1) ? 1 : 2) : 0;
-            i              = 1;
-        }
-    }
-    // 验证数据锁还有次数就还能继续运行
-    if (VerifyDataLock) {
-        int8_t dgfc_return = Data_Get_from_Camer();  // 只要识别到数字,才能进入转向选择
-
-        if (dgfc_return > 0) {  // 大于0表示识别到数字
-            Temp_RLContrl = Temp_Dire_select();
-        }
-        Dire_select(Temp_RLContrl);
-    }
-    Project_LIB_ControlTask();
-}
-#endif
-
-void scan(){
-
-}
 
 /// @brief 控制任务
 void Project_LIB_ControlTask(uint8_t rlControl) {

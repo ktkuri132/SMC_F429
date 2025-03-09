@@ -107,13 +107,6 @@ int8_t __Data_Save_from_Camer() {
             if (!Base->CamerData[i]) {              // 如果缓冲数组目前为止为空
                 Base->CamerData[i]     = TempNum;   // 填入数字
                 Base->CamerData[i + 1] = TempSite;  // 填入坐标
-                // if (!i) {                           // 返回0闪红灯
-                //     xTaskCreate((TaskFunction_t)Task4_LEDPlay, "Red_LED", 1024, 1, 10,
-                //                 Task4_LEDPlayR_Handle);
-                // } else {  // 返回1闪黄灯
-                //     xTaskCreate((TaskFunction_t)Task4_LEDPlay, "Yellow_LED", 1024, 2, 10,
-                //                 Task4_LEDPlayY_Handle);
-                // }
                 i += 2;
                 if (i == 4) {  // 存入两个数字，直接锁定数据存入
                     Base->SaveDataLock = 2;
@@ -272,30 +265,7 @@ uint8_t __CrossManageNum() {
             return Base->j;
         }
     }
-
-    // static uint8_t j =0;
-    // if (!j) {
-    //     if (Base->SiteLock == 1) {
-    //         j = 1;
-    //         return Base->i;
-    //     }
-    // }
-    // if (Base->SiteLock == 5 || Base->SiteLock == 6) {
-    //     if (j) {
-    //         j = 2;
-    //         return Base->i;
-    //     }
-    // }
-    // if (Base->SiteLock == 1) {
-    //     if (j == 2) {
-    //         Base->i++;
-    //         j = 0;
-    //         return Base->i;
-    //     }
-    // }
 }
-
-uint8_t __Cross() {}
 
 /// @brief 临时转向控制函数
 uint8_t __Temp_Dire_select() {

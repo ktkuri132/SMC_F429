@@ -295,18 +295,20 @@ void Task_DebugLog()
     while (1)
     {
         taskENTER_CRITICAL();
-        printf("剩余栈大小:%d\n", xPortGetFreeHeapSize());
-        printf("任务数量:%d\n", uxTaskGetNumberOfTasks());
-        printf("Openmv:%d\n", OpenMVData);
+        printf(CLEAR_SCREEN);
+        printf(CURSOR_HIDE);
+        // printf("剩余栈大小:%d\n", xPortGetFreeHeapSize());
+        // printf("任务数量:%d\n", uxTaskGetNumberOfTasks());
+        // printf("Openmv:%d\n", OpenMVData);
         printf("SiteLock:%d\n", Base->SiteLock);
         printf("经过弯道次数:%d\n", Base->j);
         printf("RLControl:%d\n", Base->RLControl);
         printf("Temp_RLContrl:%d\n", Base->Temp_RLContrl);
-        printf("Turn_const:%d\n", Min->Turn_const);
+        // printf("Turn_const:%d\n", Min->Turn_const);
         printf("Dire_Load_ENABLE:%d\n", Min->Dire_Load_ENABLE);
-        printf("MotorStrat_2:%d\n", Base->MotorStrat_2);
-        printf("MotorStrat_3:%d\n", Base->MotorStrat_3);
-        printf("MotorStrat_3_POINT:%d\n", Base->MotorStrat_3_POINT);
+        // printf("MotorStrat_2:%d\n", Base->MotorStrat_2);
+        // printf("MotorStrat_3:%d\n", Base->MotorStrat_3);
+        // printf("MotorStrat_3_POINT:%d\n", Base->MotorStrat_3_POINT);
         printf("Back_sign:%d\n", Base->Back_sign);
         printf("Key_Value:%d\n", Base->Key_Value);
         printf("VerifyDataLock:%d\n", Base->VerifyDataLock);

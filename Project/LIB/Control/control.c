@@ -147,14 +147,19 @@ int8_t __Data_Get_from_Camer() {
 
 /// @brief 近端病房模式
 void __nearControl() {
-    if (Base->SiteLock == 1) {
-        if (Near->Turn_start) {
-            Base->Temp_RLContrl    = 0;
-            Near->Turn_start       = 0;
-            Near->Dire_Load_ENABLE = 0;
+    static uint8_t i = 0;
+    i                = __CrossManageNum();
+    if (Base->SiteLock == 1) {  // 经过路口一次
+        if (i == 1) {
+            Near->Dire_Load_ENABLE = 0;  // 直接变换转向模式
+            static uint8_t j       = 0;
+            if (!j) {
+                j                    = 1;
+                Base->VerifyDataLock = 0;  // 单次运行激活返回控制函数
+            }
         }
     }
-    // 返回状态不允许操作Temp_RLContrl，阉割版临时转向控制
+    // 返回状态改变Temp_RLContrl的操作权，阉割版临时转向控制
     if (Near->Dire_Load_ENABLE) {
         if (!Base->Back_sign) {
             if (Base->CamerData[0] == 1) {
@@ -163,13 +168,15 @@ void __nearControl() {
                 Base->Temp_RLContrl = 1;
             }
         }
+    } else {
+        Base->Temp_RLContrl = Base->CamerData[0];
     }
     // 返回执行函数
     Base->Back();
     // 正式转向控制
     __Dire_select(Base->Temp_RLContrl);
 
-    // 已返回状态下，触发遇黑色和白色暂停
+    // 已返回状态下，触发遇黑色和白色暂停，转向状态除外
     if (Base->Back_sign == 3) {
         if (Base->SiteLock == 2 || Base->SiteLock == 4) {
             Base->RLControl = 4;
@@ -255,10 +262,7 @@ uint8_t __CrossManageNum() {
     }
 }
 
-uint8_t __Cross()
-{
-
-}
+uint8_t __Cross() {}
 
 /// @brief 临时转向控制函数
 uint8_t __Temp_Dire_select() {
@@ -291,29 +295,14 @@ uint8_t __Temp_Dire_select() {
 }
 
 void __Dire_select(uint8_t Temp) {
-    static uint8_t Turn_const = 0;
-    Base->old_RLControl       = Base->RLControl;
     if (Base->SiteLock == 3) {
         if (Temp) {
-            Base->RLControl = Temp;
-        }
-        static uint8_t i = 0;
-        if (!i) {
-            Base->VerifyDataLock = 0;
-            i                    = 1;
+            Base->RLControl          = Temp;
+            Base->MotorStrat_3_POINT = 1;  // 保证转向时不受白色背景停止的影响
         }
     } else if (Base->SiteLock == 1) {
-        Base->RLControl = 0;
-    }
-    // 比较前后两次的转向选择是否一致，不一致说明转向状态发生了改变，第一次说明是开始转向，第二次说明转向结束
-    if (Base->old_RLControl != Base->RLControl) {
-        Turn_const++;
-
-        if (Turn_const ==
-            Base->Turn_const) {  // 变化方向满两次，验证数据锁次数-1,并且转向状态清零，变化次数清零
-            Near->Turn_start = 1;
-            Base->VerifyDataLock ? Base->VerifyDataLock-- : 0;
-        }
+        Base->RLControl          = 0;
+        Base->MotorStrat_3_POINT = 0;
     }
 }
 
@@ -323,9 +312,6 @@ void __Back() {
         if (Base->SiteLock == 4) {    // 假如扫到黑线
             if (!Base->Back_sign) {   // 且保证为第一次激活返回控制函数
                 Base->Back_sign = 1;  // 返回控制进入第一阶段：暂停取药
-                if (Base->Key_Value == 1) {  // 记录之前的转向状态，专为近端病房服务
-                    Base->Temp_RLContrl = Base->CamerData[0];
-                }
             }
         }
         if (Base->Back_sign == 1) {  // 在第一阶段暂停取药时，保证小车停止

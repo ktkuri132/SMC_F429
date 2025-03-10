@@ -196,8 +196,6 @@ void __minControl() {
     }
     // 正式转向控制
     __Dire_select(Base->Temp_RLContrl);
-
-    
 }
 
 /// @brief 远端病房模式

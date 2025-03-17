@@ -204,7 +204,6 @@ void __farControl() {  // 确认是不是真的没有正确的数字
     __minControl();
 
     if(Base->Back_sign == 3){       // 单次运行，清除十字路口记录
-        // Project_BSP_LED_ON(1);
         static uint8_t i = 0;
         if(!i){
             Base->j = 0;
@@ -318,6 +317,7 @@ void __Back() {
         }
         if (Base->Back_sign == 1) {  // 在第一阶段暂停取药时，保证小车停止
             Base->RLControl = 4;
+            Light_ON();
         }
         if (!Base->MotorStrat_2) {                           // 假如处于第一阶段，检测到药品被拿走
             Base->Back_sign = 2;                             // 就进入第二阶段：调头

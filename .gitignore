@@ -2,5 +2,5 @@ build/
 .vscode/
 .idea/
 .cache/
-
+.cache/*
 /.cache/

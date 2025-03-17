@@ -73,6 +73,7 @@ extern Stde_DataTypeDef UART4_DataBuff;
     void OpenMV_Camera_Callback(Stde_DataTypeDef *DataTypeStruct);
     uint8_t Temp_Run(void *(Fp)());
     int8_t Data_Get_from_Camer();
+    void Light_ON();
 
 #ifdef __cplusplus
 }

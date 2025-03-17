@@ -27,6 +27,7 @@ TaskHandle_t Task5_KeyScan_Handle  = NULL;
 extern ctrl *Base;
 extern nctrl *Near;
 extern mctrl *Min;
+extern fctrl *Far;
 
 /// @brief 系统启动主线程：完成模式选择，图象识别
 void Task1_SystemStrat()
@@ -298,6 +299,7 @@ void Task_DebugLog()
         printf("SiteLock:%d\n", Base->SiteLock);
         printf("经过弯道次数:%d\n", Base->j);
         // printf("经过工口弯道次数:%d\n", Base->i);
+        printf("Base->SDL:%d\n", Base->SDL);
         printf("RLControl:%d\n", Base->RLControl);
         printf("Temp_RLContrl:%d\n", Base->Temp_RLContrl);
         // printf("Turn_const:%d\n", Min->Turn_const);

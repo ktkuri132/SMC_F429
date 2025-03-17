@@ -28,6 +28,7 @@ ctrl *Control_Struct_Inti() {
         .MotorStrat_2         = 0,
         .MotorStrat_3_POINT   = 1,
         .MotorStrat_3         = 0,
+        .SDL                  = 0,
         .Motor_Load           = forward_Motor_Load,
         .ControlTask          = __ControlTask,
         .Data_Save_from_Camer = __Data_Save_from_Camer,
@@ -40,7 +41,6 @@ ctrl *Control_Struct_Inti() {
 nctrl *Near_Struct_Inti() {
     static nctrl near = {
         .nearControl      = __nearControl,
-        .Dire_Load_ENABLE = 1,
     };
 
     // 避免静态变量的初始化不是常量
@@ -66,13 +66,11 @@ mctrl *Min_Struct_Inti() {
 
 fctrl *Far_Struct_Inti() {
     static fctrl far = {
-        .farControl   = __farControl,
+        .farControl       = __farControl,
         .Temp_Dire_select = __Temp_Dire_select,
-        .SaveDataLock = 0,
     };
-
     // 避免静态变量的初始化不是常量
-    far.Base = Base;
+    far.Base                      = Base;
     far.Base->VerifyDataLock      = 1;
     far.Base->Data_Get_from_Camer = __Data_Get_from_Camer;
     return &far;
@@ -123,6 +121,8 @@ int8_t __Data_Save_from_Camer() {
 
 /// @brief 从摄像头验证数字
 int8_t __Data_Get_from_Camer() {
+    static uint8_t temp = 0;
+    static uint8_t Num = 0
     if (Base->SaveDataLock) {
         if (!K210Data) {
             return -1;
@@ -136,7 +136,16 @@ int8_t __Data_Get_from_Camer() {
                 Base->CamerVerify[1] = 2;
                 return 2;  // 左边
             }
+        } else {
+            if(K210Data == temp){
+                return -1;
+            } else {
+                temp = K210Data;
+                
+            }
+            return 3;
         }
+
         return -1;
     }
 }
@@ -146,7 +155,7 @@ void __nearControl() {
     __CrossManageNum();
     if (Base->SiteLock == 1) {  // 经过路口一次
         if (Base->j == 1) {
-            static uint8_t j       = 0;
+            static uint8_t j = 0;
             if (!j) {
                 j                    = 1;
                 Base->VerifyDataLock = 0;  // 单次运行激活返回控制函数
@@ -179,14 +188,14 @@ void __nearControl() {
 /// @brief 中端病房模式（兼容远端病房）
 void __minControl() {
     // 从摄像头验证数字
-    Base->Data_Get_from_Camer();
+    __Data_Get_from_Camer();
     // 十字路口记录
     __CrossManageNum();
     // 临时转向控制
-    Min->Temp_Dire_select();
+    __Temp_Dire_select();
 
     // 返回执行函数
-    Base->Back();
+    __Back();
 
     // 已返回状态下，触发遇黑色和白色暂停
     if (Base->Back_sign == 3) {
@@ -198,20 +207,89 @@ void __minControl() {
     __Dire_select(Base->Temp_RLContrl);
 }
 
-/// @brief 远端病房模式
-void __farControl() {  // 确认是不是真的没有正确的数字
-    
-    __minControl();
-
-    if(Base->Back_sign == 3){       // 单次运行，清除十字路口记录
-        static uint8_t i = 0;
-        if(!i){
-            Base->j = 0;
-            i = 1;
+// @brief 路径异常处理函数
+void PathExceptionHandler() {
+    __Data_Get_from_Camer();
+    uint8_t temp        = 1;
+    static uint8_t lock = 0;
+    static uint8_t i    = 0;
+    static uint8_t j    = 0;
+    static uint8_t a    = 0;
+    static uint8_t b    = 0;
+    if ((Base->SiteLock != 3) && (!Base->SDL)) {
+        Base->Key_Value = 3;
+        return;
+    } else {
+        if (!a) {
+            a++;
+            Base->SDL = 1;
+        }
+        if (Base->SiteLock == 1) {
+            if (!b) {
+                b++;
+                Light_ON();
+                lock = 1;
+            }
+        }
+        goto Exception;
+    }
+Exception:
+    if (b) {
+        if (!i) {
+            if (Base->SiteLock == 1) {
+                i = 1;
+            }
+        }
+        if (Base->SiteLock == 3) {
+            if (i) {
+                i = 2;
+            }
+        }
+        if (Base->SiteLock == 1) {
+            if (i == 2) {
+                j++;
+                i = 0;
+            }
         }
     }
+    if (Base->CamerVerify[1] < 0) {
+        if (Base->SiteLock != 3) {
+            return;
+        } else if (Base->SiteLock == 3) {
+            if (lock) {
+                temp                     = 3;
+                Base->MotorStrat_3_POINT = 1;  // 不受白色背景停止的影响
+                
+            }
+        } else if (Base->SiteLock == 1) {
+            if (lock) {
+                temp                     = 0;
+                Base->MotorStrat_3_POINT = 0;
+            }
+        }
+        if(j == 2){
+            // Base->Key_Value = 3;
+        }
+    } else if(Base->CamerVerify[1] > 0){
+        Base->Key_Value = 3;
+    }
 
-    if(Base->j < 2){
+    __Dire_select(temp);
+}
+
+/// @brief 远端病房模式
+void __farControl() {  // 确认是不是真的没有正确的数字
+
+    __minControl();
+
+    if (Base->Back_sign == 3) {  // 单次运行，清除十字路口记录
+        static uint8_t i = 0;
+        if (!i) {
+            Base->j = 0;
+            i       = 1;
+        }
+    }
+    if (Base->j < 2) {
         MTurn_Strat();
     }
 }
@@ -268,8 +346,8 @@ uint8_t __CrossManageNum() {
 uint8_t __Temp_Dire_select() {
     static uint8_t i = 0;
     if (!Base->Back_sign) {  // 小车宣布返回前，直接根据摄像头数据进行转向
-        if (Base->CamerVerify[0]) {
-            Base->Temp_RLContrl = Base->CamerVerify[1];
+        if (Base->CamerVerify[1] > 0) {
+            Base->Temp_RLContrl  = Base->CamerVerify[1];
             Base->VerifyDataLock = 0;
         }
     } else {                        // 宣布返回后，根据之前的转向记录处理转向
@@ -309,7 +387,7 @@ void __Dire_select(uint8_t Temp) {
 
 /// @brief 返回处理函数
 void __Back() {
-    if (!Base->VerifyDataLock) {      // 当验证数据锁为0时，说明已经经过路口，此时激活返回控制函数
+    if (!Base->VerifyDataLock) {  // 当验证数据锁为0时，说明已经经过路口，此时激活返回控制函数
         if (Base->SiteLock == 4) {    // 假如扫到黑线
             if (!Base->Back_sign) {   // 且保证为第一次激活返回控制函数
                 Base->Back_sign = 1;  // 返回控制进入第一阶段：暂停取药
@@ -319,13 +397,13 @@ void __Back() {
             Base->RLControl = 4;
             Light_ON();
         }
-        if (!Base->MotorStrat_2) {                           // 假如处于第一阶段，检测到药品被拿走
-            Base->Back_sign = 2;                             // 就进入第二阶段：调头
-            if (Base->SiteLock != 1) {                       // 调头的时候，保证小车具有一定的特权
-                Base->RLControl          = 3;                // 发出调头指令
-                Base->MotorStrat_3_POINT = 1;                // 不受白色背景停止的影响
-                Base->Motor_Load         = back_Motor_Load;  // 小车启动条件改为：无药品启动
-                Base->VerifyDataLock     = 1;                // 第二阶段初始化完毕，验证数据锁为1
+        if (!Base->MotorStrat_2) {      // 假如处于第一阶段，检测到药品被拿走
+            Base->Back_sign = 2;        // 就进入第二阶段：调头
+            if (Base->SiteLock != 1) {  // 调头的时候，保证小车具有一定的特权
+                Base->RLControl          = 3;        // 发出调头指令
+                Base->MotorStrat_3_POINT = 1;        // 不受白色背景停止的影响
+                Base->Motor_Load = back_Motor_Load;  // 小车启动条件改为：无药品启动
+                Base->VerifyDataLock = 1;  // 第二阶段初始化完毕，验证数据锁为1
             }
         }
         return;  // 小车在遇到红线之前，一直都是第二阶段

@@ -2,6 +2,7 @@
 #include <RTOSTaskConfig.h>
 #include <comment/task.h>
 #include <stdint.h>
+#include <string.h>
 
 #include "Project.h"
 #include "usart/Serial.h"
@@ -20,6 +21,7 @@ extern ctrl *Base;
 extern nctrl *Near;
 extern mctrl *Min;
 extern fctrl *Far;
+extern PET *Pet;
 CrossManage Cross[5];  // 十字路口管理,主要用于返回
 
 ctrl *Control_Struct_Inti() {
@@ -28,7 +30,6 @@ ctrl *Control_Struct_Inti() {
         .MotorStrat_2         = 0,
         .MotorStrat_3_POINT   = 1,
         .MotorStrat_3         = 0,
-        .SDL                  = 0,
         .Motor_Load           = forward_Motor_Load,
         .ControlTask          = __ControlTask,
         .Data_Save_from_Camer = __Data_Save_from_Camer,
@@ -40,7 +41,7 @@ ctrl *Control_Struct_Inti() {
 
 nctrl *Near_Struct_Inti() {
     static nctrl near = {
-        .nearControl      = __nearControl,
+        .nearControl = __nearControl,
     };
 
     // 避免静态变量的初始化不是常量
@@ -74,6 +75,19 @@ fctrl *Far_Struct_Inti() {
     far.Base->VerifyDataLock      = 1;
     far.Base->Data_Get_from_Camer = __Data_Get_from_Camer;
     return &far;
+}
+
+PET *Pet_Struct_Inti() {
+    static PET pet = {
+        .lock       = 0,
+        .temp       = 0,
+        .PathNum    = 0,
+        .SDL        = 0,
+        .Error      = 0,
+        .Runstate   = 0,
+        .Runstate_2 = 0,
+    };
+    return &pet;
 }
 
 /// @brief 从摄像头获取数字
@@ -122,7 +136,7 @@ int8_t __Data_Save_from_Camer() {
 /// @brief 从摄像头验证数字
 int8_t __Data_Get_from_Camer() {
     static uint8_t temp = 0;
-    static uint8_t Num = 0
+    static uint8_t Num  = 0;
     if (Base->SaveDataLock) {
         if (!K210Data) {
             return -1;
@@ -137,11 +151,9 @@ int8_t __Data_Get_from_Camer() {
                 return 2;  // 左边
             }
         } else {
-            if(K210Data == temp){
-                return -1;
-            } else {
-                temp = K210Data;
-                
+            Base->CamerVerify[2] = -1;
+            if(Base->CamerVerify[1]){
+                Base->CamerVerify[2] = 0;
             }
             return 3;
         }
@@ -210,71 +222,87 @@ void __minControl() {
 // @brief 路径异常处理函数
 void PathExceptionHandler() {
     __Data_Get_from_Camer();
-    uint8_t temp        = 1;
-    static uint8_t lock = 0;
-    static uint8_t i    = 0;
-    static uint8_t j    = 0;
-    static uint8_t a    = 0;
-    static uint8_t b    = 0;
-    if ((Base->SiteLock != 3) && (!Base->SDL)) {
-        Base->Key_Value = 3;
-        return;
-    } else {
-        if (!a) {
-            a++;
-            Base->SDL = 1;
-        }
-        if (Base->SiteLock == 1) {
-            if (!b) {
-                b++;
-                Light_ON();
-                lock = 1;
+    if (Base->SiteLock != 3 && Pet->Runstate == 0) {
+        Pet->Error = 1;
+        strcpy(Pet->ErrorChar[Pet->Error], "Error:225,Base->SiteLock != 3 && Pet->Runstate == 0");
+    }
+    if (Base->SiteLock == 3) {
+        if (Pet->Runstate == 0) {  // 由此进入异常
+            static uint8_t a = 0;
+            if (!a) {
+                a++;
+                Pet->Runstate = 1;
+                Pet->SDL      = 1;
             }
         }
-        goto Exception;
+    } else if (Base->SiteLock == 1) {
+        if (Pet->Runstate == 1) {  // 成功过弯，进入直线
+            static uint8_t b = 0;
+            if (!b) {
+                b++;
+                Pet->lock     = 1;
+                Pet->Runstate = 2;
+            }
+        }
     }
-Exception:
-    if (b) {
+
+    if (Pet->Runstate_2) {
+        static uint8_t i = 0;
         if (!i) {
             if (Base->SiteLock == 1) {
                 i = 1;
             }
         }
-        if (Base->SiteLock == 3) {
+        if (Base->SiteLock == 5) {
             if (i) {
                 i = 2;
             }
         }
         if (Base->SiteLock == 1) {
             if (i == 2) {
-                j++;
+                Pet->PathNum++;
                 i = 0;
             }
         }
     }
-    if (Base->CamerVerify[1] < 0) {
-        if (Base->SiteLock != 3) {
-            return;
-        } else if (Base->SiteLock == 3) {
-            if (lock) {
-                temp                     = 3;
-                Base->MotorStrat_3_POINT = 1;  // 不受白色背景停止的影响
-                
-            }
-        } else if (Base->SiteLock == 1) {
-            if (lock) {
-                temp                     = 0;
-                Base->MotorStrat_3_POINT = 0;
-            }
+    if (Pet->Runstate == 1) {  // 过弯状态转向
+        Pet->temp = 1;
+    } else if (Pet->Runstate == 2) {  // 直线状态直走
+        Pet->temp = 0;
+        if ((Base->CamerVerify[0] != 0) && (!Pet->Runstate_2)) {  // 假如扫到了数字就结束异常
+            Pet->Runstate   = 0;                                  // 重置异常
+            Base->Key_Value = 3;
         }
-        if(j == 2){
-            // Base->Key_Value = 3;
+        if (Base->SiteLock == 3) {
+            if (Base->CamerVerify[2] < 0) {  //还是没扫到，进入调头状态
+                Pet->Runstate = 3;
+            }
+        } else if ((Base->SiteLock == 5) && (Pet->Runstate_2 == 1)) {
+            Pet->Runstate = 4;
         }
-    } else if(Base->CamerVerify[1] > 0){
-        Base->Key_Value = 3;
+    } else if (Pet->Runstate == 3) {  // 调头状态
+        Pet->temp = 3;
+        if (Base->SiteLock == 1) {  // 调头完成，进入直线状态
+            Pet->Runstate_2 = 1;
+            Pet->Runstate   = 2;
+        }
+    } else if (Pet->Runstate == 4) {  // 遇到工口
+        Pet->temp = 0;
+        if(Pet->PathNum == 2){
+            Pet->Runstate_2 = 2;
+            Pet->Runstate = 5;
+        }
+    } 
+    else if(Pet->Runstate == 5) {
+        Pet->temp = 0;
+        if(Base->SiteLock == 5) {
+            Pet->Runstate = 4;
+        }
+        if(Base->SiteLock == 3) {
+            Base->Key_Value = 3;
+        }
     }
-
-    __Dire_select(temp);
+    __Dire_select(Pet->temp);
 }
 
 /// @brief 远端病房模式
@@ -346,7 +374,7 @@ uint8_t __CrossManageNum() {
 uint8_t __Temp_Dire_select() {
     static uint8_t i = 0;
     if (!Base->Back_sign) {  // 小车宣布返回前，直接根据摄像头数据进行转向
-        if (Base->CamerVerify[1] > 0) {
+        if (Base->CamerVerify[0]) {
             Base->Temp_RLContrl  = Base->CamerVerify[1];
             Base->VerifyDataLock = 0;
         }
@@ -395,7 +423,6 @@ void __Back() {
         }
         if (Base->Back_sign == 1) {  // 在第一阶段暂停取药时，保证小车停止
             Base->RLControl = 4;
-            Light_ON();
         }
         if (!Base->MotorStrat_2) {      // 假如处于第一阶段，检测到药品被拿走
             Base->Back_sign = 2;        // 就进入第二阶段：调头

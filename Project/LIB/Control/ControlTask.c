@@ -13,6 +13,7 @@ extern ctrl *Base;
 extern nctrl *Near;
 extern mctrl *Min;
 extern fctrl *Far;
+extern PET *Pet;
 
 void Mode_chose() {
     if (Base->CamerData[0]) {
@@ -51,14 +52,11 @@ void __ControlTask() {
             }
             Min->minControl();
             /*模式重新选择*/
-            if ((Base->j >= 2)) {
-                if (Base->CamerVerify[1] > 0) {
+            if ((Base->j == 2) && (!Base->Back_sign)) {
+                if (Base->CamerVerify[2] != 0) {
                     if (Base->Back_sign != 3) {
                         Base->Key_Value = 3;
                     }
-                }
-                else if(Base->CamerVerify[1] < 0){
-                    // Base->Key_Value = 4;
                 }
             }
         } break;
@@ -66,12 +64,15 @@ void __ControlTask() {
             static uint8_t i = 0;
             if (!i) {
                 Far = Far_Struct_Inti();  // 继承控制结构体
+                Pet = Pet_Struct_Inti();
                 i   = 1;
             }
             Far->farControl();
             /*模式重新选择*/
-            if((Base->CamerVerify[1] < 0) && (!Base->SDL)){
-                    // Base->Key_Value = 4;
+            if (Base->SiteLock == 3) {
+                if ((!Base->CamerVerify[0]) && (!Pet->SDL)) {
+                    Base->Key_Value = 4;
+                }
             }
         } break;
         case 4: {
@@ -90,8 +91,9 @@ void Project_LIB_ControlTask(uint8_t rlControl) {
     static PID pidforturn;
     static PID pidForback;
 
+
     PID_TypeStructInit(&pidforspeed, 400, -10, 2, 21);  // 为保持恒定速度不受电池电量影响
-    PID_TypeStructInit(&pidForLine, 10, -9, 0, 160);  // 初始化寻线PID,目标值：中线坐标
+    PID_TypeStructInit(&pidForLine, 10, -20, 0, 160);  // 初始化寻线PID,目标值：中线坐标
     PID_TypeStructInit(&pidforturn, 500, -10, 0, 40);   // 为转向时不受电池电量影响
     PID_TypeStructInit(&pidForback, 10, -10, 0, 1500);  // 为调头时不受电池电量影响
 
@@ -99,6 +101,7 @@ void Project_LIB_ControlTask(uint8_t rlControl) {
     pidforspeed.PID_Update1 = speedControl;
     pidforturn.PID_Update1  = TurnControl;
     pidForback.PID_Update1  = BackControl;
+
 
     pidForLine.PID_Update1(&pidForLine);
     pidforspeed.PID_Update1(&pidforspeed);
@@ -120,9 +123,15 @@ void Project_LIB_ControlTask(uint8_t rlControl) {
     } else if (rlControl == 4) {  // 停车
         Base->Motor_Load(0, 0);
     } else if (rlControl == 5) {
-        Base->Motor_Load(0, 2000);
+        if(Base->Key_Value == 3){
+            Base->Motor_Load(0, 2000);
+            Light_ON();
+        }
     } else if (rlControl == 6) {
-        Base->Motor_Load(2000, 0);
+        if(Base->Key_Value == 3){
+            Base->Motor_Load(2000, 0);
+            Light_ON();
+        }
     } else {
         Base->Motor_Load(pidforspeed.output + pidForLine.output,
                          pidforspeed.output - pidForLine.output);  // 装载到电机

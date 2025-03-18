@@ -28,6 +28,7 @@ extern ctrl *Base;
 extern nctrl *Near;
 extern mctrl *Min;
 extern fctrl *Far;
+extern PET *Pet;
 
 /// @brief 系统启动主线程：完成模式选择，图象识别
 void Task1_SystemStrat()
@@ -246,7 +247,7 @@ void Task4_LEDPlay(uint8_t Mode)
     const TickType_t xFrequency = pdMS_TO_TICKS(1000); // 任务周期为 100 毫秒
     // 初始化 xLastWakeTime 变量为当前时间
     xLastWakeTime     = xTaskGetTickCount();
-    uint8_t RunCounst = 2;
+    uint8_t RunCounst = 1;
     switch (Mode)
     {
     case 1:
@@ -295,22 +296,31 @@ void Task_DebugLog()
         printf(CURSOR_HIDE);
         // printf("剩余栈大小:%d\n", xPortGetFreeHeapSize());
         // printf("任务数量:%d\n", uxTaskGetNumberOfTasks());
-        // printf("Openmv:%d\n", OpenMVData);
-        printf("SiteLock:%d\n", Base->SiteLock);
-        printf("经过弯道次数:%d\n", Base->j);
-        // printf("经过工口弯道次数:%d\n", Base->i);
-        printf("Base->SDL:%d\n", Base->SDL);
-        printf("RLControl:%d\n", Base->RLControl);
-        printf("Temp_RLContrl:%d\n", Base->Temp_RLContrl);
-        // printf("Turn_const:%d\n", Min->Turn_const);
-        // printf("MotorStrat_2:%d\n", Base->MotorStrat_2);
-        // printf("MotorStrat_3:%d\n", Base->MotorStrat_3);
-        // printf("MotorStrat_3_POINT:%d\n", Base->MotorStrat_3_POINT);
-        printf("Back_sign:%d\n", Base->Back_sign);
-        printf("Key_Value:%d\n", Base->Key_Value);
-        printf("VerifyDataLock:%d\n", Base->VerifyDataLock);
-        printf("CamerData:%d\n", Base->CamerData[0]);
-        printf("CamerVerify:%d,%d\n", Base->CamerVerify[0], Base->CamerVerify[1]);
+        printf("SiteLock:           %d\n", Base->SiteLock);
+        printf("经过弯道次数:        %d\n", Base->j);
+        printf("RLControl:          %d\n", Base->RLControl);
+        printf("Temp_RLContrl:      %d\n", Base->Temp_RLContrl);
+        printf("Back_sign:          %d\n", Base->Back_sign);
+        printf("VerifyDataLock:     %d\n", Base->VerifyDataLock);
+        printf("CamerData[0]:       %d\n", Base->CamerData[0]);
+        printf("验证数据及预定方向:  %d,%d\n", Base->CamerVerify[0], Base->CamerVerify[1]);
+        printf("运行模式:           %d\n", Base->Key_Value);
+        printf("-----------------------------------------------------------\n");
+        if(Base->Key_Value == 1){
+
+        } else if(Base->Key_Value == 2) {
+
+        } else if(Base->Key_Value == 3) {
+            
+        } else if(Base->Key_Value == 4) {
+            printf("错误点:     %d\n",Pet->Error);
+            printf("运行状态:   %d\n",Pet->Runstate);
+            printf("运行状态2:  %d\n",Pet->Runstate_2);
+            printf("临时状态:   %d\n",Pet->temp);
+            printf("检测路口:   %d\n",Pet->PathNum);
+            printf("数据锁:     %d\n",Pet->SDL);
+            printf("错误信息:   %s\n",Pet->ErrorChar[Pet->Error]);
+        }
         vTaskDelayUntil(&xLastWakeTime, xFrequency);
         taskEXIT_CRITICAL();
     }

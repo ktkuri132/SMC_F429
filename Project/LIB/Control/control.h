@@ -33,7 +33,6 @@ typedef struct Control {
     uint8_t Back_sign;
     uint8_t Turn_const;
     uint8_t Turn_gather;
-    uint8_t SDL;
     uint8_t j;  /*以下为未命名简单变量*/
     uint8_t i;
 
@@ -89,6 +88,23 @@ typedef struct Control_far {
 
 fctrl *Far_Struct_Inti();
 void __farControl();
+
+
+typedef struct PathException_Typedef {
+    uint8_t lock;
+    uint8_t temp;
+    uint8_t PathNum;
+    uint8_t SDL;
+    uint8_t Error;
+    char ErrorChar[20][50];
+    uint8_t Runstate;
+    uint8_t Runstate_2;
+
+}PET;
+
+PET *Pet_Struct_Inti();
 void PathExceptionHandler();
 
+
 #endif // !_CONTROL_
+

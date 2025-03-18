@@ -22,6 +22,9 @@ extern nctrl *Near;
 extern mctrl *Min;
 extern fctrl *Far;
 extern PET *Pet;
+
+
+
 CrossManage Cross[5];  // 十字路口管理,主要用于返回
 
 ctrl *Control_Struct_Inti() {

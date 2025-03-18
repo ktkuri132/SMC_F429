@@ -105,6 +105,12 @@ typedef struct PathException_Typedef {
 PET *Pet_Struct_Inti();
 void PathExceptionHandler();
 
+typedef struct{
+    int16_t line_target;
+    int16_t speed_target;
+
+}PID_arg;
+
 
 #endif // !_CONTROL_
 

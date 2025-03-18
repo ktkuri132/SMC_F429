@@ -84,6 +84,9 @@ void __ControlTask() {
     Project_LIB_ControlTask(Base->RLControl);
 }
 
+
+PID_arg PID_arg1 = {170, 20};
+
 /// @brief 控制任务
 void Project_LIB_ControlTask(uint8_t rlControl) {
     static PID pidForLine;  // 创建PID结构体
@@ -91,9 +94,8 @@ void Project_LIB_ControlTask(uint8_t rlControl) {
     static PID pidforturn;
     static PID pidForback;
 
-
-    PID_TypeStructInit(&pidforspeed, 400, -10, 2, 21);  // 为保持恒定速度不受电池电量影响
-    PID_TypeStructInit(&pidForLine, 10, -20, 0, 160);  // 初始化寻线PID,目标值：中线坐标
+    PID_TypeStructInit(&pidforspeed, 400, -10, 2, PID_arg1.speed_target);  // 为保持恒定速度不受电池电量影响
+    PID_TypeStructInit(&pidForLine, 9, -12, 0, PID_arg1.line_target);  // 初始化寻线PID,目标值：中线坐标
     PID_TypeStructInit(&pidforturn, 500, -10, 0, 40);   // 为转向时不受电池电量影响
     PID_TypeStructInit(&pidForback, 10, -10, 0, 1500);  // 为调头时不受电池电量影响
 
@@ -125,12 +127,10 @@ void Project_LIB_ControlTask(uint8_t rlControl) {
     } else if (rlControl == 5) {
         if(Base->Key_Value == 3){
             Base->Motor_Load(0, 2000);
-            Light_ON();
         }
     } else if (rlControl == 6) {
         if(Base->Key_Value == 3){
             Base->Motor_Load(2000, 0);
-            Light_ON();
         }
     } else {
         Base->Motor_Load(pidforspeed.output + pidForLine.output,

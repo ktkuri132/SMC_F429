@@ -92,9 +92,9 @@ void Project_LIB_ControlTask(uint8_t rlControl) {
     static PID pidForLine;  // 创建PID结构体
     static PID pidforspeed;
 
-    PID_TypeStructInit(&pidforspeed, 400, 10, 0, PID_arg1.speed_target);  // 为保持恒定速度不受电池电量影响
-    PID_TypeStructInit(&pidForLine, 9,25 , 0, PID_arg1.line_target);  // 初始化寻线PID,目标值：中线坐标
-   
+    PID_TypeStructInit(&pidforspeed, 400, 10, 0, 22);  // 为保持恒定速度不受电池电量影响
+    PID_TypeStructInit(&pidForLine, 10,25 , 0, 170);  // 初始化寻线PID,目标值：中线坐标
+
     pidForLine.PID_Update1  = PID_forLine;
     pidforspeed.PID_Update1 = speedControl;
 

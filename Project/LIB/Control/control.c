@@ -311,7 +311,24 @@ void PathExceptionHandler() {
 /// @brief 远端病房模式
 void __farControl() {  // 确认是不是真的没有正确的数字
 
-    __minControl();
+    // 从摄像头验证数字
+    __Data_Get_from_Camer();
+    // 十字路口记录
+    __CrossManageNum();
+    // 临时转向控制
+    __Temp_Dire_select();
+
+    // 返回执行函数
+    __Back();
+
+    // 已返回状态下，触发遇黑色和白色暂停
+    if (Base->Back_sign == 4) {
+        if (Base->SiteLock == 2 || Base->SiteLock == 4) {
+            Base->RLControl = 4;
+        }
+    }
+    // 正式转向控制
+    __Dire_select(Base->Temp_RLContrl);
 
     if (Base->Back_sign == 3) {  // 单次运行，清除十字路口记录
         static uint8_t i = 0;
@@ -322,6 +339,10 @@ void __farControl() {  // 确认是不是真的没有正确的数字
     }
     if (Base->j < 2) {
         MTurn_Strat();
+    } else if(Base->j == 2){
+        if(Base->Back_sign == 3){
+            Base->Back_sign = 4;
+        }
     }
 }
 
@@ -336,9 +357,9 @@ void MTurn_Strat() {
                     i++;
                     Temp_SiteLock = Base->SiteLock;
                     if (Base->SiteLock == 5) {
-                        Base->RLControl = 2;
+                        Base->RLControl = 5;
                     } else if (Base->SiteLock == 6) {
-                        Base->RLControl = 1;
+                        Base->RLControl = 6;
                     }
                 }
             } else if (Base->SiteLock == 1) {

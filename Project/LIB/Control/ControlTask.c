@@ -91,46 +91,34 @@ PID_arg PID_arg1 = {170, 20};
 void Project_LIB_ControlTask(uint8_t rlControl) {
     static PID pidForLine;  // 创建PID结构体
     static PID pidforspeed;
-    static PID pidforturn;
-    static PID pidForback;
 
-    PID_TypeStructInit(&pidforspeed, 400, -10, 2, PID_arg1.speed_target);  // 为保持恒定速度不受电池电量影响
-    PID_TypeStructInit(&pidForLine, 9, -12, 0, PID_arg1.line_target);  // 初始化寻线PID,目标值：中线坐标
-    PID_TypeStructInit(&pidforturn, 500, -10, 0, 40);   // 为转向时不受电池电量影响
-    PID_TypeStructInit(&pidForback, 10, -10, 0, 1500);  // 为调头时不受电池电量影响
-
+    PID_TypeStructInit(&pidforspeed, 400, 10, 0, PID_arg1.speed_target);  // 为保持恒定速度不受电池电量影响
+    PID_TypeStructInit(&pidForLine, 9,25 , 0, PID_arg1.line_target);  // 初始化寻线PID,目标值：中线坐标
+   
     pidForLine.PID_Update1  = PID_forLine;
     pidforspeed.PID_Update1 = speedControl;
-    pidforturn.PID_Update1  = TurnControl;
-    pidForback.PID_Update1  = BackControl;
-
 
     pidForLine.PID_Update1(&pidForLine);
     pidforspeed.PID_Update1(&pidforspeed);
 
-    // 1000 6000
     if (rlControl == 2)  // 左拐
     {
-        // pidforturn.PID_Update1(&pidforturn);
-        // Base->Motor_Load(pidforturn.output, 0);
-        Base->Motor_Load(2000, 0);
+        Base->Motor_Load(4200, 500);
     } else if (rlControl == 1)  // 右拐
     {
-        // pidforturn.PID_Update1(&pidforturn);
-        // Base->Motor_Load(0, pidforturn.output);
-        Base->Motor_Load(0, 2000);
+        Base->Motor_Load(500, 4200);
     } else if (rlControl == 3)  // 调头
     {
         Base->Motor_Load(-1700, 1700);
     } else if (rlControl == 4) {  // 停车
         Base->Motor_Load(0, 0);
-    } else if (rlControl == 5) {
-        if(Base->Key_Value == 3){
-            Base->Motor_Load(0, 2000);
-        }
     } else if (rlControl == 6) {
         if(Base->Key_Value == 3){
-            Base->Motor_Load(2000, 0);
+            Base->Motor_Load(0, 4000);
+        }
+    } else if (rlControl == 5) {
+        if(Base->Key_Value == 3){
+            Base->Motor_Load(4000, 0);
         }
     } else {
         Base->Motor_Load(pidforspeed.output + pidForLine.output,

@@ -25,7 +25,7 @@ void PID_TypeStructInit(PID *pid,int16_t kp,int16_t kd,int16_t ki,int16_t target
 /// @brief PID 对于直线的专用控制函数
 void PID_forLine(PID *pid)
 {
-    if(Base->Back_sign != 3){
+    if((Base->Back_sign != 3)&&(Base->SiteLock != 4)){
         if(USART2_DataBuff.UART_DATA_TYPE != 1 ){
             return;
         }
@@ -35,7 +35,6 @@ void PID_forLine(PID *pid)
 
     pid->error = pid->target - pid->current;
     pid->integral += pid->error;
-    pid->integral *= pid->Ki;
     // 积分限幅
     if (pid->integral > pid->max_integral)
     {
@@ -72,7 +71,6 @@ void speedControl(PID *pid){
 
     pid->error = pid->target - pid->current;
     pid->integral += pid->error;
-    pid->integral *= pid->Ki;
     // 积分限幅
     if (pid->integral > pid->max_integral)
     {
@@ -107,7 +105,6 @@ void TurnControl(PID *pid) {
 
     pid->error = pid->target - pid->current;
     pid->integral += pid->error;
-    pid->integral *= pid->Ki;
     // 积分限幅
     if (pid->integral > pid->max_integral)
     {
@@ -143,7 +140,6 @@ void BackControl(PID *pid)
 
     pid->error = pid->target - pid->current;
     pid->integral += pid->error;
-    pid->integral *= pid->Ki;
     // 积分限幅
     if (pid->integral > pid->max_integral)
     {

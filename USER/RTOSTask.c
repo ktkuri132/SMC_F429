@@ -44,12 +44,12 @@ void Task1_SystemStrat()
     {
         printf("DisPlay_Camer创建失败\n");
     }
-    // 系统显示时间
-    if (xTaskCreate((TaskFunction_t)Task3_Project_Display, "DisPlay_Time", 1024, 4, 9,
-                    &Task3_Project_Display_Mode_4_Handle) != pdPASS)
-    {
-        printf("DisPlay_Time创建失败\n");
-    }
+    // // 系统显示时间
+    // if (xTaskCreate((TaskFunction_t)Task3_Project_Display, "DisPlay_Time", 1024, 4, 9,
+    //                 &Task3_Project_Display_Mode_4_Handle) != pdPASS)
+    // {
+    //     printf("DisPlay_Time创建失败\n");
+    // }
     // 按键扫描
     if (xTaskCreate((TaskFunction_t)Task5_KeyScan, "Task5_KeyScan", 1024, NULL, 9,
                     &Task5_KeyScan_Handle) != pdPASS)
@@ -65,7 +65,6 @@ void Task1_SystemStrat()
     // 按键配置:1->确定 2->向下选择 3->返回
     while (1)
     {
-        OLED_Printf(0, 16, OLED_6X8, "key:%d", Base->Key_Value);
         if (Base->Key_Value) {
             taskENTER_CRITICAL();
             // 数字收集完成,删除对应显示程序
@@ -151,21 +150,8 @@ Mode_2: // 加入监测摄像头
     {
         // 进入临界区
         taskENTER_CRITICAL();
-        // OLED_Printf(0, 8, OLED_6X8, "OpenMV:%d", OpenMVData);
         OLED_Printf(0, 8, OLED_6X8, "K210 Get:%d",Base->CamerData[0]);
-        // OLED_Printf(0, 40, OLED_6X8, "K210 Verify:%d,%d,%d,%d",
-        // CamerVerify[0],
-        //             CamerVerify[1], CamerVerify[2], CamerVerify[3]);
         OLED_Update();
-
-        // if (USART_Deal(&USART2_DataBuff, 0) == 1)
-        // {
-        //     MotorStrat_3 = 1;
-        // }
-        // else
-        // {
-        //     MotorStrat_3 = 0;
-        // }
         // 退出临界区
         taskEXIT_CRITICAL();
         vTaskDelayUntil(&xLastWakeTime, xFrequency_5);
@@ -175,8 +161,12 @@ Mode_21:
     {
         // 进入临界区
         taskENTER_CRITICAL();
-        OLED_Printf(0, 8, OLED_6X8, "OpenMV:%d", OpenMVData);
-        OLED_Printf(0, 16, OLED_6X8, "K210:%d,%d",Base->CamerData[0],Base->CamerData[2]);
+        OLED_Printf(0, 0, OLED_6X8, "OpenMV:%d", OpenMVData);
+        OLED_Printf(0, 8, OLED_6X8, "K210:  %d,%d",Base->CamerVerify[0],Base->CamerVerify[1]);
+        OLED_Printf(0, 16, OLED_6X8, "Path: %d",Base->j);
+        OLED_Printf(0, 24, OLED_6X8, "RL:   %d", Base->RLControl);
+        OLED_Printf(0, 32, OLED_6X8, "TRL:  %d", Base->Temp_RLContrl);
+        OLED_Printf(0, 40, OLED_6X8, "Mode: %d", Base->Key_Value);
         OLED_Update();
 
         if (USART2_DataBuff.UART_DATA_TYPE != 2)

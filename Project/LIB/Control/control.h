@@ -22,7 +22,7 @@ typedef struct Control {
                           //  默认巡线识别就开启电机，停止巡线识别就关闭电机
     uint8_t Key_Value;
     uint8_t CamerData[4];
-    int8_t CamerVerify[8];
+    int8_t CamerVerify[4];
     uint8_t SaveDataLock;
     uint8_t VerifyDataLock;
     uint8_t SiteLock;

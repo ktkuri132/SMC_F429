@@ -23,8 +23,6 @@ extern mctrl *Min;
 extern fctrl *Far;
 extern PET *Pet;
 
-
-
 CrossManage Cross[5];  // 十字路口管理,主要用于返回
 
 ctrl *Control_Struct_Inti() {
@@ -155,7 +153,7 @@ int8_t __Data_Get_from_Camer() {
             }
         } else {
             Base->CamerVerify[2] = -1;
-            if(Base->CamerVerify[1]){
+            if (Base->CamerVerify[1]) {
                 Base->CamerVerify[2] = 0;
             }
             return 3;
@@ -221,6 +219,64 @@ void __minControl() {
     // 正式转向控制
     __Dire_select(Base->Temp_RLContrl);
 }
+
+/// @brief 远端病房模式
+void __farControl() {  // 确认是不是真的没有正确的数字
+
+    // 从摄像头验证数字
+    __Data_Get_from_Camer();
+    // 十字路口记录
+    __CrossManageNum();
+
+    // 防止扫不到数字,出现转向异常
+    if ((Base->j == 3) && (!Base->Back_sign)) {
+        if (K210Data) {
+            static uint8_t i = 0;
+            if(!i){
+                if (Base->CamerVerify[0] == K210Data) {
+                    i = 1;
+                } else {
+                    if(K210Site > 60){
+                        Base->CamerVerify[1] = 2;
+                    }else{
+                        Base->CamerVerify[1] = 1;
+                    }
+                }
+            }
+        }
+    }
+    // 临时转向控制
+    __Temp_Dire_select();
+
+    // 返回执行函数
+    __Back();
+
+    // 已返回状态下，触发遇黑色和白色暂停
+    if (Base->Back_sign == 4) {
+        if (Base->SiteLock == 2 || Base->SiteLock == 4) {
+            Base->RLControl = 4;
+        }
+    }
+    // 正式转向控制
+    __Dire_select(Base->Temp_RLContrl);
+
+    if (Base->Back_sign == 3) {  // 单次运行，清除十字路口记录
+        static uint8_t i = 0;
+        if (!i) {
+            Base->j = 0;
+            i       = 1;
+        }
+    }
+    
+    if (Base->j < 2) {
+        MTurn_Strat();
+    } else if (Base->j == 2) {
+        if (Base->Back_sign == 3) {
+            Base->Back_sign = 4;
+        }
+    }
+}
+
 
 // @brief 路径异常处理函数
 void PathExceptionHandler() {
@@ -291,59 +347,20 @@ void PathExceptionHandler() {
         }
     } else if (Pet->Runstate == 4) {  // 遇到工口
         Pet->temp = 0;
-        if(Pet->PathNum == 2){
+        if (Pet->PathNum == 2) {
             Pet->Runstate_2 = 2;
-            Pet->Runstate = 5;
+            Pet->Runstate   = 5;
         }
-    } 
-    else if(Pet->Runstate == 5) {
+    } else if (Pet->Runstate == 5) {
         Pet->temp = 0;
-        if(Base->SiteLock == 5) {
+        if (Base->SiteLock == 5) {
             Pet->Runstate = 4;
         }
-        if(Base->SiteLock == 3) {
+        if (Base->SiteLock == 3) {
             Base->Key_Value = 3;
         }
     }
     __Dire_select(Pet->temp);
-}
-
-/// @brief 远端病房模式
-void __farControl() {  // 确认是不是真的没有正确的数字
-
-    // 从摄像头验证数字
-    __Data_Get_from_Camer();
-    // 十字路口记录
-    __CrossManageNum();
-    // 临时转向控制
-    __Temp_Dire_select();
-
-    // 返回执行函数
-    __Back();
-
-    // 已返回状态下，触发遇黑色和白色暂停
-    if (Base->Back_sign == 4) {
-        if (Base->SiteLock == 2 || Base->SiteLock == 4) {
-            Base->RLControl = 4;
-        }
-    }
-    // 正式转向控制
-    __Dire_select(Base->Temp_RLContrl);
-
-    if (Base->Back_sign == 3) {  // 单次运行，清除十字路口记录
-        static uint8_t i = 0;
-        if (!i) {
-            Base->j = 0;
-            i       = 1;
-        }
-    }
-    if (Base->j < 2) {
-        MTurn_Strat();
-    } else if(Base->j == 2){
-        if(Base->Back_sign == 3){
-            Base->Back_sign = 4;
-        }
-    }
 }
 
 /// @brief 转向状态记录函数

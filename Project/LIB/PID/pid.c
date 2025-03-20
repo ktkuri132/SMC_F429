@@ -27,6 +27,7 @@ void PID_forLine(PID *pid)
 {
     if((Base->Back_sign != 3)&&(Base->SiteLock != 4)){
         if(USART2_DataBuff.UART_DATA_TYPE != 1 ){
+            // pid->current = 230;
             return;
         }
     }
@@ -93,75 +94,5 @@ void speedControl(PID *pid){
     {
         pid->output = -pid->max_output;
     }
-    pid->last_error = pid->error;
-}
-
-void TurnControl(PID *pid) {
-
-    ((Base->Rvalue)<0)?(Base->Rvalue=-Base->Rvalue):Base->Rvalue;
-    ((Base->Lvalue)<0)?(Base->Lvalue=-Base->Lvalue):Base->Lvalue;
-
-    pid->current = Base->Rvalue+Base->Lvalue;
-
-    pid->error = pid->target - pid->current;
-    pid->integral += pid->error;
-    // 积分限幅
-    if (pid->integral > pid->max_integral)
-    {
-        pid->integral = pid->max_integral;
-    }
-    else if (pid->integral < -pid->max_integral)
-    {
-        pid->integral = -pid->max_integral;
-    }
-
-    pid->derivative = pid->error - pid->last_error;
-
-    pid->output = pid->Kp * pid->error + pid->Ki * pid->integral + pid->Kd * pid->derivative;
-    // 输出限幅
-    if (pid->output > pid->max_output)
-    {
-        pid->output = pid->max_output;
-    }
-    else if (pid->output < -pid->max_output)
-    {
-        pid->output = -pid->max_output;
-    }
-    (pid->output>0) ? (pid->output):(-pid->output);
-    pid->last_error = pid->error;
-
-}
-
-
-void BackControl(PID *pid)
-{
-    
-    pid->current = (Motor->Left+Motor->Right)/2;
-
-    pid->error = pid->target - pid->current;
-    pid->integral += pid->error;
-    // 积分限幅
-    if (pid->integral > pid->max_integral)
-    {
-        pid->integral = pid->max_integral;
-    }
-    else if (pid->integral < -pid->max_integral)
-    {
-        pid->integral = -pid->max_integral;
-    }
-
-    pid->derivative = pid->error - pid->last_error;
-
-    pid->output = pid->Kp * pid->error + pid->Ki * pid->integral + pid->Kd * pid->derivative;
-    // 输出限幅
-    if (pid->output > pid->max_output)
-    {
-        pid->output = pid->max_output;
-    }
-    else if (pid->output < -pid->max_output)
-    {
-        pid->output = -pid->max_output;
-    }
-    (pid->output>0) ? (pid->output):(-pid->output);
     pid->last_error = pid->error;
 }

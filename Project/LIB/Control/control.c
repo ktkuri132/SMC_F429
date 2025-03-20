@@ -23,6 +23,8 @@ extern mctrl *Min;
 extern fctrl *Far;
 extern PET *Pet;
 
+extern PID_arg PID_arg1;
+
 CrossManage Cross[5];  // 十字路口管理,主要用于返回
 
 ctrl *Control_Struct_Inti() {
@@ -142,23 +144,24 @@ int8_t __Data_Get_from_Camer() {
         if (!K210Data) {
             return -1;
         }
-        if (Base->CamerData[0] == K210Data) {
-            Base->CamerVerify[0] = K210Data;
-            if (K210Site > 60) {
-                Base->CamerVerify[1] = 1;
-                return 1;  // 右边
+        if (!Base->CamerVerify[0]) {
+            if (Base->CamerData[0] == K210Data) {
+                Base->CamerVerify[0] = K210Data;
+                if (K210Site > 60) {
+                    Base->CamerVerify[1] = 1;
+                    return 1;  // 右边
+                } else {
+                    Base->CamerVerify[1] = 2;
+                    return 2;  // 左边
+                }
             } else {
-                Base->CamerVerify[1] = 2;
-                return 2;  // 左边
+                Base->CamerVerify[2] = -1;
+                if (Base->CamerVerify[1]) {
+                    Base->CamerVerify[2] = 0;
+                }
+                return 3;
             }
-        } else {
-            Base->CamerVerify[2] = -1;
-            if (Base->CamerVerify[1]) {
-                Base->CamerVerify[2] = 0;
-            }
-            return 3;
         }
-
         return -1;
     }
 }
@@ -229,16 +232,22 @@ void __farControl() {  // 确认是不是真的没有正确的数字
     __CrossManageNum();
 
     // 防止扫不到数字,出现转向异常
-    if ((Base->j == 3) && (!Base->Back_sign)) {
+    if ((Base->j == 2) && (!Base->Back_sign)) {
         if (K210Data) {
+            Light_ON();
             static uint8_t i = 0;
-            if(!i){
+            if (!i) {
                 if (Base->CamerVerify[0] == K210Data) {
+                    if (K210Site > 60) {
+                        Base->CamerVerify[1] = 1;
+                    } else {
+                        Base->CamerVerify[1] = 2;
+                    }
                     i = 1;
                 } else {
-                    if(K210Site > 60){
+                    if (K210Site > 60) {
                         Base->CamerVerify[1] = 2;
-                    }else{
+                    } else {
                         Base->CamerVerify[1] = 1;
                     }
                 }
@@ -267,7 +276,7 @@ void __farControl() {  // 确认是不是真的没有正确的数字
             i       = 1;
         }
     }
-    
+
     if (Base->j < 2) {
         MTurn_Strat();
     } else if (Base->j == 2) {
@@ -276,7 +285,6 @@ void __farControl() {  // 确认是不是真的没有正确的数字
         }
     }
 }
-
 
 // @brief 路径异常处理函数
 void PathExceptionHandler() {
@@ -346,7 +354,9 @@ void PathExceptionHandler() {
             Pet->Runstate   = 2;
         }
     } else if (Pet->Runstate == 4) {  // 遇到工口
-        Pet->temp = 0;
+        Pet->temp            = 0;
+        PID_arg1.line_target = 200;
+        Light_ON();
         if (Pet->PathNum == 2) {
             Pet->Runstate_2 = 2;
             Pet->Runstate   = 5;

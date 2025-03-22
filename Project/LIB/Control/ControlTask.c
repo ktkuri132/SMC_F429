@@ -37,6 +37,7 @@ void __ControlTask() {
         Mode_chose();
         i++;
     }
+    
     switch (Base->Key_Value) {
         case 1: {
             static uint8_t i = 0;
@@ -55,10 +56,11 @@ void __ControlTask() {
             Min->minControl();
             /*模式重新选择*/
             if ((Base->j == 2) && (!Base->Back_sign)) {
-                if (Base->CamerVerify[2] != 0) {
-                    if (Base->Back_sign != 3) {
-                        Base->Key_Value = 3;
-                    }
+                // if ((Base->CamerVerify[2] != 0)||(Base->CamerVerify[0])) {
+                //     Base->Key_Value = 3;
+                // }
+                if(!Base->CamerVerify[0]){
+                    Base->Key_Value = 3;
                 }
             }
         } break;
@@ -83,6 +85,21 @@ void __ControlTask() {
         default:
             break;
     }
+    if((Base->Key_Value == 2)||(Base->Key_Value == 1)){
+        if(Base->j == 0){
+            PID_arg1.speed_target = 30;
+        } else if(Base->j == 1){
+            PID_arg1.speed_target = 22;
+        }
+    } else if((Base->Key_Value == 3)||(Base->Key_Value == 4)){
+        PID_arg1.speed_target = 21;
+    }
+    if(Base->Back_sign == 3){
+        PID_arg1.speed_target = 23;
+    }
+    if(Base->Back_sign == 4){
+        PID_arg1.speed_target = 32;
+    }
     Project_LIB_ControlTask(Base->RLControl);
 }
 
@@ -95,7 +112,7 @@ void Project_LIB_ControlTask(uint8_t rlControl) {
     static PID pidforspeed;
 
     PID_TypeStructInit(&pidforspeed, 400, 10, 0, PID_arg1.speed_target);  // 为保持恒定速度不受电池电量影响
-    PID_TypeStructInit(&pidForLine, 8,10 , 0, PID_arg1.line_target);  // 初始化寻线PID,目标值：中线坐标
+    PID_TypeStructInit(&pidForLine, 10,28 , 0, PID_arg1.line_target);  // 初始化寻线PID,目标值：中线坐标
 
     pidForLine.PID_Update1  = PID_forLine;
     pidforspeed.PID_Update1 = speedControl;
@@ -105,10 +122,10 @@ void Project_LIB_ControlTask(uint8_t rlControl) {
 
     if (rlControl == 2)  // 左拐
     {
-        Base->Motor_Load(4200, 500);
+        Base->Motor_Load(4000, 600);
     } else if (rlControl == 1)  // 右拐
     {
-        Base->Motor_Load(500, 4200);
+        Base->Motor_Load(700, 3200);
     } else if (rlControl == 3)  // 调头
     {
         Base->Motor_Load(-1700, 1700);

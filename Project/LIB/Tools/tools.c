@@ -20,6 +20,8 @@ extern PET *Pet;
 void Project_LIB_Get_Encoder_Value(int8_t *value1, int8_t *value2) {
     *value1   = TIM4->CNT;
     *value2   = TIM5->CNT;
+    *value1 *= 2;
+    *value2 *= 2;
     TIM4->CNT = 0;
     TIM5->CNT = 0;
 }
@@ -58,11 +60,21 @@ void Project_LIB_TIM1_Init(uint8_t ms) {
 extern TaskHandle_t Task4_LEDPlayR_Handle;
 extern TaskHandle_t Task4_LEDPlayY_Handle;
 
-void Light_ON() {
-    static uint8_t i = 0;
-    if (!i) {  // 返回0闪红灯
-        xTaskCreate((TaskFunction_t)Task4_LEDPlay, "Red_LED", 1024, 1, 10, &Task4_LEDPlayR_Handle);
-        i = 1;
+void Light_ON(int8_t ch) {
+    if (ch == 1) {
+        static uint8_t i = 0;
+        if (!i) {  // 返回0闪红灯
+            xTaskCreate((TaskFunction_t)Task4_LEDPlay, "Red_LED", 1024, 1, 10,
+                        &Task4_LEDPlayR_Handle);
+            i = 1;
+        }
+    } else if (ch == 2) {
+        static uint8_t i = 0;
+        if (!i) {  // 返回0闪红灯
+            xTaskCreate((TaskFunction_t)Task4_LEDPlay, "Yellow_LED", 1024, 2, 10,
+                        &Task4_LEDPlayY_Handle);
+            i = 1;
+        }
     }
 }
 
@@ -143,13 +155,13 @@ void OpenMV_Camera_Callback(Stde_DataTypeDef *DataTypeStruct) {
     if (Temp_Data == 1) {
         Base->SiteLock = 1;
     } else if (Temp_Data == 5) {
-        if ((Base->Key_Value == 3) ||(Base->Key_Value == 4)) {
+        if ((Base->Key_Value == 3) || (Base->Key_Value == 4)) {
             if ((Base->Back_sign == 3) || (Pet->Runstate_2 == 1)) {
                 Base->SiteLock = 5;
             }
         }
     } else if (Temp_Data == 6) {
-        if ((Base->Key_Value == 3) ||(Base->Key_Value == 4)) {
+        if ((Base->Key_Value == 3) || (Base->Key_Value == 4)) {
             if ((Base->Back_sign == 3) || (Pet->Runstate_2 == 1)) {
                 Base->SiteLock = 6;
             }

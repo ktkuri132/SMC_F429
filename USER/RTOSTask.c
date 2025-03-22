@@ -146,7 +146,7 @@ Mode_21:
         taskENTER_CRITICAL();
         OLED_Printf(0, 0, OLED_6X8, "OpenMV:%d", OpenMVData);
         OLED_Printf(0, 8, OLED_6X8, "Get:   %d", Base->CamerData[0]);
-        OLED_Printf(0, 16, OLED_6X8, "K210: %d,%d", Base->CamerVerify[0], Base->CamerVerify[1]);
+        OLED_Printf(0, 16, OLED_6X8, "K210: %d,%d.%d,%d", Base->CamerVerify[0], Base->CamerVerify[1],Base->CamerVerify[2],Base->CamerVerify[3]);
         OLED_Printf(0, 24, OLED_6X8, "Path: %d", Base->j);
         OLED_Printf(0, 32, OLED_6X8, "RL:   %d", Base->RLControl);
         OLED_Printf(0, 40, OLED_6X8, "TRL:  %d", Base->Temp_RLContrl);
@@ -283,9 +283,7 @@ void Task5_KeyScan() {
     // 初始化 xLastWakeTime 变量为当前时间
     xLastWakeTime = xTaskGetTickCount();
     while (1) {
-        if(Base->Back_sign == 4){
-            PID_arg1.speed_target = 35;
-        }
+        
         if (Project_BSP_GetKey()) {
             Base->Key_Value = Project_BSP_GetKey();
         }

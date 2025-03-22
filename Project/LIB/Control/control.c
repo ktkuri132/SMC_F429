@@ -124,7 +124,7 @@ int8_t __Data_Save_from_Camer() {
                 Base->CamerData[i + 1] = TempSite;  // 填入坐标
                 i += 2;
                 if (i == 4) {  // 存入两个数字，直接锁定数据存入
-                    Base->SaveDataLock = 2;
+                    Base->SaveDataLock = 1;
                     return 2;
                 }
                 return 1;
@@ -147,11 +147,15 @@ int8_t __Data_Get_from_Camer() {
         if (!Base->CamerVerify[0]) {
             if (Base->CamerData[0] == K210Data) {
                 Base->CamerVerify[0] = K210Data;
-                if (K210Site > 60) {
+                if (K210Site > 30) {
                     Base->CamerVerify[1] = 1;
+                    Base->CamerVerify[2] = 0;
+                    Base->SaveDataLock   = 2;
                     return 1;  // 右边
                 } else {
                     Base->CamerVerify[1] = 2;
+                    Base->CamerVerify[2] = 0;
+                    Base->SaveDataLock   = 2;
                     return 2;  // 左边
                 }
             } else {
@@ -232,28 +236,29 @@ void __farControl() {  // 确认是不是真的没有正确的数字
     __CrossManageNum();
 
     // 防止扫不到数字,出现转向异常
-    if ((Base->j == 2) && (!Base->Back_sign)) {
-        if (K210Data) {
-            Light_ON();
-            static uint8_t i = 0;
-            if (!i) {
-                if (Base->CamerVerify[0] == K210Data) {
-                    if (K210Site > 60) {
-                        Base->CamerVerify[1] = 1;
-                    } else {
-                        Base->CamerVerify[1] = 2;
-                    }
-                    i = 1;
+    static uint8_t i = 0;
+    if (!i) {
+        if ((!Base->Back_sign) && (Base->CamerVerify[0]) && (K210Data)) {
+            if (Base->CamerVerify[0] != K210Data) {
+                Base->CamerVerify[3] = K210Data;
+                if (K210Site > 30) {
+                    Base->CamerVerify[1] = 2;
                 } else {
-                    if (K210Site > 60) {
-                        Base->CamerVerify[1] = 2;
-                    } else {
+                    Base->CamerVerify[1] = 1;
+                }
+            } else {
+                if (Base->j == 3) {
+                    i = 1;
+                    if (K210Site > 30) {
                         Base->CamerVerify[1] = 1;
+                    } else {
+                        Base->CamerVerify[1] = 2;
                     }
                 }
             }
         }
     }
+
     // 临时转向控制
     __Temp_Dire_select();
 
@@ -336,8 +341,7 @@ void PathExceptionHandler() {
         Pet->temp = 1;
     } else if (Pet->Runstate == 2) {  // 直线状态直走
         Pet->temp = 0;
-        if ((Base->CamerVerify[0] != 0) && (!Pet->Runstate_2)) {  // 假如扫到了数字就结束异常
-            Pet->Runstate   = 0;                                  // 重置异常
+        if ((Base->CamerVerify[0]) && (!Pet->Runstate_2)) {  // 假如扫到了数字就结束异常
             Base->Key_Value = 3;
         }
         if (Base->SiteLock == 3) {
@@ -356,7 +360,6 @@ void PathExceptionHandler() {
     } else if (Pet->Runstate == 4) {  // 遇到工口
         Pet->temp            = 0;
         PID_arg1.line_target = 200;
-        Light_ON();
         if (Pet->PathNum == 2) {
             Pet->Runstate_2 = 2;
             Pet->Runstate   = 5;

@@ -75,6 +75,7 @@ typedef struct Control_min {
 mctrl *Min_Struct_Inti();
 void __minControl();
 int8_t __Data_Get_from_Camer();
+int8_t Data_Get_mid();
 uint8_t __Temp_Dire_select();
 void MTurn_Strat();
 
@@ -86,19 +87,20 @@ typedef struct Control_far {
     void (*farControl)();
 } fctrl;
 
+void NumExceptionHandler();
+int8_t Data_Get_far();
 fctrl *Far_Struct_Inti();
 void __farControl();
 
 
 typedef struct PathException_Typedef {
-    uint8_t lock;
-    uint8_t temp;
-    uint8_t PathNum;
-    uint8_t SDL;
-    uint8_t Error;
-    char ErrorChar[20][50];
-    uint8_t Runstate;
-    uint8_t Runstate_2;
+    __IO uint8_t lock;
+    __IO uint8_t temp;
+    __IO uint8_t PathNum;
+    __IO uint8_t SDL;
+    __IO uint8_t Error;
+    __IO uint8_t Runstate;
+    __IO uint8_t Runstate_2;
 
 }PET;
 

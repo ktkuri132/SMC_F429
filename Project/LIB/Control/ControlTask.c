@@ -56,9 +56,6 @@ void __ControlTask() {
             Min->minControl();
             /*模式重新选择*/
             if ((Base->j == 2) && (!Base->Back_sign)) {
-                // if ((Base->CamerVerify[2] != 0)||(Base->CamerVerify[0])) {
-                //     Base->Key_Value = 3;
-                // }
                 if(!Base->CamerVerify[0]){
                     Base->Key_Value = 3;
                 }
@@ -69,6 +66,7 @@ void __ControlTask() {
             if (!i) {
                 Far = Far_Struct_Inti();  // 继承控制结构体
                 Pet = Pet_Struct_Inti();
+
                 i   = 1;
             }
             Far->farControl();

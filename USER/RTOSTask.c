@@ -148,7 +148,7 @@ Mode_21:
         OLED_Printf(0, 8, OLED_6X8, "Get:   %d", Base->CamerData[0]);
         OLED_Printf(0, 16, OLED_6X8, "K210: %d,%d.%d,%d", Base->CamerVerify[0], Base->CamerVerify[1],Base->CamerVerify[2],Base->CamerVerify[3]);
         OLED_Printf(0, 24, OLED_6X8, "Path: %d", Base->j);
-        OLED_Printf(0, 32, OLED_6X8, "RL:   %d", Base->RLControl);
+        OLED_Printf(0, 32, OLED_6X8, "Runs: %d", Pet->Runstate);
         OLED_Printf(0, 40, OLED_6X8, "TRL:  %d", Base->Temp_RLContrl);
         OLED_Printf(0, 56, OLED_6X8, "Mode: %d", Base->Key_Value);
         OLED_Update();
@@ -269,7 +269,6 @@ void Task_DebugLog() {
             printf("临时状态:   %d\n", Pet->temp);
             printf("检测路口:   %d\n", Pet->PathNum);
             printf("数据锁:     %d\n", Pet->SDL);
-            printf("错误信息:   %s\n", Pet->ErrorChar[Pet->Error]);
         }
         vTaskDelayUntil(&xLastWakeTime, xFrequency);
         taskEXIT_CRITICAL();
@@ -286,6 +285,9 @@ void Task5_KeyScan() {
         
         if (Project_BSP_GetKey()) {
             Base->Key_Value = Project_BSP_GetKey();
+            if(Base->Key_Value == 3){
+                Base->j = 2;
+            }
         }
 
         if (Project_BSP_GetKey()) {

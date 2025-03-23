@@ -64,7 +64,7 @@ mctrl *Min_Struct_Inti() {
     min.Base                      = Base;
     min.Base->VerifyDataLock      = 1;
     min.Base->Turn_const          = 3;
-    min.Base->Data_Get_from_Camer = __Data_Get_from_Camer;
+    min.Base->Data_Get_from_Camer = Data_Get_mid;
     return &min;
 }
 
@@ -76,7 +76,7 @@ fctrl *Far_Struct_Inti() {
     // 避免静态变量的初始化不是常量
     far.Base                      = Base;
     far.Base->VerifyDataLock      = 1;
-    far.Base->Data_Get_from_Camer = __Data_Get_from_Camer;
+    far.Base->Data_Get_from_Camer = Data_Get_far;
     return &far;
 }
 
@@ -136,14 +136,98 @@ int8_t __Data_Save_from_Camer() {
     return 1;
 }
 
-/// @brief 从摄像头验证数字
-int8_t __Data_Get_from_Camer() {
-    static uint8_t temp = 0;
-    static uint8_t Num  = 0;
+int8_t Data_Get_mid() {
     if (Base->SaveDataLock) {
         if (!K210Data) {
             return -1;
         }
+
+        if (!Base->CamerVerify[0]) {
+            if (Base->CamerData[0] == K210Data) {
+                Base->CamerVerify[0] = K210Data;
+                if (K210Site > 30) {
+                    Base->CamerVerify[1] = 1;
+                    Base->CamerVerify[2] = 0;
+                    Base->SaveDataLock   = 2;
+                    return 1;  // 右边
+                } else {
+                    Base->CamerVerify[1] = 2;
+                    Base->CamerVerify[2] = 0;
+                    Base->SaveDataLock   = 2;
+                    return 2;  // 左边
+                }
+            }
+        }
+        return -1;
+    }
+}
+
+/// @brief 从摄像头验证数字
+int8_t Data_Get_far() {
+    static uint8_t temp = 0;
+    static uint8_t Num[4];
+    static uint8_t i = 0;
+    if (Base->SaveDataLock) {
+        if (!K210Data) {
+            return -1;
+        }
+        static uint8_t i = 0;
+        if (!Base->CamerVerify[0]) {
+            if (Base->CamerData[0] == K210Data) {
+                Base->CamerVerify[0] = K210Data;
+                Base->CamerVerify[2] = 0;
+                Base->SaveDataLock   = 2;
+                if (K210Site > 30) {
+                    Base->CamerVerify[1] = 1;
+                    return 1;
+                } else {
+                    Base->CamerVerify[1] = 2;
+                    return 2;
+                }
+            } else {
+                Base->CamerVerify[2] = -1;
+                if (K210Site > 30) {
+                    Base->CamerVerify[1] = 2;
+                    return -2;
+                } else {
+                    Base->CamerVerify[1] = 1;
+                    return -1;
+                }
+            }
+        } else {
+            static uint8_t i = 0;
+            if (!i) {
+                if (Base->CamerData[0] == K210Data) {
+                    if (K210Site > 30) {
+                        Base->CamerVerify[1] = 1;
+                        return 1;
+                    } else {
+                        Base->CamerVerify[1] = 2;
+                        return 2;
+                    }
+                } else {
+                    Base->CamerVerify[3] = K210Data;
+                    if (K210Site > 30) {
+                        Base->CamerVerify[1] = 2;
+                        return -2;
+                    } else {
+                        Base->CamerVerify[1] = 1;
+                        return -1;
+                    }
+                }
+            }
+        }
+        return -1;
+    }
+}
+
+/// @brief 从摄像头验证数字
+int8_t __Data_Get_from_Camer() {
+    if (Base->SaveDataLock) {
+        if (!K210Data) {
+            return -1;
+        }
+
         if (!Base->CamerVerify[0]) {
             if (Base->CamerData[0] == K210Data) {
                 Base->CamerVerify[0] = K210Data;
@@ -208,7 +292,7 @@ void __nearControl() {
 /// @brief 中端病房模式（兼容远端病房）
 void __minControl() {
     // 从摄像头验证数字
-    __Data_Get_from_Camer();
+    Base->Data_Get_from_Camer();
     // 十字路口记录
     __CrossManageNum();
     // 临时转向控制
@@ -231,33 +315,9 @@ void __minControl() {
 void __farControl() {  // 确认是不是真的没有正确的数字
 
     // 从摄像头验证数字
-    __Data_Get_from_Camer();
+    Base->Data_Get_from_Camer();
     // 十字路口记录
     __CrossManageNum();
-
-    // 防止扫不到数字,出现转向异常
-    static uint8_t i = 0;
-    if (!i) {
-        if ((!Base->Back_sign) && (Base->CamerVerify[0]) && (K210Data)) {
-            if (Base->CamerVerify[0] != K210Data) {
-                Base->CamerVerify[3] = K210Data;
-                if (K210Site > 30) {
-                    Base->CamerVerify[1] = 2;
-                } else {
-                    Base->CamerVerify[1] = 1;
-                }
-            } else {
-                if (Base->j == 3) {
-                    i = 1;
-                    if (K210Site > 30) {
-                        Base->CamerVerify[1] = 1;
-                    } else {
-                        Base->CamerVerify[1] = 2;
-                    }
-                }
-            }
-        }
-    }
 
     // 临时转向控制
     __Temp_Dire_select();
@@ -272,6 +332,7 @@ void __farControl() {  // 确认是不是真的没有正确的数字
         }
     }
     // 正式转向控制
+    if()
     __Dire_select(Base->Temp_RLContrl);
 
     if (Base->Back_sign == 3) {  // 单次运行，清除十字路口记录
@@ -291,13 +352,58 @@ void __farControl() {  // 确认是不是真的没有正确的数字
     }
 }
 
+void NumExceptionHandler() {
+    // 防止扫不到数字,出现转向异常
+
+    static uint8_t i = 0;
+    if (!i) {
+        static uint8_t temp = 0;
+        if ((Base->Back_sign != 3) && (Base->CamerVerify[0]) && (Base->j == 3)) {
+            if (Base->CamerVerify[0] == K210Data) {
+                if (K210Site > 30) {
+                    Base->CamerVerify[1] = 1;
+                } else {
+                    Base->CamerVerify[1] = 2;
+                }
+            } else {
+                temp = K210Site;
+                if (Base->SiteLock == 3) {
+                    Base->CamerVerify[2] = K210Data;
+                    if (temp > 30) {
+                        Base->CamerVerify[1] = 1;
+                    } else {
+                        Base->CamerVerify[1] = 2;
+                    }
+                }
+            }
+        } else if ((Base->Back_sign != 3) && (!Base->CamerVerify[0]) && (Base->j == 2)) {
+            if (Base->CamerVerify[2] == 1) {
+                if (Base->CamerData[0] == K210Data) {
+                    Light_ON(2);
+                    if (K210Site > 30) {
+                        Base->CamerVerify[1] = 1;
+                    } else {
+                        Base->CamerVerify[1] = 2;
+                    }
+                } else {
+                    temp = K210Site;
+                    if (Base->SiteLock == 3) {
+                        Base->CamerVerify[2] = K210Data;
+                        if (temp > 30) {
+                            Base->CamerVerify[1] = 1;
+                        } else {
+                            Base->CamerVerify[1] = 2;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
 // @brief 路径异常处理函数
 void PathExceptionHandler() {
     __Data_Get_from_Camer();
-    if (Base->SiteLock != 3 && Pet->Runstate == 0) {
-        Pet->Error = 1;
-        strcpy(Pet->ErrorChar[Pet->Error], "Error:225,Base->SiteLock != 3 && Pet->Runstate == 0");
-    }
     if (Base->SiteLock == 3) {
         if (Pet->Runstate == 0) {  // 由此进入异常
             static uint8_t a = 0;
@@ -370,7 +476,8 @@ void PathExceptionHandler() {
             Pet->Runstate = 4;
         }
         if (Base->SiteLock == 3) {
-            Base->Key_Value = 3;
+            Base->CamerVerify[2] = 1;
+            Base->Key_Value      = 3;
         }
     }
     __Dire_select(Pet->temp);

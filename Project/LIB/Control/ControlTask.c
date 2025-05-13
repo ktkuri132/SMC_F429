@@ -118,14 +118,11 @@ void Project_LIB_ControlTask(uint8_t rlControl) {
     pidForLine.PID_Update1(&pidForLine);
     pidforspeed.PID_Update1(&pidforspeed);
 
-    if (rlControl == 2)  // 左拐
-    {
+    if (rlControl == 2){  // 左拐
         Base->Motor_Load(4000, 600);
-    } else if (rlControl == 1)  // 右拐
-    {
+    } else if (rlControl == 1){  // 右拐
         Base->Motor_Load(700, 3200);
-    } else if (rlControl == 3)  // 调头
-    {
+    } else if (rlControl == 3){  // 调头
         Base->Motor_Load(-1700, 1700);
     } else if (rlControl == 4) {  // 停车
         Base->Motor_Load(0, 0);

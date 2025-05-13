@@ -16,6 +16,16 @@ red_right_roi = (315,0,5,240)
 
 black_roi_mid = (145,169,88,49)
 
+'''
+发送0:
+发送1:只扫到中间色块
+发送2:什么都没扫到->白色
+发送3:两边都扫到红色
+发送4:扫到黑色
+发送5:只扫到左边红色
+发送6:只扫到右边红色
+'''
+
 def Img_Init():
     img = sensor.snapshot()
     img.draw_rectangle(red_left_roi,color=(255, 0, 0))
@@ -29,20 +39,19 @@ def Find_Black(img):
             img.draw_rectangle((blob.x(), blob.y(), blob.w(), blob.h()), color=(0, 0, 0))
             img.draw_cross(blob.cx(), blob.cy(), color=(0, 255, 255))
             uart.write("s4,0,e")
-        print("Find_Black:1")
+        print(4)
         return True
     else:
-        print("Find_Black:0")
         return False
 
 def Find_Red_In_Mid(img):
-    print("ready")
     blobs = img.find_blobs([red_blob], roi=red_roi_mid, merge=True)
     if blobs:
         for blob in blobs:
             img.draw_rectangle((blob.x(), blob.y(), blob.w(), blob.h()), color=(255, 0, 0))
             img.draw_cross(blob.cx(), blob.cy(), color=(0, 255, 0))
             uart.write(f"s1,{blob.cx()},{blob.cy()},e")
+            print(0)
             return True
 
 def Find_Red_In_Edge(img):
@@ -55,33 +64,33 @@ def Find_Red_In_Edge(img):
     if right_blobs:
         right_blobs_Flag = 1
     if left_blobs_Flag and right_blobs_Flag:
-        uart.write("s1,168,97,e")
+        uart.write("s3,168,97,e")
+        print(1)
         return 1
     elif left_blobs_Flag:
         for blob in Left_blobs:
             img.draw_rectangle((blob.x(), blob.y(), blob.w(), blob.h()), color=(255, 0, 0))
             img.draw_cross(blob.cx(), blob.cy(), color=(0, 255, 0))
             uart.write(f"s5,{blob.cx()},{blob.cy()},e")
-            print("Find_Red_In_Edge:2")
+            print(5)
         return 2
     elif right_blobs_Flag:
         for blob in right_blobs:
             img.draw_rectangle((blob.x(), blob.y(), blob.w(), blob.h()), color=(255, 0, 0))
             img.draw_cross(blob.cx(), blob.cy(), color=(0, 255, 0))
             uart.write(f"s6,{blob.cx()},{blob.cy()},e")
-            print("Find_Red_In_Edge:3")
+            print(6)
         return 3
     else:
-        print("Find_Red_In_Edge:0")
-        return 0
+        return False
 
 if __name__ == "__main__":
     while True:
         img = Img_Init()
         if Find_Black(img) is False:# 如果没找到黑色色块,就在边沿找红色色块
             if Find_Red_In_Edge(img) is False:#如果没在边沿找到红色,就在中间找红色色块
-                print("ready")
                 if Find_Red_In_Mid(img) is False:
                     uart.write("s2,0,e")
+                    print(2)
 
 

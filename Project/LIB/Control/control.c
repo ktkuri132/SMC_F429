@@ -294,7 +294,32 @@ void __nearControl() {
 /// @brief 中端病房模式
 void __minControl() {
     // 从摄像头验证数字
-    Base->Data_Get_from_Camer();
+    // Base->Data_Get_from_Camer();
+    static uint8_t temp_lock = 0;
+    if(Base->j>=1){
+        if ((Base->SiteLock != 3)&&(!temp_lock)) {
+            if (Base->CamerData[0] == K210Data) {
+                Base->CamerVerify[0] = K210Data;
+                if (K210Site > 30) {
+                    Base->CamerVerify[1] = 1;
+                    Base->CamerVerify[2] = 0;
+                    Base->SaveDataLock   = 2;
+                } else {
+                    Base->CamerVerify[1] = 2;
+                    Base->CamerVerify[2] = 0;
+                    Base->SaveDataLock   = 2;
+                }
+            } else {
+                Base->CamerVerify[2] = -1;
+                if (Base->CamerVerify[1]) {
+                    Base->CamerVerify[2] = 0;
+                }
+            }
+        } else {
+            temp_lock = 1;
+        }
+    }
+    
     // 十字路口记录
     __CrossManageNum();
     // 临时转向控制
@@ -310,7 +335,9 @@ void __minControl() {
         }
     }
     // 正式转向控制
-    __Dire_select(Base->Temp_RLContrl);
+    if(Base->j>=1){
+        __Dire_select(Base->Temp_RLContrl);
+    }
 }
 
 /// @brief 远端病房模式
@@ -318,6 +345,7 @@ void __farControl() {  // 确认是不是真的没有正确的数字
 
     // 从摄像头验证数字
     Base->Data_Get_from_Camer();
+
     // 十字路口记录
     __CrossManageNum();
 
@@ -333,10 +361,10 @@ void __farControl() {  // 确认是不是真的没有正确的数字
             Base->RLControl = 4;
         }
     }
-    // 正式转向控制
-    if()
-    __Dire_select(Base->Temp_RLContrl);
 
+    // 正式转向控制
+    __Dire_select(Base->Temp_RLContrl);
+    
     if (Base->Back_sign == 3) {  // 单次运行，清除十字路口记录
         static uint8_t i = 0;
         if (!i) {
@@ -345,8 +373,10 @@ void __farControl() {  // 确认是不是真的没有正确的数字
         }
     }
 
-    if (Base->j < 2) {
-        MTurn_Strat();
+    if (Base->Back_sign == 3) {  // 经过路口两次,并且是返回状态
+        if(Base->j < 2){
+            MTurn_Strat();
+        }
     } else if (Base->j == 2) {
         if (Base->Back_sign == 3) {
             Base->Back_sign = 4;
@@ -488,26 +518,37 @@ void PathExceptionHandler() {
 /// @brief 转向状态记录函数
 void MTurn_Strat() {
     static uint8_t i             = 0;
-    static uint8_t Temp_SiteLock = 1;
-    if (Base->Back_sign == 3) {
-        if (i < 5) {
-            if (Base->SiteLock == 5 || Base->SiteLock == 6) {
-                if (Base->SiteLock != Temp_SiteLock) {
-                    i++;
-                    Temp_SiteLock = Base->SiteLock;
-                    if (Base->SiteLock == 5) {
-                        Base->RLControl = 5;
-                    } else if (Base->SiteLock == 6) {
-                        Base->RLControl = 6;
-                    }
-                }
-            } else if (Base->SiteLock == 1) {
-                if (i == 1) {
-                    Temp_SiteLock = 1;
-                }
+    static uint8_t Temp_SiteLock = 0;
+    if(Base->j <= 2){
+        if(i){  // 如果工口转向已激活
+            if(Base->SiteLock == 1){  // 如果此时重新扫到中间线
+                i = 0;  // 暂时取消工口转向
+                Base->j++;
+            } else {
+                Base->RLControl = Base->SiteLock;  // 如果此时没有扫到中间线，保持工口转向
             }
         }
+        if ((Base->SiteLock == 5 || Base->SiteLock == 6)&&(!i)) {   // 激活工口转向
+            i = 1;
+        }
     }
+    // if (i < 5) {
+    //     if (Base->SiteLock == 5 || Base->SiteLock == 6) {
+    //         if (Base->SiteLock != Temp_SiteLock) {
+    //             i++;
+    //             Temp_SiteLock = Base->SiteLock;
+    //             if (Base->SiteLock == 5) {
+    //                 Base->RLControl = 5;
+    //             } else if (Base->SiteLock == 6) {
+    //                 Base->RLControl = 6;
+    //             }
+    //         }
+    //     } else if (Base->SiteLock == 1) {
+    //         if (i == 1) {
+    //             Temp_SiteLock = 1;
+    //         }
+    //     }
+    // }
 }
 
 uint8_t __CrossManageNum() {

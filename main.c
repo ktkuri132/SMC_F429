@@ -40,13 +40,13 @@ PET   *Pet;
 /// @brief 主函数运行完了自动复位
 void BSP_Init() {
 Init_BSP:  // 初始化基本外设
-    OLED_Init();
     mpu_dmp_init();
     bsp_usart_1_inti(115200);
     bsp_usart_2_inti(250000);  // OpenMV摄像头通信
     bsp_usart_3_inti(115200);  // 数字识别摄像头
     bsp_uart_4_inti(115200);   // 无线串口
     bsp_uart_5_inti(9600);     // 蓝牙串口
+    OLED_Init();
     NVIC_Configuration();
 Init_Serial:
     Stde_DataTypeDef_Init(&USART2_DataBuff);

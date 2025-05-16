@@ -98,15 +98,18 @@ void __ControlTask() {
     /*一次模式运行完毕,根据不同模式和路径情况调节速度*/
     if((Base->Key_Value == 2)||(Base->Key_Value == 1)){
         if(Base->j == 0){
-            PID_arg1.speed_target = 30;
+            PID_arg1.speed_target = 26;
         } else if(Base->j == 1){
             PID_arg1.speed_target = 22;
         }
+        if(Base->Back_sign == 3){
+            PID_arg1.speed_target = 23;
+        }
     } else if((Base->Key_Value == 3)||(Base->Key_Value == 4)){
         PID_arg1.speed_target = 21;
-    }
-    if(Base->Back_sign == 3){
-        PID_arg1.speed_target = 23;
+        if(Base->Back_sign == 3){
+            PID_arg1.speed_target = 18;
+        }
     }
     if(Base->Back_sign == 4){
         PID_arg1.speed_target = 32;
@@ -133,20 +136,23 @@ void Project_LIB_ControlTask(uint8_t rlControl) {
     pidforspeed.PID_Update1(&pidforspeed);
 
     if (rlControl == 2){  // 左拐
-        Base->Motor_Load(4000, 600);
+        Base->Motor_Load(3200, 1000);
     } else if (rlControl == 1){  // 右拐
-        Base->Motor_Load(700, 3200);
+        
+        Base->Motor_Load(1000, 3200);
     } else if (rlControl == 3){  // 调头
         Base->Motor_Load(-1700, 1700);
     } else if (rlControl == 4) {  // 停车
         Base->Motor_Load(0, 0);
     } else if (rlControl == 6) {
         if(Base->Key_Value == 3){
-            Base->Motor_Load(0, 4000);
+            Project_BSP_LED_ON(1);
+            Base->Motor_Load(1000, 5000);
         }
     } else if (rlControl == 5) {
         if(Base->Key_Value == 3){
-            Base->Motor_Load(4000, 0);
+            Project_BSP_LED_ON(2);
+            Base->Motor_Load(5000, 1000);
         }
     } else {
         Base->Motor_Load(pidforspeed.output + pidForLine.output,

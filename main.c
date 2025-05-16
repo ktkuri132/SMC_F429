@@ -22,7 +22,6 @@ extern "C" {
 #include "RTOSTaskConfig.h"
 #include "usart/Serial.h"
 #include "usart/usart.h"
-
 #include <Project.h>
 
 // 定义串口数据结构
@@ -49,17 +48,14 @@ Init_BSP:  // 初始化基本外设
     bsp_uart_4_inti(115200);   // 无线串口
     bsp_uart_5_inti(9600);     // 蓝牙串口
     NVIC_Configuration();
-
 Init_Serial:
     Stde_DataTypeDef_Init(&USART2_DataBuff);
     USART2_DataBuff.UART_DATA_TYPE_Callback = OpenMV_Camera_Callback;
     Stde_DataTypeDef_Init(&USART3_DataBuff);
     Stde_DataTypeDef_Init(&UART5_DataBuff);
     Stde_DataTypeDef_Init(&UART4_DataBuff);
-
 Init_Control:       
     Base = Control_Struct_Inti();   // 初始化控制结构体
-    
 Init_Project:
     Project_BSP_PWM_TIM2_Init();
     Project_BSP_Encoding_Init();
@@ -87,9 +83,7 @@ int main() {
                     NULL, 9, &Task1_SystemStart_Handle) != pdPASS) {
         printf("SystemStrat创建失败\n");
     }
-
     // 初始化控制结构体
-
     vTaskStartScheduler();
 }
 

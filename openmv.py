@@ -1,20 +1,21 @@
 import sensor
 from machine import UART
+from pyb import LED
 sensor.reset()
 sensor.set_pixformat(sensor.RGB565)
 sensor.set_framesize(sensor.QVGA)
 sensor.skip_frames(time=2000)
-# sensor.set_hmirror(True)
-# sensor.set_vflip(True).lens_corr(strength = 1.7, zoom = 1.0)
-uart = UART(3, 115200)
-red_blob = (43, 15, 0, 56, 1, 54)
-black_blob = (0, 21, -56, 35, -6, 52)
+sensor.set_hmirror(True)
+sensor.set_vflip(True)
+uart = UART(3, 250000)
+red_blob = (36, 11, 4, 37, -22, 32)
+black_blob = (0, 43, -26, -1, -10, 18)
 
-red_roi_mid = (5,65,315,66)
+red_roi_mid = (5,134,315,47)
 red_left_roi = (0,0,5,240)
 red_right_roi = (315,0,5,240)
 
-black_roi_mid = (145,169,88,49)
+black_roi_mid = (127,17,64,43)
 
 '''
 发送0:
@@ -27,19 +28,26 @@ black_roi_mid = (145,169,88,49)
 '''
 
 def Img_Init():
+    led_1 = LED(1)
+    led_2 = LED(2)
+    led_3 = LED(3)
+    led_1.on()
+    led_2.on()
+    led_3.on()
+
     img = sensor.snapshot()
     img.draw_rectangle(red_left_roi,color=(255, 0, 0))
     img.draw_rectangle(red_right_roi,color=(255, 0, 0))
     return img
 
 def Find_Black(img):
-    blobs_black = img.find_blobs([black_blob], roi=black_roi_mid,merge=True,area_threshold=40,pixels_threshold=60)
+    blobs_black = img.find_blobs([black_blob], roi=black_roi_mid,merge=True,area_threshold=400,pixels_threshold=80)
     if blobs_black:
         for blob in blobs_black:
             img.draw_rectangle((blob.x(), blob.y(), blob.w(), blob.h()), color=(0, 0, 0))
-            img.draw_cross(blob.cx(), blob.cy(), color=(0, 255, 255))
+            img.draw_cross(blob.cx(), blob.cy(), color=(255, 255, 255))
             uart.write("s4,0,e")
-        print(4)
+            print(4)
         return True
     else:
         return False

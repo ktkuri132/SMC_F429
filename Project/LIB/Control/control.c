@@ -256,40 +256,42 @@ int8_t __Data_Get_from_Camer() {
 
 /// @brief 近端病房模式
 void __nearControl() {
+    /*检查当前过路口情况*/
     __CrossManageNum();
-    if (Base->SiteLock == 1) {  // 经过路口一次
-        if (Base->j == 1) {
+    /*判断返回控制的触发条件*/
+    if (Base->SiteLock == 1) {  /*直线状态下*/
+        if (Base->j == 1) { /*假如已经转过一次弯*/
             static uint8_t j = 0;
             if (!j) {
                 j                    = 1;
-                Base->VerifyDataLock = 0;  // 单次运行激活返回控制函数
+                Base->VerifyDataLock = 0;  /*触发返回控制的条件*/
             }
         }
     }
-    // 返回状态改变Temp_RLContrl的操作权，阉割版临时转向控制
-    if (!Base->Back_sign) {
-        if (Base->CamerData[0] == 1) {
-            Base->Temp_RLContrl = 2;
-        } else if (Base->CamerData[0] == 2) {
-            Base->Temp_RLContrl = 1;
+    /*判断转向情况*/
+    if (!Base->Back_sign) {    /*非返回状态下*/
+        if (Base->CamerData[0] == 1) {  /*若是数字1*/
+            Base->Temp_RLContrl = 2;    /*暂时判断为转向右转*/
+        } else if (Base->CamerData[0] == 2) {   /*若是数字2*/
+            Base->Temp_RLContrl = 1;    /*暂时判断为左转*/
         }
-    } else {
-        Base->Temp_RLContrl = Base->CamerData[0];
+    } else {        /* 返回状态下*/
+        Base->Temp_RLContrl = Base->CamerData[0];   /*转向状态相反*/   
     }
-    // 返回执行函数
+    // 返回执行函数(主要是做转向的判断,如果条件触发)
     Base->Back();
-    // 正式转向控制
+    /*正式转向控制(根据临时的状态判断)*/
     __Dire_select(Base->Temp_RLContrl);
 
-    // 已返回状态下，触发遇黑色和白色暂停，转向状态除外
-    if (Base->Back_sign == 3) {
-        if (Base->SiteLock == 2 || Base->SiteLock == 4) {
-            Base->RLControl = 4;
+    /*判断启停*/
+    if (Base->Back_sign == 3) {     /*返回条件下*/
+        if (Base->SiteLock == 2 || Base->SiteLock == 4) {   /*如果是状态2:黑色,状态4:白色*/
+            Base->RLControl = 4;    /*直接触发制动*/
         }
     }
 }
 
-/// @brief 中端病房模式（兼容远端病房）
+/// @brief 中端病房模式
 void __minControl() {
     // 从摄像头验证数字
     Base->Data_Get_from_Camer();

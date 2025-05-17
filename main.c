@@ -35,7 +35,7 @@ ctrl *Base;
 nctrl *Near;
 mctrl *Min;
 fctrl *Far;
-PET   *Pet;
+PET   Pet;
 
 /// @brief 主函数运行完了自动复位
 void BSP_Init() {

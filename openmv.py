@@ -16,7 +16,7 @@ red_roi_mid = (5,134,315,47)
 red_left_roi = (0,0,5,240)
 red_right_roi = (315,0,5,240)
 
-black_roi_mid = (127,17,64,43)
+black_roi_mid = (146,1,28,129)
 
 
 '''
@@ -43,12 +43,12 @@ def Img_Init():
     return img
 
 def Find_Black(img):
-    blobs_black = img.find_blobs([black_blob], roi=black_roi_mid,merge=True,area_threshold=400,pixels_threshold=80)
+    blobs_black = img.find_blobs([black_blob], roi=black_roi_mid,merge=True,area_threshold=900,pixels_threshold=80)
     if blobs_black:
         for blob in blobs_black:
             img.draw_rectangle((blob.x(), blob.y(), blob.w(), blob.h()), color=(0, 0, 0))
             img.draw_cross(blob.cx(), blob.cy(), color=(255, 255, 255))
-            uart.write("s4,0,e")
+            uart.write("s4,168,97,e")
             print(4)
         return True
     else:
@@ -81,6 +81,7 @@ def Find_Red_In_Edge(img):
         print(3)
         return 1
     elif left_blobs_Flag:
+
         for blob in Left_blobs:
             img.draw_rectangle((blob.x(), blob.y(), blob.w(), blob.h()), color=(255, 0, 0))
             img.draw_cross(blob.cx(), blob.cy(), color=(0, 255, 0))

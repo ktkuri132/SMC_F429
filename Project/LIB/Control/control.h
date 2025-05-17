@@ -95,7 +95,7 @@ void __minControl();
 int8_t __Data_Get_from_Camer();     /*中端:摄像头获取函数*/
 int8_t Data_Get_mid();
 uint8_t __Temp_Dire_select();   /*远端:转向状态记录函数*/
-void MTurn_Strat();
+void MTurn_Strat(uint8_t *path);
 
 /**
  * @brief 远端病房控制结构体

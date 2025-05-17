@@ -13,7 +13,7 @@ extern ctrl *Base;
 extern nctrl *Near;
 extern mctrl *Min;
 extern fctrl *Far;
-extern PET *Pet;
+extern PET Pet;
 
 PID_arg PID_arg1 = {180, 20};
 
@@ -77,14 +77,12 @@ void __ControlTask() {
             static uint8_t i = 0;
             if (!i) {
                 Far = Far_Struct_Inti();  // 继承控制结构体
-                Pet = Pet_Struct_Inti();
-
                 i   = 1;
             }
             Far->farControl();
             /*模式重新选择*/
             if (Base->SiteLock == 3) {  /*模式3中,遇到十字路口*/
-                if ((!Base->CamerVerify[0]) && (!Pet->SDL)) {   /*此时还没有验证到数字,而且为第一次进入异常*/
+                if ((!Base->CamerVerify[0]) && (!Pet.SDL)) {   /*此时还没有验证到数字,而且为第一次进入异常*/
                     Base->Key_Value = 4;    /*判定为模式4*/
                 }
             }

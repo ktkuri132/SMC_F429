@@ -29,7 +29,7 @@ extern ctrl *Base;
 extern nctrl *Near;
 extern mctrl *Min;
 extern fctrl *Far;
-extern PET *Pet;
+extern PET Pet;
 
 extern PID_arg PID_arg1;
 
@@ -144,7 +144,7 @@ Mode_21:
     while (1) {
         // 进入临界区
         taskENTER_CRITICAL();
-        OLED_Printf(0, 0, OLED_6X8, "OpenMV:%d", OpenMVData);
+        OLED_Printf(0, 0, OLED_6X8, "RunStare:%d", Pet.Runstate);
         OLED_Printf(0, 8, OLED_6X8, "Get:   %d", Base->CamerData[0]);
         OLED_Printf(0, 16, OLED_6X8, "K210: %d,%d.%d,%d", Base->CamerVerify[0], Base->CamerVerify[1],Base->CamerVerify[2],Base->CamerVerify[3]);
         OLED_Printf(0, 24, OLED_6X8, "Path: %d", Base->j);
@@ -263,12 +263,12 @@ void Task_DebugLog() {
         } else if (Base->Key_Value == 2) {
         } else if (Base->Key_Value == 3) {
         } else if (Base->Key_Value == 4) {
-            printf("错误点:     %d\n", Pet->Error);
-            printf("运行状态:   %d\n", Pet->Runstate);
-            printf("运行状态2:  %d\n", Pet->Runstate_2);
-            printf("临时状态:   %d\n", Pet->temp);
-            printf("检测路口:   %d\n", Pet->PathNum);
-            printf("数据锁:     %d\n", Pet->SDL);
+            printf("错误点:     %d\n", Pet.Error);
+            printf("运行状态:   %d\n", Pet.Runstate);
+            printf("运行状态2:  %d\n", Pet.Runstate_2);
+            printf("临时状态:   %d\n", Pet.temp);
+            printf("检测路口:   %d\n", Pet.PathNum);
+            printf("数据锁:     %d\n", Pet.SDL);
         }
         vTaskDelayUntil(&xLastWakeTime, xFrequency);
         taskEXIT_CRITICAL();

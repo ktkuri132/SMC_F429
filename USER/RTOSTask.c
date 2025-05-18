@@ -144,7 +144,7 @@ Mode_21:
     while (1) {
         // 进入临界区
         taskENTER_CRITICAL();
-        OLED_Printf(0, 0, OLED_6X8, "RunStare:%d", Pet.Runstate);
+        OLED_Printf(0, 0, OLED_6X8, "carData:%d", OtherCar);
         OLED_Printf(0, 8, OLED_6X8, "Get:   %d", Base->CamerData[0]);
         OLED_Printf(0, 16, OLED_6X8, "K210: %d,%d.%d,%d", Base->CamerVerify[0], Base->CamerVerify[1],Base->CamerVerify[2],Base->CamerVerify[3]);
         OLED_Printf(0, 24, OLED_6X8, "Path: %d", Base->j);
@@ -282,20 +282,17 @@ void Task5_KeyScan() {
     // 初始化 xLastWakeTime 变量为当前时间
     xLastWakeTime = xTaskGetTickCount();
     while (1) {
-        
         if (Project_BSP_GetKey()) {
             Base->Key_Value = Project_BSP_GetKey();
             if(Base->Key_Value == 3){
                 Base->j = 2;
             }
         }
-
         if (Project_BSP_GetKey()) {
             Project_BSP_Buzzer_ON();
         } else {
             Project_BSP_Buzzer_OFF();
         }
-
         if (!Project_BSP_HW201_Get()) {
             OLED_Printf(0, 48, OLED_6X8, "HW201:1");
             Base->MotorStrat_2 = 1;

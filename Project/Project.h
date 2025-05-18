@@ -35,7 +35,7 @@ extern Stde_DataTypeDef UART4_DataBuff;
 #define OpenMVData USART_Deal(&USART2_DataBuff, 1)
 #define K210Data USART_Deal(&USART3_DataBuff, 1)
 #define K210Site USART_Deal(&USART3_DataBuff, 2)
-#define HFYCar USART_Deal(&UART4_DataBuff, 1)
+#define OtherCar USART_Deal(&UART4_DataBuff, 1)
 
     /*  project function in BSP folder    */
     void Project_BSP_PWM_TIM2_Init();

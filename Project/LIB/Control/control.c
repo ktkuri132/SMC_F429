@@ -141,7 +141,6 @@ int8_t Data_Get_mid() {
         if (!K210Data) {
             return -1;
         }
-
         if (!Base->CamerVerify[0]) {
             if (Base->CamerData[0] == K210Data) {
                 Base->CamerVerify[0] = K210Data;

@@ -13,7 +13,7 @@ void control_near_Init();
 typedef struct {
     uint8_t CrossNum;   // 路口编号
     uint8_t CrossState;  // 路口状态
-} CrossManage ;
+} CrossManage;
 
 /**
  * @brief 控制结构体

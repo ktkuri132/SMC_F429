@@ -17,18 +17,12 @@ extern PET Pet;
 
 PID_arg PID_arg1 = {180, 20};
 
-/**
- * @brief 模式选择
- * @note 摄像头获取1,2为模式一,1,2以外的数字为模式二
- */
-void Mode_chose() {
-    if (Base->CamerData[0]) {
-        if (Base->CamerData[0] == 1 || Base->CamerData[0] == 2) {
-            Base->Key_Value = 1;
-        } else {
-            Base->Key_Value = 2;
-        }
-    }
+
+
+uint8_t Get_RLcontrol() {
+    uint8_t tmp = OtherCar;
+    
+    return tmp;  // 默认值
 }
 
 /**
@@ -41,77 +35,10 @@ void __ControlTask() {
     if (dsfc_return < 0) {
         return;
     }
-    /*进入模式选择,只运行一次*/
-    static uint8_t i = 0;
-    if (!i) {
-        Mode_chose();
-        i++;
-    }
-    /*进入任务函数选择*/
-    switch (Base->Key_Value) {
-        case 1: {/*进入模式1*/
-            static uint8_t i = 0;
-            if (!i) {   /*初始化结构体,只运行一次*/
-                Near = Near_Struct_Inti();  // 继承控制结构体
-                i    = 1;
-            }
-            /*进入控制函数*/
-            Near->nearControl();
-        } break;
-        /*以此类推......*/
-        case 2: {
-            static uint8_t i = 0;
-            if (!i) {
-                Min = Min_Struct_Inti();  // 继承控制结构体
-                i   = 1;
-            }
-            Min->minControl();
-            /*模式重新选择*/
-            if ((Base->j == 2) && (!Base->Back_sign)) { /*非返回状态下,经过路口两次*/
-                if(!Base->CamerVerify[0]){  /*假如此时还没有验证到数字*/
-                    Base->Key_Value = 3;    /*判定为模式3*/
-                }
-            }
-        } break;
-        case 3: {
-            static uint8_t i = 0;
-            if (!i) {
-                Far = Far_Struct_Inti();  // 继承控制结构体
-                i   = 1;
-            }
-            Far->farControl();
-            /*模式重新选择*/
-            if (Base->SiteLock == 3) {  /*模式3中,遇到十字路口*/
-                if ((!Base->CamerVerify[0]) && (!Pet.SDL)) {   /*此时还没有验证到数字,而且为第一次进入异常*/
-                    Base->Key_Value = 4;    /*判定为模式4*/
-                }
-            }
-        } break;
-        case 4: {
-            PathExceptionHandler();
-        } break;
-        default:
-            break;
-    }
-    /*一次模式运行完毕,根据不同模式和路径情况调节速度*/
-    if((Base->Key_Value == 2)||(Base->Key_Value == 1)){
-        if(Base->j == 0){
-            PID_arg1.speed_target = 26;
-        } else if(Base->j == 1){
-            PID_arg1.speed_target = 22;
-        }
-        if(Base->Back_sign == 3){
-            PID_arg1.speed_target = 23;
-        }
-    } else if((Base->Key_Value == 3)||(Base->Key_Value == 4)){
-        PID_arg1.speed_target = 21;
-        if(Base->Back_sign == 3){
-            PID_arg1.speed_target = 18;
-        }
-    }
-    if(Base->Back_sign == 4){
-        PID_arg1.speed_target = 32;
-    }
+    
+    /*双车通信*/
+    uint8_t srlt = Get_RLcontrol();
+    __Dire_select(srlt);
     /*根据之前的判断来确定速度,转向等情况*/
     Project_LIB_ControlTask(Base->RLControl);
 }

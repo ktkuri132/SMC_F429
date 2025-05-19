@@ -77,7 +77,7 @@ void Mid_Mode(uint8_t srlt, uint8_t srlt_2) {
 }
 
 void Far_Mode(uint8_t srlt, uint8_t srlt_2){
-    uint8_t Temp_RL = Get_RLcontrol(1);
+    uint8_t Back_S = Get_RLcontrol(3);
     __CrossManageNum();
     if(Base->j>=2){ /*进入远端模式*/
         Base->Temp_RLContrl = srlt;
@@ -90,8 +90,11 @@ void Far_Mode(uint8_t srlt, uint8_t srlt_2){
             Base->Temp_RLContrl = srlt_2;   /*传输转向方向*/
             __Dire_select(Base->Temp_RLContrl);
             if((Base->SiteLock == 4)||(Base->SiteLock == 2)){   /*此时过程中遇到黑色或白色*/
-                Base->RLControl = 4;    /*触发停止*/
-                                
+                Base->RLControl = 4;    /*触发停止*/    
+                /* 发送给头车信号  */
+                if(Back_S == 1){   /*假如返回信号触发*/
+                    
+                }
             }
         }
     }

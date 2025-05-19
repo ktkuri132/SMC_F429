@@ -17,11 +17,23 @@ extern PET Pet;
 
 PID_arg PID_arg1 = {180, 20};
 
+uint8_t Get_RLcontrol(uint8_t i) {
+    uint8_t tmp;
+    // i == 1 ? (tmp = OtherCar) : (tmp = OtherCar_S);  // 选择不同的控制任务
+    if(i == 1){
+        tmp = OtherCar;
+    } else if(i == 2){
+        tmp = OtherCar_S2;
+    } else if(i == 3){
+        tmp = OtherCar_S3;
+    } else if(i == 4){
+        tmp = OtherCar_S4;
+    } else if(i == 5){
+        tmp = OtherCar_S5;
+    } else {
+        return 0;  // 错误
+    }
 
-
-uint8_t Get_RLcontrol() {
-    uint8_t tmp = OtherCar;
-    
     return tmp;  // 默认值
 }
 
@@ -30,29 +42,40 @@ uint8_t Get_RLcontrol() {
  * @note 根据模式选择不同的控制任务
  */
 void __ControlTask() {
-    /*获取摄像头的数字,如果没有,没有就退出等待*/
-    int8_t dsfc_return = Base->Data_Save_from_Camer();
-    if (dsfc_return < 0) {
+    static uint8_t Turn_sign      = 0;  // 转向信号
+    static uint8_t Turn_sign_temp = 0;  // 临时转向信号
+    /*获取小车1的数字,如果没有,没有就退出等待*/
+    uint8_t srlt = Get_RLcontrol(1);
+    uint8_t srlt_2 = Get_RLcontrol(2);
+    if (!srlt) {
         return;
     }
-    
-    /*双车通信*/
-    uint8_t srlt = Get_RLcontrol();
-    __Dire_select(srlt);
+
+    switch (Base->Key_Value)
+    {
+    case 1 :{
+        Mid_Mode(srlt, srlt_2);  // 中端控制
+    }break;
+    case 2:{
+        Far_Mode(srlt, srlt_2);  // 远端控制
+    }break;
+    default:
+        break;
+    }
+
     /*根据之前的判断来确定速度,转向等情况*/
     Project_LIB_ControlTask(Base->RLControl);
 }
-
-
-
 
 /// @brief 控制任务
 void Project_LIB_ControlTask(uint8_t rlControl) {
     static PID pidForLine;  // 创建PID结构体
     static PID pidforspeed;
 
-    PID_TypeStructInit(&pidforspeed, 400, 10, 0, PID_arg1.speed_target);  // 为保持恒定速度不受电池电量影响
-    PID_TypeStructInit(&pidForLine, 10,28 , 0, PID_arg1.line_target);  // 初始化寻线PID,目标值：中线坐标
+    PID_TypeStructInit(&pidforspeed, 400, 10, 0,
+                       20);  // 为保持恒定速度不受电池电量影响
+    PID_TypeStructInit(&pidForLine, 10, 28, 0,
+                       PID_arg1.line_target);  // 初始化寻线PID,目标值：中线坐标
 
     pidForLine.PID_Update1  = PID_forLine;
     pidforspeed.PID_Update1 = speedControl;
@@ -60,22 +83,21 @@ void Project_LIB_ControlTask(uint8_t rlControl) {
     pidForLine.PID_Update1(&pidForLine);
     pidforspeed.PID_Update1(&pidforspeed);
 
-    if (rlControl == 2){  // 左拐
+    if (rlControl == 2) {  // 左拐
         Base->Motor_Load(3200, 1000);
-    } else if (rlControl == 1){  // 右拐
-        
+    } else if (rlControl == 1) {  // 右拐
         Base->Motor_Load(1000, 3200);
-    } else if (rlControl == 3){  // 调头
+    } else if (rlControl == 3) {  // 调头
         Base->Motor_Load(-1700, 1700);
     } else if (rlControl == 4) {  // 停车
         Base->Motor_Load(0, 0);
     } else if (rlControl == 6) {
-        if(Base->Key_Value == 3){
+        if (Base->Key_Value == 3) {
             Project_BSP_LED_ON(1);
             Base->Motor_Load(1000, 5000);
         }
     } else if (rlControl == 5) {
-        if(Base->Key_Value == 3){
+        if (Base->Key_Value == 3) {
             Project_BSP_LED_ON(2);
             Base->Motor_Load(5000, 1000);
         }

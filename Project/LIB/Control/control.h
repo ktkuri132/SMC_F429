@@ -141,5 +141,7 @@ typedef struct{
 }PID_arg;
 
 
+void Mid_Mode(uint8_t srlt, uint8_t srlt_2);
+void Far_Mode(uint8_t srlt, uint8_t srlt_2);
 #endif // !_CONTROL_
 

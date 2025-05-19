@@ -36,6 +36,10 @@ extern Stde_DataTypeDef UART4_DataBuff;
 #define K210Data USART_Deal(&USART3_DataBuff, 1)
 #define K210Site USART_Deal(&USART3_DataBuff, 2)
 #define OtherCar USART_Deal(&UART4_DataBuff, 1)
+#define OtherCar_S2 USART_Deal(&UART4_DataBuff, 2)
+#define OtherCar_S3 USART_Deal(&UART4_DataBuff, 3)
+#define OtherCar_S4 USART_Deal(&UART4_DataBuff, 4)
+#define OtherCar_S5 USART_Deal(&UART4_DataBuff, 5)
 
     /*  project function in BSP folder    */
     void Project_BSP_PWM_TIM2_Init();
@@ -71,6 +75,7 @@ extern Stde_DataTypeDef UART4_DataBuff;
 
     // Tools
     void OpenMV_Camera_Callback(Stde_DataTypeDef *DataTypeStruct);
+    void OCar_Callback(Stde_DataTypeDef *DataTypeStruct);
     uint8_t Temp_Run(void *(Fp)());
     int8_t Data_Get_from_Camer();
     void Light_ON(int8_t ch);

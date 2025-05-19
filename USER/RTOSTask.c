@@ -146,7 +146,7 @@ Mode_21:
         taskENTER_CRITICAL();
         OLED_Printf(0, 0, OLED_6X8, "carData:%d", OtherCar);
         OLED_Printf(0, 8, OLED_6X8, "Get:   %d", Base->CamerData[0]);
-        OLED_Printf(0, 16, OLED_6X8, "K210: %d,%d.%d,%d", Base->CamerVerify[0], Base->CamerVerify[1],Base->CamerVerify[2],Base->CamerVerify[3]);
+        OLED_Printf(0, 16, OLED_6X8, "SitLock:%d", Base->SiteLock);
         OLED_Printf(0, 24, OLED_6X8, "Path: %d", Base->j);
         OLED_Printf(0, 32, OLED_6X8, "RL: %d", Base->RLControl);
         OLED_Printf(0, 40, OLED_6X8, "TRL:  %d", Base->Temp_RLContrl);

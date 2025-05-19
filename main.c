@@ -54,6 +54,7 @@ Init_Serial:
     Stde_DataTypeDef_Init(&USART3_DataBuff);
     Stde_DataTypeDef_Init(&UART5_DataBuff);
     Stde_DataTypeDef_Init(&UART4_DataBuff);
+    UART4_DataBuff.UART_DATA_TYPE_Callback = OCar_Callback;
 Init_Control:       
     Base = Control_Struct_Inti();   // 初始化控制结构体
 Init_Project:

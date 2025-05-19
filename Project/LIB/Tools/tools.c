@@ -175,6 +175,16 @@ void OpenMV_Camera_Callback(Stde_DataTypeDef *DataTypeStruct) {
     }
 }
 
+void OCar_Callback(Stde_DataTypeDef *DataTypeStruct) {
+    uint8_t Temp_Data = DataTypeStruct->UART_DATA_TYPE;
+
+    if (Temp_Data == 7) {
+        Base->Key_Value = 1;
+    } else if (Temp_Data == 8) {
+        Base->Key_Value = 2;
+    } 
+}
+
 #ifdef OLD_CODE
 //*************************************************以下废弃*************************************************
 //*/

@@ -37,7 +37,7 @@ void Task1_SystemStrat() {
     // 初始化 xLastWakeTime 变量为当前时间
     xLastWakeTime = xTaskGetTickCount();
     // 显示摄像头图像接受
-    if (xTaskCreate((TaskFunction_t)Task3_Project_Display, "DisPlay_Camer", 1024, 2, 9,
+    if (xTaskCreate((TaskFunction_t)Task3_Project_Display, "DisPlay_Camer", 1024, 1, 9,
                     &Task3_Project_Display_Mode_2_Handle) != pdPASS) {
         printf("DisPlay_Camer创建失败\n");
     }
@@ -99,9 +99,6 @@ void Task3_Project_Display(uint8_t Mode) {
         case 1: {
             goto Mode_1;
         } break;
-        case 2: {
-            goto Mode_2;
-        } break;
         case 21: {
             goto Mode_21;
         } break;
@@ -119,29 +116,20 @@ Mode_1:  // 加入监测MPU6050
     while (1) {
         // 进入临界区
         taskENTER_CRITICAL();
-        mpu_dmp_get_data(&pitch, &roll, &yaw);
-        OLED_Printf(0, 24, OLED_6X8, "MPU6050:%f", yaw);
+        // mpu_dmp_get_data(&pitch, &roll, &yaw);
+        OLED_Printf(0, 24, OLED_8X16, "System is alreadly");
         OLED_Update();
         // 退出临界区
         taskEXIT_CRITICAL();
         vTaskDelayUntil(&xLastWakeTime, xFrequency_5);
     }
-Mode_2:  // 加入监测摄像头
-    while (1) {
-        // 进入临界区
-        taskENTER_CRITICAL();
-        OLED_Printf(0, 8, OLED_6X8, "K210 Get:%d", Base.CamerData[0]);
-        OLED_Update();
-        // 退出临界区
-        taskEXIT_CRITICAL();
-        vTaskDelayUntil(&xLastWakeTime, xFrequency_5);
-    }
+
 Mode_21:
     while (1) {
         // 进入临界区
         taskENTER_CRITICAL();
         OLED_Printf(0, 0, OLED_6X8, "carData:%d", OtherCar);
-        OLED_Printf(0, 8, OLED_6X8, "Get:   %d", Base.CamerData[0]);
+        OLED_Printf(0, 8, OLED_6X8, "Path_B:   %d", Base.i);
         OLED_Printf(0, 16, OLED_6X8, "SitLock:%d", Base.SiteLock);
         OLED_Printf(0, 24, OLED_6X8, "Path: %d", Base.j);
         OLED_Printf(0, 32, OLED_6X8, "RL: %d", Base.RLControl);
@@ -250,9 +238,6 @@ void Task_DebugLog() {
         printf("RLControl:          %d\n", Base.RLControl);
         printf("Temp_RLContrl:      %d\n", Base.Temp_RLContrl);
         printf("Back_sign:          %d\n", Base.Back_sign);
-        printf("VerifyDataLock:     %d\n", Base.VerifyDataLock);
-        printf("CamerData[0]:       %d\n", Base.CamerData[0]);
-        printf("验证数据及预定方向:  %d,%d\n", Base.CamerVerify[0], Base.CamerVerify[1]);
         printf("运行模式:           %d\n", Base.Key_Value);
         
         vTaskDelayUntil(&xLastWakeTime, xFrequency);

@@ -8,7 +8,7 @@
  * 如有更多需求，可在结构体内添加，初始化函数中加入接口
  */
 extern Stde_DataTypeDef USART2_DataBuff;
-extern ctrl *Base;
+extern ctrl Base;
 
 void PID_TypeStructInit(PID *pid,int16_t kp,int16_t kd,int16_t ki,int16_t target)
 {
@@ -25,12 +25,6 @@ void PID_TypeStructInit(PID *pid,int16_t kp,int16_t kd,int16_t ki,int16_t target
 /// @brief PID 对于直线的专用控制函数
 void PID_forLine(PID *pid)
 {
-    if((Base->Back_sign != 3)&&(Base->SiteLock != 4)){
-        if(USART2_DataBuff.UART_DATA_TYPE != 1 ){
-            // pid->current = 230;
-            return;
-        }
-    }
     
     pid->current = OpenMVData;
 
@@ -65,10 +59,10 @@ void PID_forLine(PID *pid)
 
 void speedControl(PID *pid){
 
-    (Base->Rvalue<0)?(Base->Rvalue=-Base->Rvalue):Base->Rvalue;
-    (Base->Lvalue<0)?(Base->Lvalue=-Base->Lvalue):Base->Lvalue;
+    (Base.Rvalue<0)?(Base.Rvalue=-Base.Rvalue):Base.Rvalue;
+    (Base.Lvalue<0)?(Base.Lvalue=-Base.Lvalue):Base.Lvalue;
 
-    pid->current = (Base->Rvalue+Base->Lvalue)/2;
+    pid->current = (Base.Rvalue+Base.Lvalue)/2;
 
     pid->error = pid->target - pid->current;
     pid->integral += pid->error;

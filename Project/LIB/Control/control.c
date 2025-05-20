@@ -122,7 +122,7 @@ void Back(uint8_t *turn_e, uint8_t srlt, uint8_t srlt_2) {
         }
         if ((!srlt_2) && (srlt == 3) &&
             (turn_e)) {  // 触发调头结束条件:启动信号 1,调头信号 3,停止标志 0
-            Project_BSP_LED_ON(1);
+            Project_BSP_LED_ON(2);
             Base.Back_sign = 3;
             Base.RLControl = 4;
         }

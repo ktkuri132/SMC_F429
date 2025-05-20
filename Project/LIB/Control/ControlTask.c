@@ -12,11 +12,10 @@ extern Stde_DataTypeDef UART4_DataBuff;
 extern ctrl Base;
 
 
-PID_arg PID_arg1 = {180, 20};
+PID_arg PID_arg1 = {180, 22};
 
 uint8_t Get_RLcontrol(uint8_t i) {
     uint8_t tmp;
-    // i == 1 ? (tmp = OtherCar) : (tmp = OtherCar_S);  // 选择不同的控制任务
     if(i == 1){
         tmp = OtherCar;
     } else if(i == 2){
@@ -30,7 +29,6 @@ uint8_t Get_RLcontrol(uint8_t i) {
     } else {
         return 0;  // 错误
     }
-
     return tmp;  // 默认值
 }
 
@@ -70,7 +68,7 @@ void Project_LIB_ControlTask(uint8_t rlControl) {
     static PID pidforspeed;
 
     PID_TypeStructInit(&pidforspeed, 400, 10, 0,
-                       20);  // 为保持恒定速度不受电池电量影响
+                       23);  // 为保持恒定速度不受电池电量影响
     PID_TypeStructInit(&pidForLine, 10, 28, 0,
                        PID_arg1.line_target);  // 初始化寻线PID,目标值：中线坐标
 

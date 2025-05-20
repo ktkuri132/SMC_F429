@@ -45,6 +45,8 @@ Init_BSP:  // 初始化基本外设
     bsp_uart_5_inti(9600);     // 蓝牙串口
     OLED_Init();
     NVIC_Configuration();
+Init_Control:       
+    Control_Struct_Inti();   // 初始化控制结构体    
 Init_Serial:
     Stde_DataTypeDef_Init(&USART2_DataBuff);
     USART2_DataBuff.UART_DATA_TYPE_Callback = OpenMV_Camera_Callback;
@@ -52,8 +54,6 @@ Init_Serial:
     Stde_DataTypeDef_Init(&UART5_DataBuff);
     Stde_DataTypeDef_Init(&UART4_DataBuff);
     UART4_DataBuff.UART_DATA_TYPE_Callback = OCar_Callback;
-Init_Control:       
-    Control_Struct_Inti();   // 初始化控制结构体
 Init_Project:
     Project_BSP_PWM_TIM2_Init();
     Project_BSP_Encoding_Init();

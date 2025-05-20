@@ -14,7 +14,7 @@ extern Stde_DataTypeDef USART3_DataBuff;
 extern Stde_DataTypeDef UART5_DataBuff;
 extern Stde_DataTypeDef UART4_DataBuff;
 extern ctrl Base;
-extern PET *Pet;
+
 
 /// @brief get the value of encoder on TIM4 and TIM5
 void Project_LIB_Get_Encoder_Value(int8_t *value1, int8_t *value2) {
@@ -151,7 +151,6 @@ void back_Motor_Load(int32_t leftMotor, int32_t RightMotor) {
 
 void OpenMV_Camera_Callback(Stde_DataTypeDef *DataTypeStruct) {
     uint8_t Temp_Data = DataTypeStruct->UART_DATA_TYPE;
-
     if (Temp_Data == 1) {
         Base.SiteLock = 1;
     } else if (Temp_Data == 5) {

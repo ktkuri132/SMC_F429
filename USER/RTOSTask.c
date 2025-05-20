@@ -25,11 +25,7 @@ TaskHandle_t Task3_Project_Display_Mode_4_Handle   = NULL;
 TaskHandle_t Task4_LEDPlayR_Handle                 = NULL;
 TaskHandle_t Task4_LEDPlayY_Handle                 = NULL;
 TaskHandle_t Task5_KeyScan_Handle                  = NULL;
-extern ctrl *Base;
-extern nctrl *Near;
-extern mctrl *Min;
-extern fctrl *Far;
-extern PET Pet;
+extern ctrl Base;
 
 extern PID_arg PID_arg1;
 
@@ -63,7 +59,7 @@ void Task1_SystemStrat() {
     }
     // 按键配置:1->确定 2->向下选择 3->返回
     while (1) {
-        if (Base->Key_Value) {
+        if (Base.Key_Value) {
             taskENTER_CRITICAL();
             // 数字收集完成,删除对应显示程序
             vTaskDelete(Task3_Project_Display_Mode_2_Handle);
@@ -134,7 +130,7 @@ Mode_2:  // 加入监测摄像头
     while (1) {
         // 进入临界区
         taskENTER_CRITICAL();
-        OLED_Printf(0, 8, OLED_6X8, "K210 Get:%d", Base->CamerData[0]);
+        OLED_Printf(0, 8, OLED_6X8, "K210 Get:%d", Base.CamerData[0]);
         OLED_Update();
         // 退出临界区
         taskEXIT_CRITICAL();
@@ -145,17 +141,17 @@ Mode_21:
         // 进入临界区
         taskENTER_CRITICAL();
         OLED_Printf(0, 0, OLED_6X8, "carData:%d", OtherCar);
-        OLED_Printf(0, 8, OLED_6X8, "Get:   %d", Base->CamerData[0]);
-        OLED_Printf(0, 16, OLED_6X8, "SitLock:%d", Base->SiteLock);
-        OLED_Printf(0, 24, OLED_6X8, "Path: %d", Base->j);
-        OLED_Printf(0, 32, OLED_6X8, "RL: %d", Base->RLControl);
-        OLED_Printf(0, 40, OLED_6X8, "TRL:  %d", Base->Temp_RLContrl);
-        OLED_Printf(0, 56, OLED_6X8, "Mode: %d", Base->Key_Value);
+        OLED_Printf(0, 8, OLED_6X8, "Get:   %d", Base.CamerData[0]);
+        OLED_Printf(0, 16, OLED_6X8, "SitLock:%d", Base.SiteLock);
+        OLED_Printf(0, 24, OLED_6X8, "Path: %d", Base.j);
+        OLED_Printf(0, 32, OLED_6X8, "RL: %d", Base.RLControl);
+        OLED_Printf(0, 40, OLED_6X8, "TRL:  %d", Base.Temp_RLContrl);
+        OLED_Printf(0, 56, OLED_6X8, "Mode: %d", Base.Key_Value);
         OLED_Update();
         if (USART2_DataBuff.UART_DATA_TYPE != 2) {
-            Base->MotorStrat_3 = 1;
+            Base.MotorStrat_3 = 1;
         } else {
-            Base->MotorStrat_3 = Base->MotorStrat_3_POINT;
+            Base.MotorStrat_3 = Base.MotorStrat_3_POINT;
         }
         // 退出临界区
         taskEXIT_CRITICAL();
@@ -169,9 +165,9 @@ Mode_3:  // 加入监测电池电压
         OLED_Printf(104, 4, OLED_6X8, "%.0f", Project_BSP_GetADC());
         OLED_ShowChar(116, 4, '%', OLED_6X8);
         if (!Project_BSP_GetADC()) {
-            Base->MotorStrat_1 = 0;  // 电池当前电量为0
+            Base.MotorStrat_1 = 0;  // 电池当前电量为0
         } else {
-            Base->MotorStrat_1 = 1;
+            Base.MotorStrat_1 = 1;
         }
         // OLED_Update();
         // 退出临界区
@@ -249,27 +245,16 @@ void Task_DebugLog() {
         printf(CURSOR_HIDE);
         // printf("剩余栈大小:%d\n", xPortGetFreeHeapSize());
         // printf("任务数量:%d\n", uxTaskGetNumberOfTasks());
-        printf("SiteLock:           %d\n", Base->SiteLock);
-        printf("经过弯道次数:        %d\n", Base->j);
-        printf("RLControl:          %d\n", Base->RLControl);
-        printf("Temp_RLContrl:      %d\n", Base->Temp_RLContrl);
-        printf("Back_sign:          %d\n", Base->Back_sign);
-        printf("VerifyDataLock:     %d\n", Base->VerifyDataLock);
-        printf("CamerData[0]:       %d\n", Base->CamerData[0]);
-        printf("验证数据及预定方向:  %d,%d\n", Base->CamerVerify[0], Base->CamerVerify[1]);
-        printf("运行模式:           %d\n", Base->Key_Value);
-        printf("-----------------------------------------------------------\n");
-        if (Base->Key_Value == 1) {
-        } else if (Base->Key_Value == 2) {
-        } else if (Base->Key_Value == 3) {
-        } else if (Base->Key_Value == 4) {
-            printf("错误点:     %d\n", Pet.Error);
-            printf("运行状态:   %d\n", Pet.Runstate);
-            printf("运行状态2:  %d\n", Pet.Runstate_2);
-            printf("临时状态:   %d\n", Pet.temp);
-            printf("检测路口:   %d\n", Pet.PathNum);
-            printf("数据锁:     %d\n", Pet.SDL);
-        }
+        printf("SiteLock:           %d\n", Base.SiteLock);
+        printf("经过弯道次数:        %d\n", Base.j);
+        printf("RLControl:          %d\n", Base.RLControl);
+        printf("Temp_RLContrl:      %d\n", Base.Temp_RLContrl);
+        printf("Back_sign:          %d\n", Base.Back_sign);
+        printf("VerifyDataLock:     %d\n", Base.VerifyDataLock);
+        printf("CamerData[0]:       %d\n", Base.CamerData[0]);
+        printf("验证数据及预定方向:  %d,%d\n", Base.CamerVerify[0], Base.CamerVerify[1]);
+        printf("运行模式:           %d\n", Base.Key_Value);
+        
         vTaskDelayUntil(&xLastWakeTime, xFrequency);
         taskEXIT_CRITICAL();
     }
@@ -283,9 +268,9 @@ void Task5_KeyScan() {
     xLastWakeTime = xTaskGetTickCount();
     while (1) {
         if (Project_BSP_GetKey()) {
-            Base->Key_Value = Project_BSP_GetKey();
-            if(Base->Key_Value == 3){
-                Base->j = 2;
+            Base.Key_Value = Project_BSP_GetKey();
+            if(Base.Key_Value == 3){
+                Base.j = 2;
             }
         }
         if (Project_BSP_GetKey()) {
@@ -295,10 +280,10 @@ void Task5_KeyScan() {
         }
         if (!Project_BSP_HW201_Get()) {
             OLED_Printf(0, 48, OLED_6X8, "HW201:1");
-            Base->MotorStrat_2 = 1;
+            Base.MotorStrat_2 = 1;
         } else {
             OLED_Printf(0, 48, OLED_6X8, "HW201:0");
-            Base->MotorStrat_2 = 0;
+            Base.MotorStrat_2 = 0;
         }
         vTaskDelayUntil(&xLastWakeTime, xFrequency);
     }

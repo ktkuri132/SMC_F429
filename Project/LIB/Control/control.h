@@ -41,8 +41,8 @@ typedef struct Control {
     uint8_t Back_sign;      // 返回状态控制位
     uint8_t Turn_const;     //  记录转向次数(未使用)
     uint8_t Turn_gather;    //  记录转向次数(未使用)
-    uint8_t j;           //  记录路口次数
-    uint8_t i;           //  未使用
+    uint8_t j;           //  记录路口次数(十字路口)
+    uint8_t i;           //  记录路口次数(工字路口)
 
     void (*Control_Init)();     /*控制初始化函数*/
     void (*Motor_Load)(int32_t leftMotor, int32_t RightMotor);      /*电机装载函数*/ 
@@ -54,7 +54,7 @@ typedef struct Control {
 }ctrl;
 
 void  __Dire_select(uint8_t Temp);
-ctrl* Control_Struct_Inti();
+void Control_Struct_Inti();
 int8_t __Data_Save_from_Camer();
 void __ControlTask();
 uint8_t __CrossManageNum();
@@ -95,7 +95,6 @@ void __minControl();
 int8_t __Data_Get_from_Camer();     /*中端:摄像头获取函数*/
 int8_t Data_Get_mid();
 uint8_t __Temp_Dire_select();   /*远端:转向状态记录函数*/
-void MTurn_Strat(uint8_t *path);
 
 /**
  * @brief 远端病房控制结构体

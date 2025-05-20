@@ -9,11 +9,8 @@ extern Stde_DataTypeDef USART2_DataBuff;
 extern Stde_DataTypeDef USART3_DataBuff;
 extern Stde_DataTypeDef UART5_DataBuff;
 extern Stde_DataTypeDef UART4_DataBuff;
-extern ctrl *Base;
-extern nctrl *Near;
-extern mctrl *Min;
-extern fctrl *Far;
-extern PET Pet;
+extern ctrl Base;
+
 
 PID_arg PID_arg1 = {180, 20};
 
@@ -51,7 +48,7 @@ void __ControlTask() {
         return;
     }
 
-    switch (Base->Key_Value)
+    switch (Base.Key_Value)
     {
     case 1 :{
         Mid_Mode(srlt, srlt_2);  // 中端控制
@@ -64,7 +61,7 @@ void __ControlTask() {
     }
 
     /*根据之前的判断来确定速度,转向等情况*/
-    Project_LIB_ControlTask(Base->RLControl);
+    Project_LIB_ControlTask(Base.RLControl);
 }
 
 /// @brief 控制任务
@@ -84,25 +81,25 @@ void Project_LIB_ControlTask(uint8_t rlControl) {
     pidforspeed.PID_Update1(&pidforspeed);
 
     if (rlControl == 2) {  // 左拐
-        Base->Motor_Load(3200, 1000);
+        Base.Motor_Load(3200, 1000);
     } else if (rlControl == 1) {  // 右拐
-        Base->Motor_Load(1000, 3200);
+        Base.Motor_Load(1000, 3200);
     } else if (rlControl == 3) {  // 调头
-        Base->Motor_Load(-1700, 1700);
+        Base.Motor_Load(-1700, 1700);
     } else if (rlControl == 4) {  // 停车
-        Base->Motor_Load(0, 0);
+        Base.Motor_Load(0, 0);
     } else if (rlControl == 6) {
-        if (Base->Key_Value == 3) {
+        if (Base.Key_Value == 2) {
             Project_BSP_LED_ON(1);
-            Base->Motor_Load(1000, 5000);
+            Base.Motor_Load(1000, 5000);
         }
     } else if (rlControl == 5) {
-        if (Base->Key_Value == 3) {
+        if (Base.Key_Value == 2) {
             Project_BSP_LED_ON(2);
-            Base->Motor_Load(5000, 1000);
+            Base.Motor_Load(5000, 1000);
         }
     } else {
-        Base->Motor_Load(pidforspeed.output + pidForLine.output,
+        Base.Motor_Load(pidforspeed.output + pidForLine.output,
                          pidforspeed.output - pidForLine.output);  // 装载到电机
     }
 }

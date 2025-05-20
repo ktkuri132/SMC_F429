@@ -31,11 +31,8 @@ Stde_DataTypeDef UART5_DataBuff;
 Stde_DataTypeDef UART4_DataBuff;
 
 // 定义控制结构体指针
-ctrl *Base;
-nctrl *Near;
-mctrl *Min;
-fctrl *Far;
-PET   Pet;
+ctrl Base;
+
 
 /// @brief 主函数运行完了自动复位
 void BSP_Init() {
@@ -56,7 +53,7 @@ Init_Serial:
     Stde_DataTypeDef_Init(&UART4_DataBuff);
     UART4_DataBuff.UART_DATA_TYPE_Callback = OCar_Callback;
 Init_Control:       
-    Base = Control_Struct_Inti();   // 初始化控制结构体
+    Control_Struct_Inti();   // 初始化控制结构体
 Init_Project:
     Project_BSP_PWM_TIM2_Init();
     Project_BSP_Encoding_Init();
@@ -93,8 +90,8 @@ int main() {
 void TIM3_IRQHandler() {
     if (TIM_GetITStatus(TIM3, TIM_IT_Update)) {
         TIM_ClearITPendingBit(TIM3, TIM_IT_Update);
-        Project_LIB_Get_Encoder_Value(&(Base->Rvalue), &(Base->Lvalue));
-        Base->ControlTask();
+        Project_LIB_Get_Encoder_Value(&(Base.Rvalue), &(Base.Lvalue));
+        Base.ControlTask();
     }
 }
 

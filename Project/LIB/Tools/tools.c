@@ -13,7 +13,7 @@ extern Stde_DataTypeDef USART2_DataBuff;
 extern Stde_DataTypeDef USART3_DataBuff;
 extern Stde_DataTypeDef UART5_DataBuff;
 extern Stde_DataTypeDef UART4_DataBuff;
-extern ctrl *Base;
+extern ctrl Base;
 extern PET *Pet;
 
 /// @brief get the value of encoder on TIM4 and TIM5
@@ -80,9 +80,9 @@ void Light_ON(int8_t ch) {
 
 /// @brief Motor load function for left and right
 void forward_Motor_Load(int32_t leftMotor, int32_t RightMotor) {
-    if (Base->MotorStrat_1) {
-        if (Base->MotorStrat_2) {
-            if (Base->MotorStrat_3) {
+    if (Base.MotorStrat_1) {
+        if (Base.MotorStrat_2) {
+            if (Base.MotorStrat_3) {
                 if (leftMotor < 0) {
                     LeftBackward Motor->Left = -leftMotor;
                 } else if (leftMotor > 0) {
@@ -115,9 +115,9 @@ void forward_Motor_Load(int32_t leftMotor, int32_t RightMotor) {
 }
 
 void back_Motor_Load(int32_t leftMotor, int32_t RightMotor) {
-    if (Base->MotorStrat_1) {
-        if (!Base->MotorStrat_2) {
-            if (Base->MotorStrat_3) {
+    if (Base.MotorStrat_1) {
+        if (!Base.MotorStrat_2) {
+            if (Base.MotorStrat_3) {
                 if (leftMotor < 0) {
                     LeftBackward Motor->Left = -leftMotor;
                 } else if (leftMotor > 0) {
@@ -153,25 +153,25 @@ void OpenMV_Camera_Callback(Stde_DataTypeDef *DataTypeStruct) {
     uint8_t Temp_Data = DataTypeStruct->UART_DATA_TYPE;
 
     if (Temp_Data == 1) {
-        Base->SiteLock = 1;
+        Base.SiteLock = 1;
     } else if (Temp_Data == 5) {
-        if ((Base->Key_Value == 3) || (Base->Key_Value == 4)) {
-            if ((Base->Back_sign == 3) || (Pet->Runstate_2 == 1)) {
-                Base->SiteLock = 5;
+        if ((Base.Key_Value == 2) && (Base.j >= 4)) {
+            if (Base.Back_sign == 3) {
+                Base.SiteLock = 5;
             }
         }
     } else if (Temp_Data == 6) {
-        if ((Base->Key_Value == 3) || (Base->Key_Value == 4)) {
-            if ((Base->Back_sign == 3) || (Pet->Runstate_2 == 1)) {
-                Base->SiteLock = 6;
+        if ((Base.Key_Value == 2) && (Base.j >= 4) && (Base.i < 2)) {
+            if (Base.Back_sign == 3) {
+                Base.SiteLock = 6;
             }
         }
     } else if (Temp_Data == 3) {
-        Base->SiteLock = 3;
+        Base.SiteLock = 3;
     } else if (Temp_Data == 4) {
-        Base->SiteLock = 4;
+        Base.SiteLock = 4;
     } else if (Temp_Data == 2) {
-        Base->SiteLock = 2;
+        Base.SiteLock = 2;
     }
 }
 
@@ -179,9 +179,9 @@ void OCar_Callback(Stde_DataTypeDef *DataTypeStruct) {
     uint8_t Temp_Data = DataTypeStruct->UART_DATA_TYPE;
 
     if (Temp_Data == 7) {
-        Base->Key_Value = 1;
+        Base.Key_Value = 1;
     } else if (Temp_Data == 8) {
-        Base->Key_Value = 2;
+        Base.Key_Value = 2;
     } 
 }
 

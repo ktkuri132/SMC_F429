@@ -49,5 +49,6 @@ typedef struct{
 
 void Mid_Mode(uint8_t srlt, uint8_t srlt_2);
 void Far_Mode(uint8_t srlt, uint8_t srlt_2);
+void Other_Mode();
 #endif // !_CONTROL_
 

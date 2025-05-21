@@ -12,7 +12,7 @@ extern Stde_DataTypeDef UART4_DataBuff;
 extern ctrl Base;
 
 
-PID_arg PID_arg1 = {180, 22};
+PID_arg PID_arg1 = {180, 20};
 
 uint8_t Get_RLcontrol(uint8_t i) {
     uint8_t tmp;
@@ -45,7 +45,12 @@ void __ControlTask() {
     if (!srlt) {
         return;
     }
-
+    static uint8_t i = 0;
+    if(!i){
+        usart_send_string(UART4, "s7,1,e");
+        i = 1;
+    }
+    
     switch (Base.Key_Value)
     {
     case 1 :{
@@ -53,6 +58,9 @@ void __ControlTask() {
     }break;
     case 2:{
         Far_Mode(srlt, srlt_2);  // 远端控制
+    }break;
+    case 3:{
+        Other_Mode();  // 其他模式
     }break;
     default:
         break;
@@ -68,7 +76,7 @@ void Project_LIB_ControlTask(uint8_t rlControl) {
     static PID pidforspeed;
 
     PID_TypeStructInit(&pidforspeed, 400, 10, 0,
-                       23);  // 为保持恒定速度不受电池电量影响
+                       22);  // 为保持恒定速度不受电池电量影响
     PID_TypeStructInit(&pidForLine, 10, 28, 0,
                        PID_arg1.line_target);  // 初始化寻线PID,目标值：中线坐标
 
@@ -83,16 +91,16 @@ void Project_LIB_ControlTask(uint8_t rlControl) {
     } else if (rlControl == 1) {  // 右拐
         Base.Motor_Load(1000, 3200);
     } else if (rlControl == 3) {  // 调头
-        Base.Motor_Load(-1700, 1700);
+        Base.Motor_Load(-1400, 1400);
     } else if (rlControl == 4) {  // 停车
         Base.Motor_Load(0, 0);
     } else if (rlControl == 6) {
-        if (Base.Key_Value == 2) {
+        if (Base.Key_Value == 3) {
             Project_BSP_LED_ON(1);
             Base.Motor_Load(1000, 5000);
         }
     } else if (rlControl == 5) {
-        if (Base.Key_Value == 2) {
+        if (Base.Key_Value == 3) {
             Project_BSP_LED_ON(2);
             Base.Motor_Load(5000, 1000);
         }

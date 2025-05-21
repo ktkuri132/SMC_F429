@@ -154,13 +154,13 @@ void OpenMV_Camera_Callback(Stde_DataTypeDef *DataTypeStruct) {
     if (Temp_Data == 1) {
         Base.SiteLock = 1;
     } else if (Temp_Data == 5) {
-        if ((Base.Key_Value == 2) && (Base.j >= 4)) {
+        if ((Base.Key_Value == 3) && (Base.j >= 4) && (Base.i < 2)) {
             if (Base.Back_sign == 3) {
                 Base.SiteLock = 5;
             }
         }
     } else if (Temp_Data == 6) {
-        if ((Base.Key_Value == 2) && (Base.j >= 4) && (Base.i < 2)) {
+        if ((Base.Key_Value == 3) && (Base.j >= 4) && (Base.i < 2)) {
             if (Base.Back_sign == 3) {
                 Base.SiteLock = 6;
             }
